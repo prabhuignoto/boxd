@@ -1,0 +1,157 @@
+<template>
+  <div class="delete-folder-wrapper">
+    <div class="delete-alert">Tread with Caution</div>
+    <div class="delete-message">
+      <span>You are about to delete <b>
+        {{deletePath}}
+      </b></span>
+      <span>
+         Are you sure you want to proceed with this?
+      </span>
+    </div>
+    <Textbox :placeholder="placeholder" :onInput="onInput"/>
+    <div class="delete-resx-controls">
+      <div class="del-folder-loader-wrapper" v-show="isMutating">
+        <Loader />
+      </div>
+      <Button name="Delete" :onClick="handleDelete"
+        :disabled="!canDelete" :buttonStyle="!canDelete || isMutating ? 'disabled' : 'danger'">
+        <template slot="btn-icon">
+          <img src="../../assets/check.svg" alt="ok">
+        </template>
+      </Button>
+      <Button name="Cancel" :onClick="handleCancel">
+        <template slot="btn-icon">
+          <img src="../../assets/times.svg" alt="cancel">
+        </template>
+      </Button>
+    </div>
+  </div>
+</template>
+
+<script>
+import Vue from "vue";
+import Button from "../Form/Button";
+import { mapActions, mapGetters } from "vuex";
+import Loader from "../Loader";
+import gql from "graphql-tag";
+import Textbox from "../Form/TextBox";
+
+export default Vue.component("DeleteFolder", {
+  props: ["name"],
+  components: {
+    Button,
+    Loader,
+    Textbox
+  },
+  data() {
+    return {
+      isMutating: false,
+      deleteConsentText: "",
+    }
+  },
+  computed: {
+    ...mapGetters(["getExplorerPath"]),
+    deletePath() {
+      return this.$store.getters.deletePath;
+    },
+    getTarget() {
+      const parts = this.deletePath.split("/");
+      return parts[parts.length - 1];
+    },
+    placeholder() {
+      return `Type ${this.getTarget} to proceed`
+    },
+    canDelete() {
+      return this.getTarget === this.deleteConsentText;
+    }
+  },
+  methods: {
+    ...mapActions(["updateModalState", "deleteFolder", "updatePath"]),
+    onInput(ev) {
+      this.deleteConsentText = ev.target.value;
+    },
+    handleDelete() {
+      this.isMutating = true;
+      this.$apollo.mutate({
+        mutation: gql`
+          mutation deleteFolder($path: String!) {
+            deleteFolder(path: $path) {
+              name
+            }
+          }
+        `,
+        variables: {
+          path: this.deletePath
+        },
+        update(store, data) {
+          console.log(data);
+        }
+      }).then((data) => {
+        this.isMutating = false;
+        this.updateModalState({
+          status: false,
+          component: "",
+          title: ""
+        });
+        let newPathArr = this.getExplorerPath.split("/").slice(0);
+        newPathArr.pop();
+        this.updatePath(newPathArr.join("/"));
+      }).catch((error) => {
+        this.isMutating = false;
+      })
+    },
+    handleCancel() {
+      this.deleteFolder("");
+      this.updateModalState({
+        status: false,
+        component: "",
+        title: ""
+      });
+    }
+  }
+});
+</script>
+
+<style lang="scss" scoped>
+.delete-folder-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+
+  & > div:not(:last-child) {
+    margin: 0.5rem 0 0.5rem 0.25rem;
+  }
+  .delete-alert {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #cb2431;
+  }
+  .delete-message {
+    font-size: 1rem;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    span {
+      margin: 0.5rem 0;
+    }
+  }
+  .delete-resx-controls {
+    margin-top: 2rem;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .del-folder-loader-wrapper {
+    margin-right: auto;
+    position: relative;
+  }
+  img {
+    max-height: 100%;
+    max-width: 100%;
+  }
+}
+</style>

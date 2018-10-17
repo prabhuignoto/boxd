@@ -1,0 +1,136 @@
+<template>
+  <StageOne v-if="stage === 'one' && !getSkipToFinal"
+    :handleNext="handleStepOne"/>
+  <StageTwo v-else-if="stage === 'two' && !getSkipToFinal"
+    :handleNext="handleStepTwo"
+    :handlePrevious="navToStepOne"
+    :mode="mode"
+  />
+  <StageThree v-else-if="stage === 'three' || getSkipToFinal"
+    :handleComplete="handleCompletion"
+    :handlePrevious="navToStepTwo"
+    :mode="mode"
+    :saving="saving"
+  />
+</template>
+
+<script>
+import TextBox from "../Form/TextBox";
+import Button from "../Form/Button";
+import Vue from "vue";
+import StageOne from "./StageOne";
+import StageTwo from "./StageTwo";
+import StageThree from "./StageThree";
+import { mapActions, mapGetters } from "vuex";
+import gql from "graphql-tag";
+import CopyResxGQL from "../../graphql/copyResource.gql";
+import MoveResxGQL from "../../graphql/moveResource.gql";
+
+export default Vue.component("MoveCopy", {
+  components: {
+    TextBox,
+    StageOne,
+    StageTwo,
+    StageThree
+  },
+  data() {
+    return {
+      stage: "one",
+      saving: false
+    };
+  },
+  methods: {
+    ...mapActions(["clearMoveResx", "clearCopyResx", "updateModalState"]),
+    handleStepOne() {
+      this.stage = "two";
+    },
+    handleStepTwo() {
+      this.stage = "three";
+    },
+    handleCompletion() {
+      this.saving = true;
+      if (this.mode === "copy") {
+        let pathArray = this.copyResxSrc.split("/");
+        let srcName = pathArray[pathArray.length - 1];
+        this.$apollo
+          .mutate({
+            mutation: gql(CopyResxGQL),
+            variables: {
+              from_path: this.copyResxSrc,
+              to_path: `${this.copyResxDest}/${srcName}`
+            },
+            update: (store, data) => {
+              }
+          })
+          .then(data => {
+            this.updateModalState({
+              status: false,
+              componentToRender: '',
+              title: '',
+            })
+            this.saving = false;
+          })
+          .catch(error => {
+            this.saving = false;
+          });
+      } else if (this.mode === "move") {
+        let pathArray = this.moveResxSrc.split("/");
+        let srcName = pathArray[pathArray.length - 1];
+        this.$apollo
+          .mutate({
+            mutation: gql(MoveResxGQL),
+            variables: {
+              from_path: this.moveResxSrc,
+              to_path: `${this.moveResxDest}/${srcName}`
+            },
+            update: (store, data) => {
+              console.log(data);
+            }
+          })
+          .then(data => {
+            this.saving = false;
+            this.updateModalState({
+              status: false,
+              componentToRender: '',
+              title: '',
+            })
+          })
+          .catch(error => {
+            this.saving = false;
+          });
+      }
+    },
+    navToStepOne() {
+      this.stage = "one";
+      if (this.mode === "move") {
+        this.clearMoveResx();
+      } else {
+        this.clearCopyResx();
+      }
+    },
+    navToStepTwo() {
+      this.stage = "two";
+      if (this.mode === "move") {
+        this.clearMoveResx();
+      } else {
+        this.clearCopyResx();
+      }
+    }
+  },
+  computed: {
+    mode() {
+      return this.$store.getters.mvCopyMode;
+    },
+    ...mapGetters([
+      "moveResxSrc",
+      "moveResxDest",
+      "copyResxSrc",
+      "copyResxDest",
+      "getSkipToFinal"
+    ])
+  }
+});
+</script>
+
+<style lang="scss" scoped>
+</style>

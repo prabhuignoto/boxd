@@ -1,0 +1,20 @@
+{
+  "ignore": [
+    ".git",
+    "node_modules/**/node_modules"
+  ],
+  "verbose": true,
+  "execMap": {
+    "ts": "node --inspect -r ts-node/register"
+  },
+  "watch": [
+    "src/*.ts",
+    "src/resolvers/*.ts",
+    "src/typedefs/*.ts"
+  ],
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "ext": "ts",
+  "inspect": true
+}

@@ -1,0 +1,12 @@
+query list($path: String!) {
+  files: listFolder(path: $path) {
+    entries {
+      name
+      tag
+      size
+      path_lower
+      content_hash
+      server_modified
+    }
+  }
+}

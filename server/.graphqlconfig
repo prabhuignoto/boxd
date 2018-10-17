@@ -1,0 +1,5 @@
+{
+  "schemaPath": "./src/typedefs.graphql",
+  "includes": ["*.graphql"],
+  "excludes": ["temp/**"]
+}

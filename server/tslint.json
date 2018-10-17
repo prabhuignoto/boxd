@@ -1,0 +1,12 @@
+{
+  "defaultSeverity": "warn",
+  "extends": ["tslint:recommended"],
+  "jsRules": {},
+  "rules": {
+    "no-console": false
+  },
+  "rulesDirectory": [],
+  "linterOptions": {
+    "exclude": ["src/upload.ts"]
+  }
+}
