@@ -54,8 +54,8 @@ export default {
 
 <style lang="scss" scoped>
   .path-wrapper {
-    background: rgba(0, 126, 229, 0.1);
-    border: 1px solid rgba(0, 126, 229, 0.2);
+    /* background: rgba(0, 126, 229, 0.1);
+    border: 1px solid rgba(0, 126, 229, 0.2); */
     border-radius: 25px;
     padding: 0.25rem 0.5rem;
     .path {
@@ -73,7 +73,7 @@ export default {
     }
     .path-item {
       text-transform: capitalize;
-      font-size: 0.9rem;
+      font-size: 1rem;
       font-weight: bold;
       a {
         text-decoration: none;

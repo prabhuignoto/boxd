@@ -1,9 +1,25 @@
 <template>
   <section class="context-actions-wrapper">
-    <Button name="Add a Folder here" buttonStyle="link" :onClick="handleAddFolder"/>
-    <Button name="Copy this folder" buttonStyle="link" :onClick="handleCopy"/>
-    <Button name="Move this folder" buttonStyle="link" :onClick="handleMove"/>
-    <Button name="Delete this folder" buttonStyle="link" :onClick="handleDelete"/>
+    <Button name="Add a Folder here" buttonStyle="link" :onClick="handleAddFolder">
+      <template slot="btn-icon">
+        <img src="../../assets/plus-circle-blue.svg" alt="add folder">
+      </template>
+    </Button>
+    <Button name="Copy this folder" buttonStyle="link" :onClick="handleCopy">
+      <template slot="btn-icon">
+        <img src="../../assets/copy-blue.svg" alt="copy folder">
+      </template>
+    </Button>
+    <Button name="Move this folder" buttonStyle="link" :onClick="handleMove">
+      <template slot="btn-icon">
+        <img src="../../assets/copy-blue.svg" alt="move folder">
+      </template>
+    </Button>
+    <Button name="Delete this folder" buttonStyle="link" :onClick="handleDelete">
+      <template slot="btn-icon">
+        <img src="../../assets/times-circle-blue.svg" alt="delete folder">
+      </template>
+    </Button>
   </section>
 </template>
 
@@ -76,7 +92,8 @@ export default {
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  padding: 0.75rem 0;
-  background: rgba(0, 126, 229, 0.06);
+  padding: 1rem 0;
+  /* background: rgba(0, 126, 229, 0.1); */
+  background: #fff;
 }
 </style>

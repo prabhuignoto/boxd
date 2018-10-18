@@ -15,11 +15,15 @@
       <header>
         <ul class="header-wrapper">
           <li v-for="header in headers" :key="header" v-bind:class="header">{{header}}</li>
-          <li class="download"></li>
+          <li class="header empty">
+          </li>
         </ul>
+        <div class="ctx-control-container">
+          <ContextControl :path="path"/>
+        </div>
       </header>
       <section class="context-container">
-        <ContextActions :path="path" />
+        <!-- <ContextActions :path="path" /> -->
       </section>
       <section class="explorer-content">
         <div class="loader-container" v-if="$apollo.loading">
@@ -47,7 +51,7 @@ import LineItem from "./Explorer-LineItem";
 import SearchBox from "../Searchbox";
 import RootFolder from "../rootFolder";
 import { mapActions } from "vuex";
-import ContextActions from "../ContextActions/index";
+import ContextControl from "../ContextActions/Control";
 
 export default {
   name: "Explorer",
@@ -58,7 +62,7 @@ export default {
     SearchBox,
     FileExplorer,
     RootFolder,
-    ContextActions
+    ContextControl
   },
   data() {
     return {
@@ -125,6 +129,7 @@ export default {
 }
 header {
   width: 100%;
+  position: relative;
   .header-wrapper {
     width: 100%;
     display: flex;
@@ -132,7 +137,7 @@ header {
     list-style-type: none;
     flex-direction: row;
     margin: 0;
-    padding: 1.2rem 0;
+    padding: 1.5rem 0;
     border-bottom: 2px solid #007ee5;
 
     li {
@@ -151,7 +156,7 @@ header {
       &.modified {
         flex: 1;
       }
-      &.download {
+      &.empty {
         flex: 1;
       }
     }
@@ -168,8 +173,10 @@ header {
   margin-right: auto;
   color: #c6c6c6;
 }
-.context-container {
-  /* border: 1px solid red; */
+.ctx-control-container {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
 }
 .tree-view-wrapper {
   /* border: 1px solid rgba(0, 126, 229, 0.1); */

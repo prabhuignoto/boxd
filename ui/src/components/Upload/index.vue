@@ -30,11 +30,15 @@
         <UploadExplorer path="" />
       </div>
     </section>
+    <div class="upload-path-selection">
+      <span>{{this.getUploadPath}}</span>
+    </div>
     <div class="upload-controls">
-      <Button name="Upload" :onClick="handleUpload" :disabled="!isDropped || uploadStarted" :buttonStyle="getStyle">
-        <template slot="btn-icon">
-          <img src="../../assets/check.svg" alt="upload">
-        </template>
+      <Button name="Upload" :onClick="handleUpload" 
+        :disabled="canDisableUpload" :buttonStyle="getStyle">
+          <template slot="btn-icon">
+            <img src="../../assets/check.svg" alt="upload">
+          </template>
       </Button>
       <Button name="Close" :onClick="handleCancel">
         <template slot="btn-icon">
@@ -49,7 +53,7 @@
 import Button from "../Form/Button";
 import UploadExplorer from "./UploadExplorer";
 import Vue from "vue";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 import Axios from "axios";
 import ProgressBar from "../Progressbar";
 
@@ -59,6 +63,10 @@ export default Vue.component("UploadWindow", {
     ProgressBar
   },
   computed: {
+    ...mapGetters(["getUploadPath"]),
+    canDisableUpload() {
+      return (!this.isDropped || this.uploadStarted || this.getUploadPath === "");
+    },
     setClass() {
       return {
         "drop-zone": true,
@@ -67,7 +75,7 @@ export default Vue.component("UploadWindow", {
       };
     },
     getStyle() {
-      return !this.isDropped || this.uploadStarted ? "disabled" : "";
+      return this.canDisableUpload ? "disabled" : "";
     },
     getResultStyle() {
       if (this.uploadSuccess === true) {
@@ -96,7 +104,7 @@ export default Vue.component("UploadWindow", {
     };
   },
   methods: {
-    ...mapActions(["updateModalState"]),
+    ...mapActions(["updateModalState", "uploadFile"]),
     reset() {
       (this.isDragOver = false),
         (this.isDropped = false),
@@ -110,6 +118,7 @@ export default Vue.component("UploadWindow", {
       try {
         let formData = new FormData();
         formData.append("file", this.file);
+        formData.append("uploadPath", this.getUploadPath);
         this.uploadStarted = true;
         const response = Axios.post("http://localhost:4000/upload", formData, {
           withCredentials: true,
@@ -142,6 +151,7 @@ export default Vue.component("UploadWindow", {
       }
     },
     handleCancel() {
+      this.uploadFile("");
       this.updateModalState({
         status: false,
         title: "",
@@ -326,5 +336,19 @@ img {
   margin-left: auto;
   margin-right: auto;
   width: 70%;
+}
+.upload-path-selection{
+  margin: 0.5rem 0;
+  padding: 0.5rem 0.1rem;
+  width: 100%;
+  span {
+    text-align: left;
+    width: 100%;
+    display: inline-block;
+    padding-left: 1rem;
+    max-width: 400px;
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
 }
 </style>

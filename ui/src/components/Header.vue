@@ -5,7 +5,7 @@
         <span>Boxy</span>
       </div>
       <div class="account-wrapper">
-        <Popdown name="Profile" type="link" leftOffset="-3.5rem">
+        <Popdown name="Profile" type="link" leftOffset="-1.75rem">
           <ul>
             <li>Prabhu</li>
             <li>Prakash</li>

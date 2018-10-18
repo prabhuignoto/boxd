@@ -1,8 +1,10 @@
 <template>
   <button @click="onClick" :class="getDefaultStyle">
-    <i v-if="buttonStyle !== 'link'">
+    <!-- <i v-if="buttonStyle !== 'link'"> -->
+    <i>
       <slot name="btn-icon"></slot>
-    </i>
+    </i>  
+    <!-- </i> -->
     <span>{{name}}</span>
     <slot name="menu"></slot>
   </button>
@@ -53,7 +55,16 @@ button {
     color: #007ee5;
     border: none;
     background: none;
-    text-decoration: underline;
+    i {
+      width: 1.2rem;
+      height: 1.2rem;
+      img {
+        object-fit: contain;
+        object-position: 50% 50%;
+        height: 100%;
+        width: 100%;
+      }
+    }
   }
   &.disabled {
     padding: 0.5rem 0.75rem;
@@ -76,6 +87,13 @@ button {
       i {
         width: 2rem;
         height: 2rem;
+      }
+    }
+    &.medium {
+      border: none;
+      i {
+        width: 1.5rem;
+        height: 1.5rem;
       }
     }
   }

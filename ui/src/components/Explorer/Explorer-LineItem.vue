@@ -334,7 +334,7 @@ export default {
           width: 1.75rem;
           height: 1.75rem;
           display: block;
-          margin-left: 0.5rem;
+          margin-left: 1rem;
           margin-right: 0.75rem;
 
           img {
