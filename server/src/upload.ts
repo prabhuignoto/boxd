@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { Dropbox } from "dropbox";
 import { createLogger, transports, format } from "winston";
 import FS from "fs";
-// import Path from "path";
 
 const logFormat = format.combine(format.timestamp(), format.prettyPrint());
 const errorLogger = createLogger({
@@ -23,15 +22,15 @@ export default function Upload(req: Request, resp: Response) {
       message: `Uploading ${req.query.path}`,
       level: "info"
     });
-
-    FS.readFile(req.file.path, "utf8", function(err, contents) {
+    const files: any = req.files;
+    FS.readFile(files[0].path, "utf8", function(err, contents) {
       const response = new Dropbox({
         accessToken: req.session!.access_token,
         clientId: process.env.CLIENT_ID
       }).filesUpload({
         contents: contents,
         autorename: true,
-        path: "/" + req.file.originalname,
+        path: `${req.body.uploadPath}/${files[0].originalname}`,
       });
       response
         .then(data => { 
