@@ -144,13 +144,12 @@ export default {
   }
 }
 .explorer-wrapper {
-  height: 300px;
   overflow: auto;
   border-radius: 3px;
   border: 1px solid #ddd;
   margin: 1rem 0;
-  padding-top: 1rem;
-  padding-left: 1rem;
+  padding-top: 0.5rem;
+  padding-left: 0.5rem;
 }
 img {
   max-height: 100%;
@@ -194,7 +193,6 @@ img {
       border-radius: 5px;
       text-align: left;
       padding: 0.5rem;
-      /* width: 60px; */
       display: block;
     }
   }

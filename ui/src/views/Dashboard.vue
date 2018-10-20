@@ -1,11 +1,14 @@
 <template>
   <section class="dashboard-wrapper">
-    <div class="explorer-wrapper">
       <div class="toolbar-container">
         <Toolbar />
       </div>
-      <Explorer />
-    </div>
+      <div class="folder-path-container">
+        <FolderPath />
+      </div>
+      <div class="explorer-main">
+        <Explorer />
+      </div>
     <transition name="fade">
       <div class="modal-area" v-if="isModalActive">
           <Popup v-bind:content="popupComponent" :title="popupTitle">
@@ -26,6 +29,8 @@ import Button from "../components/Form/Button";
 import DeleteFolder from "../components/Folder/DeleteFolder";
 import Toolbar from "../components/Toolbar/Toolbar";
 import gql from "graphql-tag";
+import FolderPath from "../components/Path/FolderPath";
+import "../../node_modules/bulma/css/bulma.css";
 
 export default {
   components: {
@@ -34,7 +39,8 @@ export default {
     Popup,
     Popup,
     Button,
-    Toolbar
+    Toolbar,
+    FolderPath
   },
   data() {
     return {
@@ -68,18 +74,14 @@ export default {
 <style lang="scss" scoped>
 .dashboard-wrapper {
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
   height: 100%;
-  padding: 1rem 2rem;
-  max-width: 1600px;
+  padding: 0.5rem;
+  display: grid;
+  grid-template-rows: 60px 30px auto;
+  grid-gap: 1rem;
 }
 .explorer-wrapper {
   width: 100%;
-  display: flex;
-  flex-direction: column;
 }
 .modal-area {
   position: fixed;
@@ -113,8 +115,6 @@ export default {
 .toolbar-container {
   margin-top: 0.5rem;
 }
-/* .fade-enter {
-} */
 
 .fade-enter-active,
 .fade-leave-active {
@@ -122,8 +122,17 @@ export default {
   transform: scale(1);
   transition: all 0.2s;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+.fade-enter, .fade-leave-to {
   opacity: 0;
   transform: scale(0.9);
+}
+.folder-path-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  /* border: 1px solid red; */
+}
+.explorer-main {
+  padding: 0.5rem;
 }
 </style>

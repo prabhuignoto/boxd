@@ -57,15 +57,16 @@ export default {
       max-width: 100%;
       overflow: hidden;
       text-align: left;
-      padding: 0.75rem 0.5rem;
-      font-size: 1.1rem;
+      padding: 0.5rem 0.5rem;
+      font-size: 1rem;
       color: #007ee5;
     }
     margin-bottom: 0.5rem;
   }
 
   .popup-container {
-    padding: 1rem 1rem 0.5rem 1rem;
+    /* padding: 1rem 1rem 0.5rem 1rem; */
+    padding: 0.75rem;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -78,7 +79,7 @@ export default {
   }
   .popup-content {
     width: 100%;
-    padding: 0.5rem;
+    padding: 0.25rem 0.5rem;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -33,7 +33,7 @@ button {
   border: 2px solid #007ee5;
   border-radius: 3px;
   font-family: "Open Sans", Arial, Helvetica, sans-serif;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   cursor: pointer;
   outline: none;
   margin: 0 0.25rem;
@@ -42,16 +42,16 @@ button {
   position: relative;
 
   &.default {
-    padding: 0.5rem 0.75rem;
+    padding: 0.35rem 0.5rem;
   }
   &.rounded {
     border-radius: 25px;
-    padding: 0.5rem 0.75rem;
+    padding: 0.4rem 0.5rem;
   }
   &.link {
     padding: 0.5rem 0.75rem;
     border-radius: 4px;
-    font-size: 0.95rem;
+    font-size: 0.75rem;
     color: #007ee5;
     border: none;
     background: none;
@@ -67,7 +67,7 @@ button {
     }
   }
   &.disabled {
-    padding: 0.5rem 0.75rem;
+    padding: 0.35rem 0.5rem;
     background: #ddd;
     border: 2px solid #ddd;
     color: rgba(0, 0, 0, 0.5);
@@ -92,8 +92,8 @@ button {
     &.medium {
       border: none;
       i {
-        width: 1.5rem;
-        height: 1.5rem;
+        width: 1.25rem;
+        height: 1.25rem;
       }
     }
   }

@@ -14,7 +14,7 @@ export default {
   .searchbox-wrapper {
     width: 20rem;
     margin: 0 2rem;
-    height: 38px;
+    height: 36px;
 
     input[type="text"] {
       width: 100%;

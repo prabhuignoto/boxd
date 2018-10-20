@@ -92,8 +92,9 @@ export default {
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  padding: 1rem 0;
-  /* background: rgba(0, 126, 229, 0.1); */
-  background: #fff;
+  padding: 0.1rem 0;
+  /* background: rgba(0, 126, 229, 1); */
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 </style>

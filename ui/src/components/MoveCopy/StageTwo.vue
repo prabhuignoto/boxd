@@ -110,7 +110,7 @@ export default {
   }
 }
 .explorer-wrapper {
-  height: 300px;
+  /* height: 300px; */
   overflow: auto;
   margin-top: 1rem;
   border: 1px solid #ddd;

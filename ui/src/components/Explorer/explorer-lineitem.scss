@@ -1,14 +1,16 @@
-
 .explorer-line-item {
   display: grid;
-  grid-template-columns: 4fr 2fr 2fr 2fr;
+  grid-template-columns: 45% 20% 20% auto;
   grid-template-rows: 2rem;
   padding: 0.75rem 0.25rem;
   @media (min-width: 768px) and (max-width: 1024px) {
-    grid-template-columns: 5fr 2fr 1fr;
+    grid-template-columns: 50% 30% auto;
   }
   @media (min-width: 481px) and (max-width: 767px) {
-    grid-template-columns: 5fr 2fr 1fr;
+    grid-template-columns: 50% 30% auto;
+  }
+  @media (min-width: 320px) and (max-width: 480px) {
+    grid-template-columns: 50% 40% auto;
   }
 
   .popdown-container {
@@ -21,7 +23,8 @@
     justify-content: flex-start;
 
     &.name {
-      text-align: left;
+      // text-align: left;
+      justify-self: left;
       flex: 2;
       font-size: 0.9rem;
       width: 100%;
@@ -29,27 +32,32 @@
     }
     &.size {
       flex: 1;
-      text-align: left;
+      justify-self: left;
       font-size: 0.9rem;
       font-weight: 500;
     }
     &.last-modified {
       flex: 1;
-      text-align: left;
+      justify-self: left;
+      // text-align: left;
       font-size: 0.9rem;
       font-weight: 500;
       @media (min-width: 768px) and (max-width: 1024px) {
-        display: none;    
+        display: none;
       }
       @media (min-width: 481px) and (max-width: 767px) {
-        display: none;    
+        display: none;
+      }
+      @media (min-width: 320px) and (max-width: 480px) {
+        display: none;
       }
     }
     &.controls {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      // flex: 1;
+      // display: flex;
+      // align-items: center;
+      // justify-content: center;
+      justify-self: right;
     }
 
     button {

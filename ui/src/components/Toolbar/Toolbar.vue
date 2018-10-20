@@ -18,13 +18,11 @@
     <div class="searchbox-container">
       <SearchBox />
     </div>
-    <FolderPath />
   </div>  
 </template>
 
 <script>
 import Button from "../Form/Button";
-import FolderPath from "../Path/FolderPath";
 import SearchBox from "../Searchbox";
 import { mapActions } from "vuex";
 import CreateFolder from "../Folder/CreateFolder";
@@ -35,7 +33,6 @@ export default {
   name: "Toolbar",
   components: {
     Button,
-    FolderPath,
     SearchBox,
     CreateFolder,
     MoveCopy,
@@ -76,6 +73,8 @@ export default {
     padding: 0.5rem;
     margin-bottom: 1rem;
     flex-wrap: wrap;
+    /* border: 1px solid red; */
+    margin: 0.5rem 0;
     &:nth-child(2) {
       margin-left: auto;
     }

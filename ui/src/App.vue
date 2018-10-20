@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    <Header />
+  <div id="app" class="container is-fluid">
+    <!-- <Header /> -->
     <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
@@ -12,6 +12,7 @@
 <script>
 import WebFontLoader from "webfontloader";
 import Header from "./components/Header";
+import "../node_modules/bulma/css/bulma.css";
 
 export default {
   components: {

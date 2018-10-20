@@ -54,7 +54,3 @@ export default Vue.component('UploadExplorer', {
   }
 })
 </script>
-
-<style lang="scss" scoped>
- 
-</style>
