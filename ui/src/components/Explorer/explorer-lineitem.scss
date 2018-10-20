@@ -1,0 +1,115 @@
+
+.explorer-line-item {
+  display: grid;
+  grid-template-columns: 4fr 2fr 2fr 2fr;
+  grid-template-rows: 2rem;
+  padding: 0.75rem 0.25rem;
+  @media (min-width: 768px) and (max-width: 1024px) {
+    grid-template-columns: 5fr 2fr 1fr;
+  }
+  @media (min-width: 481px) and (max-width: 767px) {
+    grid-template-columns: 5fr 2fr 1fr;
+  }
+
+  .popdown-container {
+    margin-left: auto;
+    margin-right: 1.5rem;
+  }
+  .explorer-cell {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    &.name {
+      text-align: left;
+      flex: 2;
+      font-size: 0.9rem;
+      width: 100%;
+      padding: 0 0.5rem;
+    }
+    &.size {
+      flex: 1;
+      text-align: left;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    &.last-modified {
+      flex: 1;
+      text-align: left;
+      font-size: 0.9rem;
+      font-weight: 500;
+      @media (min-width: 768px) and (max-width: 1024px) {
+        display: none;    
+      }
+      @media (min-width: 481px) and (max-width: 767px) {
+        display: none;    
+      }
+    }
+    &.controls {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    button {
+      margin-right: 1rem;
+      background: none;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 5px;
+      cursor: pointer;
+      outline: none;
+      &:first-child {
+        margin-left: auto;
+      }
+      &.delete-btn {
+        border: 1px solid #ddd;
+        &:hover {
+          background: #ddd;
+          cursor: pointer;
+        }
+      }
+      &.download-btn {
+        border: 1px solid #ddd;
+        &:hover {
+          background: #007ee5;
+          cursor: pointer;
+        }
+      }
+    }
+    .explorer-icon {
+      display: block;
+      width: 1.5rem;
+      height: 1.5rem;
+      img {
+        object-fit: contain;
+        object-position: 50% 50%;
+        height: 100%;
+        width: 100%;
+      }
+    }
+
+    .resource {
+      margin-left: 0.5rem;
+      font-weight: 500;
+      max-width: 350px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      .folder-link {
+        color: #007ee5;
+        font-weight: 500;
+        text-decoration: none;
+      }
+    }
+    .loader-wrapper {
+      margin-left: auto;
+      margin-right: 0.6rem;
+    }
+  }
+
+  &:hover {
+    background: rgba($color: #000000, $alpha: 0.04);
+  }
+}

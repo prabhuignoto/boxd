@@ -1,0 +1,41 @@
+
+.delete-folder-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+
+  & > div:not(:last-child) {
+    margin: 0.5rem 0 0.5rem 0.25rem;
+  }
+  .delete-alert {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #cb2431;
+  }
+  .delete-message {
+    font-size: 1rem;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    span {
+      margin: 0.5rem 0;
+    }
+  }
+  .delete-resx-controls {
+    margin-top: 2rem;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .del-folder-loader-wrapper {
+    margin-right: auto;
+    position: relative;
+  }
+  img {
+    max-height: 100%;
+    max-width: 100%;
+  }
+}

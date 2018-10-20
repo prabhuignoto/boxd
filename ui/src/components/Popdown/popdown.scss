@@ -1,0 +1,41 @@
+.popdown {
+  position: absolute;
+  top: 2.5rem;
+  margin-left: auto;
+  margin-right: auto;
+  // min-width: 100px;
+  min-height: 50px;
+  background: #fff;
+  box-shadow: 0 4px 20px 1px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  border-radius: 6px;
+  outline: none;
+  border: 1px solid #ddd;
+
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: -7px;
+    right: 0;
+    left: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    border-left: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    transform: rotate(45deg);
+    z-index: -1;
+  }
+}
+.movein-enter-active,
+.movein-leave-active {
+  transition: all 0.2s;
+  transform: translateY(0%);
+}
+.movein-enter, .movein-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(10%);
+}
