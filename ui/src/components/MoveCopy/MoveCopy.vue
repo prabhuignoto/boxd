@@ -131,6 +131,3 @@ export default Vue.component("MoveCopy", {
   }
 });
 </script>
-
-<style lang="scss" scoped>
-</style>

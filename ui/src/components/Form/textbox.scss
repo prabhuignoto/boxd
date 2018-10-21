@@ -1,0 +1,24 @@
+.textbox-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0.5rem;
+  width: 100%;
+
+  label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+  }
+  input[type="text"] {
+    border-radius: 3px;
+    border: 1px solid #007ee5;
+    padding: 0.5rem 0.4rem;
+    width: 80%;
+    outline: none;
+    font-size: 1rem;
+    color: #007ee5;
+
+  }
+}

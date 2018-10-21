@@ -111,7 +111,5 @@ export default {
 }
 </script>
 
-<style lang="scss" src="./context-control.scss">
-  
-</style>
+<style lang="scss" src="./context-control.scss" />
 

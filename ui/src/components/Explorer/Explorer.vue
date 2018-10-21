@@ -47,7 +47,7 @@ import FolderPath from "../Path/FolderPath";
 import FolderGQL from "../../graphql/folder.gql";
 import Loader from "../Loader";
 import FileExplorer from "../FileExplorer";
-import LineItem from "./Explorer-LineItem";
+import LineItem from "./explorer-lineItem";
 import SearchBox from "../Searchbox";
 import RootFolder from "../rootFolder";
 import { mapActions } from "vuex";

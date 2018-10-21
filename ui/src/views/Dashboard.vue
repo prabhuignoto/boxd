@@ -23,7 +23,7 @@
 
 <script>
 import Account from "../components/Account";
-import Explorer from "../components/Explorer/Explorer";
+import Explorer from "../components/Explorer/explorer";
 import Popup from "../components/Popup/Popup";
 import Button from "../components/Form/Button";
 import DeleteFolder from "../components/Folder/DeleteFolder";
@@ -78,6 +78,16 @@ export default {
   padding: 0.5rem;
   display: grid;
   grid-template-rows: 60px 30px auto;
+  grid-template-columns: 100%;
+  @media (min-width: 768px) and (max-width: 1024px) {
+    grid-template-rows: 80px 40px auto;
+  }
+  @media (min-width: 481px) and (max-width: 767px) {
+    grid-template-rows: 100px 50px auto;
+  }
+  @media (min-width: 320px) and (max-width: 480px) {
+    grid-template-rows: 100px 50px auto;
+  }
   grid-gap: 1rem;
 }
 .explorer-wrapper {
@@ -122,7 +132,8 @@ export default {
   transform: scale(1);
   transition: all 0.2s;
 }
-.fade-enter, .fade-leave-to {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
   transform: scale(0.9);
 }

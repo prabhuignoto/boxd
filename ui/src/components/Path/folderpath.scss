@@ -6,9 +6,12 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
     margin:0;
-    padding: 0.1rem;
+    padding: 0.2rem 0.25rem;
+    // background: rgba(0, 126, 229, 0.1);
+    border-radius: 20px;
   }
   .path-slash {
     margin: 0 0.25rem;

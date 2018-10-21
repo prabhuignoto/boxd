@@ -1,0 +1,67 @@
+.stageone-wrapper {
+  width: 100%;
+}
+.move-copy-container {
+  width: 100%;
+}
+
+header {
+  width: 100%;
+  text-align: left;
+  margin: 1.5rem;
+  span {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+}
+
+.stage1-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  margin: 5rem 0 0.5rem 0;
+}
+
+img {
+  max-height: 100%;
+  max-width: 100%;
+}
+.move-copy-selection {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  label {
+    padding: 0.75rem;
+    border-radius: 4px;
+    height: 100%;
+    flex: 1;
+    margin: 0 1rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.25rem;
+    border-radius: 4px;
+    border: 2px solid #ddd;
+
+    &.selected {
+      border: 2px solid #007ee5;
+      color: #007ee5;
+      background: #fff;
+    }
+
+    i {
+      width: 1.25rem;
+      height: 1.25rem;
+      margin-right: 0.25rem;
+    }
+  }
+  input[type="radio"] {
+    display: none;
+  }
+}

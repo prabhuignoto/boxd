@@ -47,7 +47,3 @@ export default Vue.component('MoveExplorerDest', {
   }
 })
 </script>
-
-<style lang="scss" scoped>
-
-</style>

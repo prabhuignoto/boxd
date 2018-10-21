@@ -51,7 +51,3 @@ export default Vue.component('CreateFolderExplorer', {
   }
 })
 </script>
-
-<style lang="scss" scoped>
- 
-</style>

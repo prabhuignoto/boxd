@@ -1,21 +1,26 @@
 <template>
   <div class="toolbar-wrapper">
-    <Button name="Upload" size="large" buttonStyle="rounded" :onClick="openUploadWindow">
-      <template slot="btn-icon">
-        <img src="../../assets/upload.svg" alt="upload">
-      </template>
-    </Button>
-    <Button name="Add folder" size="large" buttonStyle="rounded" :onClick="openCreateFolder">
-      <template slot="btn-icon">
-        <img src="../../assets/plus.svg" alt="add">
-      </template>
-    </Button>
-    <Button name="Move or Copy" buttonStyle="rounded" :onClick="openMoveCopy">
-      <template slot="btn-icon">
-        <img src="../../assets/copy.svg" alt="Copy">
-      </template>
-    </Button>
-    <div class="searchbox-container">
+    <div class="toolbar-buttons">
+      <Button name="Upload" size="large" buttonStyle="rounded" :onClick="openUploadWindow">
+        <template slot="btn-icon">
+          <img src="../../assets/upload.svg" alt="upload">
+        </template>
+      </Button>
+      <Button name="Add folder" size="large" buttonStyle="rounded" :onClick="openCreateFolder">
+        <template slot="btn-icon">
+          <img src="../../assets/plus.svg" alt="add">
+        </template>
+      </Button>
+      <Button name="Move / Copy" buttonStyle="rounded" :onClick="openMoveCopy">
+        <template slot="btn-icon">
+          <img src="../../assets/copy.svg" alt="Copy">
+        </template>
+      </Button>
+      <div class="searchbox-container-desk">
+        <SearchBox />
+      </div>
+    </div>
+    <div class="searchbox-container-mob">
       <SearchBox />
     </div>
   </div>  
@@ -62,25 +67,7 @@ export default {
       });
     }
   }
-}
+};
 </script>
 
-<style lang="scss" scoped>
-  .toolbar-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    flex-wrap: wrap;
-    /* border: 1px solid red; */
-    margin: 0.5rem 0;
-    &:nth-child(2) {
-      margin-left: auto;
-    }
-    .searchbox-container {
-      /* margin-left: auto; */
-      margin-right: auto
-    }
-  }
-</style>
+<style lang="scss" src="./toolbar.scss" />

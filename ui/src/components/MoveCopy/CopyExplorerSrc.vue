@@ -46,7 +46,3 @@ export default Vue.component('CopyExplorerSrc', {
   }
 })
 </script>
-
-<style lang="scss" scoped>
-
-</style>

@@ -29,7 +29,7 @@ import Axios from "axios";
 import FileSaver from "filesaver.js";
 import Loader from "../Loader";
 import Popdown from "../Popdown/index.vue";
-import LineItemPopdown from "./LineItemPopdown";
+import LineItemPopdown from "./line-item-popdown";
 
 export default {
   name: "ExplorerLineItem",

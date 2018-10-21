@@ -109,47 +109,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.options {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  list-style: none;
-  font-family: "Open Sans", Arial, Helvetica, sans-serif;
-  font-size: 0.9rem;
-
-  li {
-    width: 100%;
-    padding: 0.75rem 0rem;
-    color: #000;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-
-    &:first-child {
-      border-top-left-radius: 5px;
-      border-top-right-radius: 5px;
-    }
-    &:last-child {
-      border-bottom-left-radius: 5px;
-      border-bottom-right-radius: 5px;
-    }
-    &:hover {
-      background: rgba(0, 126, 229, 0.2);
-    }
-    i {
-      width: 1.75rem;
-      height: 1.75rem;
-      display: block;
-      margin-left: 0.5rem;
-      margin-right: 0.75rem;
-
-      img {
-        max-height: 100%;
-        max-width: 100%;
-      }
-    }
-  }
-}
-</style>
+<style lang="scss" src="./line-item-popdown.scss" />

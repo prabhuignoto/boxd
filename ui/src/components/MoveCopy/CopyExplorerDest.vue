@@ -47,9 +47,3 @@ export default Vue.component('CopyExplorerDest', {
   }
 })
 </script>
-
-<style lang="scss" scoped>
-  test {
-    color: red;
-  }
-</style>

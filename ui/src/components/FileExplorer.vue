@@ -52,7 +52,3 @@ export default Vue.component('FileExplorer', {
   }
 })
 </script>
-
-<style lang="scss" scoped>
-
-</style>

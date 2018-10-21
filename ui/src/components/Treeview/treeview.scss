@@ -1,0 +1,55 @@
+.tree {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  border-radius: 4px;
+  padding: 0.25rem;
+  width: 300px;
+  font-size: 0.95rem;
+
+  .child-tree {
+    padding-left: 1rem;
+    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .folder-node {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .file-node {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    overflow-wrap: break-word;
+    cursor: pointer;
+    padding: 0.25rem;
+    font-size: 0.9rem;
+    .node-text {
+      height: 100%;
+      width: 100%;
+      padding: 0.25rem;
+      text-align: left;
+      max-width: 250px;
+      text-transform: lowercase;
+      &.selected {
+        background: #007ee5;
+        color: #fff;
+        border-radius: 2px;
+      }
+    }
+  }
+  .file-img {
+    height: 1.2rem;
+    width: 1.2rem;
+    margin-right: 0.25rem;
+    margin-top: 0.25rem;
+  }
+}

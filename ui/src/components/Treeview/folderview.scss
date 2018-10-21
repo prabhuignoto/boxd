@@ -1,0 +1,30 @@
+.child-tree-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.child-tree {
+  padding-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 0.1rem;
+}
+.folder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2rem; 
+  cursor: pointer;
+  &:focus {
+    outline: 1px solid #007ee5;
+    outline-offset: 2px;
+  }
+}
+.folderImg {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.5rem;
+}

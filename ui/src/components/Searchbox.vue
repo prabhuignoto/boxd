@@ -12,8 +12,7 @@ export default {
 
 <style lang="scss" scoped>
   .searchbox-wrapper {
-    width: 20rem;
-    margin: 0 2rem;
+    width: 100%;
     height: 36px;
 
     input[type="text"] {
@@ -23,7 +22,7 @@ export default {
       border: 2px solid #007ee5;
       padding: 0 0.75rem;
       outline: none;
-      font-size: 1.2rem;
+      font-size: 1rem;
     }
   }
 </style>
