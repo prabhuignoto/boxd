@@ -1,6 +1,6 @@
 .stage2-container {
   width: 400px;
-  header {
+  .stage2-header {
     width: 100%;
     span {
       width: 100%;
@@ -31,6 +31,11 @@ img {
   align-items: center;
   justify-content: flex-end;
   margin: 2rem 0 0 0;
+  button {
+    &:not(:first-child) {
+      margin-left: 1rem;
+    }
+  }
 }
 .selected-src {
   font-size: 1rem;

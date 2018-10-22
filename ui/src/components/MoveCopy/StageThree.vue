@@ -13,8 +13,8 @@
     </div>
     <div class="summary">
       <div><span class="value mode">{{getSummaryMsg}}</span></div>
-      <div><span class="title">From</span><span class="value">{{src}}</span></div>
-      <div><span class="title">To</span><span class="value">{{dest}}</span></div>
+      <div><span class="mvcopy-summary-title">From</span><span class="value">{{src}}</span></div>
+      <div><span class="mvcopy-summary-title">To</span><span class="value">{{dest}}</span></div>
     </div>
     <div class="stage2-controls">
       <div class="loader-wrapper" v-show="saving">

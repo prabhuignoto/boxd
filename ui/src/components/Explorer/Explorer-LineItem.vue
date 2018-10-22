@@ -8,8 +8,9 @@
         <img :src="getFileIcon" alt="file">
       </span>
       <span class="resource">
-        <a href="" v-if="isFolder" class="folder-link" @click="handleNavigation(path_lower, $event)">{{name}}</a>
-        <span v-else v-bind:title="name">{{name}}</span>
+        <a href="javascript:void(0);" v-if="isFolder" class="folder-link" @click="handleNavigation(path_lower, $event)">{{name}}</a>
+        <a href="javascript:void(0);" v-if="isFile" class="file-link" @click="handleFile(path_lower)">{{name}}</a>
+        <!-- <span v-else v-bind:title="name">{{name}}</span> -->
       </span>
     </div>
     <div class="size explorer-cell">{{sizeInMB}}</div>
@@ -103,13 +104,29 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["updatePath"]),
+    ...mapActions([
+      "updatePath",
+      "updateFilePath",
+      "updateFileStatus",
+      "updateFileName",
+      "updateFileSize",
+      "updateFileModified"
+    ]),
     toggleImage(evt) {
       this.hideButtonImage = !this.hideButtonImage;
     },
     handleNavigation(path, $evt) {
       $evt.preventDefault();
       this.updatePath(path);
+    },
+    handleFile(path) {
+      const files = path.split("/");
+      const fileName = files[files.length - 1];
+      this.updateFileName(fileName);
+      this.updateFilePath(path);
+      this.updateFileSize(this.sizeInMB);
+      this.updateFileModified(this.serverModifiedFormatted);
+      this.updateFileStatus("open");
     }
   }
 };

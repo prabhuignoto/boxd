@@ -13,7 +13,7 @@ export default {
 <style lang="scss" scoped>
   .searchbox-wrapper {
     width: 100%;
-    height: 36px;
+    height: 35px;
 
     input[type="text"] {
       width: 100%;

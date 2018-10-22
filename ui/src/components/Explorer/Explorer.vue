@@ -1,7 +1,7 @@
 <template>
   <div class="explorer-container">
     <div class="tree-view-wrapper is-hidden-mobile">
-      <header>
+      <header class="tree-view-header">
         <img src="../../assets/sitemap.svg" alt="explorer" class="file-explorer-icon">
         <span>File Explorer</span>
       </header>
@@ -12,10 +12,7 @@
     </div>
     <!-- <FolderPath /> -->
     <div class="explorer">
-      <!-- <section class="context-container">
-        <ContextActions :path="path" />
-      </section> -->
-      <header>
+      <header class="explorer-header">
         <ul class="header-wrapper">
           <li v-for="header in headers" :key="header" v-bind:class="header">{{header}}</li>
           <li class="header empty">
@@ -25,6 +22,9 @@
           <!-- <ContextControl :path="path"/> -->
         <!-- </div> -->
       </header>
+      <!-- <section class="context-container">
+        <ContextActions :path="path" />
+      </section> -->
       <section class="explorer-content">
         <div class="loader-container" v-if="$apollo.loading">
           <Loader size="large">
@@ -37,6 +37,9 @@
           <span>You have no folders or files here.</span>
         </div>
       </section>
+      <!-- <section class="file-pane-view" v-if="canShowFilepaneView">
+        <FilePane />
+      </section> -->
     </div>
   </div>
 </template>
@@ -50,7 +53,7 @@ import FileExplorer from "../FileExplorer";
 import LineItem from "./explorer-lineItem";
 import SearchBox from "../Searchbox";
 import RootFolder from "../rootFolder";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import ContextControl from "../ContextActions/Control";
 import ContextActions from "../ContextActions/index.vue";
 import "../../../node_modules/bulma/css/bulma.css";
@@ -65,7 +68,7 @@ export default {
     FileExplorer,
     RootFolder,
     ContextControl,
-    ContextActions
+    ContextActions,
   },
   data() {
     return {
@@ -74,8 +77,12 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(["getFileStatus"]),
     path() {
       return this.$store.state.explorer.path;
+    },
+    canShowFilepaneView() {
+      return this.getFileStatus === "open"
     }
   },
   methods: {

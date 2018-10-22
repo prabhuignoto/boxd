@@ -4,7 +4,7 @@
         <div class="closebutton-wrapper">
           <slot></slot>
         </div>
-        <header>
+        <header class="popup-header">
           <span class="popup-title">
             {{title}}
           </span>

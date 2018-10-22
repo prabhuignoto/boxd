@@ -15,12 +15,28 @@
   margin-top: 1rem;
   border: 1px solid #ddd;
   border-radius: 3px;
+
+  @media (min-width: 1281px) {
+    height: 350px;
+    padding: 0.5rem;
+  }
+  @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    height: 180px;
+    padding: 0.5rem;
+  }
+  @media (min-width: 481px) and (max-width: 767px) {
+    height: 160px;
+    padding: 0.5rem;
+  }
+  @media (min-width: 320px) and (max-width: 480px) {
+    height: 160px;
+    padding: 0.5rem;
+  }
   @media (min-width: 768px) and (max-width: 1024px) {
     height: 180px;
-    psdding: 0.5rem;
   }
   @media (min-width: 1025px) and (max-width: 1280px) {
-    height: 200px;
+    height: 300px;
     padding: 0.5rem;
   }
 }
@@ -32,6 +48,11 @@
   justify-content: flex-end;
   width: 100%;
   position: relative;
+  button {
+    &:last-child {
+      margin-left: 1rem;
+    }
+  }
 }
 .selected-path-wrapper {
   width: 100%;

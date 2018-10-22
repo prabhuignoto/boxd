@@ -20,11 +20,27 @@
     border-radius: 4px;
     position: relative;
     font-family: "Open Sans", Arial, Helvetica, sans-serif;
+    @media (min-width: 1281px) {
+      height: 200px;
+    }
+    
+    @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+      height: 160px;
+    }
+
+    @media (min-width: 481px) and (max-width: 767px) {
+      height: 180px;
+    }
+
+    @media (min-width: 320px) and (max-width: 480px) {
+      height: 180px;
+    }
+
     @media (min-width: 768px) and (max-width: 1024px) {
-      height: 130px;
+      height: 180px;
     }
     @media (min-width: 1025px) and (max-width: 1280px) {
-      height: 130px;
+      height: 200px;
     }
     &.drag-over {
       border: 2px solid rgba(0, 126, 229, 0.5);
@@ -100,18 +116,19 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  margin: 3rem 0 0 0;
-  @media (min-width: 1025px) and (max-width: 1280px) {
-    margin: 0.5rem 0 0 0;
+  button {
+    &:last-child {
+      margin-left: 1rem;
+    }
   }
+
 }
 img {
   max-height: 100%;
   max-width: 100%;
 }
 .explorer-wrapper {
-  // height: 250px;
-  width: 95%;
+  width: 100%;
   overflow: auto;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -119,11 +136,27 @@ img {
   padding-top: 1rem;
   margin-top: 1rem;
 
-  @media (min-width: 768px) and (max-width: 1024px) {
-    height: 150px;
+  @media (min-width: 1281px) {
+    height: 300px;
   }
+
   @media (min-width: 1025px) and (max-width: 1280px) {
-    height: 160px;
+    height: 300px;
+  }
+
+  @media (min-width: 768px) and (max-width: 1024px) {
+    height: 250px;
+  }
+
+  @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    height: 250px;
+  }
+
+  @media (min-width: 481px) and (max-width: 767px) {
+    height: 180px;
+  }
+  @media (min-width: 320px) and (max-width: 480px) {
+    height: 180px;
   }
 }
 .clear-upload {

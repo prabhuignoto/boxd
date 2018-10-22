@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="container is-fluid">
+  <div id="app" class="container is-fluid is-marginless">
     <!-- <Header /> -->
     <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
@@ -36,6 +36,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  margin: 1.5rem !important;
 }
 #nav {
   padding: 30px;

@@ -4,9 +4,11 @@
   justify-content: center;
   height: 100%;
   outline: none;
-  header {
+  .popup-header {
     width: 100%;
     border-bottom: 2px solid #007ee5;
+    margin: 0;
+    margin-bottom: 0.5rem;
     .popup-title {
       display: block;
       font-weight: bold;
@@ -17,7 +19,6 @@
       font-size: 1rem;
       color: #007ee5;
     }
-    margin-bottom: 0.5rem;
   }
 
   .popup-container {

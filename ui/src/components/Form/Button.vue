@@ -16,9 +16,12 @@ export default {
   props: ["name", "onClick", "msize", "buttonStyle", "marginLess"],
   computed: {
     getDefaultStyle() {
+      let style = {
+        
+      }
       return {
         [this.msize]: true,
-        [this.marginLess]: true,
+        // [this.marginLess]: true,
         [this.buttonStyle ? this.buttonStyle : "default"]: true
       };
     }

@@ -1,0 +1,74 @@
+.dashboard-wrapper {
+  margin: 0 auto;
+  height: 100%;
+  padding: 0.5rem;
+  display: grid;
+  grid-template-rows: 60px 30px auto;
+  grid-template-columns: 100%;
+  @media (min-width: 768px) and (max-width: 1024px) {
+    grid-template-rows: 80px 40px auto;
+  }
+  @media (min-width: 481px) and (max-width: 767px) {
+    grid-template-rows: 100px 50px auto;
+  }
+  @media (min-width: 320px) and (max-width: 480px) {
+    grid-template-rows: 100px 50px auto;
+  }
+  grid-gap: 1rem;
+}
+.explorer-wrapper {
+  width: 100%;
+}
+.modal-area {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: rgba($color: #000000, $alpha: 0.1);
+
+  .close-modal {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+  }
+  .img-close {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+}
+.explorer-controls {
+  width: 100%;
+  display: flex;
+  padding: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+.toolbar-container {
+  margin-top: 0.5rem;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: all 0.2s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+  transform: scale(0.9);
+}
+.folder-path-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  /* border: 1px solid red; */
+}
+.explorer-main {
+  padding: 0.5rem;
+}

@@ -5,10 +5,10 @@
   width: 100%;
 }
 
-header {
+.stageone-header {
   width: 100%;
   text-align: left;
-  margin: 1.5rem;
+  margin: 1rem 0;
   span {
     font-size: 1rem;
     font-weight: bold;
@@ -22,6 +22,11 @@ header {
   justify-content: flex-end;
   width: 100%;
   margin: 5rem 0 0.5rem 0;
+  button {
+    &:last-child {
+      margin-left: 1rem;
+    }
+  }
 }
 
 img {
@@ -33,6 +38,7 @@ img {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  margin: 2rem 0;
 
   label {
     padding: 0.75rem;

@@ -14,7 +14,7 @@ button {
   position: relative;
 
   &.default {
-    padding: 0.35rem 0.5rem;
+    padding: 0.5rem 0.5rem;
   }
   &.rounded {
     border-radius: 20px;
@@ -39,7 +39,7 @@ button {
     }
   }
   &.disabled {
-    padding: 0.35rem 0.5rem;
+    padding: 0.5rem 0.5rem;
     background: #ddd;
     border: 2px solid #ddd;
     color: rgba(0, 0, 0, 0.5);
@@ -70,7 +70,7 @@ button {
     }
   }
   &.large {
-    font-size: 0.95rem;
+    font-size: 1.25rem;
   }
   &.danger {
     padding: 0.5rem 0.75rem;

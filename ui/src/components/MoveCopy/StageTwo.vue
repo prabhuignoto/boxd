@@ -1,6 +1,6 @@
 <template>
   <section class="stage2-container">
-    <header>
+    <header class="stage2-header">
       <span>Choose the source by selecting a file or folder</span>
     </header>
     <div class="explorer-wrapper">

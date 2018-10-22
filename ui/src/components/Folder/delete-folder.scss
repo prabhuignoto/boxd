@@ -28,6 +28,11 @@
     width: 100%;
     align-items: center;
     justify-content: flex-end;
+    button {
+      &:last-child {
+        margin-left: 1rem;
+      }
+    }
   }
   .del-folder-loader-wrapper {
     margin-right: auto;

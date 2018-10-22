@@ -1,6 +1,6 @@
 <template>
   <section class="stageone-wrapper">
-    <header>
+    <header class="stageone-header">
         <span>Select the operation to proceed further</span>
       </header>
       <div class="move-copy-selection">

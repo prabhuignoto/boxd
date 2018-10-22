@@ -51,7 +51,12 @@ export default {
   components: {
     Popdown
   },
-  props: ["path"],
+  props: {
+    path: {
+      type: String,
+      required: true
+    }
+  },
   methods: {
     ...mapActions([
       "updateMoveCopyMode",
