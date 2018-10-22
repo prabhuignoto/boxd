@@ -52,7 +52,7 @@ import Vue from "vue";
 import { mapActions, mapGetters } from "vuex";
 import RootFolder from "../rootFolder";
 
-export default Vue.component('CreateFolder', {
+export default Vue.component("CreateFolder", {
   components: {
     Textbox,
     Treeview,
@@ -63,11 +63,11 @@ export default Vue.component('CreateFolder', {
   },
   data() {
     return {
-      folderName: '',
+      folderName: "",
       createHandledOnce: 0,
       disableSave: false,
       isMutating: false
-    }
+    };
   },
   beforeDestroy() {
     this.hideCreateFolderExplorer(false);
@@ -75,10 +75,10 @@ export default Vue.component('CreateFolder', {
   },
   computed: {
     selectedPath() {
-      return this.$store.getters.createFolderSelection
+      return this.$store.getters.createFolderSelection;
     },
     isNameEmpty() {
-      return  this.folderName === "";
+      return this.folderName === "";
     },
     isPathSelected() {
       return this.selectedPath !== null;
@@ -87,42 +87,53 @@ export default Vue.component('CreateFolder', {
       return this.createHandledOnce > 0 && !this.isPathSelected;
     },
     hasErrors() {
-      return (!this.isPathSelected || this.isNameEmpty) && this.createHandledOnce > 0
+      return (
+        (!this.isPathSelected || this.isNameEmpty) && this.createHandledOnce > 0
+      );
     },
     getStyle() {
-      return (!this.isPathSelected || this.isNameEmpty || this.isMutating) ?  "disabled" : "";
+      return !this.isPathSelected || this.isNameEmpty || this.isMutating
+        ? "disabled"
+        : "";
     },
     ...mapGetters(["isCreateFolderExpHidden"])
   },
   methods: {
-    ...mapActions(["createFolderSelection", "hideCreateFolderExplorer", "updatePath"]),
+    ...mapActions([
+      "createFolderSelection",
+      "hideCreateFolderExplorer",
+      "updatePath"
+    ]),
     handleCreate() {
-      if(this.createHandledOnce < 1) {
+      if (this.createHandledOnce < 1) {
         this.createHandledOnce += 1;
       }
-      if(!this.hasErrors) {
+      if (!this.hasErrors) {
         this.disableSave = true;
         this.isMutating = true;
-        this.$apollo.mutate({
-          mutation: gql(createFolderGQL),
-          variables: {
-            path: this.selectedPath,
-            name: this.folderName
-          },
-          update: (store, { data: { handleCreate }}) => {
-            this.$store.dispatch("updateModalState", {
-              status: false,
-              componentToRender: ""
-            });
-            this.updatePath(`${this.selectedPath}/${this.folderName}`);
-          }
-        }).then((data) => {
-          this.disableSave = true;
-          this.isMutating = true;
-        }).catch((error) => {
-          this.disableSave = true;
-          this.isMutating = true;
-        })
+        this.$apollo
+          .mutate({
+            mutation: gql(createFolderGQL),
+            variables: {
+              path: this.selectedPath,
+              name: this.folderName
+            },
+            update: (store, { data: { handleCreate } }) => {
+              this.$store.dispatch("updateModalState", {
+                status: false,
+                componentToRender: ""
+              });
+              this.updatePath(`${this.selectedPath}/${this.folderName}`);
+            }
+          })
+          .then(data => {
+            this.disableSave = true;
+            this.isMutating = true;
+          })
+          .catch(error => {
+            this.disableSave = true;
+            this.isMutating = true;
+          });
       }
     },
     handleCancel() {
@@ -137,8 +148,8 @@ export default Vue.component('CreateFolder', {
     handleRootFolder() {
       this.createFolderSelection("");
     }
-  },
-})
+  }
+});
 </script>
 
 <style lang="scss" src="./create-folder.scss">

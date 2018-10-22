@@ -16,22 +16,21 @@ import gql from "graphql-tag";
 import FolderGQL from "../../graphql/folder.gql";
 import { mapActions } from "vuex";
 
-export default Vue.component('CreateFolderExplorer', {
+export default Vue.component("CreateFolderExplorer", {
   components: {
     Treeview
   },
   data() {
     return {
       files: {
-        entries: [],
+        entries: []
       }
-    }
+    };
   },
   props: ["path"],
   methods: {
     ...mapActions(["createFolderSelection"]),
-    onSelect(node) {
-    },
+    onSelect(node) {},
     handleSubfolderSelection(path) {
       this.createFolderSelection(path);
     }
@@ -42,12 +41,12 @@ export default Vue.component('CreateFolderExplorer', {
       variables() {
         return {
           path: this.path
-        }
+        };
       },
       update(data) {
         return data.files.entries;
       }
     }
   }
-})
+});
 </script>

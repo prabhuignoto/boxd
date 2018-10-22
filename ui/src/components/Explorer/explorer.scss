@@ -166,3 +166,12 @@ header.explorer-header {
     margin-right: 0.25rem;
   }
 }
+
+.load-more {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1rem 0;
+  font-size: 0.9rem;
+  padding-left: 1rem;
+}

@@ -1,8 +1,11 @@
+// var HardSourceWebpackPlugin = require("hard-source-webpack-plugin");
+
 module.exports = {
   configureWebpack: {
     devtool: "source-map",
     module: {
-      rules: [{
+      rules: [
+        {
           test: /\.mjs$/,
           include: /node_modules/,
           type: "javascript/auto"
@@ -16,5 +19,6 @@ module.exports = {
     resolve: {
       extensions: [".webpack.js", ".web.js", ".mjs", ".js", ".json"]
     }
+    // plugins: [new HardSourceWebpackPlugin()]
   }
 };

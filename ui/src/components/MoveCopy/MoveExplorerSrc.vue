@@ -13,16 +13,16 @@ import gql from "graphql-tag";
 import FolderGQL from "../../graphql/folder.gql";
 import { mapActions } from "vuex";
 
-export default Vue.component('MoveExplorerSrc', {
+export default Vue.component("MoveExplorerSrc", {
   components: {
     Treeview
   },
   data() {
     return {
       files: {
-        entries: [],
+        entries: []
       }
-    }
+    };
   },
   props: ["path", "actionName"],
   methods: {
@@ -40,9 +40,9 @@ export default Vue.component('MoveExplorerSrc', {
       variables() {
         return {
           path: this.path
-        }
+        };
       }
     }
   }
-})
+});
 </script>

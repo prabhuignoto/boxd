@@ -110,13 +110,15 @@ export default {
       "updateFileStatus",
       "updateFileName",
       "updateFileSize",
-      "updateFileModified"
+      "updateFileModified",
+      "clearList"
     ]),
     toggleImage(evt) {
       this.hideButtonImage = !this.hideButtonImage;
     },
     handleNavigation(path, $evt) {
       $evt.preventDefault();
+      this.clearList();
       this.updatePath(path);
     },
     handleFile(path) {

@@ -13,42 +13,44 @@ import gql from "graphql-tag";
 import FolderGQL from "../graphql/folder.gql";
 import { mapActions } from "vuex";
 
-export default Vue.component('FileExplorer', {
+export default Vue.component("FileExplorer", {
   components: {
     Treeview
   },
   data() {
     return {
       files: {
-        entries: [],
+        entries: []
       }
-    }
+    };
   },
   props: ["path"],
   methods: {
+    ...mapActions(["clearList"]),
     onSelect(node) {
       this.$store.dispatch("updateExplorerNode", node);
     },
     handleSubfolderSelection(path) {
+      this.clearList();
       this.$store.dispatch("updatePath", path);
     },
-    ...mapActions(["updateTreeViewData"]),
+    ...mapActions(["updateTreeViewData"])
   },
   apollo: {
     files: {
       query: gql(FolderGQL),
       variables() {
         return {
-          path: this.path
-        }
+          path: this.path,
+          limit: 1000,
+          cursor: ""
+        };
       },
-      result({loading, data}) {
-        if(!loading && data.files && data.files.entries) {
-          // console.log(data.files.entries)
-          // this.updateTreeViewData(data.files.entries);
+      result({ loading, data }) {
+        if (!loading && data.files && data.files.entries) {
         }
       }
     }
   }
-})
+});
 </script>

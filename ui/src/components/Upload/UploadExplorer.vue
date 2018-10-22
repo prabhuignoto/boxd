@@ -16,28 +16,27 @@ import gql from "graphql-tag";
 import FolderGQL from "../../graphql/folder.gql";
 import { mapActions, mapGetters } from "vuex";
 
-export default Vue.component('UploadExplorer', {
+export default Vue.component("UploadExplorer", {
   components: {
     Treeview
   },
   data() {
     return {
       files: {
-        entries: [],
+        entries: []
       }
-    }
+    };
   },
   props: ["path"],
   methods: {
     ...mapActions(["createFolderSelection", "uploadFile"]),
-    onSelect(node) {
-      },
+    onSelect(node) {},
     handleSubfolderSelection(path) {
       this.uploadFile(path);
     }
   },
   computed: {
-    ...mapGetters(["getUploadPath"]),
+    ...mapGetters(["getUploadPath"])
   },
   apollo: {
     files: {
@@ -45,12 +44,12 @@ export default Vue.component('UploadExplorer', {
       variables() {
         return {
           path: this.path
-        }
+        };
       },
       update(data) {
         return data.files.entries;
       }
     }
   }
-})
+});
 </script>

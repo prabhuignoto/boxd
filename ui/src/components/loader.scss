@@ -13,6 +13,13 @@
   span {
     font-size: 0.9rem;
   }
+  background: #fff;
+  height: 100%;
+  width: 100%;
+  z-index: 999;
+  &.translucent {
+    background: rgba(255, 255, 255, 0.25);
+  }
 }
 .loader-icon {
   &.large {

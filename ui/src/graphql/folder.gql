@@ -1,5 +1,5 @@
-query list($path: String!) {
-  files: listFolder(path: $path) {
+query list($path: String!, $limit: Int!, $cursor: String) {
+  files: listFolder(path: $path, limit: $limit, cursor: $cursor) {
     entries {
       name
       tag
@@ -8,5 +8,7 @@ query list($path: String!) {
       content_hash
       server_modified
     }
+    hasMore,
+    cursor
   }
 }

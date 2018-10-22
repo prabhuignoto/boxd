@@ -17,8 +17,8 @@ button {
     padding: 0.5rem 0.5rem;
   }
   &.rounded {
-    border-radius: 20px;
-    padding: 0.4rem 0.5rem;
+    border-radius: 5px;
+    padding: 0.4rem;
   }
   &.link {
     padding: 0.5rem 0.75rem;
@@ -28,8 +28,8 @@ button {
     border: none;
     background: none;
     i {
-      width: 1.2rem;
-      height: 1.2rem;
+      width: 1.5rem;
+      height: 1.5rem;
       img {
         object-fit: contain;
         object-position: 50% 50%;
@@ -50,8 +50,8 @@ button {
     margin: 0;
     background: transparent;
     i {
-      width: 1rem;
-      height: 1rem;
+      width: 1.25rem;
+      height: 1.25rem;
       margin-right: 0rem;
     }
     &.large {
@@ -64,8 +64,8 @@ button {
     &.medium {
       border: none;
       i {
-        width: 1.25rem;
-        height: 1.25rem;
+        width: 2rem;
+        height: 2rem;
       }
     }
   }
@@ -79,8 +79,8 @@ button {
     border: 1px solid #cb2431;
   }
   i {
-    width: 1rem;
-    height: 1rem;
+    width: 1.25rem;
+    height: 1.25rem;
     margin-right: 0.5rem;
   }
 }

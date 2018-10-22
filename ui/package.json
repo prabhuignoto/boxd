@@ -43,6 +43,7 @@
     "@vue/eslint-config-prettier": "^3.0.4",
     "@vue/test-utils": "^1.0.0-beta.20",
     "chai": "^4.1.2",
+    "hard-source-webpack-plugin": "^0.12.0",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.1",
     "vue-template-compiler": "^2.5.17",

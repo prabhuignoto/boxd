@@ -4,6 +4,7 @@ import MoveCopy from "./modules/move-copy";
 import Upload from "./modules/upload";
 import Folder from "./modules/folder";
 import File from "./modules/file";
+import List from "./modules/list";
 
 Vue.use(Vuex);
 
@@ -12,7 +13,8 @@ export default new Vuex.Store({
     mvCopy: MoveCopy,
     folder: Folder,
     upload: Upload,
-    file: File
+    file: File,
+    list: List
   },
   state: {
     explorer: {

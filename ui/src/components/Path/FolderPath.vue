@@ -21,9 +21,12 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "FolderPath",
   methods: {
+    ...mapActions(["clearList"]),
     handleNavigation(path, $evt) {
       $evt.preventDefault();
       let pathArr = this.folderPath;
@@ -32,10 +35,11 @@ export default {
     },
     navToHome($evt) {
       $evt.preventDefault();
+      this.clearList();
       this.$store.dispatch("updatePath", "");
     },
     isCurrentDir(path) {
-      return this.folderPath[this.folderPath.length-1] === path;
+      return this.folderPath[this.folderPath.length - 1] === path;
     },
     isHome() {
       return this.$store.state.explorer.path === "";
@@ -44,12 +48,12 @@ export default {
   computed: {
     folderPath() {
       let path = this.$store.state.explorer.path;
-      if(path) {
+      if (path) {
         return path.split("/");
       }
     }
   }
-}
+};
 </script>
 
 <style lang="scss" src="./folderpath.scss" />

@@ -18,25 +18,31 @@
           <li class="header empty">
           </li>
         </ul>
-        <!-- <div class="ctx-control-container"> -->
-          <!-- <ContextControl :path="path"/> -->
-        <!-- </div> -->
+        <!-- <div class="ctx-control-container">
+          <ContextControl :path="path"/>
+        </div> -->
       </header>
       <!-- <section class="context-container">
         <ContextActions :path="path" />
       </section> -->
       <section class="explorer-content">
         <div class="loader-container" v-if="$apollo.loading">
-          <Loader size="large">
+          <Loader size="large" :translucent="isLoadingMore">
           </Loader>
         </div>
-        <div class="line-item-wrapper" v-for="file in files.entries" :key="file.name" v-if="!$apollo.loading">
+        <div class="line-item-wrapper" v-for="file in getDataList" :key="file.name">
           <LineItem v-bind="file"/>
         </div>
-        <div class="info-message" v-if="files.entries.length<1 && !$apollo.loading">
+        <section class="load-more" v-if="hasMoreData && !isLoadingMore">
+          <a href="javascript:void(0);" @click="handleLoadMore">
+            Show More ...
+          </a>
+        </section>
+        <div class="info-message" v-if="getDataList.length<1 && !$apollo.loading">
           <span>You have no folders or files here.</span>
         </div>
       </section>
+      
       <!-- <section class="file-pane-view" v-if="canShowFilepaneView">
         <FilePane />
       </section> -->
@@ -68,27 +74,45 @@ export default {
     FileExplorer,
     RootFolder,
     ContextControl,
-    ContextActions,
+    ContextActions
   },
   data() {
     return {
       files: [],
-      headers: ["name", "size", "last modified"]
+      headers: ["name", "size", "last modified"],
+      isLoadingMore: false
     };
   },
   computed: {
-    ...mapGetters(["getFileStatus"]),
+    ...mapGetters(["getFileStatus", "getDataList", "getCursor", "hasMoreData"]),
     path() {
       return this.$store.state.explorer.path;
     },
     canShowFilepaneView() {
-      return this.getFileStatus === "open"
+      return this.getFileStatus === "open";
     }
   },
   methods: {
-    ...mapActions(["updatePath"]),
+    ...mapActions(["updatePath", "updateListData", "clearList"]),
     handleRootFolder() {
       this.updatePath("");
+    },
+    handleLoadMore() {
+      this.isLoadingMore = true;
+      this.$apollo.queries.files.fetchMore({
+        variables: {
+          cursor: this.getCursor,
+          limit: 10,
+          path: this.path
+        },
+        updateQuery: (previousResult, { fetchMoreResult }) => {
+          const {
+            files: { cursor, entries: listData, hasMore }
+          } = fetchMoreResult;
+          this.updateListData({ listData, cursor, hasMore });
+          this.isLoadingMore = false;
+        }
+      });
     }
   },
   apollo: {
@@ -96,9 +120,21 @@ export default {
       query: gql(FolderGQL),
       variables() {
         return {
-          path: this.path
+          path: this.path,
+          limit: 10,
+          cursor: ""
         };
-      }
+      },
+      result({ loading, data }) {
+        if (!loading && data && !this.isLoadingMore) {
+          const {
+            files: { cursor, entries: listData, hasMore }
+          } = data;
+          this.clearList();
+          this.updateListData({ listData, cursor, hasMore });
+        }
+      },
+      fetchPolicy: "cache-and-network"
     }
   }
 };
