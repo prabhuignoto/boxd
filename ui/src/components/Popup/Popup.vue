@@ -4,7 +4,7 @@
         <div class="closebutton-wrapper">
           <slot></slot>
         </div>
-        <header class="popup-header">
+        <header class="popup-header" v-if="!disableHeader">
           <span class="popup-title">
             {{title}}
           </span>
@@ -22,7 +22,7 @@ import { mapActions } from "vuex";
 
 export default {
   name: "Popup",
-  props: ["content", "title"],
+  props: ["content", "title", "disableHeader", "lock"],
   mounted: function() {
     this.$nextTick(function() {
       this.$el.focus();
@@ -31,11 +31,14 @@ export default {
   methods: {
     ...mapActions(["updateModalState"]),
     handleClose() {
-      this.updateModalState({
-        status: false,
-        title: "",
-        componentToRender: ""
-      });
+      if(!this.lock) {
+        this.updateModalState({
+          status: false,
+          title: "",
+          componentToRender: "",
+          disableHeader: false
+        });
+      }
     }
   }
 };

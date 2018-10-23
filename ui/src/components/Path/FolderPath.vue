@@ -10,9 +10,11 @@
         </a>
       </li>
       <li v-for="path in folderPath" :key="path" v-if="path !== ''" class="path-item">
-        <a href="javascript:void(0);" v-bind:class="{'disabled selected': isCurrentDir(path)}"
+        <a href="javascript:void(0);" v-bind:class="{'disabled selected': isCurrentDir(path), 'path-link': true}"
             @click="handleNavigation(path, $event)">
-           <span class="path-slash">/</span>
+           <span class="path-slash">
+             <img src="../../assets/angle-right.svg" alt="arrow-right">
+           </span>
           <span class="path-value">{{path}}</span>
         </a>
       </li>

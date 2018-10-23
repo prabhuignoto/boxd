@@ -3,7 +3,6 @@ button {
   color: #fff;
   border: 2px solid #007ee5;
   border-radius: 3px;
-  font-family: "Open Sans", Arial, Helvetica, sans-serif;
   font-size: 0.9rem;
   cursor: pointer;
   outline: none;
@@ -13,20 +12,41 @@ button {
   justify-content: center;
   position: relative;
 
+  .label {
+    font-family: "Open Sans", Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    margin-bottom: 0 !important;
+  }
   &.default {
     padding: 0.5rem 0.5rem;
+    .label {
+      color: #fff;
+      font-size: 0.95rem;
+    }
   }
   &.rounded {
     border-radius: 5px;
     padding: 0.4rem;
+    .label {
+      color: #fff;
+      font-size: 0.95rem;
+    }
   }
   &.link {
     padding: 0.5rem 0.75rem;
     border-radius: 4px;
-    font-size: 0.75rem;
-    color: #007ee5;
     border: none;
     background: none;
+    .label {
+      color: #007ee5;
+      font-size: 0.75rem;
+    }
+    &.large {
+      i {
+        width: 1.75rem;
+        height: 1.75rem;
+      }
+    }
     i {
       width: 1.5rem;
       height: 1.5rem;
@@ -70,7 +90,9 @@ button {
     }
   }
   &.large {
-    font-size: 1.25rem;
+    .label {
+      font-size: 1rem;
+    }
   }
   &.danger {
     padding: 0.5rem 0.75rem;

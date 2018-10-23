@@ -11,11 +11,15 @@
       </div>
     <transition name="fade">
       <div class="modal-area" v-if="isModalActive">
-          <Popup v-bind:content="popupComponent" :title="popupTitle">
-            <button class="close-modal" @click="closeModal">
-              <img src="../assets/error.svg" alt="close" class="img-close">
-            </button>
-          </Popup>
+        <Popup 
+          :content="getPopupComponent"
+          :title="getPopupTitle"
+          :disableHeader="getIsDisableHeader"
+        >
+          <button class="close-modal" @click="closeModal">
+            <img src="../assets/error.svg" alt="close" class="img-close">
+          </button>
+        </Popup>
       </div>
     </transition>
   </section>
@@ -31,6 +35,8 @@ import Toolbar from "../components/Toolbar/Toolbar";
 import gql from "graphql-tag";
 import FolderPath from "../components/Path/FolderPath";
 import "../../node_modules/bulma/css/bulma.css";
+import Logout from "../components/Logout";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
@@ -40,7 +46,8 @@ export default {
     Popup,
     Button,
     Toolbar,
-    FolderPath
+    FolderPath,
+    Logout
   },
   data() {
     return {
@@ -53,20 +60,18 @@ export default {
     closeModal() {
       this.$store.dispatch("updateModalState", {
         status: false,
-        componentToRender: ""
+        componentToRender: "",
+        disableHeader: false
       });
     }
   },
   computed: {
-    isModalActive() {
-      return this.$store.getters.isModalActive;
-    },
-    popupComponent() {
-      return this.$store.state.modal.componentToRender;
-    },
-    popupTitle() {
-      return this.$store.state.modal.title;
-    }
+    ...mapGetters([
+      "isModalActive",
+      "getPopupComponent",
+      "getPopupTitle",
+      "getIsDisableHeader"
+    ])
   }
 };
 </script>

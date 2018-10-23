@@ -13,18 +13,21 @@
     <!-- <FolderPath /> -->
     <div class="explorer">
       <header class="explorer-header">
+        <!-- <div class="ctx-control-container">
+          
+        </div> -->
         <ul class="header-wrapper">
-          <li v-for="header in headers" :key="header" v-bind:class="header">{{header}}</li>
+          <li class="header control">
+            <ContextControl :path="path" type="link" name="Random"/>
+          </li>
+          <li v-for="header in headers" :key="header" v-bind:class="`${header} header`">{{header}}</li>
           <li class="header empty">
           </li>
         </ul>
-        <!-- <div class="ctx-control-container">
-          <ContextControl :path="path"/>
-        </div> -->
+        <!-- <section class="context-container">
+          <ContextActions :path="path" />
+        </section> -->
       </header>
-      <!-- <section class="context-container">
-        <ContextActions :path="path" />
-      </section> -->
       <section class="explorer-content">
         <div class="loader-container" v-if="$apollo.loading">
           <Loader size="large" :translucent="isLoadingMore">

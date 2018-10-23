@@ -23,6 +23,9 @@
     <div class="searchbox-container-mob">
       <SearchBox />
     </div>
+    <div class="account-settings-wrapper">
+      <Account />
+    </div>
   </div>  
 </template>
 
@@ -33,6 +36,7 @@ import { mapActions } from "vuex";
 import CreateFolder from "../Folder/CreateFolder";
 import MoveCopy from "../MoveCopy/MoveCopy";
 import UploadWindow from "../Upload/index";
+import Account from "../Account";
 
 export default {
   name: "Toolbar",
@@ -41,7 +45,8 @@ export default {
     SearchBox,
     CreateFolder,
     MoveCopy,
-    UploadWindow
+    UploadWindow,
+    Account
   },
   methods: {
     ...mapActions(["updateModalState"]),
@@ -56,7 +61,7 @@ export default {
       this.updateModalState({
         status: true,
         componentToRender: "MoveCopy",
-        title: "Move or Copy"
+        title: "Select an operation to proceed further"
       });
     },
     openUploadWindow() {

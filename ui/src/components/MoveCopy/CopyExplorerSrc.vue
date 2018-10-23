@@ -39,7 +39,9 @@ export default Vue.component("CopyExplorerSrc", {
       query: gql(FolderGQL),
       variables() {
         return {
-          path: this.path
+          path: this.path,
+          cursor: "",
+          limit: 1000
         };
       }
     }

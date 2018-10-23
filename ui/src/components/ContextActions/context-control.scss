@@ -3,13 +3,16 @@
   margin: 0;
   padding: 0.25rem;
   color: #000;
-  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
-  li {
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+  
+  .ctx-menu-item {
     padding: 1rem 0;
     text-align: left;
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    font-size: 0.9rem;
+    font-weight: normal;
 
     &:first-child {
       border-top-left-radius: 5px;
@@ -22,10 +25,12 @@
     &:hover {
       background: rgba(0, 126, 229, 0.2);
     }
-
+    span {
+      margin-left: 0.5rem;
+    }
     i {
-      width: 2rem;
-      height: 2rem;
+      width: 1.75rem;
+      height: 1.75rem;
       margin-left: 0.5rem;
       margin-right: 0.5rem;
       img {

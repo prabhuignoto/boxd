@@ -1,7 +1,7 @@
 <template>
   <section class="stageone-wrapper">
     <header class="stageone-header">
-        <span>Select the operation to proceed further</span>
+        <!-- <span>Select the operation to proceed further</span> -->
       </header>
       <div class="move-copy-selection">
           <label for="move" :class="{selected: moveSelected}">

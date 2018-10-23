@@ -66,7 +66,7 @@ export default {
       this.copyResxSource(path);
       this.updateModalState({
         status: true,
-        Title: "Copy",
+        title: "Copy",
         componentToRender: "MoveCopy"
       });
     },
@@ -79,7 +79,7 @@ export default {
       // open the modal
       this.updateModalState({
         status: true,
-        Title: "Move",
+        title: "Move",
         componentToRender: "MoveCopy"
       });
     },

@@ -13,8 +13,6 @@
           </template>
           <template slot="menu">
             <ul>
-              <li>Prabhu</li>
-              <li>Prakash</li>
             </ul>
           </template>
         </Popdown>

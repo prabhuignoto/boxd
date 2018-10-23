@@ -3,7 +3,7 @@
     <i>
       <img src="../assets/folder.svg" alt="root-folder">
     </i>
-    <span class="root-slash">/</span>
+    <span class="root-slash">\</span>
   </div> 
 </template>
 
@@ -30,7 +30,7 @@ export default {
       height: 1.5rem;
     }
     .root-slash {
-      margin-left: 0.5rem;
+      margin-left: 0.15rem;
     }
   }
 </style>

@@ -43,7 +43,9 @@ export default Vue.component("UploadExplorer", {
       query: gql(FolderGQL),
       variables() {
         return {
-          path: this.path
+          path: this.path,
+          limit: 1000,
+          cursor: ""
         };
       },
       update(data) {

@@ -3,6 +3,7 @@ import Multer from "multer";
 import Path from "path";
 import {Authenticate, Authorize, RevokeToken} from "./auth";
 import Download from "./download";
+import Logout from "./logout";
 import Upload from "./upload";
 
 const router = express.Router();
@@ -27,6 +28,8 @@ router.get("/authenticate", Authenticate);
 router.get("/revokeAccess", RevokeToken);
 
 router.get("/download", Download);
+
+router.post("/logout", Logout);
 
 router.route("/upload").post(MulterUpload, Upload);
 

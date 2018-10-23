@@ -9,7 +9,7 @@
             <div class="popdown"
               v-if="visible" tabindex="0"
               @blur="close" @keyup.esc="close"
-              :style="{left: leftOffset, width: customWidth}"
+              :style="{left: leftOffset, width: customWidth, top: topOffset ? topOffset : '100%'}"
             >
               <slot name="menu"></slot>
             </div>
@@ -27,7 +27,7 @@ export default {
   components: {
     Button
   },
-  props: ["name", "type", "size", "leftOffset", "customWidth"],
+  props: ["name", "type", "size", "leftOffset", "customWidth", "topOffset"],
   data() {
     return {
       visible: false
@@ -51,8 +51,7 @@ export default {
     },
     getStyle() {
       return {
-        width: this.customWidth,
-        // left: `${this.leftOffset}rem`,
+        width: this.customWidth
       };
     }
   }

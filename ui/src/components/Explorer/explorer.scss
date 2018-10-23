@@ -1,15 +1,15 @@
 .explorer-container {
   display: grid;
   grid-template-columns: 30% 70%;
-  grid-column-gap: 0.5rem;
+  grid-column-gap: 1rem;
   align-items: start;
   width: 100%;
   @media only screen and (min-width: 1224px) {
     grid-template-columns: 25% 75%;
-    grid-column-gap: 0.75rem;
+    grid-column-gap: 1rem;
   }
   @media only screen and (min-width: 1824px) {
-    grid-column-gap: 0.75rem;
+    grid-column-gap: 1rem;
     grid-template-columns: 15% 85%;
   }
   @media only screen and (max-width: 992px) {
@@ -52,7 +52,7 @@
   }
 }
 .explorer-content {
-  min-height: 350px;
+  min-height: 450px;
 }
 header.explorer-header {
   width: 100%;
@@ -62,28 +62,34 @@ header.explorer-header {
   .header-wrapper {
     width: 100%;
     display: grid;
-    grid-template-columns: 45% 20% 20% auto;
+    grid-template-columns: 50px 45% 20% 20% auto;
     @media (min-width: 768px) and (max-width: 1024px) {
-      grid-template-columns: 50% 30% auto;
+      grid-template-columns: 50px 50% 30% auto;
     }
     @media (min-width: 481px) and (max-width: 767px) {
-      grid-template-columns: 50% 30% auto;
+      grid-template-columns: 50px 50% 30% auto;
     }
     @media (min-width: 320px) and (max-width: 480px) {
-      grid-template-columns: 50% 30% auto;
+      grid-template-columns: 50px 50% 30% auto;
     }
     list-style-type: none;
     margin: 0;
-    padding: 0.75rem 0;
+    padding: 1rem 0;
     border-bottom: 1px solid #007ee5;
-    li {
+    .header {
       text-transform: capitalize;
-      font-size: 0.9rem;
+      font-size: 1rem;
       font-weight: bold;
       text-align: left;
-      padding-left: 0.5rem;
+      padding-left: 0.75rem;
       justify-self: left;
       color: #007ee5;
+      position: relative;
+      width: 100%;
+      &.control {
+        flex: 1;
+        justify-self: center;
+      }
       &.name {
         flex: 2;
       }
@@ -121,12 +127,9 @@ header.explorer-header {
 }
 .ctx-control-container {
   position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  padding: 0.25rem;
-  /* border: 1px solid #007ee5; */
-  border-radius: 50%;
-  background: #b3b3b3;
+  top: 1rem;
+  left: 1rem;
+  border-radius: 5px;
 }
 .tree-view-wrapper {
   border: 1px solid #ddd;
@@ -135,18 +138,20 @@ header.explorer-header {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  padding: 0.25rem;
   overflow-x: auto;
   .tree-view-header {
     font-weight: 500;
     font-size: 1rem;
+    font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     width: 100%;
     margin: 0;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
     color: #007ee5;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid #007ee5;
     span {
       padding: 0.5rem 0.5rem;
       width: 100%;
@@ -154,6 +159,7 @@ header.explorer-header {
     }
   }
   .tree-view-content {
+    width: 90%;
     margin-left: 0.5rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
@@ -173,5 +179,6 @@ header.explorer-header {
   align-items: center;
   padding: 1rem 0;
   font-size: 0.9rem;
-  padding-left: 1rem;
+  font-weight: bold;
+  padding-left: 2rem;
 }

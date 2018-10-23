@@ -2,10 +2,10 @@
   <div class="child-tree-wrapper">
     <div @click="toggleTree(entry.path_lower)" class="folder" tabindex="0">
       <i v-if="!folderOpen">
-        <img src="../../assets/plus-square.svg" alt="expland">
+        <img src="../../assets/caret-right.svg" alt="expland">
       </i>
       <i v-if="folderOpen">
-        <img src="../../assets/minus-square.svg" alt="collapse">
+        <img src="../../assets/caret-down.svg" alt="collapse">
       </i>
       <img src="../../assets/folder.svg" alt="folder" v-bind:class="{folderImg: true, open: folderOpen}">
       <span>{{name}}</span>

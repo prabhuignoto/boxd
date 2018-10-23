@@ -1,9 +1,8 @@
 .toolbar-wrapper {
   display: grid;
   grid-template-rows: 35px;
+  grid-template-columns: auto auto;
   padding: 0.5rem 1rem;
-  // margin-bottom: 1rem;
-  // margin: 0.5rem 0;
   @media (min-width: 768px) and (max-width: 1024px) {
     grid-template-rows: 30px 70px;
   }
@@ -28,7 +27,7 @@
 .toolbar-buttons {
   display: grid;
   column-gap: 1rem;
-  grid-template-columns: 100px 120px 130px 400px;
+  grid-template-columns: 120px 130px 140px 400px;
   grid-template-rows: 40px;
   @media (min-width: 481px) and (max-width: 767px) {
     grid-template-columns: 120px 140px 140px;
@@ -57,4 +56,8 @@
   @media (min-width: 320px) and (max-width: 480px) {
     display: none;
   }
+}
+
+.account-settings-wrapper {
+  justify-self: right;
 }

@@ -1,9 +1,11 @@
+.popdown-wrapper {
+  // position: relative;
+}
 .popdown {
   position: absolute;
   top: 2.5rem;
   margin-left: auto;
   margin-right: auto;
-  // min-width: 100px;
   min-height: 50px;
   background: #fff;
   box-shadow: 0 4px 20px 1px rgba(0, 0, 0, 0.2);

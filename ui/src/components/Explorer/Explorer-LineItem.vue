@@ -1,5 +1,6 @@
 <template>
   <div class="explorer-line-item">
+    <div class="explorer-cee"></div>
     <div class="name explorer-cell">
       <span class="explorer-icon icon-folder" v-if="isFolder">
         <img src="../../assets/folder.svg" alt="folder"/>

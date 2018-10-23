@@ -1,8 +1,8 @@
 <template>
   <div class="context-control">
-    <Popdown type="icon" size="medium" leftOffset="-5.5rem">
+    <Popdown type="icon" size="large" leftOffset="-5.5rem" topOffset="2.5rem" customWidth="200px">
       <template slot="icon">
-        <img src="../../assets/cog-gray.svg" alt="context menu">
+        <img src="../../assets/bars.svg" alt="context menu">
       </template>
       <template slot="menu">
         <ul class="context-menu">

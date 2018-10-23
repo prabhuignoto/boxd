@@ -5,7 +5,7 @@
       <slot name="btn-icon"></slot>
     </i>  
     <!-- </i> -->
-    <span>{{name}}</span>
+    <span class="label">{{name}}</span>
     <slot name="menu"></slot>
   </button>
 </template>

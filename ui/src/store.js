@@ -26,7 +26,8 @@ export default new Vuex.Store({
     modal: {
       isActive: false,
       componentToRender: "",
-      title: ""
+      title: "",
+      disableHeader: false
     },
     treeView: {
       data: []
@@ -39,10 +40,14 @@ export default new Vuex.Store({
     updateExplorerNode(state, { node }) {
       state.fileExplorer.activeFileNode = node;
     },
-    updateModalState(state, { status, componentToRender, title }) {
+    updateModalState(
+      state,
+      { status, componentToRender, title, disableHeader }
+    ) {
       state.modal.isActive = status;
       state.modal.componentToRender = componentToRender;
       state.modal.title = title;
+      state.modal.disableHeader = disableHeader;
     },
     updateTreeViewData(state, { data }) {
       state.treeView.data = data.map(x =>
@@ -65,12 +70,16 @@ export default new Vuex.Store({
         node
       });
     },
-    updateModalState({ commit }, { status, componentToRender, title }) {
+    updateModalState(
+      { commit },
+      { status, componentToRender, title, disableHeader }
+    ) {
       commit({
         type: "updateModalState",
         status,
         componentToRender,
-        title
+        title,
+        disableHeader
       });
     },
     updateTreeViewData({ commit }, data) {
@@ -82,6 +91,9 @@ export default new Vuex.Store({
   },
   getters: {
     isModalActive: state => state.modal.isActive,
+    getPopupComponent: state => state.modal.componentToRender,
+    getPopupTitle: state => state.modal.title,
+    getIsDisableHeader: state => state.modal.disableHeader,
     getExplorerPath: state => state.explorer.path
   }
 });
