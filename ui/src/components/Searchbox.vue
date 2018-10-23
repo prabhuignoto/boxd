@@ -20,7 +20,7 @@ export default {
       height: 100%;
       border-radius: 3px;
       border: 1px solid #007ee5;
-      padding: 0 0.75rem;
+      padding: 0 0.75rem 0 0.5rem;
       outline: none;
       font-size: 1rem;
     }

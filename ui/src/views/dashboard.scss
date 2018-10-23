@@ -3,16 +3,22 @@
   height: 100%;
   padding: 0.5rem;
   display: grid;
-  grid-template-rows: 50px 40px auto;
+  grid-template-rows: 0px 40px auto;
   grid-template-columns: 100%;
+  @media (min-width: 1281px) {
+    grid-template-rows: 60px 40px auto;
+  }
+  @media (min-width: 1025px) and (max-width: 1280px) {
+    grid-template-rows: 60px 40px auto;
+  }
   @media (min-width: 768px) and (max-width: 1024px) {
-    grid-template-rows: 80px 40px auto;
+    grid-template-rows: 140px 40px
   }
   @media (min-width: 481px) and (max-width: 767px) {
-    grid-template-rows: 100px 50px auto;
+    grid-template-rows: 180px 50px auto;
   }
   @media (min-width: 320px) and (max-width: 480px) {
-    grid-template-rows: 100px 50px auto;
+    grid-template-rows: 180px 50px auto;
   }
   grid-gap: 1rem;
 }
@@ -49,6 +55,8 @@
   margin-bottom: 0.5rem;
 }
 .toolbar-container {
+  justify-self: center;
+  width: 100%;
 }
 
 .fade-enter-active,

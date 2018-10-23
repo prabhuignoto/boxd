@@ -16,11 +16,8 @@
           <img src="../../assets/copy.svg" alt="Copy">
         </template>
       </Button>
-      <div class="searchbox-container-desk">
-        <SearchBox />
-      </div>
     </div>
-    <div class="searchbox-container-mob">
+    <div class="searchbox-container-desk">
       <SearchBox />
     </div>
     <div class="account-settings-wrapper">

@@ -1,20 +1,49 @@
 .toolbar-wrapper {
   display: grid;
-  grid-template-rows: 35px;
-  grid-template-columns: auto auto;
   padding: 0.5rem 1rem;
+  column-gap: 1rem;
+  row-gap: 1rem;
+  // grid-template-rows: 35px;
+  // grid-template-columns: auto auto;
+  // @media (min-width: 768px) and (max-width: 1024px) {
+  //   grid-template-rows: 30px 70px;
+  // }
+  // @media (min-width: 481px) and (max-width: 767px) {
+  //   justify-items: center;
+  //   grid-template-rows: 30px 70px;
+  //   grid-gap: 1.5rem;
+  // }
+  // @media (min-width: 320px) and (max-width: 480px) {
+  //   justify-items: center;
+  //   grid-template-rows: 30px 70px;
+  //   grid-gap: 1.5rem;
+  // }
+  @media only screen and (min-width: 1824px) {
+    grid-column-gap: 1rem;
+  }
+  @media (min-width: 1281px) {
+    grid-template-columns: 450px 400px auto;
+  }
+  @media (min-width: 1025px) and (max-width: 1280px) {
+    grid-template-columns: 350px 400px auto;
+  }
   @media (min-width: 768px) and (max-width: 1024px) {
-    grid-template-rows: 30px 70px;
+    // grid-template-columns: 350px 350px auto;
+    grid-template-columns: auto 250px 200px;
   }
-  @media (min-width: 481px) and (max-width: 767px) {
-    justify-items: center;
-    grid-template-rows: 30px 70px;
-    grid-gap: 1.5rem;
+  @media only screen and (max-width: 992px) {
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(3, 45px);
   }
-  @media (min-width: 320px) and (max-width: 480px) {
-    justify-items: center;
-    grid-template-rows: 30px 70px;
-    grid-gap: 1.5rem;
+  @media only screen and (max-width: 768px) {
+  }
+  /* Extra Small Devices, Phones */
+  @media only screen and (max-width: 480px) {
+    grid-column-gap: 0rem;
+  }
+  /* Custom, iPhone Retina */
+  @media only screen and (max-width: 320px) {
+    grid-column-gap: 0rem;
   }
   &:nth-child(2) {
     margin-left: auto;
@@ -29,32 +58,38 @@
   column-gap: 1rem;
   grid-template-columns: 120px 130px 140px 400px;
   grid-template-rows: 40px;
+  @media (min-width: 1025px) and (max-width: 1280px) {
+    grid-template-columns: 100px 120px 140px;
+  }
   @media (min-width: 481px) and (max-width: 767px) {
-    grid-template-columns: 120px 140px 140px;
+    grid-template-columns: auto auto auto;
   }
   @media (min-width: 320px) and (max-width: 480px) {
-    grid-template-columns: 120px 140px 140px;
+    grid-template-columns: auto auto auto;
   }
-}
-.searchbox-container-mob {
-  display: none;
-  width: 90%;
-  @media (min-width: 481px) and (max-width: 767px) {
-    display: block;
-    justify-self: left;
+  @media only screen and (max-width: 992px) {
+    grid-template-columns: auto auto auto;
+    // grid-template-columns: 120px 130px 140px auto;
   }
-  @media (min-width: 320px) and (max-width: 480px) {
-    justify-self: left;
-    display: block;
+  @media (min-width: 768px) and (max-width: 1024px) {
+    grid-template-columns: 120px 130px 140px auto;
   }
 }
 .searchbox-container-desk {
   display: block;
+  width: 100%;
+  @media (min-width: 1025px) and (max-width: 1280px) {
+    justify-self: right;
+    width: 70%;
+  }
   @media (min-width: 481px) and (max-width: 767px) {
-    display: none;
+    width: 100%;
   }
   @media (min-width: 320px) and (max-width: 480px) {
-    display: none;
+    width: 100%;
+  }
+  @media only screen and (max-width: 992px) {
+    width: 100%;
   }
 }
 
