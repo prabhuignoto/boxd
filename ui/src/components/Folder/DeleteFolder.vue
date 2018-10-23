@@ -2,7 +2,7 @@
   <div class="delete-folder-wrapper">
     <div class="delete-alert">Tread with Caution</div>
     <div class="delete-message">
-      <span>You are about to delete <b>
+      <span>You are about to delete </br><b>
         {{deletePath}}
       </b></span>
       <span>

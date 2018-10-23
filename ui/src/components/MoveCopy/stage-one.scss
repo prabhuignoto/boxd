@@ -53,9 +53,9 @@ img {
     align-items: center;
     font-size: 1.25rem;
     border-radius: 4px;
-    border: 1px solid transparent;
+    border: 1px solid #ddd;
     &:hover {
-      border: 1px solid #ddd;
+      border: 1px solid #007ee5;
     }
 
     &.selected {

@@ -1,16 +1,16 @@
 .explorer-line-item {
   display: grid;
-  grid-template-columns:50px 45% 20% 20% auto;
+  grid-template-columns:40px 45% 20% 20% auto;
   grid-template-rows: 2rem;
   padding: 1rem 0.25rem;
   @media (min-width: 768px) and (max-width: 1024px) {
-    grid-template-columns: 50px 45% 30% auto;
+    grid-template-columns: 40px 45% 30% auto;
   }
   @media (min-width: 481px) and (max-width: 767px) {
-    grid-template-columns: 50px 45% 30% auto;
+    grid-template-columns: 40px 45% 30% auto;
   }
   @media (min-width: 320px) and (max-width: 480px) {
-    grid-template-columns: 50px 45% 35% auto;
+    grid-template-columns: 40px 45% 35% auto;
   }
 
   .popdown-container {

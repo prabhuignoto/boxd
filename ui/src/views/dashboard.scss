@@ -6,13 +6,13 @@
   grid-template-rows: 0px 40px auto;
   grid-template-columns: 100%;
   @media (min-width: 1281px) {
-    grid-template-rows: 60px 40px auto;
+    grid-template-rows: 80px 30px auto;
   }
   @media (min-width: 1025px) and (max-width: 1280px) {
-    grid-template-rows: 60px 40px auto;
+    grid-template-rows: 65px 30px auto;
   }
   @media (min-width: 768px) and (max-width: 1024px) {
-    grid-template-rows: 140px 40px
+    grid-template-rows: 140px 30px
   }
   @media (min-width: 481px) and (max-width: 767px) {
     grid-template-rows: 180px 50px auto;
@@ -36,11 +36,13 @@
 
   .close-modal {
     position: absolute;
-    right: 1rem;
-    top: 1rem;
+    right: 0.75rem;
+    top: 0.75rem;
     background: none;
     border: none;
     cursor: pointer;
+    width: 2.75rem;
+    height: 2.75rem;
     outline: none;
   }
   .img-close {
@@ -56,7 +58,9 @@
 }
 .toolbar-container {
   justify-self: center;
+  align-self: center;
   width: 100%;
+  padding: 2rem 0.75rem 1rem;
 }
 
 .fade-enter-active,
@@ -74,8 +78,11 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  align-self: center;
+  padding: 0.25rem 0.75rem 0.25rem 1rem;
   /* border: 1px solid red; */
 }
 .explorer-main {
-  padding: 0.5rem;
+  align-self: flex-start;
+  padding: 0 0.5rem;
 }

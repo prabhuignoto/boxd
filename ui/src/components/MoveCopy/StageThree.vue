@@ -21,7 +21,7 @@
         <Loader />
       </div>
       <Button name="Back" :onClick="handlePrevious" v-if="!getSkipToFinal">
-        <img src="../../assets/angle-left.svg" alt="previous">
+        <img src="../../assets/angle-left-white.svg" alt="previous">
       </Button>
       <Button name="Finish" :onClick="handleNext"
         :disabled="!canFinish"

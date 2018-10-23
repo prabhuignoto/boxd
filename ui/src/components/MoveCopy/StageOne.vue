@@ -22,7 +22,7 @@
       <div class="stage1-controls">
         <Button name="Next" :onClick="handleStepOne" :disabled="!isModeSelected" :buttonStyle="getStyle">
           <template slot="btn-icon">
-            <img src="../../assets/angle-right.svg" alt="next">
+            <img src="../../assets/angle-right-white.svg" alt="next">
           </template>
         </Button>
         <Button name="Cancel" :onClick="dismissPopup">

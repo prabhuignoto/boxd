@@ -36,6 +36,7 @@ import gql from "graphql-tag";
 import FolderPath from "../components/Path/FolderPath";
 import "../../node_modules/bulma/css/bulma.css";
 import Logout from "../components/Logout";
+import About from "../components/About";
 import { mapGetters } from "vuex";
 
 export default {
@@ -47,7 +48,8 @@ export default {
     Button,
     Toolbar,
     FolderPath,
-    Logout
+    Logout,
+    About
   },
   data() {
     return {

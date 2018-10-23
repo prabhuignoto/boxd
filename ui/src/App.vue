@@ -6,17 +6,20 @@
       <router-link to="/about">About</router-link>
     </div> -->
     <router-view/>
+    <Footer />
   </div>
 </template>
 
 <script>
 import WebFontLoader from "webfontloader";
 import Header from "./components/Header";
+import Footer from "./views/Footer";
 import "../node_modules/bulma/css/bulma.css";
 
 export default {
   components: {
-    Header
+    Header,
+    Footer
   },
   created() {
      WebFontLoader.load({
@@ -36,7 +39,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin: 1.5rem !important;
+  /* margin: 1.5rem !important; */
 }
 #nav {
   padding: 30px;

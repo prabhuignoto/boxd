@@ -14,11 +14,11 @@
             </i>
             <span>Logout</span>
           </li>
-          <li class="option" @click="handleHelp">
+          <li class="option" @click="handleAbout">
             <i>
-              <img src="../assets/question-circle.svg" alt="help">
+              <img src="../assets/question-circle.svg" alt="About">
             </i>
-            <span>Help</span>
+            <span>About</span>
           </li>
         </ul>
       </template>
@@ -56,8 +56,13 @@ export default {
         disableHeader: true
       })
     },
-    handleHelp() {
-      
+    handleAbout() {
+      this.updateModalState({
+        title: "",
+        componentToRender: "About",
+        status: true,
+        disableHeader: true
+      })
     }
   },
   apollo: {
