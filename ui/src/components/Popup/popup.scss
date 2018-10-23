@@ -6,9 +6,11 @@
   outline: none;
   .popup-header {
     width: 100%;
-    border-bottom: 2px solid #007ee5;
+    // border-bottom: 1px solid #EF233C;
+    background: #EDF2F4;
+    border-radius: 4px;
     margin: 0;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
     .popup-title {
       display: block;
       font-weight: bold;
@@ -17,7 +19,7 @@
       text-align: left;
       padding: 0.5rem 0.5rem;
       font-size: 1rem;
-      color: #007ee5;
+      color: #2B2D42;
     }
   }
 

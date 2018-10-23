@@ -15,16 +15,21 @@ export default {
 
 <style lang="scss" scoped>
   .app-footer {
-    background: #007ee5;
+    background: #2B2D42;
     width: 100%;
-    padding: 1rem;
+    padding: 0.25rem;
     display: grid;
     grid-template-columns: 200px auto;
-    grid-auto-rows: 50px;
-  }
+    position: fixed;
+    height: 70px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin-bottom: 0px;
+}
   .logo {
-    color: #fff;
-    font-size: 2.5rem;
+    color: #EF233C;
+    font-size: 2rem;
     font-family: 'Open Sans', Arial, Helvetica, sans-serif;
     font-weight: bold;
     align-self: center;

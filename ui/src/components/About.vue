@@ -5,7 +5,6 @@
     </div>
     <div class="info">
       <span class="version">Version: 0.1</span>
-      <span class="built-with">Built with Vue.JS</span>
       <span class="copyright">2018 &copy; PrabhuMurthy</span>
     </div>
   </section>

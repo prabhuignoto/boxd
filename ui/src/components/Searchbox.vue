@@ -18,8 +18,8 @@ export default {
     input[type="text"] {
       width: 100%;
       height: 100%;
-      border-radius: 3px;
-      border: 1px solid #007ee5;
+      border-radius: 5px;
+      border: 2px solid #2B2D42;
       padding: 0 0.75rem 0 0.5rem;
       outline: none;
       font-size: 1rem;

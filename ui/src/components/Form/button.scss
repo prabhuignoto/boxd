@@ -1,9 +1,8 @@
 button {
-  background: #007ee5;
-  color: #fff;
-  border: 2px solid #007ee5;
+  background: #2B2D42;
+  border: 2px solid #2B2D42;
   border-radius: 3px;
-  font-size: 0.9rem;
+  font-size: 0.9rem;  
   cursor: pointer;
   outline: none;
   margin: 0 0.25rem;
@@ -14,7 +13,6 @@ button {
 
   .label {
     font-family: "Open Sans", Arial, Helvetica, sans-serif;
-    font-weight: normal;
     margin-bottom: 0 !important;
   }
   &.default {
@@ -29,7 +27,9 @@ button {
     padding: 0.4rem;
     .label {
       color: #fff;
+      // color: #fff;
       font-size: 0.95rem;
+      font-weight: 700;
     }
   }
   &.link {

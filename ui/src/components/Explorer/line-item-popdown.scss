@@ -5,11 +5,12 @@
   list-style: none;
   font-family: "Open Sans", Arial, Helvetica, sans-serif;
   font-size: 0.9rem;
+  font-weight: 700;
 
   li {
     width: 100%;
     padding: 0.75rem 0rem;
-    color: #000;
+    color: #2B2D42;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -23,7 +24,8 @@
       border-bottom-right-radius: 5px;
     }
     &:hover {
-      background: rgba(0, 126, 229, 0.2);
+      // background: #fff;
+      background: rgba(0,0,0,0.1);
     }
     i {
       width: 0.25rem;

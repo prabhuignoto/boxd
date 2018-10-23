@@ -43,7 +43,7 @@
 .explorer {
   background: #fff;
   border-radius: 5px;
-  border: 1px solid #ddd;
+  border: 3px solid #EDF2F4;
   width: 100%;
   position: relative;
   .line-item-wrapper {
@@ -59,7 +59,7 @@ header.explorer-header {
   width: 100%;
   position: relative;
   margin: 0;
-
+  background: #EDF2F4;
   .header-wrapper {
     width: 100%;
     display: grid;
@@ -75,8 +75,8 @@ header.explorer-header {
     }
     list-style-type: none;
     margin: 0;
-    padding: 1rem 0;
-    border-bottom: 1px solid #007ee5;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #8D99AE;
     .header {
       text-transform: capitalize;
       font-size: 1rem;
@@ -84,12 +84,14 @@ header.explorer-header {
       text-align: left;
       padding-left: 0.75rem;
       justify-self: left;
-      color: #007ee5;
+      align-self: center;
+      color: #2B2D42;
       position: relative;
       width: 100%;
       &.control {
         flex: 1;
         justify-self: center;
+        align-self: center;
       }
       &.name {
         flex: 2;
@@ -133,7 +135,7 @@ header.explorer-header {
   border-radius: 5px;
 }
 .tree-view-wrapper {
-  border: 1px solid #ddd;
+  border: 3px solid #EDF2F4;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -150,9 +152,10 @@ header.explorer-header {
     width: 100%;
     margin: 0;
     margin-bottom: 1rem;
-    color: #007ee5;
-    padding: 0.7rem 0;
-    border-bottom: 1px solid #007ee5;
+    color: #2B2D42;
+    padding: 0.2rem 0;
+    border-bottom: 1px solid #8D99AE;
+    background: #EDF2F4;
     span {
       padding: 0.5rem 0.5rem;
       width: 100%;

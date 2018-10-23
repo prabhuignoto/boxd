@@ -52,10 +52,12 @@ export default {
   }
 }
 html,body,#app {
-  height: 100%;
+  /* height: 100%; */
 }
 body {
   margin: 0;
+  position: relative;
+  margin-bottom: 70px;
 }
 html {
   &.wf-loading {

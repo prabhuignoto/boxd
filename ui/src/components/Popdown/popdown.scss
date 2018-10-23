@@ -2,6 +2,7 @@
   // position: relative;
 }
 .popdown {
+  z-index: 1999;
   position: absolute;
   top: 2.5rem;
   margin-left: auto;
@@ -9,7 +10,6 @@
   min-height: 50px;
   background: #fff;
   box-shadow: 0 4px 20px 1px rgba(0, 0, 0, 0.2);
-  z-index: 999;
   border-radius: 6px;
   outline: none;
   border: 1px solid #ddd;
@@ -18,7 +18,7 @@
     content: "";
     display: block;
     position: absolute;
-    top: -7px;
+    top: -6px;
     right: 0;
     left: 0;
     margin-left: auto;
