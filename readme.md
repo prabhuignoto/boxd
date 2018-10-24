@@ -1,75 +1,48 @@
 # Boxy
 
-Dropbox for Web.
-
 <!-- [![NPM Version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
 [![Downloads Stats][npm-downloads]][npm-url] -->
 
-Boxy is a modern web client for Dropbox. The idea was to build a free and open source version of the dropbox client.
-The app is built from the ground up with Vue.js to provide to best
+Boxy is a modern web client for Dropbox. Boxy is built with Vue.js, and the goal was to create a simple and intuitive user interface to deliver high quality user experience.
 
-![](header.png)
-
-## Installation
-
-OS X & Linux:
-
-```sh
-npm install my-crazy-module --save
-```
-
-Windows:
-
-```sh
-edit autoexec.bat
-```
-
-## Usage example
-
-A few motivating and useful examples of how your product can be used. Spice this up with code blocks and potentially more screenshots.
-
-_For more examples and usage, please refer to the [Wiki][wiki]._
+_The application is still under active development._
 
 ## Development setup
 
-Describe how to install all development dependencies and how to run an automated test-suite of some kind. Potentially do this for multiple platforms.
+The client application is located under ui directory and the server app is located under server.
+
+Execute the following command to run the front end app in Development mode.
 
 ```sh
-make install
-npm test
+cd .\ui
+yarn run install && yarn run dev
 ```
+
+Start the server app by running the following command.
+
+```sh
+cd .\server
+yarn run install && yarn run serve
+```
+
+## Technology Stack
+- Vue.JS
+- Express.JS
+- Redis for Session Management
 
 ## Release History
 
-- 0.2.1
-  - CHANGE: Update docs (module code remains unchanged)
-- 0.2.0
-  - CHANGE: Remove `setDefaultXYZ()`
-  - ADD: Add `init()`
-- 0.1.1
-  - FIX: Crash when calling `baz()` (Thanks @GenerousContributorName!)
-- 0.1.0
-  - The first proper release
-  - CHANGE: Rename `foo()` to `bar()`
 - 0.0.1
-  - Work in progress
+  - work in progress
 
 ## Meta
 
-Your Name – [@YourTwitter](https://twitter.com/dbader_org) – YourEmail@example.com
+Prabhu Murthy – [@prabhumurthy2](https://twitter.com/prabhumurthy2) – prabhu.m.murthy@gmail.com
 
-Distributed under the XYZ license. See `LICENSE` for more information.
+Distributed under the MIT license. See `LICENSE` for more information.
 
-[https://github.com/yourname/github-link](https://github.com/dbader/)
-
-## Contributing
-
-1. Fork it (<https://github.com/yourname/yourproject/fork>)
-2. Create your feature branch (`git checkout -b feature/fooBar`)
-3. Commit your changes (`git commit -am 'Add some fooBar'`)
-4. Push to the branch (`git push origin feature/fooBar`)
-5. Create a new Pull Request
+[https://github.com/prabhuingoto/](https://github.com/prabhuingoto/)
 
 <!-- Markdown link & img dfn's -->
 
