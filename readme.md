@@ -27,8 +27,11 @@ yarn run install && yarn run serve
 ```
 
 ## Technology Stack
+
 - Vue.JS
+- Apollo Client (powered by vue-apollo)
 - Express.JS
+- Graphql (powered by express-graphql)
 - Redis for Session Management
 
 ## Release History
