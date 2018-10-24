@@ -13,9 +13,6 @@
     <!-- <FolderPath /> -->
     <div class="explorer">
       <header class="explorer-header">
-        <!-- <div class="ctx-control-container">
-          
-        </div> -->
         <ul class="header-wrapper">
           <li class="header control">
             <ContextControl :path="path" type="link" name="Random"/>
@@ -24,14 +21,19 @@
           <li class="header empty">
           </li>
         </ul>
-        <!-- <section class="context-container">
-          <ContextActions :path="path" />
-        </section> -->
       </header>
       <section class="explorer-content">
         <div class="loader-container" v-if="$apollo.loading">
           <Loader size="large" :translucent="isLoadingMore">
           </Loader>
+        </div>
+        <div class="line-item-wrapper search-results-row" v-if="isUserSearching">
+          <span class="search-results-message">
+            <a href="javascript:void(0);" @click="handleNavBackToExplorer">
+              Back to explorer
+            </a>
+            <span>found {{searchCount}} items matching the search criteria</span>
+          </span>
         </div>
         <div class="line-item-wrapper" v-for="file in getDataList" :key="file.name">
           <LineItem v-bind="file"/>
@@ -45,10 +47,6 @@
           <span>You have no folders or files here.</span>
         </div>
       </section>
-      
-      <!-- <section class="file-pane-view" v-if="canShowFilepaneView">
-        <FilePane />
-      </section> -->
     </div>
   </div>
 </template>
@@ -87,7 +85,15 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getFileStatus", "getDataList", "getCursor", "hasMoreData"]),
+    ...mapGetters([
+      "getFileStatus",
+      "getDataList",
+      "getCursor",
+      "hasMoreData",
+      "hasSearchResultsArrived",
+      "isUserSearching",
+      "searchCount"
+    ]),
     path() {
       return this.$store.state.explorer.path;
     },
@@ -96,7 +102,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["updatePath", "updateListData", "clearList"]),
+    ...mapActions(["updatePath", "updateListData", "clearList", "clearSearch"]),
     handleRootFolder() {
       this.updatePath("");
     },
@@ -116,6 +122,9 @@ export default {
           this.isLoadingMore = false;
         }
       });
+    },
+    handleNavBackToExplorer() {
+      this.clearSearch();
     }
   },
   apollo: {

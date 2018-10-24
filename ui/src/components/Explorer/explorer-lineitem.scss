@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns:35px 45% 20% 20% auto;
   grid-template-rows: 2rem;
-  padding: 1rem 0.25rem;
+  padding: 1.25rem 0.25rem;
   @media (min-width: 768px) and (max-width: 1024px) {
     grid-template-columns: 35px 45% 30% auto;
   }
@@ -120,5 +120,26 @@
 
   &:hover {
     background: rgba($color: #000000, $alpha: 0.04);
+  }
+
+}
+
+.search-results-message {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 1rem 0;
+  padding-left: 1rem;
+  font-size: 1rem;
+  text-align: left;
+  display: block;
+  background: #EDF2F4;
+  border-bottom: 1px solid #8D99AE;
+  color: #2B2D42;
+  span {
+    font-weight: 700;
+  }
+  a {
+    margin-right: 2rem;
   }
 }
