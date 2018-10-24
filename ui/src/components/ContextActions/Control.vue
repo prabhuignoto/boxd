@@ -1,39 +1,39 @@
 <template>
   <div class="context-control">
-    <Popdown type="icon" size="large" leftOffset="-5.5rem" topOffset="2.5rem" customWidth="200px">
+    <Popdown type="icon" size="large" leftOffset="-4.25rem" topOffset="2.5rem" customWidth="160px">
       <template slot="icon">
         <img src="../../assets/bars.svg" alt="context menu">
       </template>
       <template slot="menu">
         <ul class="context-menu">
           <li class="ctx-menu-item" @mousedown="handleAddFolder">
-            <i>
+            <!-- <i>
               <img src="../../assets/add_flat.svg" alt="add">
-            </i>
+            </i> -->
             <span>Add a folder here</span>
           </li>
           <li class="ctx-menu-item" @mousedown="handleUpload">
-            <i>
+            <!-- <i>
               <img src="../../assets/upload_flat.svg" alt="upload">
-            </i>
+            </i> -->
             <span>Upload here</span>
           </li>
           <li class="ctx-menu-item" @mousedown="handleCopyFolder">
-            <i>
+            <!-- <i>
               <img src="../../assets/copy_flat.svg" alt="copy folder">
-            </i>
+            </i> -->
             <span>Copy this folder</span>
           </li>
           <li class="ctx-menu-item" @mousedown="handleMoveFolder">
-            <i>
+            <!-- <i>
               <img src="../../assets/copy_flat.svg" alt="Move folder">
-            </i>
+            </i> -->
             <span>Move this folder</span>
           </li>
           <li class="ctx-menu-item" @mousedown="handleDeleteFolder">
-            <i>
+            <!-- <i>
               <img src="../../assets/cross_flat.svg" alt="Delete folder">
-            </i>
+            </i> -->
             <span>Delete this folder</span>
           </li>
         </ul>

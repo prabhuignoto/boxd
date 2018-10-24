@@ -9,9 +9,9 @@
       >
         <span class="intro-message" v-if="!isDropped">Drop your file</span>
         <div v-if="isDropped" class="dropped-file" :style="getResultStyle">
-          <i class="icon-wrapper">
+          <!-- <i class="icon-wrapper">
             <img src="../../assets/file.svg" alt="file">
-          </i>
+          </i> -->
           <span class="file-name">{{fileName}}</span>
           <!-- <span class="success-msg" v-if="uploadSuccess">File uploaded successfully.</span> -->
           <div class="progress-wrap" v-if="uploadStarted">

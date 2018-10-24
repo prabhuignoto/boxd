@@ -21,14 +21,14 @@ export default {
     display: grid;
     grid-template-columns: 200px auto;
     position: fixed;
-    height: 70px;
+    height: 80px;
     bottom: 0px;
     left: 0px;
     right: 0px;
     margin-bottom: 0px;
 }
   .logo {
-    color: #EF233C;
+    color: #EDF2F4;
     font-size: 2rem;
     font-family: 'Open Sans', Arial, Helvetica, sans-serif;
     font-weight: 700;

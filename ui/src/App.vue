@@ -56,10 +56,8 @@ html,body,#app {
   /* height: 100%; */
 }
 body {
-  margin: 0;
   position: relative;
-  margin-bottom: 70px;
-  overflow-x: hidden;
+  margin-bottom: 80px;
 }
 html {
   &.wf-loading {

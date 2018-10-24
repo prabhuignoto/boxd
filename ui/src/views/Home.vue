@@ -24,9 +24,7 @@ export default {
     max-width: 400px;
     padding: 1rem;
     margin: 0 auto;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    margin-top: 5rem;
     left: 0;
     right: 0;
   }

@@ -11,8 +11,22 @@
     align-items: center;
     justify-content: flex-start;
     font-family: "Open Sans", Arial, Helvetica, sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     font-weight: 500;
+    position: relative;
+
+    &:hover {
+      background: #EDF2F4;
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 2px;
+        height: 100%;
+        background: #D90429;
+      }
+    }
 
     &:first-child {
       border-top-left-radius: 5px;
@@ -22,12 +36,8 @@
       border-bottom-left-radius: 5px;
       border-bottom-right-radius: 5px;
     }
-    &:hover {
-      background: rgba(0,0,0,0.1);
-      // background: #8D99AE;
-    }
     span {
-      margin-left: 0.5rem;
+      margin-left: 1rem;
     }
     i {
       width: 1rem;

@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns:35px 45% 20% 20% auto;
   grid-template-rows: 2rem;
-  padding: 1.25rem 0.25rem;
+  padding: 1rem 0.25rem;
   @media (min-width: 768px) and (max-width: 1024px) {
     grid-template-columns: 35px 45% 30% auto;
   }
@@ -11,6 +11,17 @@
   }
   @media (min-width: 320px) and (max-width: 480px) {
     grid-template-columns: 35px 45% 35% auto;
+  }
+  position: relative;
+  &:hover {
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 2px;
+      height: 100%;
+      background: red;
+    }
   }
 
   .popdown-container {
@@ -84,8 +95,8 @@
     }
     .explorer-icon {
       display: block;
-      width: 1.5rem;
-      height: 1.5rem;
+      width: 2rem;
+      height: 2rem;
       img {
         object-fit: contain;
         object-position: 50% 50%;

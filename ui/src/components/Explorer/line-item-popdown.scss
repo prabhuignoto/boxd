@@ -4,8 +4,7 @@
   height: 100%;
   list-style: none;
   font-family: "Open Sans", Arial, Helvetica, sans-serif;
-  font-size: 0.9rem;
-  font-weight: 700;
+  font-size: 0.95rem;
   padding: 0;
 
   li {
@@ -14,8 +13,22 @@
     color: #2B2D42;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
+    position: relative;
+    text-align: center;
 
+    &:hover {
+      background: #EDF2F4;
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 2px;
+        height: 100%;
+        background: #D90429;
+      }
+    }
     &:first-child {
       border-top-left-radius: 5px;
       border-top-right-radius: 5px;
@@ -23,10 +36,6 @@
     &:last-child {
       border-bottom-left-radius: 5px;
       border-bottom-right-radius: 5px;
-    }
-    &:hover {
-      // background: #fff;
-      background: rgba(0,0,0,0.1);
     }
     i {
       width: 0.25rem;
