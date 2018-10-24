@@ -63,7 +63,7 @@ import RootFolder from "../rootFolder";
 import { mapActions, mapGetters } from "vuex";
 import ContextControl from "../ContextActions/Control";
 import ContextActions from "../ContextActions/index.vue";
-import "../../../node_modules/bulma/css/bulma.css";
+// import "../../../node_modules/bulma/css/bulma.css";
 
 export default {
   name: "Explorer",

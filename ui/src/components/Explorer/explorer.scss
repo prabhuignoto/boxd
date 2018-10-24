@@ -11,7 +11,7 @@
   }
   @media only screen and (min-width: 1824px) {
     grid-column-gap: 1rem;
-    grid-template-columns: 15% 85%;
+    grid-template-columns: 15% 84%;
   }
   @media only screen and (max-width: 992px) {
     grid-template-columns: 36% 64%;
@@ -83,7 +83,7 @@ header.explorer-header {
     .header {
       text-transform: capitalize;
       font-size: 1rem;
-      font-weight: bold;
+      font-weight: 700;
       text-align: left;
       padding-left: 0.75rem;
       justify-self: left;
@@ -150,7 +150,7 @@ header.explorer-header {
   .tree-view-header {
     font-weight: 500;
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -189,6 +189,6 @@ header.explorer-header {
   align-items: center;
   padding: 1rem 0;
   font-size: 0.9rem;
-  font-weight: bold;
+  font-weight: 700;
   padding-left: 2rem;
 }

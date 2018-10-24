@@ -22,7 +22,7 @@ export default {
         height: "100%",
         width: `${this.value}%`,
         borderRadius: "10px",
-        background: "#ddd"
+        background: "#2B2D42"
       };
     }
   }

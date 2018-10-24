@@ -5,16 +5,17 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  padding: 0.1rem 1rem;
 }
 
 .create-folder-explorer-wrapper {
   height: 400px;
-  width: 400px;
+  width: 95%;
   overflow-y: auto;
-  padding: 1rem;
+  padding: 0.5rem;
   margin-top: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 3px;
+  border: 2px solid #D8DCDE;
+  border-radius: 5px;
 
   @media (min-width: 1281px) {
     height: 350px;
@@ -55,17 +56,16 @@
   }
 }
 .selected-path-wrapper {
-  width: 100%;
+  width: 95%;
   display: flex;
   justify-content: flex-start;
   font-size: 0.85rem;
-  font-weight: bold;
+  font-weight: 700;
   margin-top: 1rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  padding-left: 0.5rem;
 
   span {
     display: block;
@@ -75,9 +75,8 @@
   .selected-path {
     font-weight: normal;
     margin-top: 0.5rem;
-    max-width: 350px;
     text-align: left;
-    border: 1px solid #ddd;
+    border: 2px solid #D8DCDE;
     border-radius: 3px;
     min-height: 1.75rem;
     padding-left: 0.5rem;
@@ -86,7 +85,8 @@
     display: flex;
     align-items: center;
     color: #007ee5;
-    font-weight: bold;
+    font-weight: 700;
+    min-height: 35px;
   }
 }
 .crt-folder-sec-header {

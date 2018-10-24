@@ -102,7 +102,7 @@ export default {
     .button-wrapper {
       position: absolute;
       right: 0.5rem;
-      top: 55%;
+      top: 50%;
       transform: translateY(-50%);
     }
   }

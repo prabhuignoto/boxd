@@ -34,7 +34,7 @@ import DeleteFolder from "../components/Folder/DeleteFolder";
 import Toolbar from "../components/Toolbar/Toolbar";
 import gql from "graphql-tag";
 import FolderPath from "../components/Path/FolderPath";
-import "../../node_modules/bulma/css/bulma.css";
+// import "../../node_modules/bulma/css/bulma.css";
 import Logout from "../components/Logout";
 import About from "../components/About";
 import { mapGetters } from "vuex";

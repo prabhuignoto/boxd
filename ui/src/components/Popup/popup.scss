@@ -21,7 +21,7 @@
     }
     .popup-title {
       display: block;
-      font-weight: bold;
+      font-weight: 700;
       max-width: 100%;
       overflow: hidden;
       text-align: left;
@@ -63,8 +63,8 @@
   .closebutton-wrapper {
     position: absolute;
     z-index: 100;
-    top: -2rem;
-    right: -2rem;
+    top: -8px;
+    right: -11px;
     border-radius: 50%;
   }
   .fade-enter-active,

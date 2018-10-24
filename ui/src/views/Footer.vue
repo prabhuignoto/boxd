@@ -31,7 +31,7 @@ export default {
     color: #EF233C;
     font-size: 2rem;
     font-family: 'Open Sans', Arial, Helvetica, sans-serif;
-    font-weight: bold;
+    font-weight: 700;
     align-self: center;
   }
   .footer-info {

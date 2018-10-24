@@ -36,12 +36,12 @@ export default Vue.component("About", {
 }
 .logo {
   font-size: 3rem;
-  font-weight: bold;
+  font-weight: 700;
   color: #D90429;
 }
 .version {
   font-size: 0.9rem;
-  font-weight: bold;
+  font-weight: 700;
   display: block;
 }
 .built-with {

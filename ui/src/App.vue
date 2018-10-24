@@ -14,7 +14,7 @@
 import WebFontLoader from "webfontloader";
 import Header from "./components/Header";
 import Footer from "./views/Footer";
-import "../node_modules/bulma/css/bulma.css";
+// import "../node_modules/bulma/css/bulma.css";
 
 export default {
   components: {
@@ -24,7 +24,7 @@ export default {
   created() {
      WebFontLoader.load({
       google: {
-        families: ['Open Sans:400,500']
+        families: ['Open Sans:400,500,700']
       },
     });
   },
@@ -44,7 +44,7 @@ export default {
 #nav {
   padding: 30px;
   a {
-    font-weight: bold;
+    font-weight: 700;
     color: #2c3e50;
     &.router-link-exact-active {
       color: #42b983;
@@ -59,6 +59,7 @@ body {
   margin: 0;
   position: relative;
   margin-bottom: 70px;
+  overflow-x: hidden;
 }
 html {
   &.wf-loading {

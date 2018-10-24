@@ -26,7 +26,7 @@
           </Button>
         </div>
       </div>
-      <div class="explorer-wrapper">
+      <div class="upload-explorer-wrapper">
         <UploadExplorer path="" />
       </div>
     </section>
@@ -81,7 +81,7 @@ export default Vue.component("UploadWindow", {
     getResultStyle() {
       if (this.uploadSuccess === true) {
         return {
-          background: "green",
+          // background: "green",
           color: "#fff"
         };
       } else if (this.uploadSuccess === false) {

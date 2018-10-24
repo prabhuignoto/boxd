@@ -84,11 +84,12 @@ export default {
   .options {
     list-style: none;
     width: 100%;
-    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
     font-size: 0.95rem;
     .option {
+      font-family: 'Open Sans', Arial, Helvetica, sans-serif;
       width: 100%;
       padding: 1rem 0 1rem 0.5rem;
+      font-weight: 500;
 
       i {
         width: 1.5rem;

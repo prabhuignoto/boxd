@@ -3,7 +3,7 @@
     <header class="stage2-header">
       <span>Choose the source by selecting a file or folder</span>
     </header>
-    <div class="explorer-wrapper">
+    <div class="stage2-explorer-wrapper">
       <div class="move-explorer-wrapper" v-if="mode === 'move'">
         <MoveExplorerSrc path="" />
       </div>

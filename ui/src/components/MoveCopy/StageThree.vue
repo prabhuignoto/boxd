@@ -3,7 +3,7 @@
     <header>
       <span>Choose the destination</span>
     </header>
-    <div class="explorer-wrapper">
+    <div class="stage3-explorer-wrapper">
       <div v-if="mode === 'move'">
         <MoveExplorerDest path=""/>
       </div>

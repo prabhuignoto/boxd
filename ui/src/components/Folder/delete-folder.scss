@@ -3,13 +3,14 @@
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
+  padding: 0.1rem 0.5rem;
 
   & > div:not(:last-child) {
-    margin: 0.5rem 0 0.5rem 0.25rem;
+    margin: 0.25rem 0 0.25rem 0.25rem;
   }
   .delete-alert {
     font-size: 1.1rem;
-    font-weight: bold;
+    font-weight: 700;
     color: #cb2431;
   }
   .delete-message {
@@ -19,7 +20,7 @@
     flex-direction: column;
     align-items: flex-start;
     span {
-      margin: 0.5rem 0;
+      margin: 0.25rem 0;
     }
   }
   .delete-resx-controls {
