@@ -37,7 +37,7 @@ export default Vue.component("About", {
 .logo {
   font-size: 3rem;
   font-weight: bold;
-  color: #007ee5;
+  color: #D90429;
 }
 .version {
   font-size: 0.9rem;

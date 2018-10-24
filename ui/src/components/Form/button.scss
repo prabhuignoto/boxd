@@ -1,6 +1,6 @@
 button {
-  background: #2B2D42;
-  border: 2px solid #2B2D42;
+  background: #EDF2F4;
+  border: 2px solid rgba(43, 45, 66, 0.25);
   border-radius: 3px;
   font-size: 0.9rem;  
   cursor: pointer;
@@ -18,7 +18,7 @@ button {
   &.default {
     padding: 0.5rem 0.5rem;
     .label {
-      color: #fff;
+      color: #2B2D42;
       font-size: 1rem;
     }
   }
@@ -26,7 +26,7 @@ button {
     border-radius: 5px;
     padding: 0.4rem;
     .label {
-      color: #fff;
+      color: #2B2D42;
       // color: #fff;
       font-size: 0.95rem;
       font-weight: 700;

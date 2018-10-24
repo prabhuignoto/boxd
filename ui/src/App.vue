@@ -52,6 +52,7 @@ export default {
   }
 }
 html,body,#app {
+  background: #fff;
   /* height: 100%; */
 }
 body {
