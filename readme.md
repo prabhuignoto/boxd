@@ -28,11 +28,12 @@ yarn run install && yarn run serve
 
 ## Technology Stack
 
-- Vue.JS
-- Apollo Client (powered by vue-apollo)
-- Express.JS
-- Graphql (powered by express-graphql)
-- Redis for Session Management
+- [Vue.JS](vue)
+- [Apollo Client (powered by vue-apollo)](apollo)
+- [Express.JS](express)
+- [Graphql (powered by express-graphql)](graphql)
+- [Dropbox API for Node.JS](dropbox)
+- [Redis for Session Management](redis)
 
 ## Release History
 
@@ -55,3 +56,10 @@ Distributed under the MIT license. See `LICENSE` for more information.
 [travis-image]: https://img.shields.io/travis/dbader/node-datadog-metrics/master.svg?style=flat-square
 [travis-url]: https://travis-ci.org/dbader/node-datadog-metrics
 [wiki]: https://github.com/yourname/yourproject/wiki
+[vue]: https://vuejs.org
+[graphql]: https://graphql.org
+[apollo]: https://www.apollographql.com/
+[redis]: https://redis.io/
+[dropbox]: https://www.dropbox.com/developers/documentation/javascript
+[express]: https://expressjs.com/
+[logo]: ./boxy-logo.png
