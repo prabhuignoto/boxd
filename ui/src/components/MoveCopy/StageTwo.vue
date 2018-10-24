@@ -20,12 +20,13 @@
     <div class="stage2-controls">
       <Button name="Back" :onClick="handlePrevious">
         <template slot="btn-icon">
-          <img src="../../assets/angle-left-white.svg" alt="next">
+          <img src="../../assets/angle-left.svg" alt="next">
         </template>
       </Button>
       <Button name="Next" :onClick="handleNextStep" :disabled="!isSourceSelected" :buttonStyle="getStyle">
         <template slot="btn-icon">
-          <img src="../../assets/angle-right-white.svg" alt="next">
+          <img src="../../assets/angle-right-white.svg" alt="next" v-if="!isSourceSelected">
+          <img src="../../assets/angle-right.svg" alt="next" v-else>
         </template>
       </Button>
       <Button name="Cancel" :onClick="handleCancel">

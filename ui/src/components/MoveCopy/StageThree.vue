@@ -17,17 +17,20 @@
       <div><span class="mvcopy-summary-title">To</span><span class="value">{{dest}}</span></div>
     </div>
     <div class="stage2-controls">
-      <div class="loader-wrapper" v-show="saving">
+      <div class="stage2-loader-wrapper" v-show="saving">
         <Loader />
       </div>
       <Button name="Back" :onClick="handlePrevious" v-if="!getSkipToFinal">
-        <img src="../../assets/angle-left-white.svg" alt="previous">
+        <template slot="btn-icon">
+          <img src="../../assets/angle-left.svg" alt="previous">
+        </template>
       </Button>
       <Button name="Finish" :onClick="handleNext"
         :disabled="!canFinish"
         :buttonStyle="getStyle">
         <template slot="btn-icon">
-          <img src="../../assets/check.svg" alt="complete">
+          <img src="../../assets/check-white.svg" alt="complete" v-if="!canFinish">
+          <img src="../../assets/check.svg" alt="complete" v-else>
         </template>
       </Button>
       <Button name="Cancel" :onClick="handleCancel">

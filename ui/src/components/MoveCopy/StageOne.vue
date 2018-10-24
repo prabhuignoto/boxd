@@ -6,14 +6,14 @@
       <div class="move-copy-selection">
           <label for="move" :class="{selected: moveSelected}">
             <i class="move-copy-sel-ico-wrapper" v-if="moveSelected">
-              <img src="../../assets/check-blue.svg" alt="check">
+              <img src="../../assets/check.svg" alt="check">
             </i>
             <span>Move</span>
             <input type="radio" name="move-copy-radio" id="move" @click="handleSelection('move')">
           </label>
           <label for="copy" :class="{selected: copySelected}">
             <i class="move-copy-sel-ico-wrapper" v-if="copySelected">
-              <img src="../../assets/check-blue.svg" alt="check">
+              <img src="../../assets/check.svg" alt="check">
             </i>
             <span>Copy</span>
             <input type="radio" name="move-copy-radio" id="copy" @change="handleSelection('copy')">
@@ -22,7 +22,8 @@
       <div class="stage1-controls">
         <Button name="Next" :onClick="handleStepOne" :disabled="!isModeSelected" :buttonStyle="getStyle">
           <template slot="btn-icon">
-            <img src="../../assets/angle-right-white.svg" alt="next">
+            <img src="../../assets/angle-right-white.svg" alt="next" v-if="!isModeSelected">
+            <img src="../../assets/angle-right.svg" alt="next" v-if="isModeSelected">
           </template>
         </Button>
         <Button name="Cancel" :onClick="dismissPopup">

@@ -17,7 +17,7 @@
       <Button name="Delete" :onClick="handleDelete"
         :disabled="!canDelete" :buttonStyle="!canDelete || isMutating ? 'disabled' : 'danger'">
         <template slot="btn-icon">
-          <img src="../../assets/check.svg" alt="ok">
+          <img src="../../assets/check-white.svg" alt="ok">
         </template>
       </Button>
       <Button name="Cancel" :onClick="handleCancel">

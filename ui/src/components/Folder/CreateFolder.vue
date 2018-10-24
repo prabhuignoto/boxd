@@ -20,7 +20,8 @@
         :disabled="!this.isPathSelected || this.isNameEmpty || isMutating"
         :buttonStyle="getStyle">
           <template slot="btn-icon">
-            <img src="../../assets/check.svg" alt="create-folder">
+            <img src="../../assets/check.svg" alt="create-folder" v-if="getStyle !== 'disabled'">
+            <img src="../../assets/check-white.svg" alt="create-folder" v-if="getStyle === 'disabled'">
           </template>
       </Button>
       <Button name="Cancel" :onClick="handleCancel">

@@ -1,6 +1,6 @@
 button {
   background: #EDF2F4;
-  border: 2px solid rgba(43, 45, 66, 0.25);
+  border: 1px solid rgba(43, 45, 66, 0.25);
   border-radius: 3px;
   font-size: 0.9rem;  
   cursor: pointer;
@@ -60,8 +60,8 @@ button {
   }
   &.disabled {
     padding: 0.5rem 0.5rem;
-    background: #ddd;
-    border: 2px solid #ddd;
+    background: #ccc;
+    border: 2px solid #ccc;
     color: rgba(0, 0, 0, 0.5);
     cursor: auto;
     .label {
@@ -108,8 +108,8 @@ button {
     }
   }
   i {
-    width: 1.25rem;
-    height: 1.25rem;
-    margin-right: 0.5rem;
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.4rem;
   }
 }

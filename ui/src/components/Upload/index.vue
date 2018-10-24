@@ -37,7 +37,8 @@
       <Button name="Upload" :onClick="handleUpload" 
         :disabled="canDisableUpload" :buttonStyle="getStyle">
           <template slot="btn-icon">
-            <img src="../../assets/check.svg" alt="upload">
+            <img src="../../assets/check.svg" alt="upload" v-if="!canDisableUpload">
+            <img src="../../assets/check-white.svg" alt="upload" v-if="canDisableUpload">
           </template>
       </Button>
       <Button name="Close" :onClick="handleCancel">

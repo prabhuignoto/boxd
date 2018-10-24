@@ -91,8 +91,8 @@ export default {
       padding: 1rem 0 1rem 0.5rem;
 
       i {
-        width: 2rem;
-        height: 2rem;
+        width: 1.5rem;
+        height: 1.5rem;
       }
     }
   }
