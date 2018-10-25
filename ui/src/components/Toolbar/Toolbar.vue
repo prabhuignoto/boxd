@@ -46,8 +46,9 @@ export default {
     Account
   },
   methods: {
-    ...mapActions(["updateModalState"]),
+    ...mapActions(["updateModalState", "updateWorkflowOrigin"]),
     openCreateFolder() {
+      this.updateWorkflowOrigin("toolbar");
       this.updateModalState({
         status: true,
         componentToRender: "CreateFolder",
@@ -55,6 +56,7 @@ export default {
       });
     },
     openMoveCopy() {
+      this.updateWorkflowOrigin("toolbar");
       this.updateModalState({
         status: true,
         componentToRender: "MoveCopy",
@@ -62,6 +64,7 @@ export default {
       });
     },
     openUploadWindow() {
+      this.updateWorkflowOrigin("toolbar");
       this.updateModalState({
         status: true,
         componentToRender: "UploadWindow",

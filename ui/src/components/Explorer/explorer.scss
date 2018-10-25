@@ -15,7 +15,6 @@
   @media (min-width: 768px) and (max-width: 1024px) {
     grid-template-columns: 25% 30%;
     grid-column-gap: 1rem;
-    border: 1px solid red;
   }
   @media only screen and (max-width: 992px) {
     grid-template-columns: 36% 64%;
@@ -203,9 +202,12 @@ header.explorer-header {
 .list-fade-enter-active,
 .list-fade-leave-active {
   opacity: 1;
-  transition: all 0.2s;
+  transition: all 0.3s;
 }
 .list-fade-enter,
 .list-fade-leave-to {
   opacity: 0;
+}
+.list-fade-move {
+  transform: 0.4s;
 }

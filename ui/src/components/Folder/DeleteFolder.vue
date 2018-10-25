@@ -47,8 +47,8 @@ export default Vue.component("DeleteFolder", {
   data() {
     return {
       isMutating: false,
-      deleteConsentText: "",
-    }
+      deleteConsentText: ""
+    };
   },
   computed: {
     ...mapGetters(["getExplorerPath"]),
@@ -60,46 +60,54 @@ export default Vue.component("DeleteFolder", {
       return parts[parts.length - 1];
     },
     placeholder() {
-      return `Type ${this.getTarget} to proceed`
+      return `Type ${this.getTarget} to proceed`;
     },
     canDelete() {
       return this.getTarget === this.deleteConsentText;
     }
   },
   methods: {
-    ...mapActions(["updateModalState", "deleteFolder", "updatePath"]),
+    ...mapActions([
+      "updateModalState",
+      "deleteFolder",
+      "updatePath",
+      "refetchData"
+    ]),
     onInput(ev) {
       this.deleteConsentText = ev.target.value;
     },
     handleDelete() {
       this.isMutating = true;
-      this.$apollo.mutate({
-        mutation: gql`
-          mutation deleteFolder($path: String!) {
-            deleteFolder(path: $path) {
-              name
+      this.$apollo
+        .mutate({
+          mutation: gql`
+            mutation deleteFolder($path: String!) {
+              deleteFolder(path: $path) {
+                name
+              }
             }
+          `,
+          variables: {
+            path: this.deletePath
+          },
+          update(store, data) {
+            console.log(data);
           }
-        `,
-        variables: {
-          path: this.deletePath
-        },
-        update(store, data) {
-          console.log(data);
-        }
-      }).then((data) => {
-        this.isMutating = false;
-        this.updateModalState({
-          status: false,
-          component: "",
-          title: ""
+        })
+        .then(data => {
+          this.isMutating = false;
+          this.updateModalState({
+            status: false,
+            component: "",
+            title: ""
+          });
+          let newPathArr = this.getExplorerPath.split("/").slice(0);
+          newPathArr.pop();
+          this.refetchData(true);
+        })
+        .catch(error => {
+          this.isMutating = false;
         });
-        let newPathArr = this.getExplorerPath.split("/").slice(0);
-        newPathArr.pop();
-        this.updatePath(newPathArr.join("/"));
-      }).catch((error) => {
-        this.isMutating = false;
-      })
     },
     handleCancel() {
       this.deleteFolder("");

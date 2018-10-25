@@ -6,7 +6,8 @@ export default {
     search: "",
     searchResults: {
       data: []
-    }
+    },
+    refetchStatus: false
   },
   mutations: {
     updateListData(state, { listData, cursor, hasMore }) {
@@ -28,6 +29,9 @@ export default {
     clearSearch(state) {
       state.searchResults.data = [];
       state.search = "";
+    },
+    refetchData(state, status) {
+      state.refetchStatus = status;
     }
   },
   actions: {
@@ -59,6 +63,12 @@ export default {
       commit({
         type: "updateSearchResults",
         data
+      });
+    },
+    refetchData({ commit }, status) {
+      commit({
+        type: "refetchData",
+        status
       });
     }
   },

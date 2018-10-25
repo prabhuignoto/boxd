@@ -7,10 +7,10 @@
       <RootFolder :onClick="handleRootFolder" />
       <CreateFolderExplorer path="" />
     </div>
-    <div class="selected-path-wrapper">
+    <!-- <div class="selected-path-wrapper">
       <div class="crt-folder-sec-header">Your new folder will be created on this path</div>
       <div class="selected-path">{{selectedPath === "" ? "/" :selectedPath}}</div>
-    </div>
+    </div> -->
     <div class="create-folder-controls">
       <div class="crt-folder-loader-wrapper" v-show="isMutating">
         <Loader />
@@ -97,13 +97,14 @@ export default Vue.component("CreateFolder", {
         ? "disabled"
         : "";
     },
-    ...mapGetters(["isCreateFolderExpHidden"])
+    ...mapGetters(["isCreateFolderExpHidden", "getWorkflowOrigin"])
   },
   methods: {
     ...mapActions([
       "createFolderSelection",
       "hideCreateFolderExplorer",
-      "updatePath"
+      "updatePath",
+      "refetchData"
     ]),
     handleCreate() {
       if (this.createHandledOnce < 1) {
@@ -124,7 +125,11 @@ export default Vue.component("CreateFolder", {
                 status: false,
                 componentToRender: ""
               });
-              this.updatePath(`${this.selectedPath}/${this.folderName}`);
+              if(this.getWorkflowOrigin === "toolbar") {
+                this.updatePath(`${this.selectedPath}/`);
+              } else if(this.getWorkflowOrigin === "context-control") {
+                this.refetchData(true);
+              }
             }
           })
           .then(data => {

@@ -28,13 +28,34 @@ export default {};
   background: #2b2d42;
   padding: 0.25rem;
   display: grid;
-  grid-template-columns: 200px 100px auto;
   position: fixed;
+  grid-template-columns: 200px 100px auto;
   height: 80px;
   bottom: 0px;
   left: 0px;
   right: 0px;
   margin-bottom: 0px;
+  /* @media (min-width: 1281px) {
+    grid-template-columns: 200px 100px auto;
+  }
+  @media (min-width: 1025px) and (max-width: 1280px) {
+    grid-template-columns: 200px 100px auto;
+  }
+  @media (min-width: 768px) and (max-width: 1024px) {
+    grid-template-columns: 200px 100px auto;
+  } */
+
+  @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    }
+
+  @media (min-width: 481px) and (max-width: 767px) {
+    grid-template-columns: 200px auto;
+    grid-template-rows: 60px 60px;
+    height: 120px;
+  }
+
+  @media (min-width: 320px) and (max-width: 480px) {
+  }
 }
 .logo {
   color: #edf2f4;
@@ -50,6 +71,13 @@ export default {};
   align-self: center;
   margin-right: 0.5rem;
   font-family: "Open Sans", Arial, Helvetica, sans-serif;
+  display: inline-block;
+  width: 100%;
+  text-align: right;
+  @media (min-width: 481px) and (max-width: 767px) {
+    grid-column: 2/span 1;
+    text-align: left;
+  }
 }
 .social {
   display: flex;
@@ -57,6 +85,10 @@ export default {};
   justify-content: center;
   align-self: center;
   justify-self: center;
+  @media (min-width: 481px) and (max-width: 767px) {
+    align-self: center;
+    justify-self: right;
+  }
 
   i {
     width: 1.5rem;

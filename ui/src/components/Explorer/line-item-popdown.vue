@@ -33,6 +33,8 @@
 <script>
 import Popdown from "../Popdown/index";
 import { mapActions } from "vuex";
+import Axios from "axios";
+import FileSaver from "filesaver.js";
 
 export default {
   name: "LineItemPopdown",

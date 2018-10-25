@@ -86,6 +86,13 @@ export default {
       isLoadingMore: false
     };
   },
+  watch: {
+    refetchStatus: function({status}, oldData) {
+      if(status) {
+        this.$apollo.queries.files.refresh();
+      }
+    }
+  },
   computed: {
     ...mapGetters([
       "getFileStatus",
@@ -94,14 +101,17 @@ export default {
       "hasMoreData",
       "hasSearchResultsArrived",
       "isUserSearching",
-      "searchCount"
+      "searchCount",
     ]),
+    refetchStatus() {
+      return this.$store.state.list.refetchStatus;
+    },
     path() {
       return this.$store.state.explorer.path;
     },
     canShowFilepaneView() {
       return this.getFileStatus === "open";
-    }
+    },
   },
   methods: {
     ...mapActions(["updatePath", "updateListData", "clearList", "clearSearch"]),

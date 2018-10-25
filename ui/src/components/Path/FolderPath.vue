@@ -28,12 +28,13 @@ import { mapActions } from "vuex";
 export default {
   name: "FolderPath",
   methods: {
-    ...mapActions(["clearList"]),
+    ...mapActions(["clearList", "updatePath"]),
     handleNavigation(path, $evt) {
       $evt.preventDefault();
       let pathArr = this.folderPath;
       const newPath = pathArr.slice(0, pathArr.indexOf(path) + 1).join("/");
-      this.$store.dispatch("updatePath", newPath);
+      this.clearList();
+      this.updatePath(newPath);
     },
     navToHome($evt) {
       $evt.preventDefault();

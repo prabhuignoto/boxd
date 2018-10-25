@@ -66,9 +66,11 @@ export default {
       "skipToFinal",
       "deleteFolder",
       "createFolderSelection",
-      "hideCreateFolderExplorer"
+      "hideCreateFolderExplorer",
+      "updateWorkflowOrigin"
     ]),
     handleAddFolder() {
+      this.updateWorkflowOrigin("context-control");
       this.createFolderSelection(this.path);
       this.hideCreateFolderExplorer(true);
       this.updateModalState({

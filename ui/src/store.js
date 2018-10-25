@@ -32,7 +32,8 @@ export default new Vuex.Store({
     },
     treeView: {
       data: []
-    }
+    },
+    workFlowOrigin: ""
   },
   mutations: {
     updatePath(state, { path }) {
@@ -57,6 +58,9 @@ export default new Vuex.Store({
           selected: false
         })
       );
+    },
+    updateWorkflowOrigin(state, { origin }) {
+      state.workFlowOrigin = origin;
     }
   },
   actions: {
@@ -90,6 +94,12 @@ export default new Vuex.Store({
         type: "updateTreeViewData",
         data
       });
+    },
+    updateWorkflowOrigin({ commit }, origin) {
+      commit({
+        type: "updateWorkflowOrigin",
+        origin
+      });
     }
   },
   getters: {
@@ -98,6 +108,7 @@ export default new Vuex.Store({
     getPopupTitle: state => state.modal.title,
     getIsDisableHeader: state => state.modal.disableHeader,
     getExplorerPath: state => state.explorer.path,
-    getDisableCloseBtn: state => state.modal.disableCloseBtn
+    getDisableCloseBtn: state => state.modal.disableCloseBtn,
+    getWorkflowOrigin: state => state.workFlowOrigin
   }
 });

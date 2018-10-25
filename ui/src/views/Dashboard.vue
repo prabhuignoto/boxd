@@ -15,7 +15,6 @@
           :content="getPopupComponent"
           :title="getPopupTitle"
           :disableHeader="getIsDisableHeader"
-          :disableCloseBtn="getDisableCloseBtn"
         >
         </Popup>
       </div>
