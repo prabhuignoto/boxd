@@ -12,9 +12,14 @@
       </div>
     </div>
     <div class="summary">
-      <div><span class="value mode">{{getSummaryMsg}}</span></div>
-      <div><span class="mvcopy-summary-title">From</span><span class="value">{{src}}</span></div>
-      <div><span class="mvcopy-summary-title">To</span><span class="value">{{dest}}</span></div>
+      <!-- <div><span class="value mode">{{getSummaryMsg}}</span></div> -->
+      <div class="summary-final">
+        <span class="value">{{src}}</span>
+        <i>
+          <img src="../../assets/arrow-right.svg" alt="down">
+        </i>
+        <span class="value" v-if="dest !== ''">{{dest}}</span>
+      </div>
     </div>
     <div class="stage2-controls">
       <div class="stage2-loader-wrapper" v-show="saving">

@@ -44,30 +44,29 @@ img {
   align-items: flex-start;
   justify-content: center;
   font-size: 1rem;
-  span {
-    padding: 0.2rem;
-    text-align: left;
-    display: block;
-    &.mvcopy-summary-title {
-      font-weight: 700;
-      color: #000;
-    }
-    &.value {
-      font-weight: 700;
-      font-weight: normal;
-      color: #007ee5;
-      word-break: break-all;
-    }
-    &.mode {
-      color: #000;
-      background: #ffc200;
-      border-radius: 5px;
-      text-align: left;
-      padding: 0.5rem;
-      display: block;
-    }
-  }
   div {
     margin: 0.25rem 0;
+  }
+  .summary-final {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 1rem 0;
+    span {
+      background: #EDF2F4;
+      border: 1px solid rgba(141, 153, 174, 0.5);
+      margin: 0.5rem;
+      border-radius: 3px;
+      color: #000;
+      padding: 0.25rem 0.25rem;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+    i {
+      width: 1.25rem;
+      height: 1.25rem;
+      margin: 0 0.5rem;
+    }
   }
 }
