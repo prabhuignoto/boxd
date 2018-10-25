@@ -8,7 +8,7 @@ Boxy is a modern web client for Dropbox. Boxy is built with Vue.js, and the goal
 
 _The application is still under active development._
 
-![app-home](dashboard-shot.png)
+![app-home](github-app-screenshot.png)
 
 ## Development setup
 
