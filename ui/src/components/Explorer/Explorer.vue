@@ -3,7 +3,7 @@
     <div class="tree-view-wrapper is-hidden-mobile">
       <header class="tree-view-header">
         <img src="../../assets/sitemap.svg" alt="explorer" class="file-explorer-icon">
-        <span>File Explorer</span>
+        <span>Explorer</span>
       </header>
       <div class="tree-view-content">
         <RootFolder :onClick="handleRootFolder" />

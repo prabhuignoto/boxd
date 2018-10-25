@@ -17,7 +17,7 @@
           :disableHeader="getIsDisableHeader"
         >
           <button class="close-modal" @click="closeModal">
-            <img src="../assets/error.svg" alt="close" class="img-close">
+            <img src="../assets/cancel.svg" alt="close" class="img-close">
           </button>
         </Popup>
       </div>

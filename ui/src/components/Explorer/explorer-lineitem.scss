@@ -37,21 +37,21 @@
       // text-align: left;
       justify-self: left;
       flex: 2;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       width: 100%;
       padding: 0 0.5rem;
     }
     &.size {
       flex: 1;
       justify-self: left;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 500;
     }
     &.last-modified {
       flex: 1;
       justify-self: left;
       // text-align: left;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 500;
       @media (min-width: 768px) and (max-width: 1024px) {
         display: none;
@@ -108,7 +108,6 @@
     .resource {
       margin-left: 0.5rem;
       font-weight: 500;
-      // max-width: 350px;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -118,9 +117,8 @@
         text-decoration: none;
       }
       .file-link {
-        &:hover {
-          text-decoration: underline;
-        }
+        text-decoration: none;
+        color: #2B2D42;
       }
     }
     .loader-wrapper {
