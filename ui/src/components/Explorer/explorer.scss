@@ -59,7 +59,7 @@
   }
 }
 .explorer-content {
-  min-height: 450px;
+  min-height: 650px;
 }
 header.explorer-header {
   width: 100%;
@@ -195,4 +195,17 @@ header.explorer-header {
   font-size: 0.9rem;
   font-weight: 700;
   padding-left: 2rem;
+  a {
+    color: #2B2D42;
+  }
+}
+
+.list-fade-enter-active,
+.list-fade-leave-active {
+  opacity: 1;
+  transition: all 0.2s;
+}
+.list-fade-enter,
+.list-fade-leave-to {
+  opacity: 0;
 }

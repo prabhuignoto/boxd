@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import Multer from "multer";
 import Path from "path";
-import {Authenticate, Authorize, RevokeToken} from "./auth";
+import {Authenticate, Authorize, isUserLoggedIn, RevokeToken} from "./auth";
 import Download from "./download";
 import Logout from "./logout";
 import Upload from "./upload";
@@ -30,6 +30,8 @@ router.get("/revokeAccess", RevokeToken);
 router.get("/download", Download);
 
 router.post("/logout", Logout);
+
+router.get("/isLoggedIn", isUserLoggedIn);
 
 router.route("/upload").post(MulterUpload, Upload);
 

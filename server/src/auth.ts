@@ -1,18 +1,15 @@
-import { Dropbox } from 'dropbox';
 import Axios, { AxiosResponse } from "axios";
+import { Dropbox } from "dropbox";
 import { Request, Response } from "express";
 import "isomorphic-fetch";
 import * as querystring from "querystring";
-import {createLogger, format, transports} from "winston";
+import { createLogger, format, transports } from "winston";
 
-const logFormat = format.combine(
-  format.colorize(),
-  format.prettyPrint()
-)
+const logFormat = format.combine(format.colorize(), format.prettyPrint());
 const errorLogger = createLogger({
   level: "error",
   format: logFormat,
-  transports: [new transports.Console()]
+  transports: [new transports.Console()],
 });
 
 // interface for access token
@@ -35,18 +32,43 @@ export async function Authorize(req: Request, resp: Response) {
       response_type: "code",
     });
     // redirect use for oAuth authorization with Dropbox
-    resp.redirect(`${process.env.OAUTH_AUTHORIZE_URL as string}/?${queryString}`);
+    resp.redirect(
+      `${process.env.OAUTH_AUTHORIZE_URL as string}/?${queryString}`,
+    );
   } catch (error) {
     errorLogger.log({
+      level: "error",
       message: error,
-      level: "error"
-    })    
+    });
+  }
+}
+
+export async function isUserLoggedIn(req: Request, resp: Response) {
+  try {
+    if (req.session && req.session.logged_in) {
+      return resp.json({
+        loggedin: true,
+      });
+    } else {
+      return resp.json({
+        loggedin: false,
+      });
+    }
+  } catch (error) {
+    errorLogger.log({
+      level: "error",
+      message: error,
+    });
+    return resp.json({
+      loggedin: false,
+      message: "Failed to validate.",
+    });
   }
 }
 
 export async function RevokeToken(req: Request, res: Response) {
   try {
-    if(req.session && req.session.access_token) {
+    if (req.session && req.session.access_token) {
       await new Dropbox({
         accessToken: req.session.access_token,
         clientId: process.env.CLIENT_ID as string,
@@ -56,8 +78,8 @@ export async function RevokeToken(req: Request, res: Response) {
   } catch (error) {
     errorLogger.log({
       level: "error",
-      message: error
-    })
+      message: error,
+    });
   }
 }
 
@@ -97,7 +119,7 @@ export async function Authenticate(req: Request, resp: Response) {
       req.session.account_id = oAuthResponse.account_id;
       req.session.logged_in = true;
       req.session.save((err: any) => {
-        if(err) {
+        if (err) {
           throw new Error("Failed to save session");
         }
         resp.redirect("http://localhost:8080/dashboard");
@@ -109,6 +131,6 @@ export async function Authenticate(req: Request, resp: Response) {
     errorLogger.log({
       level: "error",
       message: error.response.status_,
-    })
+    });
   }
 }

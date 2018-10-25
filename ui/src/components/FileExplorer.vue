@@ -1,12 +1,14 @@
 <template>
   <section class="file-explorer-wrapper" :style="getWrapperStyle">
-    <Treeview path="" 
-      v-bind:onSelect="onSelect"
-      v-bind:entries="files.entries"
-      childTree="FileExplorer"
-      v-bind:handleSubfolderSelection="handleSubfolderSelection" 
-      v-if="!$apollo.loading"
-    />
+    <transition name="list-fade">
+      <Treeview path="" 
+        v-bind:onSelect="onSelect"
+        v-bind:entries="files.entries"
+        childTree="FileExplorer"
+        v-bind:handleSubfolderSelection="handleSubfolderSelection" 
+        v-if="!$apollo.loading"
+      />
+    </transition>
     <div class="file-explorer-loader-wrapper" v-if="$apollo.loading">
       <Loader />
     </div>
