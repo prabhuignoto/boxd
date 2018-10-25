@@ -1,7 +1,7 @@
 <template>
   <section class="create-folder-wrapper">
     <div class="create-folder-inputs">
-      <Textbox name="name" label="Folder Name" :onInput="onFolderInput" placeholder="Name of the folder"/>
+      <Textbox name="name" label="Name" :onInput="onFolderInput" placeholder="Name of the folder"/>
     </div>
     <div class="create-folder-explorer-wrapper" v-if="!isCreateFolderExpHidden">
       <RootFolder :onClick="handleRootFolder" />

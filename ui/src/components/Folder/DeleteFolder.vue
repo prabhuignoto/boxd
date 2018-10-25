@@ -5,9 +5,9 @@
       <span>You are about to delete </br><b>
         {{deletePath}}
       </b></span>
-      <span>
+      <!-- <span>
          Are you sure you want to proceed with this?
-      </span>
+      </span> -->
     </div>
     <Textbox :placeholder="placeholder" :onInput="onInput"/>
     <div class="delete-resx-controls">
