@@ -27,7 +27,8 @@ export default new Vuex.Store({
       isActive: false,
       componentToRender: "",
       title: "",
-      disableHeader: false
+      disableHeader: false,
+      disableCloseBtn: false
     },
     treeView: {
       data: []
@@ -42,12 +43,13 @@ export default new Vuex.Store({
     },
     updateModalState(
       state,
-      { status, componentToRender, title, disableHeader }
+      { status, componentToRender, title, disableHeader, disableCloseBtn }
     ) {
       state.modal.isActive = status;
       state.modal.componentToRender = componentToRender;
       state.modal.title = title;
       state.modal.disableHeader = disableHeader;
+      state.modal.disableCloseBtn = disableCloseBtn;
     },
     updateTreeViewData(state, { data }) {
       state.treeView.data = data.map(x =>
@@ -72,14 +74,15 @@ export default new Vuex.Store({
     },
     updateModalState(
       { commit },
-      { status, componentToRender, title, disableHeader }
+      { status, componentToRender, title, disableHeader, disableCloseBtn }
     ) {
       commit({
         type: "updateModalState",
         status,
         componentToRender,
         title,
-        disableHeader
+        disableHeader,
+        disableCloseBtn
       });
     },
     updateTreeViewData({ commit }, data) {
@@ -94,6 +97,7 @@ export default new Vuex.Store({
     getPopupComponent: state => state.modal.componentToRender,
     getPopupTitle: state => state.modal.title,
     getIsDisableHeader: state => state.modal.disableHeader,
-    getExplorerPath: state => state.explorer.path
+    getExplorerPath: state => state.explorer.path,
+    getDisableCloseBtn: state => state.modal.disableCloseBtn
   }
 });

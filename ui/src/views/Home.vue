@@ -24,7 +24,7 @@ export default {
     max-width: 400px;
     padding: 1rem;
     margin: 0 auto;
-    margin-top: 5rem;
+    margin-top: 6rem;
     left: 0;
     right: 0;
   }

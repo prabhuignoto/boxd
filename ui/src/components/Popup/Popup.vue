@@ -12,33 +12,38 @@
         <div class="popup-content" v-if="content !== ''">
           <component :is="content"></component>
         </div>
+        <button class="close-modal" @click="handleClose" v-if="!getDisableCloseBtn">
+          <img src="../../assets/cancel.svg" alt="close" class="img-close">
+        </button>
       </div>
     </section>
 </template>
 
 <script>
 import Account from "../Account";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Popup",
-  props: ["content", "title", "disableHeader", "lock"],
+  props: ["content", "title", "disableHeader"],
   mounted: function() {
     this.$nextTick(function() {
       this.$el.focus();
     });
   },
+  computed: {
+    ...mapGetters(["getDisableCloseBtn"])
+  },
   methods: {
     ...mapActions(["updateModalState"]),
     handleClose() {
-      if(!this.lock) {
-        this.updateModalState({
-          status: false,
-          title: "",
-          componentToRender: "",
-          disableHeader: false
-        });
-      }
+      this.updateModalState({
+        status: false,
+        title: "",
+        componentToRender: "",
+        disableHeader: false,
+        disableCloseBtn: false
+      });
     }
   }
 };

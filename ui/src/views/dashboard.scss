@@ -34,21 +34,6 @@
   overflow: hidden;
   background: rgba($color: #000000, $alpha: 0.1);
 
-  .close-modal {
-    position: absolute;
-    right: 0.75rem;
-    top: 0.75rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-    width: 2rem;
-    height: 2rem;
-    outline: none;
-  }
-  .img-close {
-    width: 2.25rem;
-    height: 2.25rem;
-  }
 }
 .explorer-controls {
   width: 100%;

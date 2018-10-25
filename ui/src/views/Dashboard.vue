@@ -15,10 +15,8 @@
           :content="getPopupComponent"
           :title="getPopupTitle"
           :disableHeader="getIsDisableHeader"
+          :disableCloseBtn="getDisableCloseBtn"
         >
-          <button class="close-modal" @click="closeModal">
-            <img src="../assets/cancel.svg" alt="close" class="img-close">
-          </button>
         </Popup>
       </div>
     </transition>
@@ -57,15 +55,6 @@ export default {
         entries: []
       }
     };
-  },
-  methods: {
-    closeModal() {
-      this.$store.dispatch("updateModalState", {
-        status: false,
-        componentToRender: "",
-        disableHeader: false
-      });
-    }
   },
   computed: {
     ...mapGetters([

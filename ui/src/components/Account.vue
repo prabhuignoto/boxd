@@ -53,7 +53,8 @@ export default {
         title: "",
         componentToRender: "Logout",
         status: true,
-        disableHeader: true
+        disableHeader: true,
+        disableCloseBtn: true
       });
     },
     handleAbout() {
