@@ -35,18 +35,6 @@ export default {};
   left: 0px;
   right: 0px;
   margin-bottom: 0px;
-  /* @media (min-width: 1281px) {
-    grid-template-columns: 200px 100px auto;
-  }
-  @media (min-width: 1025px) and (max-width: 1280px) {
-    grid-template-columns: 200px 100px auto;
-  }
-  @media (min-width: 768px) and (max-width: 1024px) {
-    grid-template-columns: 200px 100px auto;
-  } */
-
-  @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
-    }
 
   @media (min-width: 481px) and (max-width: 767px) {
     grid-template-columns: 200px auto;
@@ -55,6 +43,9 @@ export default {};
   }
 
   @media (min-width: 320px) and (max-width: 480px) {
+    grid-template-columns: 200px auto;
+    grid-template-rows: 70px 70px;
+    height: 140px;
   }
 }
 .logo {
@@ -64,6 +55,14 @@ export default {};
   font-weight: 700;
   align-self: center;
   justify-self: center;
+  @media (min-width: 481px) and (max-width: 767px) {
+    padding-left: 1rem;
+    justify-self: left;
+  }
+  @media (min-width: 320px) and (max-width: 480px) {
+    padding-left: 1rem;
+    justify-self: left;
+  }
 }
 .footer-info {
   color: #fff;
@@ -74,9 +73,17 @@ export default {};
   display: inline-block;
   width: 100%;
   text-align: right;
+  span {
+    display: block;
+    height: 100%;
+  }
   @media (min-width: 481px) and (max-width: 767px) {
-    grid-column: 2/span 1;
-    text-align: left;
+    grid-column: 1/-1;
+    text-align: center;
+  }
+  @media (min-width: 320px) and (max-width: 480px) {
+    grid-column: 1/-1;
+    text-align: center;
   }
 }
 .social {
@@ -86,6 +93,10 @@ export default {};
   align-self: center;
   justify-self: center;
   @media (min-width: 481px) and (max-width: 767px) {
+    align-self: center;
+    justify-self: right;
+  }
+  @media (min-width: 320px) and (max-width: 480px) {
     align-self: center;
     justify-self: right;
   }
