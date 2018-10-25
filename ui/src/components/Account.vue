@@ -7,14 +7,14 @@
         </i>
       </template>
       <template slot="menu">
-        <ul class="options">
-          <li class="option" @click="handleSignout">
+        <ul class="account-options">
+          <li class="account-option" @click="handleSignout">
             <i>
               <img src="../assets/sign-out-alt.svg" alt="signout">
             </i>
             <span>Logout</span>
           </li>
-          <li class="option" @click="handleAbout">
+          <li class="account-option" @click="handleAbout">
             <i>
               <img src="../assets/question-circle.svg" alt="About">
             </i>
@@ -54,7 +54,7 @@ export default {
         componentToRender: "Logout",
         status: true,
         disableHeader: true
-      })
+      });
     },
     handleAbout() {
       this.updateModalState({
@@ -62,7 +62,7 @@ export default {
         componentToRender: "About",
         status: true,
         disableHeader: true
-      })
+      });
     }
   },
   apollo: {
@@ -81,20 +81,48 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .options {
-    list-style: none;
-    width: 100%;
-    font-size: 0.95rem;
-    .option {
-      font-family: 'Open Sans', Arial, Helvetica, sans-serif;
-      width: 100%;
-      padding: 1rem 0 1rem 0.5rem;
-      font-weight: 500;
+.account-options {
+  list-style: none;
+  width: 100%;
+  font-size: 0.95rem;
+  padding: 0px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
 
-      i {
-        width: 1.5rem;
-        height: 1.5rem;
+  .account-option {
+    font-family: "Open Sans", Arial, Helvetica, sans-serif;
+    width: 100%;
+    padding: 1rem 0 1rem 0;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+
+    &:hover {
+      background: #edf2f4;
+      &::after {
+        content: "";
+        position: absolute;
+        left: -1px;
+        top: 0;
+        width: 2px;
+        height: 100%;
+        background: #d90429;
       }
     }
+
+    i {
+      width: 1.5rem;
+      height: 1.5rem;
+      margin-left: 1rem;
+    }
+    span {
+      margin-left: 0.5rem;
+    }
   }
+}
 </style>

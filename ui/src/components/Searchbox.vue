@@ -88,7 +88,7 @@ export default {
       border: 3px solid #C2C7C8;
       padding: 0 0.75rem 0 0.5rem;
       outline: none;
-      font-size: 1rem;
+      font-size: 1.2rem;
     }
     .search-loader-wrapper {
       position: absolute;

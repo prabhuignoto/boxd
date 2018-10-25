@@ -14,7 +14,7 @@
         <span class="dropbox-logo"></span>
       </div>
       <div class="button-grp">
-        <button class="dropbox-btn" v-on:click="handleClick">Login with Dropbox</button>
+        <button class="dropbox-btn" v-on:click="handleClick">Login</button>
         <button class="dropbox-btn" v-on:click="handleClick">Create Account</button>
       </div>
     </section>

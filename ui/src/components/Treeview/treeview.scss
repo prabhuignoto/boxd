@@ -40,8 +40,9 @@
       text-align: left;
       max-width: 250px;
       text-transform: lowercase;
+      outline: none;
       &.selected {
-        background: #007ee5;
+        background: #646675;
         color: #fff;
         border-radius: 2px;
       }
