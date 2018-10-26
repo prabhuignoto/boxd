@@ -55,6 +55,7 @@ export default {};
   font-weight: 700;
   align-self: center;
   justify-self: center;
+  margin-bottom: 0.95rem;
   @media (min-width: 481px) and (max-width: 767px) {
     padding-left: 1rem;
     justify-self: left;

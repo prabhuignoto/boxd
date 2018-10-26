@@ -87,8 +87,8 @@ export default {
     };
   },
   watch: {
-    refetchStatus: function({status}, oldData) {
-      if(status) {
+    refetchStatus: function({ status }, oldData) {
+      if (status) {
         this.$apollo.queries.files.refresh();
       }
     }
@@ -101,7 +101,7 @@ export default {
       "hasMoreData",
       "hasSearchResultsArrived",
       "isUserSearching",
-      "searchCount",
+      "searchCount"
     ]),
     refetchStatus() {
       return this.$store.state.list.refetchStatus;
@@ -111,10 +111,16 @@ export default {
     },
     canShowFilepaneView() {
       return this.getFileStatus === "open";
-    },
+    }
   },
   methods: {
-    ...mapActions(["updatePath", "updateListData", "clearList", "clearSearch"]),
+    ...mapActions([
+      "updatePath",
+      "updateListData",
+      "clearList",
+      "clearSearch",
+      "refetchData"
+    ]),
     handleRootFolder() {
       this.updatePath("");
     },
@@ -137,6 +143,8 @@ export default {
     },
     handleNavBackToExplorer() {
       this.clearSearch();
+      this.clearList();
+      this.refetchData(true);
     }
   },
   apollo: {
