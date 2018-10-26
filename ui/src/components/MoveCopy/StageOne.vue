@@ -5,15 +5,15 @@
       </header>
       <div class="move-copy-selection">
           <label for="move" :class="{selected: moveSelected}">
-            <i class="move-copy-sel-ico-wrapper" v-if="moveSelected">
-              <img src="../../assets/check.svg" alt="check">
+            <i class="move-copy-sel-ico-wrapper">
+              <img src="../../assets/check-white.svg" alt="check">
             </i>
             <span>Move</span>
             <input type="radio" name="move-copy-radio" id="move" @click="handleSelection('move')">
           </label>
           <label for="copy" :class="{selected: copySelected}">
-            <i class="move-copy-sel-ico-wrapper" v-if="copySelected">
-              <img src="../../assets/check.svg" alt="check">
+            <i class="move-copy-sel-ico-wrapper">
+              <img src="../../assets/check-white.svg" alt="check">
             </i>
             <span>Copy</span>
             <input type="radio" name="move-copy-radio" id="copy" @change="handleSelection('copy')">

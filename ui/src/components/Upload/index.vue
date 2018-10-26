@@ -30,7 +30,7 @@
         <UploadExplorer path="" />
       </div>
     </section>
-    <div class="upload-path-selection">
+    <div class="upload-path-selection" v-show="getUploadPath !== ''">
       <span>{{this.getUploadPath}}</span>
     </div>
     <div class="upload-controls">
