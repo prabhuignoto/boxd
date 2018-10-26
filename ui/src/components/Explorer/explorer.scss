@@ -169,8 +169,17 @@ header.explorer-header {
     margin-bottom: 1rem;
     color: #2B2D42;
     padding: 0.4rem 0;
-    border-bottom: 1px solid #C2C7C8;
-    // background: #646675;
+    position: relative;
+
+    &::after {
+      background: #C2C7C8;
+      bottom: 0rem;
+      content: "";
+      height: 1px;
+      left: 0;
+      position: absolute;
+      width:90%;
+    }
     span {
       padding: 0.5rem 0.5rem;
       width: 100%;

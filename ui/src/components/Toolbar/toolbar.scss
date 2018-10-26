@@ -79,6 +79,7 @@
 .searchbox-container-desk {
   display: block;
   width: 100%;
+  height: 100%;
   align-self: center;
   @media (min-width: 1025px) and (max-width: 1280px) {
     justify-self: right;

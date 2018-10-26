@@ -59,7 +59,7 @@ img {
       margin: 0.5rem;
       border-radius: 3px;
       color: #000;
-      padding: 0.25rem 0.25rem;
+      padding: 0.25rem 0.5rem;
       text-align: left;
       font-size: 0.9rem;
     }
@@ -69,4 +69,9 @@ img {
       margin: 0 0.5rem;
     }
   }
+}
+.error-msg-container {
+  font-size: 0.9rem;
+  margin-right: auto;
+  color: #D90429;
 }

@@ -11,6 +11,7 @@
     :handlePrevious="navToStepTwo"
     :mode="mode"
     :saving="saving"
+    :errored="errored"
   />
 </template>
 
@@ -36,11 +37,17 @@ export default Vue.component("MoveCopy", {
   data() {
     return {
       stage: "one",
-      saving: false
+      saving: false,
+      errored: false
     };
   },
   methods: {
-    ...mapActions(["clearMoveResx", "clearCopyResx", "updateModalState"]),
+    ...mapActions([
+      "clearMoveResx",
+      "clearCopyResx",
+      "updateModalState",
+      "refetchData"
+    ]),
     handleStepOne() {
       this.stage = "two";
     },
@@ -49,6 +56,7 @@ export default Vue.component("MoveCopy", {
     },
     handleCompletion() {
       this.saving = true;
+      this.errored = false;
       if (this.mode === "copy") {
         let pathArray = this.copyResxSrc.split("/");
         let srcName = pathArray[pathArray.length - 1];
@@ -59,19 +67,19 @@ export default Vue.component("MoveCopy", {
               from_path: this.copyResxSrc,
               to_path: `${this.copyResxDest}/${srcName}`
             },
-            update: (store, data) => {
-              }
+            update: (store, data) => {}
           })
           .then(data => {
             this.updateModalState({
               status: false,
-              componentToRender: '',
-              title: '',
-            })
+              componentToRender: "",
+              title: ""
+            });
             this.saving = false;
           })
           .catch(error => {
             this.saving = false;
+            this.errored = true;
           });
       } else if (this.mode === "move") {
         let pathArray = this.moveResxSrc.split("/");
@@ -89,14 +97,16 @@ export default Vue.component("MoveCopy", {
           })
           .then(data => {
             this.saving = false;
+            this.refetchData(true);
             this.updateModalState({
               status: false,
-              componentToRender: '',
-              title: '',
-            })
+              componentToRender: "",
+              title: ""
+            });
           })
           .catch(error => {
             this.saving = false;
+            this.errored = true;
           });
       }
     },

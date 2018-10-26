@@ -74,7 +74,7 @@ export default {
 <style lang="scss" scoped>
   .searchbox-wrapper {
     width: 100%;
-    height: 35px;
+    height: 100%;
     position: relative;
     display: flex;
     flex-direction: row;
@@ -83,9 +83,9 @@ export default {
 
     input[type="text"] {
       width: 100%;
-      height: 100%;
+      height: 90%;
       border-radius: 5px;
-      border: 3px solid #C2C7C8;
+      border: 1px solid #C2C7C8;
       padding: 0 0.75rem 0 0.5rem;
       outline: none;
       font-size: 1.2rem;

@@ -25,6 +25,9 @@
       <div class="stage2-loader-wrapper" v-show="saving">
         <Loader />
       </div>
+      <div class="error-msg-container" v-if="errored">
+        Failed to {{mode}}
+      </div>
       <Button name="Back" :onClick="handlePrevious" v-if="!getSkipToFinal">
         <template slot="btn-icon">
           <img src="../../assets/angle-left.svg" alt="previous">
@@ -113,7 +116,7 @@ export default {
       }
     }
   },
-  props: ["handleComplete", "handlePrevious", "saving"],
+  props: ["handleComplete", "handlePrevious", "saving", "errored"],
   methods: {
     ...mapActions([
       "updateModalState",
