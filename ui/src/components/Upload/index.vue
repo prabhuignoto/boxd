@@ -26,6 +26,7 @@
           </Button>
         </div>
       </div>
+      <span class="upload-explorer-header">Choose a destination to upload</span>
       <div class="upload-explorer-wrapper">
         <UploadExplorer path="" />
       </div>

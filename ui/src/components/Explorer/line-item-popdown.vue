@@ -1,5 +1,5 @@
 <template>
-  <Popdown name="" type="icon" size="medium" leftOffset="-3.5rem" customWidth="150px">
+  <Popdown name="" type="icon" size="medium" leftOffset="-3.75rem" customWidth="150px" topOffset="2.5rem">
     <template slot="icon">
       <i>
         <img src="../../assets/ellipsis-h.svg" alt="more" />
@@ -8,21 +8,15 @@
     <template slot="menu">
       <ul class="options">
         <li class="option-item" v-if="isFile" @click="handleDownloadFile(pathLower)">
-          <!-- <i> -->
-            <!-- <img src="../../assets/download.svg" alt="download">
-          </i> -->
           <span>Download</span>
         </li>
         <li class="option-item" @click="handleCopy(pathLower)">
-          <!-- <i><img src="../../assets/copy_flat.svg" alt="copy"></i> -->
           <span>Copy</span>
         </li>
         <li class="option-item" @click="handleMove(pathLower)">
-          <!-- <i><img src="../../assets/copy_flat.svg" alt="move"></i> -->
           <span>Move</span>
         </li>
         <li class="option-item" @click="handleDelete(pathLower)">
-          <!-- <i><img src="../../assets/cross_flat.svg" alt="delete"></i> -->
           <span>Delete</span>
         </li>
       </ul>
@@ -50,7 +44,7 @@ export default {
       "updateMoveCopyMode",
       "skipToFinal",
       "copyResxSource",
-      "moveResxSource"
+      "moveResxSource",
     ]),
     handleDelete(path) {
       this.deleteFolder(path);

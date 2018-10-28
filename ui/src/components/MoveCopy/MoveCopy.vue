@@ -26,6 +26,7 @@ import { mapActions, mapGetters } from "vuex";
 import gql from "graphql-tag";
 import CopyResxGQL from "../../graphql/copyResource.gql";
 import MoveResxGQL from "../../graphql/moveResource.gql";
+import { setTimeout } from "timers";
 
 export default Vue.component("MoveCopy", {
   components: {
@@ -46,7 +47,8 @@ export default Vue.component("MoveCopy", {
       "clearMoveResx",
       "clearCopyResx",
       "updateModalState",
-      "refetchData"
+      "refetchData",
+      "refreshFileExplorer"
     ]),
     handleStepOne() {
       this.stage = "two";
@@ -75,6 +77,10 @@ export default Vue.component("MoveCopy", {
               componentToRender: "",
               title: ""
             });
+            this.refreshFileExplorer({
+              status: true,
+              path: this.copyResxDest
+            });
             this.saving = false;
           })
           .catch(error => {
@@ -92,7 +98,6 @@ export default Vue.component("MoveCopy", {
               to_path: `${this.moveResxDest}/${srcName}`
             },
             update: (store, data) => {
-              console.log(data);
             }
           })
           .then(data => {
@@ -103,6 +108,20 @@ export default Vue.component("MoveCopy", {
               componentToRender: "",
               title: ""
             });
+            let srcPath = this.moveResxSrc.split("/");
+            srcPath.pop();
+            this.$nextTick(() => {
+              this.refreshFileExplorer({
+                status: true,
+                path: this.moveResxDest
+              });
+              this.$nextTick(() => {
+                this.refreshFileExplorer({
+                  status: true,
+                  path: srcPath.join("/")
+                });
+              })
+            })
           })
           .catch(error => {
             this.saving = false;

@@ -2,14 +2,7 @@
   <div class="delete-folder-wrapper">
     <div class="delete-alert">Tread with Caution</div>
     <div class="delete-message">
-      <span>You are about to delete </br>
-        <span class="delete-path">
-          {{deletePath}}
-        </span>
-      </span>
-      <!-- <span>
-         Are you sure you want to proceed with this?
-      </span> -->
+      You are about to delete {{fileName}}
     </div>
     <Textbox :placeholder="placeholder" :onInput="onInput"/>
     <div class="delete-resx-controls">
@@ -57,6 +50,10 @@ export default Vue.component("DeleteFolder", {
     deletePath() {
       return this.$store.getters.deletePath;
     },
+    fileName() {
+      const paths = this.deletePath.split("/");
+      return paths[paths.length - 1];
+    },
     getTarget() {
       const parts = this.deletePath.split("/");
       return parts[parts.length - 1];
@@ -73,7 +70,8 @@ export default Vue.component("DeleteFolder", {
       "updateModalState",
       "deleteFolder",
       "updatePath",
-      "refetchData"
+      "refetchData",
+      "refreshFileExplorer"
     ]),
     onInput(ev) {
       this.deleteConsentText = ev.target.value;
@@ -106,6 +104,12 @@ export default Vue.component("DeleteFolder", {
           let newPathArr = this.getExplorerPath.split("/").slice(0);
           newPathArr.pop();
           this.refetchData(true);
+          this.$nextTick(() => {
+            this.refreshFileExplorer({
+              status: true,
+              path: this.getExplorerPath
+            });
+          })
         })
         .catch(error => {
           this.isMutating = false;

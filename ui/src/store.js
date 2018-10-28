@@ -21,7 +21,11 @@ export default new Vuex.Store({
       path: ""
     },
     fileExplorer: {
-      activeFileNode: {}
+      activeFileNode: {},
+      refresh: {
+        status: false,
+        path: ""
+      }
     },
     modal: {
       isActive: false,
@@ -61,6 +65,12 @@ export default new Vuex.Store({
     },
     updateWorkflowOrigin(state, { origin }) {
       state.workFlowOrigin = origin;
+    },
+    refreshFileExplorer(state, { status, path }) {
+      state.fileExplorer.refresh = {
+        status,
+        path
+      };
     }
   },
   actions: {
@@ -100,6 +110,13 @@ export default new Vuex.Store({
         type: "updateWorkflowOrigin",
         origin
       });
+    },
+    refreshFileExplorer({ commit }, { status, path }) {
+      commit({
+        type: "refreshFileExplorer",
+        status,
+        path
+      });
     }
   },
   getters: {
@@ -109,6 +126,7 @@ export default new Vuex.Store({
     getIsDisableHeader: state => state.modal.disableHeader,
     getExplorerPath: state => state.explorer.path,
     getDisableCloseBtn: state => state.modal.disableCloseBtn,
-    getWorkflowOrigin: state => state.workFlowOrigin
+    getWorkflowOrigin: state => state.workFlowOrigin,
+    getRefreshFileExplorer: state => state.fileExplorer.refresh
   }
 });

@@ -1,7 +1,7 @@
 <template>
   <section class="create-folder-wrapper">
     <div class="create-folder-inputs">
-      <Textbox name="name" label="Name" :onInput="onFolderInput" placeholder="Name of the folder"/>
+      <Textbox name="name" :onInput="onFolderInput" placeholder="Name of the folder"/>
     </div>
     <div class="create-folder-explorer-wrapper" v-if="!isCreateFolderExpHidden">
       <RootFolder :onClick="handleRootFolder" />
@@ -97,7 +97,11 @@ export default Vue.component("CreateFolder", {
         ? "disabled"
         : "";
     },
-    ...mapGetters(["isCreateFolderExpHidden", "getWorkflowOrigin"])
+    ...mapGetters([
+      "isCreateFolderExpHidden",
+      "getWorkflowOrigin",
+      "getExplorerPath"
+    ])
   },
   methods: {
     ...mapActions([
@@ -105,7 +109,8 @@ export default Vue.component("CreateFolder", {
       "hideCreateFolderExplorer",
       "updatePath",
       "refetchData",
-      "clearList"
+      "clearList",
+      "refreshFileExplorer"
     ]),
     handleCreate() {
       if (this.createHandledOnce < 1) {
@@ -126,11 +131,15 @@ export default Vue.component("CreateFolder", {
                 status: false,
                 componentToRender: ""
               });
-              if(this.getWorkflowOrigin === "toolbar") {
+              if (this.getWorkflowOrigin === "toolbar") {
                 this.clearList();
                 this.updatePath(`${this.selectedPath}/`);
-              } else if(this.getWorkflowOrigin === "context-control") {
+              } else if (this.getWorkflowOrigin === "context-control") {
                 this.refetchData(true);
+                this.refreshFileExplorer({
+                  status: true,
+                  path: this.getExplorerPath
+                });
               }
             }
           })

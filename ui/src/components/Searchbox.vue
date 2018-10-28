@@ -43,12 +43,14 @@ export default {
       "clearList",
       "refetchData"
     ]),
-    handleSearch($evt) {
-      if ($evt.keyCode === 13) {
-        this.term = $evt.target.value;
+    handleSearch({ keyCode, target }) {
+      if (keyCode === 13 && target.value !== "") {
+        this.term = target.value;
         this.skipQuery = false;
         this.clearList();
-        this.updateSearch($evt.target.value);
+        this.$nextTick(() => {
+          this.updateSearch(target.value);
+        });
       }
     },
     handleClear() {

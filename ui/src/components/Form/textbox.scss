@@ -12,13 +12,15 @@
     font-size: 0.9rem;
   }
   input[type="text"] {
-    border-radius: 3px;
-    border: 1px solid #8D99AE;
+    // border-radius: 3px;
+    border-bottom: 1px solid #8D99AE;
+    border-top: none;
+    border-left: none;
+    border-right: none;
     padding: 0.5rem 0.4rem;
     width: 80%;
     outline: none;
     font-size: 1rem;
     color: #2B2D42;
-
   }
 }

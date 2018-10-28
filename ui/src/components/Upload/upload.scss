@@ -65,8 +65,8 @@
       align-items: center;
       justify-content: center;
       flex-direction: row;
-      // background: linear-gradient(135deg, rgba(/237,242,244,1) 0%, rgba(141,153,174,1) 100%);
       background: linear-gradient(135deg, rgba(141,153,174,1) 0%, rgba(237,242,244,1) 100%);
+      border: 1px solid rgba(141, 153, 174, 0.25);
       height: 100%;
       border-radius: 4px;
 
@@ -132,14 +132,13 @@ img {
   overflow: auto;
   border: 1px solid #ddd;
   border-radius: 4px;
-  margin-top: 1rem;
 
   @media (min-width: 1281px) {
-    height: 300px;
+    height: 260px;
   }
 
   @media (min-width: 1025px) and (max-width: 1280px) {
-    height: 300px;
+    height: 260px;
   }
 
   @media (min-width: 768px) and (max-width: 1024px) {
@@ -187,6 +186,16 @@ img {
     background: #EDF2F4;
     border: 1px solid rgba(141, 153, 174, 0.5);
     border-radius: 3px;
-    padding: 0.25rem 0.2rem;
+    padding: 0.25rem 0rem;
+    padding-left: 0.5rem;
   }
+}
+.upload-explorer-header {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+  font-size: 0.9rem;
+  width: 100%;
+  text-align: left;
 }
