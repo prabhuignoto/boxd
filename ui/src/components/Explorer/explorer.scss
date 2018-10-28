@@ -137,69 +137,6 @@ header.explorer-header {
   left: 1rem;
   border-radius: 5px;
 }
-.tree-view-wrapper {
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  overflow-x: auto;
-  background: #fff;
-  @media (min-width: 768px) and (max-width: 1024px) {
-    display: none;
-  }
-  @media only screen and (max-width: 768px) {
-    display: none;
-  }
-  @media only screen and (max-width: 480px) {
-    display: none;
-  }
-  @media only screen and (max-width: 320px) {
-    display: none;
-  }
-  .tree-view-header {
-    font-weight: 500;
-    font-size: 1rem;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-    margin: 0;
-    margin-bottom: 1rem;
-    color: #2B2D42;
-    padding: 0.4rem 0;
-    position: relative;
-
-    &::after {
-      background: #C2C7C8;
-      bottom: 0rem;
-      content: "";
-      height: 1px;
-      left: 0;
-      position: absolute;
-      width:90%;
-    }
-    span {
-      padding: 0.5rem 0.5rem;
-      width: 100%;
-      text-align: left;
-    }
-  }
-  .tree-view-content {
-    width: 90%;
-    margin-left: 0.5rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    padding-bottom: 0.5rem;
-  }
-  .file-explorer-icon {
-    width: 1.5rem;
-    height: 1.5rem;
-    margin-left: 1rem;
-    margin-right: 0.25rem;
-  }
-}
 
 .load-more {
   display: flex;

@@ -160,7 +160,7 @@ export default Vue.component("CreateFolder", {
       });
     },
     onFolderInput($evt) {
-      this.folderName = $evt.target.value;
+      this.folderName = $evt.target.value.trim();
     },
     handleRootFolder() {
       this.createFolderSelection("");

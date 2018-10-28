@@ -1,15 +1,6 @@
 <template>
   <div class="explorer-container">
-    <div class="tree-view-wrapper is-hidden-mobile">
-      <header class="tree-view-header">
-        <img src="../../assets/sitemap.svg" alt="explorer" class="file-explorer-icon">
-        <span>Explorer</span>
-      </header>
-      <div class="tree-view-content">
-        <RootFolder :onClick="handleRootFolder" />
-        <FileExplorer path="" />
-      </div>
-    </div>
+    <TreeviewWrapper />
     <!-- <FolderPath /> -->
     <div class="explorer">
       <header class="explorer-header">
@@ -23,10 +14,6 @@
         </ul>
       </header>
       <section class="explorer-content">
-        <!-- <div class="loader-container" v-if="$apollo.loading">
-          <Loader size="large" :translucent="isLoadingMore">
-          </Loader>
-        </div> -->
         <div class="line-item-wrapper search-results-row" v-if="isUserSearching">
           <span class="search-results-message">
             <a href="javascript:void(0);" @click="handleNavBackToExplorer">
@@ -58,14 +45,14 @@ import gql from "graphql-tag";
 import FolderPath from "../Path/FolderPath";
 import FolderGQL from "../../graphql/folder.gql";
 import Loader from "../Loader";
-import FileExplorer from "../FileExplorer";
+import FileExplorer from "./FileExplorer";
 import LineItem from "./explorer-lineItem";
 import SearchBox from "../Searchbox";
 import RootFolder from "../rootFolder";
 import { mapActions, mapGetters } from "vuex";
 import ContextControl from "../ContextActions/Control";
 import ContextActions from "../ContextActions/index.vue";
-// import "../../../node_modules/bulma/css/bulma.css";
+import TreeviewWrapper from "./TreeviewWrapper";
 
 export default {
   name: "Explorer",
@@ -77,7 +64,8 @@ export default {
     FileExplorer,
     RootFolder,
     ContextControl,
-    ContextActions
+    ContextActions,
+    TreeviewWrapper
   },
   data() {
     return {
@@ -121,9 +109,6 @@ export default {
       "clearSearch",
       "refetchData"
     ]),
-    handleRootFolder() {
-      this.updatePath("");
-    },
     handleLoadMore() {
       this.isLoadingMore = true;
       this.$apollo.queries.files.fetchMore({

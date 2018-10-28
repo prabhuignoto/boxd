@@ -18,33 +18,33 @@ const infoLogger = createLogger({
 // tslint: disable-next-line
 export default function Upload(req: Request, resp: Response) {
   try {
+    const files: any = req.files;
     infoLogger.log({
-      message: `Uploading ${req.query.path}`,
+      message: `Uploading ${files[0].originalname} to ${req.body.uploadPath}`,
       level: "info"
     });
-    const files: any = req.files;
     FS.readFile(files[0].path, "utf8", function(err, contents) {
       const response = new Dropbox({
         accessToken: req.session!.access_token,
-        clientId: process.env.CLIENT_ID
+        clientId: process.env.CLIENT_ID,
       }).filesUpload({
         contents: contents,
         autorename: true,
-        path: `${req.body.uploadPath}/${files[0].originalname}`,
+        path: `${req.body.uploadPath}/${files[0].originalname}`
       });
       response
-        .then(data => { 
+        .then(data => {
           resp.json({
             success: true,
             status: "completed",
-            "status_text": "File uploaded successfully."
+            status_text: "File uploaded successfully."
           });
         })
         .catch(error => {
           resp.json({
             success: false,
             status: "failed",
-            "status_text": "Upload failed."
+            status_text: "Upload failed."
           });
         });
     });
@@ -55,8 +55,10 @@ export default function Upload(req: Request, resp: Response) {
       level: "error",
       message: error.response.statusText
     });
-    return resp.send({
-      success: false
+    return resp.json({
+      success: false,
+      status: "failed",
+      status_text: "Upload failed"
     });
   }
 }

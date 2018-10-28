@@ -22,7 +22,7 @@ export default {
     cursor: pointer;
     width: 60px;
     &:focus {
-      outline: 1px solid #007ee5;
+      outline: 1px dotted #2B2D42;
       outline-offset: 2px;
     }
     i {

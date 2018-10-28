@@ -1,32 +1,25 @@
 <template>
   <section class="file-explorer-wrapper">
-    <!-- <transition name="list-fade"> -->
-      <Treeview path="" 
-        v-bind:onSelect="onSelect"
-        v-bind:entries="files.entries"
-        childTree="FileExplorer"
-        v-bind:handleSubfolderSelection="handleSubfolderSelection" 
-        v-if="!$apollo.loading"
-      />
-    <!-- </transition> -->
-    <!-- <div class="file-explorer-loader-wrapper" v-if="$apollo.loading">
-      <Loader />
-    </div> -->
+    <Treeview path="" 
+      v-bind:onSelect="onSelect"
+      v-bind:entries="files.entries"
+      childTree="FileExplorer"
+      v-bind:handleSubfolderSelection="handleSubfolderSelection" 
+      v-if="!$apollo.loading"
+    />
   </section>
 </template>
 
 <script>
-import Treeview from "./Treeview/Treeview";
+import Treeview from "../Treeview/Treeview";
 import Vue from "vue";
 import gql from "graphql-tag";
-import FolderGQL from "../graphql/folder.gql";
+import FolderGQL from "../../graphql/folder.gql";
 import { mapActions, mapGetters } from "vuex";
-import Loader from "./Loader";
 
 export default Vue.component("FileExplorer", {
   components: {
     Treeview,
-    Loader
   },
   data() {
     return {

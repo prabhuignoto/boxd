@@ -6,19 +6,19 @@
       </template>
       <template slot="menu">
         <ul class="context-menu">
-          <li class="ctx-menu-item" @mousedown="handleAddFolder">
+          <li class="ctx-menu-item" @click="handleAddFolder">
             <span>Add a folder here</span>
           </li>
-          <li class="ctx-menu-item" @mousedown="handleUpload">
+          <li class="ctx-menu-item" @click="handleUpload">
             <span>Upload here</span>
           </li>
-          <li class="ctx-menu-item" @mousedown="handleCopyFolder">
+          <li class="ctx-menu-item" @click="handleCopyFolder">
             <span>Copy this folder</span>
           </li>
-          <li class="ctx-menu-item" @mousedown="handleMoveFolder">
+          <li class="ctx-menu-item" @click="handleMoveFolder">
             <span>Move this folder</span>
           </li>
-          <li class="ctx-menu-item" @mousedown="handleDeleteFolder">
+          <li class="ctx-menu-item" @click="handleDeleteFolder">
             <span>Delete this folder</span>
           </li>
         </ul>
