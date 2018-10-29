@@ -19,6 +19,14 @@
         </Popup>
       </div>
     </transition>
+    <transition name="peek">
+        <Notification
+          :type="notificationType"
+          :title="notificationTitle"
+          :message="getNewMessage"
+          v-if="getNotificationStatus"
+        />
+    </transition>
   </section>
 </template>
 
@@ -34,7 +42,9 @@ import FolderPath from "../components/Path/FolderPath";
 // import "../../node_modules/bulma/css/bulma.css";
 import Logout from "../components/Logout";
 import About from "../components/About";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
+import Notification from "../components/Notification";
+import uniqid from "uniqid";
 
 export default {
   components: {
@@ -46,13 +56,16 @@ export default {
     Toolbar,
     FolderPath,
     Logout,
-    About
+    About,
+    Notification
   },
   data() {
     return {
       files: {
         entries: []
-      }
+      },
+      notificationTitle: "",
+      notificationType: ""
     };
   },
   computed: {
@@ -60,8 +73,38 @@ export default {
       "isModalActive",
       "getPopupComponent",
       "getPopupTitle",
-      "getIsDisableHeader"
+      "getIsDisableHeader",
+      "getNotificationStatus",
+      "getNewMessage"
     ])
+  },
+  methods: {
+    ...mapActions(["addMessage"])
+  },
+  apollo: {
+    $subscribe: {
+      upload_completed: {
+        query: gql`
+          subscription {
+            fileUploaded {
+              success
+              fileName
+            }
+          }
+        `,
+        result({ data: { fileUploaded } }) {
+          if (fileUploaded.success) {
+            this.notificationType = "Informational";
+            this.notificationTitle = "Upload complete";
+            this.addMessage({
+              id: uniqid("notification-msg-"),
+              message: `Uploaded ${fileUploaded.fileName} successfully`
+            });
+          }
+        },
+        updateQuery(previousResult, { subscriptionData }) {}
+      }
+    }
   }
 };
 </script>

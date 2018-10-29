@@ -5,6 +5,7 @@
   display: grid;
   grid-template-rows: 0px 40px auto;
   grid-template-columns: 100%;
+  position: relative;
   @media (min-width: 1281px) {
     grid-template-rows: 80px 30px auto;
   }
@@ -59,6 +60,19 @@
   opacity: 0;
   transform: scale(0.9);
 }
+
+.peek-enter-active,
+.peek-leave-active {
+  opacity: 1;
+  transition: all 0.25s;
+  transform: scale(1);
+}
+.peek-enter,
+.peek-leave-to {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
 .folder-path-container {
   display: flex;
   align-items: center;

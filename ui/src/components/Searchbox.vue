@@ -5,7 +5,7 @@
       <Button buttonStyle="icon" :onClick="handleClear">
         <template slot="btn-icon">
           <i>
-            <img src="../assets/times-red.svg" alt="clear search">
+            <img src="../assets/cancel.svg" alt="clear search">
           </i>
         </template>
       </Button>

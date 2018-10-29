@@ -1,3 +1,4 @@
+import pubsub from './pubSub';
 import { Request, Response } from "express";
 import { Dropbox } from "dropbox";
 import { createLogger, transports, format } from "winston";
@@ -39,6 +40,12 @@ export default function Upload(req: Request, resp: Response) {
             status: "completed",
             status_text: "File uploaded successfully."
           });
+          pubsub.publish("upload_completed", {
+            fileUploaded: {
+              success: true,
+              fileName: files[0].originalname as string
+            }
+          })
         })
         .catch(error => {
           resp.json({
@@ -46,6 +53,12 @@ export default function Upload(req: Request, resp: Response) {
             status: "failed",
             status_text: "Upload failed."
           });
+          pubsub.publish("upload_completed", {
+            fileUploaded: {
+              success: false,
+              message: "Failed to upload the file"
+            }
+          })
         });
     });
 

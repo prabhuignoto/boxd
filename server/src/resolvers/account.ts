@@ -1,15 +1,15 @@
 import { Dropbox, users } from "dropbox";
-import { createLogger, transports, format } from "winston";
+import { createLogger, format, transports } from "winston";
 
 const logFormat = format.combine(
   format.prettyPrint(),
   format.colorize(),
-)
+);
 
 const errorLogger = createLogger({
-  level: "error",
   format: logFormat,
-  transports: [new transports.Console()]
+  level: "error",
+  transports: [new transports.Console()],
 });
 
 export default {
@@ -18,12 +18,12 @@ export default {
       try {
         const accountData: users.BasicAccount = await new Dropbox({
           accessToken: context.session.access_token,
-          clientId: process.env.CLIENT_ID
+          clientId: process.env.CLIENT_ID,
         }).usersGetAccount({
-          account_id: context.session.account_id
+          account_id: context.session.account_id,
         });
         return {
-          name: accountData.name
+          name: accountData.name,
         };
       } catch (error) {
         errorLogger.log(error);
@@ -34,17 +34,17 @@ export default {
       try {
         const spaceData: users.SpaceUsage = await new Dropbox({
           accessToken: context.session.access_token,
-          clientId: process.env.CLIENT_ID
+          clientId: process.env.CLIENT_ID,
         }).usersGetSpaceUsage(undefined);
 
         return {
           used: spaceData.used,
-          allocation: spaceData.allocation
+          allocation: spaceData.allocation,
         };
       } catch (error) {
         errorLogger.log(error);
         return {};
       }
-    }
-  }
+    },
+  },
 };

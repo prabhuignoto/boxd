@@ -17,7 +17,7 @@ const AppRouter = new Router({
     },
     {
       path: "/home",
-      name: "home",
+      name: "alt-home",
       component: Home
     },
     {

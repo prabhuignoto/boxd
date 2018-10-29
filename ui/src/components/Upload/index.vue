@@ -1,18 +1,17 @@
 <template>
   <section class="upload-main">
+    <!-- drop zone starts here -->
     <section class="upload-wrapper">
       <div :class="setClass" 
         @drop="handleDrop" @dragover="handleDragOver"
         @drag="handleDrag" @dragstart="handleDragStart"
         @dragend="handleDragEnd" @dragenter="handleDragEnter"
-        @dragleave="handleDragLeave"
+        @dragleave="handleDragLeave" @click="openInputFile"
       >
         <span class="intro-message" v-if="!isDropped">Drop your file</span>
         <div v-if="isDropped" class="dropped-file" :style="getResultStyle">
-          <!-- <i class="icon-wrapper">
-            <img src="../../assets/file.svg" alt="file">
-          </i> -->
           <span class="file-name">{{fileName}}</span>
+          <div class="file-name">{{prettySize}}</div>
           <!-- <span class="success-msg" v-if="uploadSuccess">File uploaded successfully.</span> -->
           <div class="progress-wrap" v-if="uploadStarted">
             <ProgressBar :value="progress" />
@@ -25,15 +24,23 @@
             </template>
           </Button>
         </div>
+        <input type="file" id="input-file" style="display: none" @change="handleInputFile">
       </div>
       <span class="upload-explorer-header">Choose a destination to upload</span>
       <div class="upload-explorer-wrapper">
+        <RootFolder :onClick="handleRootFolder"/>
         <UploadExplorer path="" />
       </div>
     </section>
-    <div class="upload-path-selection" v-show="getUploadPath !== ''">
-      <span>{{this.getUploadPath}}</span>
+    <!-- drop zone ends here -->
+
+    <!-- selected path -->
+    <div class="upload-path-selection">
+      <span>Uploading to {{this.getUploadPath}}</span>
     </div>
+    <!-- selected path -->
+
+    <!-- form controls -->
     <div class="upload-controls">
       <Button name="Upload" :onClick="handleUpload" 
         :disabled="canDisableUpload" :buttonStyle="getStyle">
@@ -48,6 +55,10 @@
         </template>
       </Button>
     </div>
+    <span class="ps">
+      max file size: 50 Mb
+    </span>
+    <!-- form controls -->
   </section>
 </template>
 
@@ -58,16 +69,20 @@ import Vue from "vue";
 import { mapActions, mapGetters, mapState } from "vuex";
 import Axios from "axios";
 import ProgressBar from "../Progressbar";
+import gql from "graphql-tag";
+import PrettyBytes from "pretty-bytes";
+import RootFolder from "../rootFolder";
 
 export default Vue.component("UploadWindow", {
   components: {
     Button,
-    ProgressBar
+    ProgressBar,
+    RootFolder
   },
   computed: {
     ...mapGetters(["getUploadPath"]),
     canDisableUpload() {
-      return (!this.isDropped || this.uploadStarted || this.getUploadPath === "");
+      return !this.isDropped || this.uploadStarted || this.getUploadPath === "";
     },
     setClass() {
       return {
@@ -82,7 +97,6 @@ export default Vue.component("UploadWindow", {
     getResultStyle() {
       if (this.uploadSuccess === true) {
         return {
-          // background: "green",
           color: "#fff"
         };
       } else if (this.uploadSuccess === false) {
@@ -91,6 +105,9 @@ export default Vue.component("UploadWindow", {
           color: "#fff"
         };
       }
+    },
+    prettySize() {
+      return this.fileSize ? PrettyBytes(this.fileSize) : "";
     }
   },
   data() {
@@ -115,6 +132,9 @@ export default Vue.component("UploadWindow", {
         (this.file = null),
         (this.progress = 0),
         (this.uploadStarted = false);
+    },
+    handleRootFolder() {
+       this.uploadFile("");
     },
     handleUpload() {
       try {
@@ -160,13 +180,27 @@ export default Vue.component("UploadWindow", {
         componentToRender: ""
       });
     },
-    handleClear() {
+    handleClear(ev) {
+      ev.stopPropagation();
+      ev.preventDefault();
       this.isDragOver = false;
       this.isDropped = false;
       this.fileName = "";
       this.fileSize = 0;
       this.progress = 0;
       this.uploadStarted = false;
+    },
+    openInputFile() {
+      this.$el.querySelector("input[type=file]").click();
+    },
+    handleInputFile(ev) {
+      const file = ev.target.files[0];
+      if(file) {
+        this.fileName = file.name;
+        this.fileSize = file.size;
+        this.isDropped = true;
+        this.file = file;
+      }
     },
     handleDrop(ev) {
       ev.preventDefault();

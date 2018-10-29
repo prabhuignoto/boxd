@@ -5,6 +5,7 @@ import Upload from "./modules/upload";
 import Folder from "./modules/folder";
 import File from "./modules/file";
 import List from "./modules/list";
+import Notification from "./modules/notification";
 
 Vue.use(Vuex);
 
@@ -14,7 +15,8 @@ export default new Vuex.Store({
     folder: Folder,
     upload: Upload,
     file: File,
-    list: List
+    list: List,
+    notification: Notification
   },
   state: {
     explorer: {
@@ -37,7 +39,12 @@ export default new Vuex.Store({
     treeView: {
       data: []
     },
-    workFlowOrigin: ""
+    workFlowOrigin: "",
+    notification: {
+      messages: [],
+      unRead: [],
+      read: []
+    }
   },
   mutations: {
     updatePath(state, { path }) {

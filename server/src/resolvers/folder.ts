@@ -6,45 +6,22 @@ const errorLogger = createLogger({
 });
 
 export default {
-  Query: {
-    listFolder: async (obj: any, args: any, context: any, info: any) => {
+  Mutation: {
+    copyResource: async (obj: any, args: any, context: any, info: any) => {
       try {
-        let folderResult: files.ListFolderResult | null = null;
-
-        if (!args.cursor) {
-          folderResult = await new Dropbox({
-            accessToken: context.session.access_token,
-            clientId: process.env.CLIENT_ID,
-          }).filesListFolder({
-            include_media_info: true,
-            limit: args.limit,
-            path: args.path,
-          });
-        } else {
-          folderResult = await new Dropbox({
-            accessToken: context.session.access_token,
-            clientId: process.env.CLIENT_ID,
-          }).filesListFolderContinue({
-            cursor: args.cursor,
-          });
-        }
-
-        return {
-          cursor: folderResult.cursor,
-          entries: folderResult.entries.map((x) =>
-            Object.assign({}, x, {
-              tag: x[".tag"],
-            }),
-          ),
-          hasMore: folderResult.has_more,
-        };
+        const result: files.RelocationResult = await new Dropbox({
+          accessToken: context.session.access_token,
+          clientId: process.env.CLIENT_ID,
+        }).filesCopyV2({
+          from_path: args.from_path,
+          to_path: args.to_path,
+        });
+        return result.metadata;
       } catch (error) {
         errorLogger.log(error);
         return {};
       }
-    }
-  },
-  Mutation: {
+    },
     createFolder: async (obj: any, args: any, context: any, info: any) => {
       try {
         const result: files.CreateFolderResult = await new Dropbox({
@@ -89,16 +66,39 @@ export default {
         return {};
       }
     },
-    copyResource: async (obj: any, args: any, context: any, info: any) => {
+  },
+  Query: {
+    listFolder: async (obj: any, args: any, context: any, info: any) => {
       try {
-        const result: files.RelocationResult = await new Dropbox({
-          accessToken: context.session.access_token,
-          clientId: process.env.CLIENT_ID,
-        }).filesCopyV2({
-          from_path: args.from_path,
-          to_path: args.to_path,
-        });
-        return result.metadata;
+        let folderResult: files.ListFolderResult | null = null;
+
+        if (!args.cursor) {
+          folderResult = await new Dropbox({
+            accessToken: context.session.access_token,
+            clientId: process.env.CLIENT_ID,
+          }).filesListFolder({
+            include_media_info: true,
+            limit: args.limit,
+            path: args.path,
+          });
+        } else {
+          folderResult = await new Dropbox({
+            accessToken: context.session.access_token,
+            clientId: process.env.CLIENT_ID,
+          }).filesListFolderContinue({
+            cursor: args.cursor,
+          });
+        }
+
+        return {
+          cursor: folderResult.cursor,
+          entries: folderResult.entries.map((x) =>
+            Object.assign({}, x, {
+              tag: x[".tag"],
+            }),
+          ),
+          hasMore: folderResult.has_more,
+        };
       } catch (error) {
         errorLogger.log(error);
         return {};

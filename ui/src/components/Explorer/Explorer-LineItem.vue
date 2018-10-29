@@ -14,7 +14,7 @@
         <!-- <span v-else v-bind:title="name">{{name}}</span> -->
       </span>
     </div>
-    <div class="size explorer-cell">{{sizeInMB}}</div>
+    <div class="size explorer-cell">{{prettySize}}</div>
     <div class="last-modified explorer-cell">{{serverModifiedFormatted}}</div>
     <div class="controls explorer-cell">
       <div class="popdown-container">
@@ -32,6 +32,7 @@ import FileSaver from "filesaver.js";
 import Loader from "../Loader";
 import Popdown from "../Popdown/index.vue";
 import LineItemPopdown from "./line-item-popdown";
+import PrettyBytes from "pretty-bytes";
 
 export default {
   name: "ExplorerLineItem",
@@ -55,14 +56,8 @@ export default {
     isFile() {
       return this.tag === "file";
     },
-    sizeInMB() {
-      return this.size
-        ? `${
-            this.size && this.size < 1048576
-              ? Number(this.size * 0.00098).toFixed(2) + " kb"
-              : Number(this.size * 0.000001).toFixed(1) + " mb"
-          }`
-        : "";
+    prettySize() {
+      return this.size ? PrettyBytes(this.size) : "";
     },
     serverModifiedFormatted() {
       return this.server_modified
