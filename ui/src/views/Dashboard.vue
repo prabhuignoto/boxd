@@ -103,6 +103,50 @@ export default {
           }
         },
         updateQuery(previousResult, { subscriptionData }) {}
+      },
+      folder_deleted: {
+        query: gql`
+          subscription {
+            folderDeleted {
+              success
+              name
+            }
+          }
+        `,
+        result({ data: { folderDeleted } }) {
+          if (folderDeleted.success) {
+            this.notificationType = "Informational";
+            this.notificationTitle = "Folder deleted";
+            this.addMessage({
+              id: uniqid("notification-msg-"),
+              message: `Deleted ${folderDeleted.name
+                .split("/")
+                .pop()} successfully`
+            });
+          }
+        }
+      },
+      folder_added: {
+        query: gql`
+          subscription {
+            folderAdded {
+              success
+              name
+            }
+          }
+        `,
+        result({ data: { folderAdded } }) {
+          if (folderAdded.success) {
+            this.notificationType = "Informational";
+            this.notificationTitle = "Folder Added";
+            this.addMessage({
+              id: uniqid("notification-msg-"),
+              message: `Added ${folderAdded.name
+                .split("/")
+                .pop()} successfully`
+            });
+          }
+        }
       }
     }
   }

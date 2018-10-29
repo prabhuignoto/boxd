@@ -132,7 +132,6 @@ export default Vue.component("CreateFolder", {
                 componentToRender: ""
               });
               if (this.getWorkflowOrigin === "toolbar") {
-                this.clearList();
                 this.updatePath(`${this.selectedPath}/`);
               } else if (this.getWorkflowOrigin === "context-control") {
                 this.refetchData(true);

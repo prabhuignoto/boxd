@@ -1,5 +1,6 @@
 import { Dropbox, files } from "dropbox";
 import { createLogger, transports } from "winston";
+import PubSub from "../pubSub";
 const errorLogger = createLogger({
   level: "error",
   transports: [new transports.Console()],
@@ -31,9 +32,21 @@ export default {
           autorename: true,
           path: `${args.path}/${args.name}`,
         });
+        PubSub.publish("folder_added", {
+          folderAdded: {
+            name: args.name,
+            success: true,
+          },
+        });
         return result.metadata;
       } catch (error) {
         errorLogger.log(error);
+        PubSub.publish("folder_deleted", {
+          folderAdded: {
+            message: "Failed to add the folder",
+            success: false,
+          },
+        });
         return {};
       }
     },
@@ -45,9 +58,21 @@ export default {
         }).filesDeleteV2({
           path: args.path,
         });
+        PubSub.publish("folder_deleted", {
+          folderDeleted: {
+            name: args.path,
+            success: true,
+          },
+        });
         return result.metadata;
       } catch (error) {
         errorLogger.log(error);
+        PubSub.publish("folder_deleted", {
+          folderDeleted: {
+            message: "Failed to delete the folder",
+            success: false,
+          },
+        });
         return {};
       }
     },
@@ -103,6 +128,14 @@ export default {
         errorLogger.log(error);
         return {};
       }
+    },
+  },
+  Subscription: {
+    folderAdded: {
+      subscribe: () => PubSub.asyncIterator("folder_added")
+    },
+    folderDeleted: {
+      subscribe: () => PubSub.asyncIterator("folder_deleted"),
     },
   },
 };

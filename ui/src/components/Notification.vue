@@ -30,7 +30,7 @@ export default {
     if(this.type === "Informational") {
       setTimeout(() => {
         this.handleClose();
-      }, 2500)
+      }, 3500)
     }
   },
   methods: {

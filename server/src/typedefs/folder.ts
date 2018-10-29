@@ -6,6 +6,16 @@ const folder = `
     hasMore: Boolean!
     cursor: String!
   }
+
+  type folderDeletedMessage {
+    success: Boolean!
+    name: String!
+  }
+
+  type folderAddedMessage {
+    success: Boolean!
+    name: String!
+  }
 `;
 
 export default [metadata, folder];
