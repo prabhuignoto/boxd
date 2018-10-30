@@ -57,6 +57,7 @@ try {
       store: new RedisStore({
         client: RedisClient,
         host: process.env.REDIS_HOST as string,
+        pass: process.env.REDIS_PASSWD || "",
         port: Number(process.env.REDIS_PORT),
       }),
     }),
