@@ -7,7 +7,7 @@ const folder = `
     cursor: String!
   }
 
-  type folderDeletedMessage {
+  type resxMessage {
     success: Boolean!
     name: String!
   }
@@ -16,6 +16,7 @@ const folder = `
     success: Boolean!
     name: String!
   }
+
 `;
 
 export default [metadata, folder];

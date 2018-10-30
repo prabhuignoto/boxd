@@ -15,6 +15,7 @@
 import RootFolder from "../rootFolder";
 import FileExplorer from "./FileExplorer";
 import Button from "../Form/Button";
+import { mapActions } from "vuex";
 
 export default {
   components: {
@@ -24,6 +25,7 @@ export default {
   },
   name: "TreeviewWrapper",
   methods: {
+    ...mapActions(["updatePath"]),
     handleRootFolder() {
       this.updatePath("");
     }

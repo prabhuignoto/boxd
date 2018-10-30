@@ -45,6 +45,7 @@ import About from "../components/About";
 import { mapGetters, mapActions } from "vuex";
 import Notification from "../components/Notification";
 import uniqid from "uniqid";
+import NotificationSub from "../notificationSub.js";
 
 export default {
   components: {
@@ -82,73 +83,7 @@ export default {
     ...mapActions(["addMessage"])
   },
   apollo: {
-    $subscribe: {
-      upload_completed: {
-        query: gql`
-          subscription {
-            fileUploaded {
-              success
-              fileName
-            }
-          }
-        `,
-        result({ data: { fileUploaded } }) {
-          if (fileUploaded.success) {
-            this.notificationType = "Informational";
-            this.notificationTitle = "Upload complete";
-            this.addMessage({
-              id: uniqid("notification-msg-"),
-              message: `Uploaded ${fileUploaded.fileName} successfully`
-            });
-          }
-        },
-        updateQuery(previousResult, { subscriptionData }) {}
-      },
-      folder_deleted: {
-        query: gql`
-          subscription {
-            folderDeleted {
-              success
-              name
-            }
-          }
-        `,
-        result({ data: { folderDeleted } }) {
-          if (folderDeleted.success) {
-            this.notificationType = "Informational";
-            this.notificationTitle = "Folder deleted";
-            this.addMessage({
-              id: uniqid("notification-msg-"),
-              message: `Deleted ${folderDeleted.name
-                .split("/")
-                .pop()} successfully`
-            });
-          }
-        }
-      },
-      folder_added: {
-        query: gql`
-          subscription {
-            folderAdded {
-              success
-              name
-            }
-          }
-        `,
-        result({ data: { folderAdded } }) {
-          if (folderAdded.success) {
-            this.notificationType = "Informational";
-            this.notificationTitle = "Folder Added";
-            this.addMessage({
-              id: uniqid("notification-msg-"),
-              message: `Added ${folderAdded.name
-                .split("/")
-                .pop()} successfully`
-            });
-          }
-        }
-      }
-    }
+    $subscribe: NotificationSub
   }
 };
 </script>

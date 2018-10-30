@@ -8,6 +8,7 @@
         @dragend="handleDragEnd" @dragenter="handleDragEnter"
         @dragleave="handleDragLeave" @click="openInputFile"
       >
+        <!-- dropzone main -->
         <span class="intro-message" v-if="!isDropped">Drop your file</span>
         <div v-if="isDropped" class="dropped-file" :style="getResultStyle">
           <span class="file-name">{{fileName}}</span>
@@ -17,6 +18,9 @@
             <ProgressBar :value="progress" />
           </div>
         </div>
+        <!-- dropzone main -->
+
+        <!-- clear upload -->
         <div class="clear-upload" v-if="isDropped">
           <Button buttonStyle="icon" :onClick="handleClear" v-if="!uploadSuccess">
             <template slot="btn-icon">
@@ -24,19 +28,27 @@
             </template>
           </Button>
         </div>
+        <!-- clear upload -->
+
+        <!-- input file -->
         <input type="file" id="input-file" style="display: none" @change="handleInputFile">
+        <!-- input file -->
       </div>
+
+      <!-- file explorer -->
       <span class="upload-explorer-header">Choose a destination to upload</span>
       <div class="upload-explorer-wrapper">
         <RootFolder :onClick="handleRootFolder"/>
         <UploadExplorer path="" />
       </div>
+      <!-- file explorer -->
     </section>
     <!-- drop zone ends here -->
 
     <!-- selected path -->
-    <div class="upload-path-selection">
-      <span>Uploading to {{this.getUploadPath}}</span>
+    <div class="upload-path-selection" v-if="fileName !== ''">
+      <span >Uploading <span class="highlight">{{fileName}}</span> to </span>
+      <span class="highlight">{{this.getUploadPath}}</span>
     </div>
     <!-- selected path -->
 
@@ -134,7 +146,7 @@ export default Vue.component("UploadWindow", {
         (this.uploadStarted = false);
     },
     handleRootFolder() {
-       this.uploadFile("");
+      this.uploadFile("");
     },
     handleUpload() {
       try {
@@ -154,7 +166,7 @@ export default Vue.component("UploadWindow", {
             if (this.progress === 100) {
             }
           },
-          timeout: 15000,
+          timeout: 5000,
           data: data => {
             debugger;
           }
@@ -172,6 +184,7 @@ export default Vue.component("UploadWindow", {
         this.uploadStarted = false;
       }
     },
+    // * close the form
     handleCancel() {
       this.uploadFile("");
       this.updateModalState({
@@ -180,6 +193,7 @@ export default Vue.component("UploadWindow", {
         componentToRender: ""
       });
     },
+    // * clear dropzone
     handleClear(ev) {
       ev.stopPropagation();
       ev.preventDefault();
@@ -193,9 +207,10 @@ export default Vue.component("UploadWindow", {
     openInputFile() {
       this.$el.querySelector("input[type=file]").click();
     },
+    // * all drag and drop events
     handleInputFile(ev) {
       const file = ev.target.files[0];
-      if(file) {
+      if (file) {
         this.fileName = file.name;
         this.fileSize = file.size;
         this.isDropped = true;

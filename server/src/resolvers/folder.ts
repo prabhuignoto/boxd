@@ -17,9 +17,21 @@ export default {
           from_path: args.from_path,
           to_path: args.to_path,
         });
+        PubSub.publish("resx_copied", {
+          resxCopied: {
+            name: args.from_path,
+            success: true,
+          },
+        });
         return result.metadata;
       } catch (error) {
         errorLogger.log(error);
+        PubSub.publish("resx_copied", {
+          resxCopied: {
+            message: "Failed to copy the resource",
+            success: false,
+          },
+        });
         return {};
       }
     },
@@ -41,7 +53,7 @@ export default {
         return result.metadata;
       } catch (error) {
         errorLogger.log(error);
-        PubSub.publish("folder_deleted", {
+        PubSub.publish("folder_added", {
           folderAdded: {
             message: "Failed to add the folder",
             success: false,
@@ -58,8 +70,8 @@ export default {
         }).filesDeleteV2({
           path: args.path,
         });
-        PubSub.publish("folder_deleted", {
-          folderDeleted: {
+        PubSub.publish("resx_deleted", {
+          resxDeleted: {
             name: args.path,
             success: true,
           },
@@ -67,8 +79,8 @@ export default {
         return result.metadata;
       } catch (error) {
         errorLogger.log(error);
-        PubSub.publish("folder_deleted", {
-          folderDeleted: {
+        PubSub.publish("resx_deleted", {
+          resxDeleted: {
             message: "Failed to delete the folder",
             success: false,
           },
@@ -85,9 +97,21 @@ export default {
           from_path: args.from_path,
           to_path: args.to_path,
         });
+        PubSub.publish("resx_moved", {
+          resxMoved: {
+            name: args.from_path,
+            success: true,
+          },
+        });
         return result.metadata;
       } catch (error) {
         errorLogger.log(error);
+        PubSub.publish("resx_moved", {
+          resxCopied: {
+            message: "Failed to move the resource",
+            success: false,
+          },
+        });
         return {};
       }
     },
@@ -132,10 +156,16 @@ export default {
   },
   Subscription: {
     folderAdded: {
-      subscribe: () => PubSub.asyncIterator("folder_added")
+      subscribe: () => PubSub.asyncIterator("folder_added"),
     },
-    folderDeleted: {
-      subscribe: () => PubSub.asyncIterator("folder_deleted"),
+    resxCopied: {
+      subscribe: () => PubSub.asyncIterator("resx_copied"),
+    },
+    resxDeleted: {
+      subscribe: () => PubSub.asyncIterator("resx_deleted"),
+    },
+    resxMoved: {
+      subscribe: () => PubSub.asyncIterator("resx_moved"),
     },
   },
 };

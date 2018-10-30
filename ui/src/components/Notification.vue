@@ -1,5 +1,6 @@
 <template>
   <div class="notification-wrapper">
+    <!-- header section -->
     <header>
       <i class="type-icon">
         <img src="../assets/info-circle.svg" alt="info-icon" v-if="type === 'Informational'">
@@ -11,12 +12,16 @@
         </i>
       </button>
     </header>
+    <!-- header section -->
+
+    <!-- notification content  -->
     <div class="content">
       <i>
         <img src="../assets/check-green.svg" alt="check green">
       </i>
       <span>{{message.message}}</span>
     </div>
+    <!-- notification content  -->
   </div>
 </template>
 
@@ -27,10 +32,11 @@ export default {
   name: "Notification",
   props: ["message", "type", "title"],
   mounted() {
+    // * autoclose the notification if its informational
     if(this.type === "Informational") {
       setTimeout(() => {
         this.handleClose();
-      }, 3500)
+      }, 3000)
     }
   },
   methods: {

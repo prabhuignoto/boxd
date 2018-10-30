@@ -1,7 +1,9 @@
 export default `
   type Subscription {
     fileUploaded: uploadMessage!
-    folderDeleted: folderDeletedMessage!
+    resxDeleted: resxMessage!
+    resxMoved: resxMessage!
+    resxCopied: resxMessage!
     folderAdded: folderAddedMessage!
   }
 `;
