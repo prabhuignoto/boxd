@@ -19,6 +19,5 @@ module.exports = {
     resolve: {
       extensions: [".webpack.js", ".web.js", ".mjs", ".js", ".json"]
     }
-    // plugins: [new HardSourceWebpackPlugin()]
   }
 };

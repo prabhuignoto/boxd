@@ -39,7 +39,7 @@ try {
   app.use(
     cors({
       credentials: true,
-      origin: "http://localhost:8080",
+      origin: process.env.CORS,
     }),
   );
 
@@ -93,7 +93,7 @@ try {
     app,
     cors: {
       credentials: true,
-      origin: "http://localhost:8080",
+      origin: process.env.CORS,
     },
     path: "/graphql",
   });

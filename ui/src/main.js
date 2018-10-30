@@ -12,14 +12,14 @@ import VueApollo from "vue-apollo";
 import { getMainDefinition } from "apollo-utilities";
 
 Vue.config.productionTip = false;
-
+console.log(process.env);
 const httpLink = new HttpLink({
   credentials: "include",
-  uri: "http://localhost:4000/graphql"
+  uri: `${process.env.VUE_APP_API_SERVER}/graphql`
 });
 
 const wsLink = new WebSocketLink({
-  uri: "ws://localhost:4000/graphql",
+  uri: `${process.env.VUE_APP_WS_API_SERVER}/graphql`,
   options: {
     reconnect: true
   }
