@@ -109,14 +109,14 @@ ID = "boxy-app"
   [headers.values]
     X-Frame-Options = "DENY"
     X-XSS-Protection = "1; mode=block"
-    Content-Security-Policy = "frame-ancestors https://www.facebook.com"
+    # Content-Security-Policy = "frame-ancestors https://www.facebook.com"
 
     # Multi-key header rules are expressed with multi-line strings.
-    Link = '''
-    </assets/css/base.css>; rel=preload; as=style, \
-    </assets/css/base2.css>; rel=preload; as=style, \
-    </assets/css/base3.css>; rel=preload; as=style'''
+    # Link = '''
+    # </assets/css/base.css>; rel=preload; as=style, \
+    # </assets/css/base2.css>; rel=preload; as=style, \
+    # </assets/css/base3.css>; rel=preload; as=style'''
 
     # Basic-Auth allows you to password protect your whole site. 
     # Only available to paid accounts.
-    Basic-Auth = "someuser:somepassword anotheruser:anotherpassword"
+    # Basic-Auth = "someuser:somepassword anotheruser:anotherpassword"

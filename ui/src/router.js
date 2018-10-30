@@ -25,7 +25,7 @@ const AppRouter = new Router({
       name: "dashboard",
       component: Dashboard,
       beforeEnter: async (to, from, next) => {
-        const response = await Axios.get("http://localhost:4000/isLoggedIn", {
+        const response = await Axios.get(`${process.env.VUE_APP_API_SERVER}/isLoggedIn`, {
           withCredentials: true
         });
         const { loggedin } = response.data;
