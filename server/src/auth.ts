@@ -122,7 +122,7 @@ export async function Authenticate(req: Request, resp: Response) {
         if (err) {
           throw new Error("Failed to save session");
         }
-        resp.redirect("http://localhost:8080/dashboard");
+        resp.redirect(process.env.DASHBOARD as string);
       });
     }
     // redirect to home
