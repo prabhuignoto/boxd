@@ -11,8 +11,9 @@ import { WebSocketLink } from "apollo-link-ws";
 import VueApollo from "vue-apollo";
 import { getMainDefinition } from "apollo-utilities";
 
-Vue.config.productionTip = false;
+Vue.config.productionTip = true;
 console.log(process.env);
+
 const httpLink = new HttpLink({
   credentials: "include",
   uri: `${process.env.VUE_APP_API_SERVER}/graphql`
