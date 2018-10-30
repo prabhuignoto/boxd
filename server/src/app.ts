@@ -1,3 +1,5 @@
+import "newrelic";
+
 import { ApolloServer } from "apollo-server-express";
 import BodyParser from "body-parser";
 import ConnectRedis from "connect-redis";
@@ -7,7 +9,6 @@ import express, { Request, Response } from "express";
 import Session from "express-session";
 import { createServer } from "http";
 import morgan from "morgan";
-import "newrelic";
 import Redis from "redis";
 import { createLogger, transports } from "winston";
 import Routers from "./router";
