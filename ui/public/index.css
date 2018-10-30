@@ -10,12 +10,10 @@ body {
 html, body {
   height: 100%;
 }
-/* html .wf-loading {
-    > * {
-      display: none;
-    }
-  }
-} */
+
+.wf-loading > * {
+  display: none;
+}
 
 .app-footer {
   background: #2b2d42;
