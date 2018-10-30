@@ -67,7 +67,7 @@ ID = "boxy-app"
 #   to = "/blog/:splat"
 
 # A redirect rule with all the supported properties
-[[redirects]]
+# [[redirects]]
   # from = "/old-path"
   # to = "/new-path"
 
