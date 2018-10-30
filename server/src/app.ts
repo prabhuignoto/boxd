@@ -14,7 +14,13 @@ import schema from "./schema";
 
 // * initialize redis store and client
 const RedisStore = ConnectRedis(Session);
-const RedisClient = Redis.createClient();
+const RedisClient = Redis.createClient({
+  connect_timeout: 6000,
+  host: process.env.REDIS_HOST,
+  max_attempts: 4,
+  port: Number(process.env.REDIS_PORT),
+});
+RedisClient.auth(process.env.REDIS_PASSWD as string);
 const ErrorLogger = createLogger({
   level: "error",
   transports: [new transports.Console()],
@@ -57,10 +63,10 @@ try {
       secret: "vubox app secret",
       store: new RedisStore({
         client: RedisClient,
-        host: process.env.REDIS_HOST as string,
-        pass: process.env.REDIS_PASSWD || "",
-        port: Number(process.env.REDIS_PORT),
-        url: process.env.REDIS_URL,
+        // host: process.env.REDIS_HOST as string,
+        // pass: process.env.REDIS_PASSWD || "",
+        // port: Number(process.env.REDIS_PORT),
+        // url: process.env.REDIS_URL,
       }),
     }),
   );
