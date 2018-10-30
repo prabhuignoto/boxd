@@ -127,10 +127,11 @@ export async function Authenticate(req: Request, resp: Response) {
     }
     // redirect to home
   } catch (error) {
+    console.log(error);
     // todo: prepare a error message
     errorLogger.log({
       level: "error",
-      message: error.response.status_,
+      message: error.response.status,
     });
   }
 }
