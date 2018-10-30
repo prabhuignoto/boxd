@@ -66,7 +66,7 @@ export default {
     right: 0;
     margin-left: auto;
     margin-right: auto;
-    transform: translateY(85vh);
+    transform: translateY(80vh);
     padding-bottom: 1rem;
 
     header {

@@ -11,8 +11,11 @@
         <!-- dropzone main -->
         <span class="intro-message" v-if="!isDropped">Drop your file</span>
         <div v-if="isDropped" class="dropped-file" :style="getResultStyle">
-          <span class="file-name">{{fileName}}</span>
-          <div class="file-name">{{prettySize}}</div>
+          <span class="file-name" v-if="!uploadSuccess">{{fileName}}</span>
+          <span v-if="uploadSuccess" class="upload-success-msg">
+            Upload to Dropbox is complete.
+          </span>
+          <div class="file-name" v-if="!uploadSuccess">{{prettySize}}</div>
           <!-- <span class="success-msg" v-if="uploadSuccess">File uploaded successfully.</span> -->
           <div class="progress-wrap" v-if="uploadStarted">
             <ProgressBar :value="progress" />
@@ -36,10 +39,12 @@
       </div>
 
       <!-- file explorer -->
-      <span class="upload-explorer-header">Choose a destination to upload</span>
-      <div class="upload-explorer-wrapper">
-        <RootFolder :onClick="handleRootFolder"/>
-        <UploadExplorer path="" />
+      <div class="upload-file-explorer-container" v-if="getUploadExplorerStatus">
+        <span class="upload-explorer-header">Choose a destination to upload</span>
+        <div class="upload-explorer-wrapper">
+          <RootFolder :onClick="handleRootFolder"/>
+          <UploadExplorer path="" />
+        </div>
       </div>
       <!-- file explorer -->
     </section>
@@ -47,7 +52,8 @@
 
     <!-- selected path -->
     <div class="upload-path-selection" v-if="fileName !== ''">
-      <span >Uploading <span class="highlight">{{fileName}}</span> to </span>
+      <span v-if="!uploadSuccess">Uploading <span class="highlight">{{fileName}}</span> to </span>
+      <span v-if="uploadSuccess">Uploaded <span class="highlight">{{fileName}}</span> to </span>
       <span class="highlight">{{this.getUploadPath}}</span>
     </div>
     <!-- selected path -->
@@ -92,7 +98,11 @@ export default Vue.component("UploadWindow", {
     RootFolder
   },
   computed: {
-    ...mapGetters(["getUploadPath"]),
+    ...mapGetters([
+      "getUploadPath",
+      "getUploadExplorerStatus",
+      "getExplorerPath"
+    ]),
     canDisableUpload() {
       return !this.isDropped || this.uploadStarted || this.getUploadPath === "";
     },
@@ -135,7 +145,13 @@ export default Vue.component("UploadWindow", {
     };
   },
   methods: {
-    ...mapActions(["updateModalState", "uploadFile"]),
+    ...mapActions([
+      "updateModalState",
+      "uploadFile",
+      "updateUploadExplorerStatus",
+      "refreshFileExplorer",
+      "refetchData"
+    ]),
     reset() {
       (this.isDragOver = false),
         (this.isDropped = false),
@@ -166,7 +182,7 @@ export default Vue.component("UploadWindow", {
             if (this.progress === 100) {
             }
           },
-          timeout: 5000,
+          timeout: 15000,
           data: data => {
             debugger;
           }
@@ -174,6 +190,11 @@ export default Vue.component("UploadWindow", {
         response
           .then(data => {
             this.uploadSuccess = true;
+            this.refetchData(true);
+            this.refreshFileExplorer({
+              status: true,
+              path: this.getUploadPath
+            });
           })
           .catch(error => {
             this.uploadSuccess = false;
@@ -187,6 +208,7 @@ export default Vue.component("UploadWindow", {
     // * close the form
     handleCancel() {
       this.uploadFile("");
+      this.updateUploadExplorerStatus(true);
       this.updateModalState({
         status: false,
         title: "",

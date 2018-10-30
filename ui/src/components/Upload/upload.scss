@@ -13,7 +13,7 @@
   align-items: center;
   justify-content: center;
   .drop-zone {
-    height: 200px;
+    height: 180px;
     width: 100%;
     // background: rgba(0, 126, 229, 0.3);
     background: #EDF2F4;
@@ -73,12 +73,12 @@
       border: 1px solid rgba(141, 153, 174, 0.25);
       height: 100%;
       border-radius: 4px;
-
+      text-shadow: 1px 1px rgba(0,0,0,0.25);
       .icon-wrapper {
         width: 2rem;
         height: 2rem;
         margin-right: 0.5rem;
-
+        
         img {
           max-height: 100%;
           max-width: 100%;
@@ -86,7 +86,8 @@
       }
       .file-name {
         font-size: 1.25rem;
-        color: #2B2D42;
+        color: #fff;
+        text-shadow: 1px 1px rgba(0,0,0,0.95);
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
@@ -133,6 +134,12 @@
 img {
   max-height: 100%;
   max-width: 100%;
+}
+.upload-file-explorer-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 .upload-explorer-wrapper {
   width:100%;

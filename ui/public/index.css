@@ -1,0 +1,120 @@
+
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+html, body {
+  height: 100%;
+}
+/* html .wf-loading {
+    > * {
+      display: none;
+    }
+  }
+} */
+
+.app-footer {
+  background: #2b2d42;
+  /* padding: 0.25rem; */
+  display: grid;
+  grid-template-columns: 200px 100px auto;
+  height: 100px;
+  margin-bottom: 0px;
+  margin-top: auto;
+  width: 100%;
+}
+@media (min-width: 481px) and (max-width: 767px) {
+  .app-footer {
+    grid-template-columns: 200px auto;
+    grid-template-rows: 60px 60px;
+    height: 120px;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+  .app-footer {
+    grid-template-columns: 200px auto;
+    grid-template-rows: 70px 70px;
+    height: 140px;
+  }
+}
+
+.logo {
+  color: #edf2f4;
+  font-size: 2rem;
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  align-self: center;
+  justify-self: center;
+  margin-bottom: 0.95rem;
+}
+@media (min-width: 481px) and (max-width: 767px) {
+  .logo {
+    padding-left: 1rem;
+    justify-self: left;
+  }
+}
+@media (min-width: 320px) and (max-width: 480px) {
+  .logo {
+    justify-self: left;
+    padding-left: 1rem;
+  }
+}
+.footer-info {
+  color: #fff;
+  justify-self: right;
+  align-self: center;
+  margin-right: 0.5rem;
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+  display: inline-block;
+  width: 100%;
+  text-align: right;
+  
+  
+}
+.footer-info span {
+  display: block;
+  height: 100%;
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .footer-info {
+  grid-column: 1/-1;
+  text-align: center;
+  }
+}
+@media (min-width: 320px) and (max-width: 480px) {
+  .footer-info {
+  grid-column: 1/-1;
+  text-align: center;
+  }
+}
+
+.social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  justify-self: center;
+}
+@media (min-width: 481px) and (max-width: 767px) {
+  .social {
+    justify-self: right;
+    align-self: center;
+  }
+}
+@media (min-width: 320px) and (max-width: 480px) {
+  .social {
+    justify-self: right;
+    align-self: center;
+  }
+}
+.social i {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 1rem;
+}

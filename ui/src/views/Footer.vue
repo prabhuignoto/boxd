@@ -4,12 +4,12 @@
     <div class="social">
       <i>
         <a href="https://twitter.com/prabhumurthy2" target="_new">
-          <img src="../assets/twitter.svg" alt="twitter">
+          <!-- <img src="../assets/twitter.svg" alt="twitter"> -->
         </a>
       </i>
       <i>
         <a href="https://github.com/prabhuignoto" target="_new">
-          <img src="../assets/github.svg" alt="github">
+          <!-- <img src="../assets/github.svg" alt="github"> -->
         </a>
       </i>
     </div>

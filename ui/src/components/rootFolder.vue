@@ -21,6 +21,8 @@ export default {
     justify-content: flex-start;
     cursor: pointer;
     width: 60px;
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;
     &:focus {
       outline: 1px dotted #2B2D42;
       outline-offset: 2px;

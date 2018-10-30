@@ -52,7 +52,9 @@ export default {
       "deleteFolder",
       "createFolderSelection",
       "hideCreateFolderExplorer",
-      "updateWorkflowOrigin"
+      "updateWorkflowOrigin",
+      "uploadFile",
+      "updateUploadExplorerStatus"
     ]),
     handleAddFolder() {
       this.updateWorkflowOrigin("context-control");
@@ -93,6 +95,8 @@ export default {
       })
     },
     handleUpload() {
+      this.uploadFile(this.path);
+      this.updateUploadExplorerStatus(false);
       this.updateModalState({
         status: true,
         componentToRender: "UploadWindow",
