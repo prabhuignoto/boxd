@@ -170,7 +170,7 @@ export default Vue.component("UploadWindow", {
         formData.append("file", this.file);
         formData.append("uploadPath", this.getUploadPath);
         this.uploadStarted = true;
-        const response = Axios.post("http://localhost:4000/upload", formData, {
+        const response = Axios.post(`${process.env.VUE_APP_API_SERVER}/upload`, formData, {
           withCredentials: true,
           headers: {
             "Content-Type": "multipart/form-data"
