@@ -30,7 +30,7 @@ export default Vue.component("Logout", {
         });
         const {success, message} = response.data;
         if(success) {
-          window.location.href=`${process.env.VUE_UI_URL}`
+          window.location.href=`${process.env.VUE_APP_UI_URL}`
         }
       } catch (error) {
         console.error("Failed to logout.")
