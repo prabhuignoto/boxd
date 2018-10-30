@@ -49,7 +49,6 @@ try {
     }),
   );
 
-  console.log(process.env);
   // * setup express-session and hook up with redis store for storing the sessions
   app.use(
     Session({
@@ -63,10 +62,6 @@ try {
       secret: "vubox app secret",
       store: new RedisStore({
         client: RedisClient,
-        // host: process.env.REDIS_HOST as string,
-        // pass: process.env.REDIS_PASSWD || "",
-        // port: Number(process.env.REDIS_PORT),
-        // url: process.env.REDIS_URL,
       }),
     }),
   );

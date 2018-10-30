@@ -182,7 +182,7 @@ export default Vue.component("UploadWindow", {
             if (this.progress === 100) {
             }
           },
-          timeout: 15000,
+          // timeout: 15000,
           data: data => {
             debugger;
           }
