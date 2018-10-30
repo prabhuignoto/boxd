@@ -19,10 +19,18 @@ const RedisStore = ConnectRedis(Session);
 const RedisClient = Redis.createClient({
   connect_timeout: 6000,
   host: process.env.REDIS_HOST,
-  max_attempts: 4,
   port: Number(process.env.REDIS_PORT),
+  retry_strategy: (options: any) => {
+    if (options.error) {
+      throw new Error("Failed to connect to the redis host");
+    }
+    return 3000;
+  },
 });
-RedisClient.auth(process.env.REDIS_PASSWD as string);
+
+RedisClient.auth(process.env.REDIS_PASSWD || "");
+
+// * create error logger
 const ErrorLogger = createLogger({
   level: "error",
   transports: [new transports.Console()],
@@ -110,8 +118,9 @@ try {
   // * start the app server
   const httpServer = createServer(app);
   server.installSubscriptionHandlers(httpServer);
-
-  httpServer.listen({ port: process.env.PORT || 4000 }, () => console.log(`🚀 Server ready`));
+  httpServer.listen({ port: process.env.PORT || 4000 }, () =>
+    console.log(`🚀 Server ready`),
+  );
 } catch (error) {
   ErrorLogger.log(error);
 }

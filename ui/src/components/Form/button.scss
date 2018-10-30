@@ -23,11 +23,10 @@ button {
     }
   }
   &.rounded {
-    border-radius: 5px;
+    border-radius: 3px;
     padding: 0.4rem;
     .label {
       color: #2B2D42;
-      // color: #fff;
       font-size: 0.95rem;
       font-weight: 500;
     }

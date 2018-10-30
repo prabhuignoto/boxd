@@ -25,7 +25,6 @@ export default Vue.component("Logout", {
       try {
         const response = await Axios.post(`${process.env.VUE_APP_API_SERVER}/logout`, {}, {
           withCredentials: true,
-          timeout: 5000,
           responseType: "text/json"
         });
         const {success, message} = response.data;
@@ -35,7 +34,7 @@ export default Vue.component("Logout", {
       } catch (error) {
         console.error("Failed to logout.")
       }
-    }, 3000);
+    }, 1500);
   },
 });
 
@@ -49,7 +48,7 @@ export default Vue.component("Logout", {
     margin-top: 1rem;
   }
   .message {
-    font-size: 1.25rem;
+    font-size: 1rem;
     margin-bottom: 2rem;
     display: block;
     background: #fff;

@@ -110,7 +110,7 @@ export default {
         position: absolute;
         left: -1px;
         top: 0;
-        width: 2px;
+        width: 1px;
         height: 100%;
         background: #d90429;
       }
