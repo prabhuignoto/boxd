@@ -43,6 +43,7 @@ try {
     }),
   );
 
+  console.log(process.env);
   // * setup express-session and hook up with redis store for storing the sessions
   app.use(
     Session({
