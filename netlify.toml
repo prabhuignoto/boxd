@@ -23,7 +23,7 @@ ID = "boxy-app"
 # Production context: all deploys from the Production branch set in your site's 
 # deploy settings will inherit these settings.
 [context.production]
-  publish = "output/"
+  publish = "dist/"
   command = "yarn build"
   environment = { VUE_APP_API_SERVER= "http://localhost:4000", VUE_APP_WS_API_SERVER= "ws://localhost:4000" }
 
