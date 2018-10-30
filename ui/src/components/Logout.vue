@@ -23,14 +23,14 @@ export default Vue.component("Logout", {
   mounted() {
     setTimeout(async () => {
       try {
-        const response = await Axios.post("http://localhost:4000/logout", {}, {
+        const response = await Axios.post(`${process.env.VUE_APP_API_SERVER}/logout`, {}, {
           withCredentials: true,
           timeout: 5000,
           responseType: "text/json"
         });
         const {success, message} = response.data;
         if(success) {
-          window.location.href="http://localhost:8080"
+          window.location.href=`${process.env.VUE_UI_URL}`
         }
       } catch (error) {
         console.error("Failed to logout.")
