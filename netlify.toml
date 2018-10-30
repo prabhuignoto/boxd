@@ -25,13 +25,13 @@ ID = "boxy-app"
 [context.production]
   publish = "ui/dist/"
   command = "yarn build"
-  environment = { VUE_APP_API_SERVER= "https://boxy-server.herokuapp.com", VUE_APP_WS_API_SERVER= "wss://boxy-server.herokuapp.com" }
+  environment = { VUE_APP_API_SERVER= "https://boxy-server.herokuapp.com", VUE_APP_WS_API_SERVER= "wss://boxy-server.herokuapp.com", VUE_UI_URL= "https://boxy-app.netlify.com" }
 
 # Deploy Preview context: all deploys resulting from a pull/merge request will 
 # inherit these settings.
 [context.deploy-preview]
   publish = "dist/"
-  environment = { VUE_APP_API_SERVER= "https://boxy-server.herokuapp.com", VUE_APP_WS_API_SERVER= "wss://boxy-server.herokuapp.com" }
+  environment = { VUE_APP_API_SERVER= "https://boxy-server.herokuapp.com", VUE_APP_WS_API_SERVER= "wss://boxy-server.herokuapp.com", VUE_UI_URL= "https://boxy-app.netlify.com" }
 
 # Here is another way to define context specific environment variables.
 # [context.deploy-preview.environment]
