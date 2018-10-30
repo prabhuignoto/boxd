@@ -27,6 +27,16 @@
       "args": [
         "${workspaceRoot}/server/src/app.ts"
       ],
+    },
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Heroku",
+      "address": "localhost",
+      "port": 9229,
+      "protocol": "inspector",
+      "localRoot": "${workspaceFolder}/server/",
+      "remoteRoot": "/app"
     }
   ]
 }
