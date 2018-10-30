@@ -57,9 +57,10 @@ try {
       secret: "vubox app secret",
       store: new RedisStore({
         client: RedisClient,
-        host: process.env.REDIS_HOST as string,
+        // host: process.env.REDIS_HOST as string,
         pass: process.env.REDIS_PASSWD || "",
-        port: Number(process.env.REDIS_PORT),
+        // port: Number(process.env.REDIS_PORT),
+        url: process.env.REDIS_URL,
       }),
     }),
   );
