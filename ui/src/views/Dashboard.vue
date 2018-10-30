@@ -32,7 +32,7 @@
 
 <script>
 import Account from "../components/Account";
-import Explorer from "../components/Explorer/explorer";
+import Explorer from "../components/explorer/explorer.vue";
 import Popup from "../components/Popup/Popup";
 import Button from "../components/Form/Button";
 import DeleteFolder from "../components/Folder/DeleteFolder";
