@@ -105,7 +105,7 @@ try {
   const httpServer = createServer(app);
   server.installSubscriptionHandlers(httpServer);
 
-  httpServer.listen({ port: 4000 }, () => console.log(`🚀 Server ready`));
+  httpServer.listen({ port: process.env.PORT || 4000 }, () => console.log(`🚀 Server ready`));
 } catch (error) {
   ErrorLogger.log(error);
 }
