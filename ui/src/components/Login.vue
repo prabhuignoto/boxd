@@ -28,7 +28,7 @@ export default {
   props: ["title"],
   methods: {
     handleClick() {
-      window.location = "http://localhost:4000/auth/login"
+      window.location = `${process.env.VUE_APP_API_SERVER}/auth/login`
     }
   }
 };
