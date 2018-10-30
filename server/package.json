@@ -41,7 +41,8 @@
     "reflect-metadata": "^0.1.12",
     "subscriptions-transport-ws": "^0.9.15",
     "ts-node": "^7.0.1",
-    "winston": "^3.1.0"
+    "winston": "^3.1.0",
+    "typescript": "^3.1.1"
   },
   "scripts": {
     "dev": "nodemon ./src/app.ts",
@@ -51,7 +52,6 @@
     "nodemon": "^1.18.4",
     "prettier": "^1.14.3",
     "prettierrc": "^0.0.0-5",
-    "source-map-support": "^0.5.9",
-    "typescript": "^3.1.1"
+    "source-map-support": "^0.5.9"
   }
 }
