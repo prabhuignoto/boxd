@@ -26,7 +26,7 @@
       background: #8D99AE;
     }
     @media (min-width: 1281px) {
-      height: 220px;
+      height: 180px;
     }
     
     @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
@@ -100,7 +100,7 @@
     }
   }
   .intro-message {
-    font-size: 2rem;
+    font-size: 1.25rem;
     color: #8D99AE;
     position: absolute;
     top: 50%;
@@ -226,7 +226,7 @@ img {
 }
 .dropzone-backdrop-icon {
   width: 100%;
-  height: 40%;
+  height: 35%;
   left: 0;
   right: 0;
   margin-left: auto;

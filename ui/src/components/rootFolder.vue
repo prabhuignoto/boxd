@@ -3,7 +3,7 @@
     <i>
       <img src="../assets/folder.svg" alt="root-folder">
     </i>
-    <span class="root-slash">\</span>
+    <span class="root-slash">home</span>
   </div> 
 </template>
 
@@ -20,9 +20,11 @@ export default {
     align-items: center;
     justify-content: flex-start;
     cursor: pointer;
-    width: 60px;
-    margin-left: 0.5rem;
+    width: 80px;
+    margin-left: 0.25rem;
     margin-top: 0.5rem;
+    font-size: 0.95rem;
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
     &:focus {
       outline: 1px dotted #2B2D42;
       outline-offset: 2px;

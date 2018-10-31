@@ -6,7 +6,7 @@
         @drop="handleDrop" @dragover="handleDragOver"
         @drag="handleDrag" @dragstart="handleDragStart"
         @dragend="handleDragEnd" @dragenter="handleDragEnter"
-        @dragleave="handleDragLeave" @click="openInputFile" :disabled="uploadStarted || uploadSuccess"
+        @dragleave="handleDragLeave" @click="openInputFile" :disabled="canDisableInput"
       >
         <!-- dropzone main -->
         <span class="intro-message" v-if="!isDropped">Drop your file</span>
@@ -28,7 +28,7 @@
         <!-- dropzone main -->
 
         <!-- clear upload -->
-        <div class="clear-upload" v-if="isDropped && !uploadStarted">
+        <div class="clear-upload" v-if="canEnableClearBtn">
           <Button buttonStyle="icon" :onClick="handleClear" v-if="!uploadSuccess">
             <template slot="btn-icon">
               <img src="../../assets/times.svg" alt="clear-upload">
@@ -38,12 +38,12 @@
         <!-- clear upload -->
 
         <!-- input file -->
-        <input type="file" id="input-file" style="display: none" @change="handleInputFile" :disabled="uploadSuccess || uploadStarted">
+        <input type="file" id="input-file" style="display: none" @change="handleInputFile" :disabled="canDisableInput">
         <!-- input file -->
       </div>
 
       <!-- file explorer -->
-      <div class="upload-file-explorer-container" v-if="getUploadExplorerStatus && !uploadSuccess">
+      <div class="upload-file-explorer-container" v-if="canShowFileExplorer">
         <span class="upload-explorer-header">Choose a destination to upload</span>
         <div class="upload-explorer-wrapper">
           <RootFolder :onClick="handleRootFolder"/>
@@ -55,27 +55,27 @@
     <!-- drop zone ends here -->
 
     <!-- selected path -->
-    <div class="upload-path-selection" v-if="fileName !== '' && !uploadSuccess">
+    <div class="upload-path-selection" v-if="canShowUpladPathSelection">
       <span v-if="!uploadSuccess">Uploading to </span>
       <span v-if="uploadSuccess">Uploaded to </span>
-      <span class="highlight">{{this.getUploadPath}}</span>
+      <span class="highlight">{{getUploadPathCustom}}</span>
     </div>
     <!-- selected path -->
 
     <!-- form controls -->
     <div class="upload-controls">
       <Button name="Upload" :onClick="handleUpload" 
-        :disabled="canDisableUpload" :buttonStyle="getStyle" v-if="!uploadSuccess">
+        :disabled="canDisableUpload" :buttonStyle="getStyle" v-if="canShowControls">
           <template slot="btn-icon">
             <img src="../../assets/check.svg" alt="upload" v-if="!canDisableUpload">
             <img src="../../assets/check-white.svg" alt="upload" v-if="canDisableUpload">
           </template>
       </Button>
-      <Button name="Close" :onClick="handleCancel">
+      <!-- <Button name="Close" :onClick="handleCancel">
         <template slot="btn-icon">
           <img src="../../assets/times.svg" alt="cancel upload">
         </template>
-      </Button>
+      </Button> -->
     </div>
     <span class="ps" v-if="!uploadSuccess">
       max file size: 50 Mb
@@ -105,8 +105,12 @@ export default Vue.component("UploadWindow", {
     ...mapGetters([
       "getUploadPath",
       "getUploadExplorerStatus",
-      "getExplorerPath"
+      "getExplorerPath",
+      "canEnableClearBtn"
     ]),
+    getUploadPathCustom() {
+      return this.getUploadPath === "/$root" ? "/home" : this.getUploadPath;
+    },
     canDisableUpload() {
       return !this.isDropped || this.uploadStarted || this.getUploadPath === "";
     },
@@ -134,6 +138,22 @@ export default Vue.component("UploadWindow", {
     },
     prettySize() {
       return this.fileSize ? PrettyBytes(this.fileSize) : "";
+    },
+    canEnableClearBtn() {
+      return this.isDropped && !this.uploadStarted;
+    },
+    canShowUpladPathSelection() {
+      return this.fileName !== '' && !this.uploadSuccess;
+    },
+    canShowFileExplorer() {
+      return this.getUploadExplorerStatus && !this.uploadSuccess && this.isDropped;
+    },
+    canDisableInput() {
+      // check if the upload is completed or just started and disable input controls
+      return this.uploadSuccess || this.uploadStarted;
+    },
+    canShowControls() {
+      return !this.uploadSuccess && this.isDropped;
     }
   },
   data() {
@@ -148,13 +168,18 @@ export default Vue.component("UploadWindow", {
       uploadSuccess: null
     };
   },
+  beforeDestroy() {
+    this.uploadFile("");
+    this.updateUploadExplorerStatus(true);
+  },
   methods: {
     ...mapActions([
       "updateModalState",
       "uploadFile",
       "updateUploadExplorerStatus",
       "refreshFileExplorer",
-      "refetchData"
+      "refetchData",
+      "updateUploadExplorerStatus"
     ]),
     reset() {
       (this.isDragOver = false),
@@ -166,13 +191,13 @@ export default Vue.component("UploadWindow", {
         (this.uploadStarted = false);
     },
     handleRootFolder() {
-      this.uploadFile("");
+      this.uploadFile("/$root");
     },
     handleUpload() {
       try {
         let formData = new FormData();
         formData.append("file", this.file);
-        formData.append("uploadPath", this.getUploadPath);
+        formData.append("uploadPath", this.getUploadPath === "/$root" ? "" : this.getUploadPath);
         this.uploadStarted = true;
         const response = Axios.post(
           `${process.env.VUE_APP_API_SERVER}/upload`,
@@ -191,7 +216,6 @@ export default Vue.component("UploadWindow", {
             },
             // timeout: 15000,
             data: data => {
-              debugger;
             }
           }
         );

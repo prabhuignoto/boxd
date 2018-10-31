@@ -9,7 +9,7 @@
   font-size: 0.95rem;
 
   .child-tree {
-    padding-left: 1rem;
+    padding-left: 1.5rem;
     display: block;
     display: flex;
     flex-direction: column;
@@ -38,7 +38,10 @@
       width: 100%;
       padding: 0.25rem;
       text-align: left;
-      max-width: 250px;
+      max-width: 200px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       text-transform: lowercase;
       outline: none;
       &.selected {

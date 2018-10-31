@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
+  max-width: 450px;
   padding: 0.1rem 0.5rem;
 
   & > div:not(:last-child) {
@@ -19,6 +20,8 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    width: 100%;
+    word-break: break-word;
     span {
       margin: 0.25rem 0;
     }
