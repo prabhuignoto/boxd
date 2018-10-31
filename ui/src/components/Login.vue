@@ -14,7 +14,7 @@
         <span class="dropbox-logo"></span>
       </div>
       <div class="button-grp">
-        <button class="dropbox-btn" v-on:click="handleClick">Login</button>
+        <button class="dropbox-btn" v-on:click="handleLogin">Login</button>
         <button class="dropbox-btn" v-on:click="handleClick">Create Account</button>
       </div>
     </section>
@@ -27,8 +27,11 @@ export default {
   name: "Login",
   props: ["title"],
   methods: {
-    handleClick() {
+    handleLogin() {
       window.location = `${process.env.VUE_APP_API_SERVER}/auth/login`
+    },
+    handleAccountCreation() {
+      window.location = "https://www.dropbox.com/login"
     }
   }
 };

@@ -11,11 +11,11 @@
 }
 header.app-title {
   font-size: 1.75rem;
-  font-weight: 500;
+  font-weight: 700;
   margin-bottom: 1rem;
   width: 100%;
-  background: #2B2D42;
-  color: #fff;
+  background: #fff;
+  color: #2B2D42;
   padding: 0.75rem 0;
   border-radius: 3px;
 }
@@ -51,7 +51,7 @@ header.app-title {
 .app-info-wrapper {
   margin-bottom: 2rem;
   .app-info {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 500;
     width: 100%;
     margin: 0.5rem 0;
@@ -73,11 +73,13 @@ header.app-title {
 }
 .dropbox-btn {
   font-size: 1.2rem;
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
   border: none;
   border-radius: 5px;
   padding: 0.75rem;
   // background: #8D99AE;
-  color: #2B2D42;
+  color: #007EE5;
+  font-weight: 700;
   cursor: pointer;
   margin: 0 0.5rem;
   width: 100%;
