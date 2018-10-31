@@ -14,6 +14,9 @@
         </ul>
       </header>
       <section class="explorer-content">
+        <div class="loader-container" v-if="$apollo.loading">
+          <Loader />
+        </div>
         <div class="line-item-wrapper search-results-row" v-if="isUserSearching">
           <span class="search-results-message">
             <a href="javascript:void(0);" @click="handleNavBackToExplorer">

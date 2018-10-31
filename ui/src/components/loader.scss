@@ -34,16 +34,16 @@
 .lds-ellipsis {
   display: inline-block;
   position: relative;
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
 }
 .lds-ellipsis div {
   position: absolute;
   top: 17px;
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background: #EF233C;
+  background: #C2C7C8;
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
 .lds-ellipsis div:nth-child(1) {
