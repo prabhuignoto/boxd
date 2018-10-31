@@ -82,7 +82,7 @@ export default {
     handleDownloadFile(path) {
       this.isDownloadingFile = true;
       Axios({
-        url: "http://localhost:4000/download",
+        url: `${VUE_APP_API_SERVER}/download`,
         params: {
           path
         },
