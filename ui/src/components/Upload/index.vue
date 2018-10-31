@@ -22,7 +22,7 @@
             <div class="file-name" v-if="!uploadSuccess">{{prettySize}}</div>
           </div>
           <!-- <span class="success-msg" v-if="uploadSuccess">File uploaded successfully.</span> -->
-          <div class="progress-wrap" v-if="uploadStarted">
+          <div class="progress-wrap" v-if="uploadStarted && !uploadSuccess">
             <ProgressBar :value="progress" />
           </div>
         </div>
@@ -44,7 +44,7 @@
       </div>
 
       <!-- file explorer -->
-      <div class="upload-file-explorer-container" v-if="getUploadExplorerStatus">
+      <div class="upload-file-explorer-container" v-if="getUploadExplorerStatus && !uploadSuccess">
         <span class="upload-explorer-header">Choose a destination to upload</span>
         <div class="upload-explorer-wrapper">
           <RootFolder :onClick="handleRootFolder"/>
@@ -78,7 +78,7 @@
         </template>
       </Button>
     </div>
-    <span class="ps">
+    <span class="ps" v-if="!uploadSuccess">
       max file size: 50 Mb
     </span>
     <!-- form controls -->

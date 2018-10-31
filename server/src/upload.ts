@@ -24,7 +24,11 @@ export default function Upload(req: Request, resp: Response) {
       message: `Uploading ${files[0].originalname} to ${req.body.uploadPath}`,
       level: "info"
     });
-    FS.readFile(files[0].path, "utf8", function(err, contents) {
+    console.time("reading");
+    FS.readFile(files[0].path, function(err, contents) {
+      console.timeEnd("reading");
+
+      console.time("uploading");
       const response = new Dropbox({
         accessToken: req.session!.access_token,
         clientId: process.env.CLIENT_ID,
@@ -33,6 +37,7 @@ export default function Upload(req: Request, resp: Response) {
         autorename: true,
         path: `${req.body.uploadPath}/${files[0].originalname}`
       });
+      console.timeEnd("uploading");
       response
         .then(data => {
           resp.json({
