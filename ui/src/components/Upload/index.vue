@@ -6,7 +6,7 @@
         @drop="handleDrop" @dragover="handleDragOver"
         @drag="handleDrag" @dragstart="handleDragStart"
         @dragend="handleDragEnd" @dragenter="handleDragEnter"
-        @dragleave="handleDragLeave" @click="openInputFile" :disabled="uploadSuccess"
+        @dragleave="handleDragLeave" @click="openInputFile" :disabled="uploadStarted || uploadSuccess"
       >
         <!-- dropzone main -->
         <span class="intro-message" v-if="!isDropped">Drop your file</span>
@@ -21,7 +21,6 @@
             </span>
             <div class="file-name" v-if="!uploadSuccess">{{prettySize}}</div>
           </div>
-          <!-- <span class="success-msg" v-if="uploadSuccess">File uploaded successfully.</span> -->
           <div class="progress-wrap" v-if="uploadStarted && !uploadSuccess">
             <ProgressBar :value="progress" />
           </div>
@@ -29,7 +28,7 @@
         <!-- dropzone main -->
 
         <!-- clear upload -->
-        <div class="clear-upload" v-if="isDropped">
+        <div class="clear-upload" v-if="isDropped && !uploadStarted">
           <Button buttonStyle="icon" :onClick="handleClear" v-if="!uploadSuccess">
             <template slot="btn-icon">
               <img src="../../assets/times.svg" alt="clear-upload">
@@ -39,7 +38,7 @@
         <!-- clear upload -->
 
         <!-- input file -->
-        <input type="file" id="input-file" style="display: none" @change="handleInputFile" :disabled="uploadSuccess">
+        <input type="file" id="input-file" style="display: none" @change="handleInputFile" :disabled="uploadSuccess || uploadStarted">
         <!-- input file -->
       </div>
 
@@ -57,8 +56,8 @@
 
     <!-- selected path -->
     <div class="upload-path-selection" v-if="fileName !== '' && !uploadSuccess">
-      <span v-if="!uploadSuccess">Uploading <span class="highlight">{{fileName}}</span> to </span>
-      <span v-if="uploadSuccess">Uploaded <span class="highlight">{{fileName}}</span> to </span>
+      <span v-if="!uploadSuccess">Uploading to </span>
+      <span v-if="uploadSuccess">Uploaded to </span>
       <span class="highlight">{{this.getUploadPath}}</span>
     </div>
     <!-- selected path -->

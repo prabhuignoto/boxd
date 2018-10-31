@@ -1,4 +1,4 @@
-import pubsub from './pubSub';
+import pubsub from "./pubSub";
 import { Request, Response } from "express";
 import { Dropbox } from "dropbox";
 import { createLogger, transports, format } from "winston";
@@ -24,47 +24,48 @@ export default function Upload(req: Request, resp: Response) {
       message: `Uploading ${files[0].originalname} to ${req.body.uploadPath}`,
       level: "info"
     });
-    console.time("reading");
-    FS.readFile(files[0].path, function(err, contents) {
-      console.timeEnd("reading");
 
-      console.time("uploading");
+    FS.readFile(files[0].path, function(err, contents) {
       const response = new Dropbox({
         accessToken: req.session!.access_token,
-        clientId: process.env.CLIENT_ID,
+        clientId: process.env.CLIENT_ID
       }).filesUpload({
         contents: contents,
         autorename: true,
         path: `${req.body.uploadPath}/${files[0].originalname}`
       });
-      console.timeEnd("uploading");
-      response
-        .then(data => {
-          resp.json({
-            success: true,
-            status: "completed",
-            status_text: "File uploaded successfully."
-          });
-          pubsub.publish("upload_completed", {
-            fileUploaded: {
+      FS.unlink(files[0].path, function(err) {
+        if (err) {
+          throw new Error("Failed to complete the cleanup.");
+        }
+        response
+          .then(data => {
+            resp.json({
               success: true,
-              fileName: files[0].originalname as string
-            }
+              status: "completed",
+              status_text: "File uploaded successfully."
+            });
+            pubsub.publish("upload_completed", {
+              fileUploaded: {
+                success: true,
+                fileName: files[0].originalname as string
+              }
+            });
           })
-        })
-        .catch(error => {
-          resp.json({
-            success: false,
-            status: "failed",
-            status_text: "Upload failed."
-          });
-          pubsub.publish("upload_completed", {
-            fileUploaded: {
+          .catch(error => {
+            resp.json({
               success: false,
-              message: "Failed to upload the file"
-            }
-          })
-        });
+              status: "failed",
+              status_text: "Upload failed."
+            });
+            pubsub.publish("upload_completed", {
+              fileUploaded: {
+                success: false,
+                message: "Failed to upload the file"
+              }
+            });
+          });
+      });
     });
 
     return true;
