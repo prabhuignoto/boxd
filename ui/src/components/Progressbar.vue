@@ -1,7 +1,7 @@
 <template>
   <div class="progress-bar-wrapper">
     <i v-if="value === 100">
-      <img src="../assets/check.svg" alt="completed">
+      <img src="../assets/check-green.svg" alt="completed">
     </i>
     <div class="progressbar-container">
       <span :style="getStyle"></span>
@@ -21,7 +21,7 @@ export default {
         top: 0,
         height: "100%",
         width: `${this.value}%`,
-        borderRadius: "10px",
+        borderRadius: "8px",
         background: "#2B2D42"
       };
     }
@@ -32,19 +32,18 @@ export default {
 <style lang="scss" scoped>
 .progress-bar-wrapper {
   width: 100%;
-  height: 10px;
+  height: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
+  border-radius: 8px;
 
   .progressbar-container {
-    border-radius: 10px;
+    border-radius: 8px;
     width: 100%;
     height: 100%;
     position: relative;
-    /* border: 1px solid #ddd; */
-    background: rgb(14, 3, 3);
+    background: #787986;
   }
   i {
     width: 1.5rem;

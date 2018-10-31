@@ -8,7 +8,7 @@
         </a>
       </i>
       <i>
-        <a href="https://github.com/prabhuignoto" target="_new">
+        <a href="https://github.com/prabhuignoto/boxy" target="_new">
           <!-- <img src="../assets/github.svg" alt="github"> -->
         </a>
       </i>

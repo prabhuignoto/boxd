@@ -76,10 +76,16 @@ header.app-title {
   border: none;
   border-radius: 5px;
   padding: 0.75rem;
-  background: #8D99AE;
-  color: #fff;
+  // background: #8D99AE;
+  color: #2B2D42;
   cursor: pointer;
   margin: 0 0.5rem;
   width: 100%;
   margin: 0.5rem 0;
+  border: 1px solid transparent;
+  outline: none;
+
+  &:hover {
+    border: 1px solid #8D99AE;
+  }
 }

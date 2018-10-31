@@ -6,16 +6,21 @@
         @drop="handleDrop" @dragover="handleDragOver"
         @drag="handleDrag" @dragstart="handleDragStart"
         @dragend="handleDragEnd" @dragenter="handleDragEnter"
-        @dragleave="handleDragLeave" @click="openInputFile"
+        @dragleave="handleDragLeave" @click="openInputFile" :disabled="uploadSuccess"
       >
         <!-- dropzone main -->
         <span class="intro-message" v-if="!isDropped">Drop your file</span>
-        <div v-if="isDropped" class="dropped-file" :style="getResultStyle">
-          <span class="file-name" v-if="!uploadSuccess">{{fileName}}</span>
-          <span v-if="uploadSuccess" class="upload-success-msg">
-            Upload to Dropbox is complete.
-          </span>
-          <div class="file-name" v-if="!uploadSuccess">{{prettySize}}</div>
+        <div v-if="isDropped" class="dropped-file" :style="getResultStyle" >
+          <i class="dropzone-backdrop-icon">
+            <img src="../../assets/upload_flat.svg" alt="upload icon">
+          </i>
+          <div class="uploaded-file-attrs">
+            <span class="file-name" v-if="!uploadSuccess">{{fileName}}</span>
+            <span v-if="uploadSuccess" class="upload-success-msg">
+              Upload to Dropbox is complete.
+            </span>
+            <div class="file-name" v-if="!uploadSuccess">{{prettySize}}</div>
+          </div>
           <!-- <span class="success-msg" v-if="uploadSuccess">File uploaded successfully.</span> -->
           <div class="progress-wrap" v-if="uploadStarted">
             <ProgressBar :value="progress" />
@@ -34,7 +39,7 @@
         <!-- clear upload -->
 
         <!-- input file -->
-        <input type="file" id="input-file" style="display: none" @change="handleInputFile">
+        <input type="file" id="input-file" style="display: none" @change="handleInputFile" :disabled="uploadSuccess">
         <!-- input file -->
       </div>
 
@@ -51,7 +56,7 @@
     <!-- drop zone ends here -->
 
     <!-- selected path -->
-    <div class="upload-path-selection" v-if="fileName !== ''">
+    <div class="upload-path-selection" v-if="fileName !== '' && !uploadSuccess">
       <span v-if="!uploadSuccess">Uploading <span class="highlight">{{fileName}}</span> to </span>
       <span v-if="uploadSuccess">Uploaded <span class="highlight">{{fileName}}</span> to </span>
       <span class="highlight">{{this.getUploadPath}}</span>
@@ -61,7 +66,7 @@
     <!-- form controls -->
     <div class="upload-controls">
       <Button name="Upload" :onClick="handleUpload" 
-        :disabled="canDisableUpload" :buttonStyle="getStyle">
+        :disabled="canDisableUpload" :buttonStyle="getStyle" v-if="!uploadSuccess">
           <template slot="btn-icon">
             <img src="../../assets/check.svg" alt="upload" v-if="!canDisableUpload">
             <img src="../../assets/check-white.svg" alt="upload" v-if="canDisableUpload">
@@ -170,23 +175,27 @@ export default Vue.component("UploadWindow", {
         formData.append("file", this.file);
         formData.append("uploadPath", this.getUploadPath);
         this.uploadStarted = true;
-        const response = Axios.post(`${process.env.VUE_APP_API_SERVER}/upload`, formData, {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "multipart/form-data"
-          },
-          onUploadProgress: progressEvent => {
-            this.progress = Math.round(
-              (progressEvent.loaded * 100) / progressEvent.total
-            );
-            if (this.progress === 100) {
+        const response = Axios.post(
+          `${process.env.VUE_APP_API_SERVER}/upload`,
+          formData,
+          {
+            withCredentials: true,
+            headers: {
+              "Content-Type": "multipart/form-data"
+            },
+            onUploadProgress: progressEvent => {
+              this.progress = Math.round(
+                (progressEvent.loaded * 100) / progressEvent.total
+              );
+              if (this.progress === 100) {
+              }
+            },
+            // timeout: 15000,
+            data: data => {
+              debugger;
             }
-          },
-          // timeout: 15000,
-          data: data => {
-            debugger;
           }
-        });
+        );
         response
           .then(data => {
             this.uploadSuccess = true;
