@@ -55,13 +55,12 @@ img {
     flex-wrap: wrap;
     margin: 0.25rem 0;
     span {
-      // background: #EDF2F4;
-      // border: 1px solid rgba(5, 6, 7, 0.5);
       border-radius: 3px;
       color: #000;
       padding: 0.25rem 0.5rem;
       text-align: left;
       font-size: 0.9rem;
+      word-break: break-word;
     }
     i {
       width: 1rem;

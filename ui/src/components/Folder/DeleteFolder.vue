@@ -2,7 +2,10 @@
   <div class="delete-folder-wrapper">
     <div class="delete-alert">Tread with Caution</div>
     <div class="delete-message">
-      You are about to delete {{fileName}}
+      <span>You are about to delete</span>
+      <div>
+        {{fileName}}
+      </div>
     </div>
     <Textbox :placeholder="placeholder" :onInput="onInput"/>
     <div class="delete-resx-controls">
