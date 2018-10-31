@@ -15,7 +15,7 @@
       </div>
       <div class="button-grp">
         <button class="dropbox-btn" v-on:click="handleLogin">Login</button>
-        <button class="dropbox-btn" v-on:click="handleClick">Create Account</button>
+        <button class="dropbox-btn" v-on:click="handleAccountCreation">Create Account</button>
       </div>
     </section>
   </div>
