@@ -17,7 +17,14 @@ export default {
         this.notificationTitle = "Upload complete";
         this.addMessage({
           id: uniqid("notification-msg-"),
-          message: `Uploaded ${fileUploaded.fileName} successfully`
+          message: `Uploaded ${fileUploaded.fileName} successfully.`
+        });
+      } else {
+        this.notificationType = "Error";
+        this.notificationTitle = "Upload Failed";
+        this.addMessage({
+          id: uniqid("notification-msg-"),
+          message: `Could not upload ${fileUploaded.fileName}.`
         });
       }
     }
@@ -37,7 +44,14 @@ export default {
         this.notificationTitle = "Deleted resource";
         this.addMessage({
           id: uniqid("notification-msg-"),
-          message: `Deleted ${resxDeleted.name.split("/").pop()} successfully`
+          message: `Deleted ${resxDeleted.name.split("/").pop()} successfully.`
+        });
+      } else {
+        this.notificationType = "Error";
+        this.notificationTitle = "Failure";
+        this.addMessage({
+          id: uniqid("notification-msg-"),
+          message: `Unable to delete ${resxDeleted.name.split("/").pop()} at the moment.`
         });
       }
     }
@@ -57,7 +71,14 @@ export default {
         this.notificationTitle = "Copy resource";
         this.addMessage({
           id: uniqid("notification-msg-"),
-          message: `Copied ${resxCopied.name.split("/").pop()} successfully`
+          message: `Copied ${resxCopied.name.split("/").pop()} successfully.`
+        });
+      } else {
+        this.notificationType = "Error";
+        this.notificationTitle = "Failure";
+        this.addMessage({
+          id: uniqid("notification-msg-"),
+          message: `Unable to copy ${resxCopied.name.split("/").pop()}.`
         });
       }
     }
@@ -77,7 +98,14 @@ export default {
         this.notificationTitle = "Move resource";
         this.addMessage({
           id: uniqid("notification-msg-"),
-          message: `Moved ${resxMoved.name.split("/").pop()} successfully`
+          message: `Moved ${resxMoved.name.split("/").pop()} successfully.`
+        });
+      } else {
+        this.notificationType = "Error";
+        this.notificationTitle = "Failure";
+        this.addMessage({
+          id: uniqid("notification-msg-"),
+          message: `Unable to move ${resxMoved.name.split("/").pop()}.`
         });
       }
     }
@@ -97,7 +125,14 @@ export default {
         this.notificationTitle = "Folder Added";
         this.addMessage({
           id: uniqid("notification-msg-"),
-          message: `Added ${folderAdded.name.split("/").pop()} successfully`
+          message: `Added ${folderAdded.name.split("/").pop()} successfully.`
+        });
+      } else {
+        this.notificationType = "Error";
+        this.notificationTitle = "Failure";
+        this.addMessage({
+          id: uniqid("notification-msg-"),
+          message: `Failed to create the folder ${folderAdded.name.split("/").pop()}.`
         });
       }
     }
