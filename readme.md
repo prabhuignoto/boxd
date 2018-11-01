@@ -1,8 +1,8 @@
 # Boxy
 
-<!-- [![NPM Version][npm-image]][npm-url]
+<!-- [![NPM Version][npm-image]][npm-url]-->
 [![Build Status][travis-image]][travis-url]
-[![Downloads Stats][npm-downloads]][npm-url] -->
+<!-- [![Downloads Stats][npm-downloads]][npm-url] -->
 
 Boxy is a modern web client for Dropbox. Boxy is built with Vue.js, and the goal was to create a simple and intuitive user interface to deliver high quality user experience.
 
@@ -55,7 +55,7 @@ Distributed under the MIT license. See `LICENSE` for more information.
 [npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/datadog-metrics
 [npm-downloads]: https://img.shields.io/npm/dm/datadog-metrics.svg?style=flat-square
-[travis-image]: https://img.shields.io/travis/dbader/node-datadog-metrics/master.svg?style=flat-square
+[travis-image]: https://api.travis-ci.org/prabhuignoto/boxy.svg?branch=master
 [travis-url]: https://travis-ci.org/dbader/node-datadog-metrics
 [wiki]: https://github.com/yourname/yourproject/wiki
 [vue]: https://vuejs.org
