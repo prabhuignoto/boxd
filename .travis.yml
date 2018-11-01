@@ -3,6 +3,7 @@ node_js:
   - "node"
   - "8"
 script:
-  - cd ui
+  - cd ./ui
+  - yarn install
   - yarn run build
 install: true
