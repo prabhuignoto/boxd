@@ -1,6 +1,6 @@
 <template>
   <section class="account-wrapper">
-    <Popdown :name="account.name.display_name" type="link" leftOffset="0.5rem" size="large" customWidth="180px" topOffset="3rem">
+    <Popdown :name="account.name.display_name" type="link" leftOffset="0.1rem" size="large" customWidth="180px" topOffset="3.75rem">
       <template slot="icon">
         <i class="image-wrapper">
           <img src="../assets/user.svg" alt="user">

@@ -18,7 +18,7 @@ export default {
   created() {
      WebFontLoader.load({
       google: {
-        families: ['Open Sans:400,500,700']
+        families: ['Open Sans:400,500,600,700']
       },
     });
   },

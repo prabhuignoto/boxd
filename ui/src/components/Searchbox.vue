@@ -4,9 +4,7 @@
     <div class="button-wrapper" v-if="term !== ''">
       <Button buttonStyle="icon" :onClick="handleClear">
         <template slot="btn-icon">
-          <i>
-            <img src="../assets/cancel.svg" alt="clear search">
-          </i>
+          <img src="../assets/cancel.svg" alt="clear search">
         </template>
       </Button>
     </div>
@@ -94,7 +92,7 @@ export default {
   input[type="text"] {
     width: 100%;
     height: 90%;
-    border-radius: 5px;
+    border-radius: 20px;
     border: 1px solid #c2c7c8;
     padding: 0 0.75rem 0 0.5rem;
     outline: none;

@@ -1,6 +1,6 @@
 button {
   background: #EDF2F4;
-  border: 1px solid rgba(43, 45, 66, 0.25);
+  border: 1px solid rgba(43, 45, 66, 0.15);
   border-radius: 3px;
   font-size: 0.9rem;  
   cursor: pointer;
@@ -10,7 +10,7 @@ button {
   align-items: center;
   justify-content: center;
   position: relative;
-
+  
   .label {
     font-family: "Open Sans", Arial, Helvetica, sans-serif;
     margin-bottom: 0 !important;
@@ -23,12 +23,13 @@ button {
     }
   }
   &.rounded {
-    border-radius: 3px;
+    border-radius: 20px;
+    box-shadow: 0 0 3px 1px rgba(0,0,0,0.1);
     padding: 0.4rem;
     .label {
       color: #2B2D42;
-      font-size: 0.95rem;
-      font-weight: 500;
+      font-size: 1rem;
+      font-weight: 600;
     }
   }
   &.link {
