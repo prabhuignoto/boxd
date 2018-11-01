@@ -5,3 +5,4 @@ node_js:
 script:
   - cd ./ui
   - yarn build
+install: true
