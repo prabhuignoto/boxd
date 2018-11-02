@@ -113,6 +113,14 @@ export default {
     top: 50%;
     transform: translateY(-50%);
   }
+  button {
+    height: 1.85rem;
+    width: 1.85rem;
+  }
+  img {
+    max-height: 100%;
+    max-width: 100%;
+  }
 }
 </style>
 

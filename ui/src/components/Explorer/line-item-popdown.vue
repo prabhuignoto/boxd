@@ -1,5 +1,5 @@
 <template>
-  <Popdown name="" type="icon" size="medium" leftOffset="-3.75rem" customWidth="150px" topOffset="2.5rem">
+  <Popdown name="" type="icon" size="medium" leftOffset="-110px" customWidth="150px" topOffset="2.5rem">
     <template slot="icon">
       <i>
         <img src="../../assets/ellipsis-h.svg" alt="more" />

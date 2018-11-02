@@ -58,6 +58,7 @@
   border-radius: 5px;
   width: 100%;
   position: relative;
+  box-shadow: 0 0 10px 1px rgba(100, 102, 117, 0.25);
   .line-item-wrapper {
     &:nth-child(odd) {
       background: rgba(237, 242, 244, 0.5);
@@ -78,7 +79,7 @@ header.explorer-header {
   .header-wrapper {
     width: 100%;
     display: grid;
-    grid-template-columns: 40px 45% 20% 20% auto;
+    grid-template-columns: 50px 45% 20% 20% auto;
     @media (min-width: 768px) and (max-width: 1024px) {
       grid-template-columns: 40px 50% 30% auto;
     }

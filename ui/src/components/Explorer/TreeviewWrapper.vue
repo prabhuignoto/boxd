@@ -43,6 +43,7 @@ export default {
   justify-content: center;
   overflow-x: auto;
   position: relative;
+  box-shadow: 0 0 10px 1px rgba(100, 102, 117, 0.25);
 
   @media (min-width: 768px) and (max-width: 1024px) {
     display: none;
@@ -77,7 +78,7 @@ export default {
       height: 1px;
       left: 0;
       position: absolute;
-      width: 90%;
+      width: 100%;
     }
     span {
       padding: 0.5rem 0.5rem;

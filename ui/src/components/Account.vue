@@ -1,6 +1,6 @@
 <template>
   <section class="account-wrapper">
-    <Popdown :name="account.name.display_name" type="link" leftOffset="0.1rem" size="large" customWidth="180px" topOffset="3.75rem">
+    <Popdown :name="account.name.display_name" type="link" leftOffset="-20px" size="large" customWidth="180px" topOffset="3rem">
       <template slot="icon">
         <i class="image-wrapper">
           <img src="../assets/user.svg" alt="user">
@@ -104,7 +104,7 @@ export default {
     position: relative;
 
     &:hover {
-      background: #edf2f4;
+      background: rgba(139, 99, 114, 0.1);
       &::after {
         content: "";
         position: absolute;
@@ -112,7 +112,7 @@ export default {
         top: 0;
         width: 1px;
         height: 100%;
-        background: #d90429;
+        background: #8b6372;
       }
     }
 

@@ -1,6 +1,6 @@
 <template>
   <div class="context-control">
-    <Popdown type="icon" size="large" leftOffset="-4.25rem" topOffset="2.5rem" customWidth="160px">
+    <Popdown type="icon" size="large" leftOffset="0rem" topOffset="2.8rem" customWidth="160px">
       <template slot="icon">
         <img src="../../assets/bars.svg" alt="context menu">
       </template>

@@ -26,6 +26,7 @@ export default {};
 <style lang="scss" scoped>
 .app-footer {
   background: #2b2d42;
+  /* background: linear-gradient(45deg, rgba(75,78,114,1) 0%, rgba(253,129,152,0.5) 100%); */
   padding: 0.25rem;
   display: grid;
   position: fixed;
@@ -66,7 +67,7 @@ export default {};
   }
 }
 .footer-info {
-  color: #fff;
+  color: #000;
   justify-self: right;
   align-self: center;
   margin-right: 0.5rem;

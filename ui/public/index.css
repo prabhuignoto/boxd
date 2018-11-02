@@ -5,6 +5,7 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  background: rgba(139, 99, 114, 0.1);
 }
 
 html, body {
@@ -63,11 +64,12 @@ html.wf-loading > * {
   }
 }
 .footer-info {
-  color: #fff;
+  color: #000;
   justify-self: right;
   align-self: center;
   margin-right: 0.5rem;
   font-family: "Open Sans", Arial, Helvetica, sans-serif;
+  font-weight: 600;
   display: inline-block;
   width: 100%;
   text-align: right;

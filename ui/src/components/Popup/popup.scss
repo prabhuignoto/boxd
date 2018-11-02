@@ -4,6 +4,8 @@
   justify-content: center;
   height: 100%;
   outline: none;
+  // background:   linear-gradient(45deg, rgba(141,153,174,0.75) 0%, rgba(237,242,244,0.5) 100%);
+  background:  linear-gradient(45deg, rgba(43,45,66,0.9) 0%, rgba(139,99,114,0.5) 100%);
   .popup-header {
     width: 100%;
     border-radius: 4px;
@@ -47,7 +49,7 @@
       position: absolute;
       width: 1px;
       height: 3.6rem;
-      background: #ef233c;
+      // background: #AE8D99;
       left: 0;
       top: 0;
     }

@@ -16,7 +16,7 @@
     position: relative;
 
     &:hover {
-      background: #EDF2F4;
+      background: rgba(139, 99, 114, 0.1);
       &::after {
         content: "";
         position: absolute;
@@ -24,7 +24,7 @@
         top: 0;
         width: 1px;
         height: 100%;
-        background: #D90429;
+        background: #8b6372;
       }
     }
 

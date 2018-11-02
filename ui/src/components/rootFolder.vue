@@ -34,7 +34,7 @@ export default {
       height: 1.5rem;
     }
     .root-slash {
-      margin-left: 0.15rem;
+      margin-left: 0.5rem;
     }
   }
 </style>

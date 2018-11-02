@@ -1,6 +1,6 @@
 button {
   background: #EDF2F4;
-  border: 1px solid rgba(43, 45, 66, 0.15);
+  border: 1px solid rgba(43, 45, 66, 0.1);
   border-radius: 3px;
   font-size: 0.9rem;  
   cursor: pointer;
@@ -24,7 +24,8 @@ button {
   }
   &.rounded {
     border-radius: 20px;
-    box-shadow: 0 0 3px 1px rgba(0,0,0,0.1);
+    // box-shadow: 0 0 2px 1px rgba(0,0,0,0.1);
+    background: radial-gradient(ellipse at center, rgba(237,242,244,1) 0%, rgba(141,153,174,0.2) 100%);
     padding: 0.4rem;
     .label {
       color: #2B2D42;
@@ -70,7 +71,7 @@ button {
     }
   }
   &.icon {
-    padding: 0.1rem;
+    // padding: 0.1rem;
     margin: 0;
     background: transparent;
     border: none;
