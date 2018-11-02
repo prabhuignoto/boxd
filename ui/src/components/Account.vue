@@ -102,6 +102,7 @@ export default {
     align-items: center;
     justify-content: flex-start;
     position: relative;
+    cursor: pointer;
 
     &:hover {
       background: rgba(139, 99, 114, 0.1);

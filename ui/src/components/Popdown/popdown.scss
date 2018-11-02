@@ -1,5 +1,5 @@
 .popdown-wrapper {
-  // position: relative;
+  position: relative;
 }
 .popdown {
   z-index: 1999;
@@ -13,25 +13,6 @@
   border-radius: 6px;
   outline: none;
   border: 1px solid #ddd;
-
-  &::after {
-    // content: "";
-    // display: block;
-    // position: absolute;
-    // top: -9px;
-    // right: 0;
-    // left: 0;
-    // margin-left: auto;
-    // margin-right: auto;
-    // width: 16px;
-    // height: 16px;
-    // background: #fff;
-    // border-left: 1px solid #ddd;
-    // border-top: 1px solid #ddd;
-    // border-top-left-radius: 3px;
-    // transform: rotate(45deg);
-    // z-index: -1;
-  }
 }
 .movein-enter-active,
 .movein-leave-active {

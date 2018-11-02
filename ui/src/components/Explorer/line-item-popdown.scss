@@ -16,7 +16,8 @@
     justify-content: center;
     position: relative;
     text-align: center;
-
+    cursor: pointer;
+    
     &:hover {
       background: rgba(139, 99, 114, 0.1);
       &::after {

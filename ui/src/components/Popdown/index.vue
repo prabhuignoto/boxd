@@ -4,18 +4,16 @@
         <template slot="btn-icon">
           <slot name="icon"></slot>
         </template>
-        <template slot="menu">
-          <transition name="movein">
-            <div class="popdown"
-              v-if="visible" tabindex="0"
-              @blur="close" @keyup.esc="close"
-              :style="{left: leftOffset, width: customWidth, top: topOffset ? topOffset : '100%'}"
-            >
-              <slot name="menu"></slot>
-            </div>
-          </transition>
-        </template>
       </Button>
+        <transition name="movein">
+          <div class="popdown"
+            v-if="visible" tabindex="0"
+            @blur="close" @keyup.esc="close"
+            :style="{left: leftOffset, width: customWidth, top: topOffset ? topOffset : '100%'}"
+          >
+            <slot name="menu"></slot>
+          </div>
+        </transition>
     </section>
 </template>
 
