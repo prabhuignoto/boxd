@@ -315,4 +315,4 @@ export default Vue.component("UploadWindow", {
 });
 </script>
 
-<style lang="scss" src= "./upload.scss"></style>
+<style lang="scss" src= "./upload.scss" scoped></style>

@@ -2,7 +2,8 @@ import pubsub from "./pubSub";
 import { Request, Response } from "express";
 import { Dropbox } from "dropbox";
 import { createLogger, transports, format } from "winston";
-import FS from "fs";
+import FS from "graceful-fs";
+import { Buffer } from "buffer";
 
 const logFormat = format.combine(format.timestamp(), format.prettyPrint());
 const errorLogger = createLogger({
@@ -25,12 +26,20 @@ export default function Upload(req: Request, resp: Response) {
       level: "info"
     });
 
-    FS.readFile(files[0].path, function(err, contents) {
+    const readStream = FS.createReadStream(files[0].path);
+    let chunks: any = [];
+    readStream.on("error", err => {
+      throw new Error("Failed to read the file");
+    });
+    readStream.on("data", chunk => {
+      chunks.push(chunk);
+    });
+    readStream.on("close", () => {
       const response = new Dropbox({
         accessToken: req.session!.access_token,
         clientId: process.env.CLIENT_ID
       }).filesUpload({
-        contents: contents,
+        contents: Buffer.concat(chunks),
         autorename: true,
         path: `${req.body.uploadPath}/${files[0].originalname}`
       });
@@ -67,7 +76,6 @@ export default function Upload(req: Request, resp: Response) {
           });
       });
     });
-
     return true;
   } catch (error) {
     errorLogger.log({

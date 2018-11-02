@@ -165,5 +165,5 @@ export default Vue.component("CreateFolder", {
 });
 </script>
 
-<style lang="scss" src="./create-folder.scss">
+<style lang="scss" src="./create-folder.scss" scoped>
 </style>

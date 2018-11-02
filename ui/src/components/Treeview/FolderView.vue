@@ -49,4 +49,4 @@ export default {
 };
 </script>
 
-<style lang="scss" src="./folderview.scss" />
+<style lang="scss" src="./folderview.scss" scoped/>

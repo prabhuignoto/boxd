@@ -13,10 +13,14 @@
     border-radius: 20px;
   }
   .path-slash {
-    margin: 0 0.25rem;
+    margin: 0.2rem 0.25rem 0;
     color: #007ee5;
     width: 1.1rem;
     height: 1.1rem;
+    img {
+      max-height: 100%;
+      max-width: 100%;
+    }
   }
   .path-link {
     display: flex;

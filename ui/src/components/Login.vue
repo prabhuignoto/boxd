@@ -37,4 +37,4 @@ export default {
 };
 </script>
 
-<style lang="scss"  src="./login.scss" />
+<style lang="scss"  src="./login.scss" scoped/>

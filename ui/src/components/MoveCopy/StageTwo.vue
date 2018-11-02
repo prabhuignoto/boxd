@@ -95,4 +95,4 @@ export default {
 };
 </script>
 
-<style lang="scss" src="./stage-two.scss" />
+<style lang="scss" src="./stage-two.scss" scoped/>

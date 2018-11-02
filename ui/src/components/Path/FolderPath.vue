@@ -59,4 +59,4 @@ export default {
 };
 </script>
 
-<style lang="scss" src="./folderpath.scss" />
+<style lang="scss" src="./folderpath.scss" scoped/>

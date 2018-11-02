@@ -160,7 +160,7 @@ export default {
 };
 </script>
 
-<style lang="scss" src="./explorer.scss">
+<style lang="scss" src="./explorer.scss" scoped>
 </style>
 
 

@@ -24,4 +24,4 @@ export default {
 }
 </script>
 
-<style lang="scss" src="./textbox.scss" />
+<style lang="scss" src="./textbox.scss" scoped/>

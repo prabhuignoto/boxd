@@ -130,4 +130,4 @@ export default Vue.component("DeleteFolder", {
 });
 </script>
 
-<style lang="scss" src="./delete-folder.scss" />
+<style lang="scss" src="./delete-folder.scss" scoped/>

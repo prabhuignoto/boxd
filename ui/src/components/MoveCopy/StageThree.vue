@@ -139,4 +139,4 @@ export default {
 };
 </script>
 
-<style lang="scss" src="./stage-three.scss" />
+<style lang="scss" src="./stage-three.scss" scoped/>

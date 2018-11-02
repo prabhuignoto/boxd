@@ -75,4 +75,4 @@ export default {
 };
 </script>
 
-<style lang="scss" src="./toolbar.scss" />
+<style lang="scss" src="./toolbar.scss" scoped/>

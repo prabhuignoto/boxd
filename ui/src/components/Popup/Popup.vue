@@ -49,4 +49,4 @@ export default {
 };
 </script>
 
-<style lang="scss" src="./popup.scss" />
+<style lang="scss" src="./popup.scss" scoped/>

@@ -71,4 +71,4 @@ export default {
 };
 </script>
 
-<style lang="scss" src="./treeview.scss" />
+<style lang="scss" src="./treeview.scss" scoped/>

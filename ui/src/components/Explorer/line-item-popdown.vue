@@ -82,7 +82,7 @@ export default {
     handleDownloadFile(path) {
       this.isDownloadingFile = true;
       Axios({
-        url: `${VUE_APP_API_SERVER}/download`,
+        url: `${process.env.VUE_APP_API_SERVER}/download`,
         params: {
           path
         },
@@ -105,4 +105,4 @@ export default {
 };
 </script>
 
-<style lang="scss" src="./line-item-popdown.scss" />
+<style lang="scss" src="./line-item-popdown.scss" scoped/>
