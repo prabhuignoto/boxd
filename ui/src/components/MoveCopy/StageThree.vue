@@ -22,7 +22,7 @@
       </div>
     </div>
     <div class="stage2-controls">
-      <div class="stage2-loader-wrapper" v-show="saving">
+      <div class="stage3-loader-wrapper" v-if="saving">
         <Loader />
       </div>
       <div class="error-msg-container" v-if="errored">
@@ -43,7 +43,7 @@
       </Button>
       <Button name="Cancel" :onClick="handleCancel">
         <template slot="btn-icon">
-          <img src="../../assets/times.svg" alt="cancel">
+          <img src="../../assets/times-dark.svg" alt="cancel">
         </template>
       </Button>
     </div>
