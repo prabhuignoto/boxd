@@ -7,27 +7,34 @@
     grid-column-gap: 1rem;
   }
   @media (min-width: 1281px) {
-    grid-template-columns: 370px 450px 400px auto;
+    grid-template-columns: 900px 450px auto;
   }
   @media (min-width: 1025px) and (max-width: 1280px) {
-    grid-template-columns: 240px 350px 400px auto;
+    grid-template-columns: 400px 400px auto;
   }
   @media (min-width: 768px) and (max-width: 1024px) {
-    // grid-template-columns: 350px 350px auto;
-    grid-template-columns: auto 250px 200px;
+     grid-template-rows: repeat(3, 60px);
+    row-gap: 2.5rem;
   }
   @media only screen and (max-width: 992px) {
     grid-template-columns: 100%;
-    grid-template-rows: repeat(3, 45px);
+    grid-template-rows: 70px 50px 50px;
+    row-gap: 1rem;
   }
-  @media only screen and (max-width: 768px) {
+  @media (min-width: 481px) and (max-width: 767px) {
+    grid-template-rows: 70px 50px 50px;
   }
+  // @media only screen and (max-width: 768px) {
+  //   border: 1px solid red;
+  // }
   /* Extra Small Devices, Phones */
   @media only screen and (max-width: 480px) {
     grid-column-gap: 0rem;
+    grid-template-rows: 180px 40px 30px;
   }
   /* Custom, iPhone Retina */
   @media only screen and (max-width: 320px) {
+    grid-template-rows: 200px 30px 30px;
     grid-column-gap: 0rem;
   }
   &:nth-child(2) {
@@ -42,23 +49,29 @@
   display: grid;
   column-gap: 1rem;
   align-self: center;
-  grid-template-columns: 120px 130px 150px 400px;
+  grid-template-columns: 80px 100px 130px 150px;
   grid-template-rows: 41px;
+  @media (min-width: 1281px) {
+    grid-template-columns: 400px 120px 130px 150px;
+  }
   @media (min-width: 1025px) and (max-width: 1280px) {
-    grid-template-columns: 100px 120px 140px;
+    grid-template-columns: 100px 120px 130 150px;
   }
   @media (min-width: 481px) and (max-width: 767px) {
-    grid-template-columns: auto auto auto;
+    grid-template-columns: 85px 105px 130px auto;
   }
   @media (min-width: 320px) and (max-width: 480px) {
-    grid-template-columns: auto auto auto;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, 40px);
+    row-gap: 1rem;
   }
-  @media only screen and (max-width: 992px) {
-    grid-template-columns: auto auto auto;
-    // grid-template-columns: 120px 130px 140px auto;
-  }
+  // @media only screen and (max-width: 992px) {
+  //   border: 1px solid brown;
+  //   grid-template-columns: 100px 100px 110px auto;
+  // }
   @media (min-width: 768px) and (max-width: 1024px) {
-    grid-template-columns: 120px 130px 140px auto;
+    grid-template-columns: auto 120px 150px 170px;
+    // grid-template-columns: 120px 130px 200px;
   }
 }
 .searchbox-container-desk {
@@ -86,6 +99,9 @@
 }
 
 .app-main-logo {
+  @media (min-width: 320px) and (max-width: 480px) {
+    display: none;
+  }
   font-size: 1.4rem;
   justify-self: flex-start;
   align-self: flex-start;

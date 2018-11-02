@@ -13,13 +13,18 @@
     grid-template-rows: 65px auto auto;
   }
   @media (min-width: 768px) and (max-width: 1024px) {
-    grid-template-rows: 140px auto
+    grid-template-rows: 230px auto;
   }
+  @media only screen and (max-width: 992px) {
+      grid-template-rows: 250px auto;
+    }
   @media (min-width: 481px) and (max-width: 767px) {
-    grid-template-rows: 180px 50px auto;
+    // border: 1px solid red;
+    grid-template-rows: 250px 50px auto;
   }
   @media (min-width: 320px) and (max-width: 480px) {
-    grid-template-rows: 180px 50px auto;
+    // border: 1px solid blue;
+    grid-template-rows: 280px 50px auto;
   }
   grid-gap: 1rem;
 }
