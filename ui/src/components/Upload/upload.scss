@@ -64,12 +64,9 @@
       right: 0;
       margin-left: auto;
       margin-right: auto;
-      // display: flex;
-      // align-items: center;
-      // justify-content: center;
-      // flex-direction: column;
-      background: linear-gradient(135deg, rgba(141,153,174,1) 0%, rgba(237,242,244,1) 100%);
-      border: 1px solid rgba(141, 153, 174, 0.25);
+      // background: linear-gradient(135deg, rgba(141,153,174,1) 0%, rgba(237,242,244,1) 100%);
+      background: linear-gradient(45deg, rgba(43, 45, 66, 0.35) 0%, rgba(139, 99, 114, 0.5) 100%);
+      border: 1px solid rgba(141, 153, 174, 0.1);
       height: 100%;
       border-radius: 4px;
       .icon-wrapper {
@@ -84,7 +81,8 @@
       }
       .file-name {
         font-size: 1rem;
-        color: #2B2D42;
+        // color: #2B2D42;
+        color: #fff;
         text-shadow: 1px 1px rgba(0,0,0,0.15);
         overflow: hidden;
         white-space: nowrap;
