@@ -91,7 +91,7 @@ export default {
       })
         .then(response => {
           var blob = new Blob([response.data], {
-            type: response.headers["content-type"]
+            type: `${response.headers["content-type"]};charset=utf-8`
           });
           FileSaver.saveAs(blob, path.replace("/", ""));
           this.isDownloadingFile = false;

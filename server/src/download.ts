@@ -1,6 +1,6 @@
 import { Dropbox, files } from "dropbox";
 import { Request, Response } from "express";
-import FS from "fs";
+import FS from "graceful-fs";
 import Path from "path";
 import { createLogger, format, transports } from "winston";
 
