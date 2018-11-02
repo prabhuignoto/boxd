@@ -1,5 +1,9 @@
 <template>
   <div class="toolbar-wrapper">
+    <div class="app-main-logo">
+      oxy
+      <span class="backdrop"></span>
+    </div>
     <div class="toolbar-buttons">
       <Button name="Upload" size="large" buttonStyle="rounded" :onClick="openUploadWindow">
         <template slot="btn-icon">

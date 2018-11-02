@@ -40,10 +40,11 @@ export default {
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   overflow-x: auto;
   position: relative;
   box-shadow: 0 0 10px 1px rgba(100, 102, 117, 0.25);
+  min-height: 450px;
 
   @media (min-width: 768px) and (max-width: 1024px) {
     display: none;

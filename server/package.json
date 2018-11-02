@@ -53,7 +53,7 @@
   "scripts": {
     "dev": "nodemon ./src/app.ts",
     "start": "ts-node ./src/app.ts",
-    "postinstall": "cd ./src && mkdir uploads"
+    "postinstall": "mkdir uploads"
   },
   "devDependencies": {
     "nodemon": "^1.18.4",

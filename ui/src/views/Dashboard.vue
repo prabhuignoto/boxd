@@ -4,7 +4,7 @@
         <Toolbar />
       </div>
       <div class="folder-path-container">
-        <FolderPath />
+        <!-- <FolderPath /> -->
       </div>
       <div class="explorer-main">
         <Explorer />

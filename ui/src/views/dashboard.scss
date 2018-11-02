@@ -7,13 +7,13 @@
   grid-template-columns: 100%;
   position: relative;
   @media (min-width: 1281px) {
-    grid-template-rows: 80px 30px auto;
+    grid-template-rows: 80px auto auto;
   }
   @media (min-width: 1025px) and (max-width: 1280px) {
-    grid-template-rows: 65px 30px auto;
+    grid-template-rows: 65px auto auto;
   }
   @media (min-width: 768px) and (max-width: 1024px) {
-    grid-template-rows: 140px 30px
+    grid-template-rows: 140px auto
   }
   @media (min-width: 481px) and (max-width: 767px) {
     grid-template-rows: 180px 50px auto;
