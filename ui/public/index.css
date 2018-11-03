@@ -5,7 +5,7 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  background: rgba(139, 99, 114, 0.01);
+  /* background: rgba(139, 99, 114, 0.1); */
 }
 
 html, body {

@@ -11,7 +11,6 @@ _The application is still under active development._
 <!-- ![app-login](github-app-screenshot.png) -->
 ![app-home](app-home.png)
 
-
 ## Development setup
 
 The client application is located under ui directory and the server app is located under server.
