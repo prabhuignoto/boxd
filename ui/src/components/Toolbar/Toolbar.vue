@@ -1,10 +1,7 @@
 <template>
   <div class="toolbar-wrapper">
     <div class="toolbar-buttons">
-      <div class="app-main-logo">
-        oxy
-        <span class="backdrop"></span>
-      </div>
+      <Logo />
       <Button name="Upload" size="large" buttonStyle="rounded" :onClick="openUploadWindow">
         <template slot="btn-icon">
           <img src="../../assets/upload.svg" alt="upload">
@@ -38,6 +35,7 @@ import CreateFolder from "../Folder/CreateFolder";
 import MoveCopy from "../MoveCopy/MoveCopy";
 import UploadWindow from "../Upload/index";
 import Account from "../Account";
+import Logo from "../Logo/logo";
 
 export default {
   name: "Toolbar",
@@ -47,7 +45,8 @@ export default {
     CreateFolder,
     MoveCopy,
     UploadWindow,
-    Account
+    Account,
+    Logo
   },
   methods: {
     ...mapActions(["updateModalState", "updateWorkflowOrigin"]),

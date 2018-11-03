@@ -54,7 +54,7 @@
   grid-template-columns: 80px 100px 130px 150px;
   grid-template-rows: 41px;
   @media (min-width: 1281px) {
-    grid-template-columns: 130px 120px 130px 150px;
+    grid-template-columns: 100px 105px 120px 140px;
   }
   @media (min-width: 1025px) and (max-width: 1280px) {
     grid-template-columns: 100px 120px 130 150px;
@@ -100,79 +100,3 @@
   justify-self: right;
 }
 
-.app-main-logo {
-  @media (min-width: 320px) and (max-width: 480px) {
-    display: none;
-  }
-  font-size: 1.5rem;
-  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
-  justify-self: flex-start;
-  align-self: flex-start;
-  font-weight: 600;
-  text-align: left;
-  color: #fff;
-  padding-left: 34px;
-  position: relative;
-  text-shadow: 0px 1px #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  padding-bottom: 0.5rem;
-  &:before {
-    content: "B";
-    text-shadow: 0px 1px #000;
-    position: absolute;
-    font-size: 1.5rem;
-    left: 1.1rem;
-    right: 0;
-    height: 35px;
-    width: 35px;
-    z-index: 0;
-    top: 40%;
-    transform: translateY(-40%);
-    border-radius: 3px;
-    color: #fff;
-    background: transparent;
-  }
-  &:after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%) rotate(45deg);
-    background: #2B2D42;
-    height: 40px;
-    width: 40px;
-    z-index: -1;
-    left: 1.45rem;
-    border-radius: 8px;
-  }
-  .backdrop {
-    content: "";
-    background: #646675;
-    position: absolute;
-    width: 56px;
-    height: 56px;
-    left: 1rem;
-    top: 50%;
-    transform: translateY(-50%) rotate(-45deg);
-    z-index: -2;
-    border-radius: 10px;
-    &:after {
-      content: "";
-      background: #8D99AE;
-      position: absolute;
-      width: 55px;
-      height: 32px;
-      right: 0;
-      border-radius: 0px 0px 10px 10px;
-      top: 28px;
-      left: 12px;
-      -webkit-transform: translateY(-50%) rotate(-90deg);
-      transform: translateY(-50%) rotate(-90deg);
-      z-index: -2;
-    }
-  }
-}
