@@ -34,6 +34,7 @@ export default {
   height: 100%;
   padding-bottom: 0.5rem;
   min-width: 50px;
+  transform: scale(0.8);
   &:after {
     content: "";
     position: absolute;
@@ -44,7 +45,6 @@ export default {
     background: #2b2d42;
     height: 40px;
     width: 40px;
-    z-index: -1;
     left: 1.45rem;
     border-radius: 8px;
   }
@@ -57,21 +57,19 @@ export default {
     left: 1rem;
     top: 50%;
     transform: translateY(-50%) rotate(-45deg);
-    z-index: -2;
     border-radius: 10px;
     &:after {
       content: "";
       background: #8d99ae;
       position: absolute;
       width: 55px;
-      height: 32px;
+      height: 30px;
       right: 0;
       border-radius: 0px 0px 10px 10px;
       top: 28px;
-      left: 12px;
+      left: 13px;
       -webkit-transform: translateY(-50%) rotate(-90deg);
       transform: translateY(-50%) rotate(-90deg);
-      z-index: -2;
     }
   }
   .app-logo-txt {
@@ -87,6 +85,7 @@ export default {
     justify-content: center;
     width: 100%;
     text-align: center;
+    z-index: 1;
   }
 }
 </style>

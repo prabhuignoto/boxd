@@ -9,7 +9,10 @@
         <section class="app-info">Get started by logging with your dropbox account.</section>
       </section>
       <div class="app-logo-ensemble">
-        <span class="app-logo"></span>
+        <div class="app-logo-wrapper">
+          <Logo />
+        </div>
+        <!-- <span class="app-logo"></span> -->
         <span class="right-arrow"></span>
         <span class="dropbox-logo"></span>
       </div>
@@ -22,8 +25,13 @@
 </template>
 
 <script>
-import Router from "../router"
+import Router from "../router";
+import Logo from "../components/Logo/logo";
+
 export default {
+  components: {
+    Logo
+  },
   name: "Login",
   props: ["title"],
   methods: {

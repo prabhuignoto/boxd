@@ -34,7 +34,7 @@ export default Vue.component("Logout", {
       } catch (error) {
         console.error("Failed to logout.")
       }
-    }, 1500);
+    }, 1000);
   },
 });
 
