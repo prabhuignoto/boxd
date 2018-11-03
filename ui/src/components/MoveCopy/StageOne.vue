@@ -5,16 +5,16 @@
       </header>
       <div class="move-copy-selection">
           <label for="move" :class="{selected: moveSelected}">
-            <i class="move-copy-sel-ico-wrapper">
+            <!-- <i class="move-copy-sel-ico-wrapper">
               <img src="../../assets/check-white.svg" alt="check">
-            </i>
+            </i> -->
             <span>Move</span>
             <input type="radio" name="move-copy-radio" id="move" @click="handleSelection('move')">
           </label>
           <label for="copy" :class="{selected: copySelected}">
-            <i class="move-copy-sel-ico-wrapper">
+            <!-- <i class="move-copy-sel-ico-wrapper">
               <img src="../../assets/check-white.svg" alt="check">
-            </i>
+            </i> -->
             <span>Copy</span>
             <input type="radio" name="move-copy-radio" id="copy" @change="handleSelection('copy')">
           </label>
@@ -28,7 +28,7 @@
         </Button>
         <Button name="Cancel" :onClick="dismissPopup">
           <template slot="btn-icon">
-            <img src="../../assets/times.svg" alt="cancel">
+            <img src="../../assets/times-dark.svg" alt="cancel">
           </template>
         </Button>
       </div>

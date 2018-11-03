@@ -14,9 +14,7 @@
   justify-content: center;
   .drop-zone {
     width: 100%;
-    // background: rgba(0, 126, 229, 0.3);
     background: #EDF2F4;
-    // border: 2px dashed rgba(0, 126, 229, 0.5);
     border: 2px dashed #8D99AE;
     border-radius: 4px;
     position: relative;
@@ -64,8 +62,7 @@
       right: 0;
       margin-left: auto;
       margin-right: auto;
-      // background: linear-gradient(135deg, rgba(141,153,174,1) 0%, rgba(237,242,244,1) 100%);
-      background: linear-gradient(45deg, rgba(43, 45, 66, 0.35) 0%, rgba(139, 99, 114, 0.5) 100%);
+      background: linear-gradient(45deg, rgba(43, 45, 66, 0.45) 0%, rgba(139, 99, 114, 0.5) 100%);
       border: 1px solid rgba(141, 153, 174, 0.1);
       height: 100%;
       border-radius: 4px;
@@ -81,7 +78,6 @@
       }
       .file-name {
         font-size: 1rem;
-        // color: #2B2D42;
         color: #fff;
         text-shadow: 1px 1px rgba(0,0,0,0.15);
         overflow: hidden;
@@ -166,8 +162,12 @@ img {
 }
 .clear-upload {
   position: absolute;
-  right: 0.5rem;
+  right: 0.2rem;
   top: 0.5rem;
+  button {
+    width: 2rem;
+    height: 2rem;
+  }
 }
 .progress-wrap {
   position: absolute;
@@ -250,6 +250,6 @@ img {
   .upload-success-msg {
     margin-top: 1rem;
     font-size: 1rem;
-    color: #2B2D42;
+    color: #fff;
   }
 }

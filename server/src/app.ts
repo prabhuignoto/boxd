@@ -51,14 +51,6 @@ try {
   // * invoke body parser
   app.use(BodyParser());
 
-  // * setup cross origin policy
-  app.use(
-    cors({
-      credentials: true,
-      origin: process.env.CORS,
-    }),
-  );
-
   // * setup express-session and hook up with redis store for storing the sessions
   app.use(
     Session({
@@ -111,6 +103,14 @@ try {
     },
     path: "/graphql",
   });
+
+  // * setup cross origin policy
+  app.use(
+    cors({
+      credentials: true,
+      origin: process.env.CORS,
+    }),
+  );
 
   // * setup app wide routers
   app.use("/", Routers);

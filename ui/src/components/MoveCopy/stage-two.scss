@@ -19,8 +19,8 @@
   margin-top: 1rem;
   border: 1px solid #ddd;
   border-radius: 3px;
-  padding-left: 1rem;
-  padding-top: 1rem;
+  padding-left: 0.5rem;
+  padding-top: 0.5rem;
   height: 400px;
   overflow: auto;
 }
@@ -63,8 +63,8 @@ img {
     align-items: center;
     justify-content: flex-start;
     color: #2B2D42;
-    background: #EDF2F4;
-    border: 1px solid rgba(141, 153, 174, 0.5);
+    // background: #EDF2F4;
+    // border: 1px solid rgba(141, 153, 174, 0.5);
     border-radius: 3px;
     padding: 0.1rem 0.5rem;
   }

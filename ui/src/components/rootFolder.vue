@@ -3,7 +3,7 @@
     <i>
       <img src="../assets/folder.svg" alt="root-folder">
     </i>
-    <span class="root-slash">home</span>
+    <span class="root-slash">Home</span>
   </div> 
 </template>
 

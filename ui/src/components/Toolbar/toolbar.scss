@@ -1,6 +1,6 @@
 .toolbar-wrapper {
   display: grid;
-  padding: 0.5rem 1rem;
+  padding: 2rem 1rem;
   column-gap: 1rem;
   row-gap: 1rem;
   @media only screen and (min-width: 1824px) {
@@ -104,7 +104,8 @@
   @media (min-width: 320px) and (max-width: 480px) {
     display: none;
   }
-  font-size: 1.4rem;
+  font-size: 1.5rem;
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
   justify-self: flex-start;
   align-self: flex-start;
   font-weight: 600;
@@ -122,14 +123,14 @@
     content: "B";
     text-shadow: 0px 1px #000;
     position: absolute;
-    font-size: 1.35rem;
+    font-size: 1.5rem;
     left: 1.1rem;
     right: 0;
     height: 35px;
     width: 35px;
     z-index: 0;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 40%;
+    transform: translateY(-40%);
     border-radius: 3px;
     color: #fff;
     background: transparent;
@@ -142,11 +143,11 @@
     top: 50%;
     transform: translateY(-50%) rotate(45deg);
     background: #2B2D42;
-    height: 32px;
-    width: 32px;
+    height: 40px;
+    width: 40px;
     z-index: -1;
-    left: 1.75rem;
-    border-radius: 3px 3px 3px 8px;
+    left: 1.45rem;
+    border-radius: 8px;
   }
   .backdrop {
     content: "";

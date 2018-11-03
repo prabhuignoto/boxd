@@ -20,7 +20,7 @@
       </Button>
       <Button name="Cancel" :onClick="handleCancel">
         <template slot="btn-icon">
-          <img src="../../assets/times.svg" alt="cancel">
+          <img src="../../assets/times-dark.svg" alt="cancel">
         </template>
       </Button>
     </div>
@@ -94,7 +94,6 @@ export default Vue.component("DeleteFolder", {
             path: this.deletePath
           },
           update(store, data) {
-            console.log(data);
           }
         })
         .then(data => {

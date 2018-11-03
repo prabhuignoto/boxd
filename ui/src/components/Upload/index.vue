@@ -31,7 +31,7 @@
         <div class="clear-upload" v-if="canEnableClearBtn">
           <Button buttonStyle="icon" :onClick="handleClear" v-if="!uploadSuccess">
             <template slot="btn-icon">
-              <img src="../../assets/times.svg" alt="clear-upload">
+              <img src="../../assets/cancel-dark.svg" alt="clear-upload">
             </template>
           </Button>
         </div>

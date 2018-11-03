@@ -34,24 +34,23 @@
     justify-content: flex-start;
 
     &.name {
-      // text-align: left;
       justify-self: left;
       flex: 2;
-      font-size: 0.9rem;
+      font-size: 1rem;
       width: 100%;
       padding: 0 0.5rem;
     }
     &.size {
       flex: 1;
       justify-self: left;
-      font-size: 0.9rem;
+      font-size: 1rem;
       font-weight: 500;
     }
     &.last-modified {
       flex: 1;
       justify-self: left;
       // text-align: left;
-      font-size: 0.9rem;
+      font-size: 1rem;
       font-weight: 500;
       @media (min-width: 768px) and (max-width: 1024px) {
         display: none;

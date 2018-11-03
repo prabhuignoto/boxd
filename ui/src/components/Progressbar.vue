@@ -1,7 +1,7 @@
 <template>
   <div class="progress-bar-wrapper">
     <i v-if="value === 100">
-      <img src="../assets/check-green.svg" alt="completed">
+      <img src="../assets/check.svg" alt="completed">
     </i>
     <div class="progressbar-container">
       <span :style="getStyle"></span>

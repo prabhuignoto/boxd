@@ -26,7 +26,7 @@
       </Button>
       <Button name="Cancel" :onClick="handleCancel">
         <template slot="btn-icon">
-          <img src="../../assets/times.svg" alt="close-create-folder">
+          <img src="../../assets/times-dark.svg" alt="close-create-folder">
         </template>
       </Button>
     </div>
