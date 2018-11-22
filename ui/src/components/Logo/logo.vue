@@ -18,7 +18,7 @@ export default {
   @media (min-width: 320px) and (max-width: 480px) {
     display: none;
   }
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-family: "Open Sans", Arial, Helvetica, sans-serif;
   justify-self: flex-start;
   align-self: flex-start;
@@ -33,7 +33,7 @@ export default {
   justify-content: center;
   height: 100%;
   padding-bottom: 0.5rem;
-  min-width: 50px;
+  min-width: 52px;
   transform: scale(0.8);
   &:after {
     content: "";

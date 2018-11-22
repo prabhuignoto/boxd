@@ -14,7 +14,7 @@
 import Vue from "vue";
 
 export default Vue.component("About", {
-  name: "About"
+  name: "About",
 });
 </script>
 
@@ -37,7 +37,7 @@ export default Vue.component("About", {
 .logo {
   font-size: 3rem;
   font-weight: 700;
-  color: #8B6372;
+    color: #2B2D42;
 }
 .version {
   font-size: 0.9rem;
