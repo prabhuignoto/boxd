@@ -27,12 +27,18 @@ export default {
 
 
 <style lang="scss">
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 #app {
   font-family: "Open Sans", "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  width: 100%;
 }
 #nav {
   padding: 30px;

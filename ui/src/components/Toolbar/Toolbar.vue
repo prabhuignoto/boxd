@@ -1,7 +1,6 @@
 <template>
   <div class="toolbar-wrapper">
     <div class="toolbar-buttons">
-      <Logo />
       <Button name="Upload" size="large" buttonStyle="rounded" :onClick="openUploadWindow">
         <template slot="btn-icon">
           <img src="../../assets/upload.svg" alt="upload">
@@ -23,6 +22,7 @@
     </div>
     <div class="account-settings-wrapper">
       <Account />
+      <!-- <Logo /> -->
     </div>
   </div>  
 </template>

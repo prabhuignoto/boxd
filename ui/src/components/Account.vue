@@ -105,7 +105,6 @@ export default {
     cursor: pointer;
 
     &:hover {
-      /* background: rgba(139, 99, 114, 0.1); */
       background: rgba(237, 242, 244, 0.5);
       &::after {
         content: "";
