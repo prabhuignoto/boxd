@@ -23,7 +23,7 @@ router.get("/home", (req: Request, res: Response) => {
 
 router.get("/auth/login", Authorize);
 
-router.get("/authenticate", Authenticate);
+router.get("/auth/authenticate", Authenticate);
 
 router.get("/revokeAccess", RevokeToken);
 
