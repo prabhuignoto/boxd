@@ -1,4 +1,4 @@
-import "newrelic";
+// import "newrelic";
 
 import { ApolloServer } from "apollo-server-express";
 import BodyParser from "body-parser";
@@ -28,7 +28,7 @@ const RedisClient = Redis.createClient({
   },
 });
 
-RedisClient.auth(process.env.REDIS_PASSWD || "");
+// RedisClient.auth(process.env.REDIS_PASSWD || "");
 
 // * create error logger
 const ErrorLogger = createLogger({
