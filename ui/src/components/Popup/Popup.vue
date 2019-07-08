@@ -8,13 +8,13 @@
           <span class="popup-title">
             {{title}}
           </span>
+          <button class="close-modal" @click="handleClose" v-if="!getDisableCloseBtn">
+            <img src="../../assets/cancel.svg" alt="close" class="img-close">
+          </button>
         </header>
         <div class="popup-content" v-if="content !== ''">
           <component :is="content"></component>
         </div>
-        <button class="close-modal" @click="handleClose" v-if="!getDisableCloseBtn">
-          <img src="../../assets/cancel.svg" alt="close" class="img-close">
-        </button>
       </div>
     </section>
 </template>

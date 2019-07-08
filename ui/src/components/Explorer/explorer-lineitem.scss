@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns:35px 45% 20% 20% auto;
   grid-template-rows: 2rem;
-  padding: 1.25rem 0.25rem;
+  padding: .5rem 0.25rem;
   @media (min-width: 768px) and (max-width: 1024px) {
     grid-template-columns: 35px 45% 30% auto;
   }
@@ -36,21 +36,21 @@
     &.name {
       justify-self: left;
       flex: 2;
-      font-size: 1rem;
+      font-size: .8rem;
       width: 100%;
       padding: 0 0.5rem;
     }
     &.size {
       flex: 1;
       justify-self: left;
-      font-size: 1rem;
+      font-size: .8rem;
       font-weight: 500;
     }
     &.last-modified {
       flex: 1;
       justify-self: left;
       // text-align: left;
-      font-size: 1rem;
+      font-size: .8rem;
       font-weight: 500;
       @media (min-width: 768px) and (max-width: 1024px) {
         display: none;
@@ -94,8 +94,8 @@
     }
     .explorer-icon {
       display: block;
-      width: 1.75rem;
-      height: 1.75rem;
+      width: 1.5rem;
+      height: 1.5rem;
       img {
         object-fit: contain;
         object-position: 50% 50%;

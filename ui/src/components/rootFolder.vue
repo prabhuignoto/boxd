@@ -30,8 +30,8 @@ export default {
       outline-offset: 2px;
     }
     i {
-      width: 1.5rem;
-      height: 1.5rem;
+      width: 1.25rem;
+      height: 1.25rem;
     }
     .root-slash {
       margin-left: 0.5rem;

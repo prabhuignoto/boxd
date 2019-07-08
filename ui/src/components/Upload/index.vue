@@ -9,7 +9,7 @@
         @dragleave="handleDragLeave" @click="openInputFile" :disabled="canDisableInput"
       >
         <!-- dropzone main -->
-        <span class="intro-message" v-if="!isDropped">Drop your file</span>
+        <span class="intro-message" v-if="!isDropped">Drop your file here to start the upload</span>
         <div v-if="isDropped" class="dropped-file" :style="getResultStyle" >
           <i class="dropzone-backdrop-icon">
             <img src="../../assets/upload_flat.svg" alt="upload icon">
@@ -31,7 +31,7 @@
         <div class="clear-upload" v-if="canEnableClearBtn">
           <Button buttonStyle="icon" :onClick="handleClear" v-if="!uploadSuccess">
             <template slot="btn-icon">
-              <img src="../../assets/cancel-dark.svg" alt="clear-upload">
+              <img src="../../assets/cancel.svg" alt="clear-upload">
             </template>
           </Button>
         </div>
@@ -44,7 +44,7 @@
 
       <!-- file explorer -->
       <div class="upload-file-explorer-container" v-if="canShowFileExplorer">
-        <span class="upload-explorer-header">Choose a destination to upload</span>
+        <span class="upload-explorer-header">Choose a destination to upload your file</span>
         <div class="upload-explorer-wrapper">
           <RootFolder :onClick="handleRootFolder"/>
           <UploadExplorer path="" />

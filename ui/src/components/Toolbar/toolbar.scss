@@ -8,7 +8,8 @@
   // }
   @media (min-width: 1281px) {
     grid-column-gap: 1rem;
-    grid-template-columns: 450px 350px auto;
+    grid-template-columns: 480px 540px auto;
+    // border: 1px solid red;
   }
   @media (min-width: 1025px) and (max-width: 1280px) {
     grid-template-columns: 400px 400px auto;

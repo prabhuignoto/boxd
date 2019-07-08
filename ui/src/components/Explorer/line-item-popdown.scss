@@ -20,16 +20,17 @@
     
     &:hover {
       // background: rgba(139, 99, 114, 0.1);
-      background: rgba(237, 242, 244, 0.5);
-      &::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 1px;
-        height: 100%;
-        background: #8b6372;
-      }
+      // background: rgba(237, 242, 244, 0.5);
+      background: rgba(11, 103, 163, 0.2);
+      // &::after {
+      //   content: "";
+      //   position: absolute;
+      //   left: 0;
+      //   top: 0;
+      //   width: 1px;
+      //   height: 100%;
+      //   background: #8b6372;
+      // }
     }
     &:first-child {
       border-top-left-radius: 5px;

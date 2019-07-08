@@ -1,6 +1,9 @@
 // var HardSourceWebpackPlugin = require("hard-source-webpack-plugin");
 
 module.exports = {
+  devServer: {
+    hot: true
+  },
   configureWebpack: {
     devtool: "source-map",
     module: {
