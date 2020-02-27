@@ -2,7 +2,6 @@
 
 import { ApolloServer } from "apollo-server-express";
 import BodyParser from "body-parser";
-import ConnectRedis from "connect-redis";
 import cors from "cors";
 import { config } from "dotenv";
 import express, { Request, Response } from "express";
@@ -15,7 +14,8 @@ import Routers from "./router";
 import schema from "./schema";
 
 // * initialize redis store and client
-const RedisStore = ConnectRedis(Session);
+// tslint:disable-next-line:no-var-requires
+const RedisStore = require("connect-redis")(Session);
 const RedisClient = Redis.createClient({
   connect_timeout: 6000,
   host: process.env.REDIS_HOST,
@@ -55,7 +55,7 @@ try {
   app.use(
     Session({
       cookie: {
-        expires: false,
+        // expires: false,
         maxAge: Number(process.env.SESSION_COOKIE_MAXAGE),
         secure: false,
       },
