@@ -29,8 +29,6 @@ import { DateTime } from "luxon";
 import { mapActions } from "vuex";
 import Axios from "axios";
 import FileSaver from "filesaver.js";
-import Loader from "../Loader";
-import Popdown from "../Popdown/index.vue";
 import LineItemPopdown from "./line-item-popdown";
 import PrettyBytes from "pretty-bytes";
 
@@ -45,8 +43,6 @@ export default {
     "path_lower"
   ],
   components: {
-    Loader,
-    Popdown,
     LineItemPopdown
   },
   computed: {

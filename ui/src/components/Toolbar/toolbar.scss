@@ -3,21 +3,16 @@
   padding: 2rem 1rem;
   column-gap: 1rem;
   row-gap: 1rem;
-  // @media only screen and (min-width: 1824px) {
-  //   grid-column-gap: 1rem;
-  // }
   @media (min-width: 1281px) {
     grid-column-gap: 1rem;
     grid-template-columns: 480px 540px auto;
-    // border: 1px solid red;
   }
   @media (min-width: 1025px) and (max-width: 1280px) {
     grid-template-columns: 400px 400px auto;
     border: 1px solid transparent;
-    // border: 1px solid red;
   }
   @media (min-width: 768px) and (max-width: 1024px) {
-     grid-template-rows: repeat(3, 60px);
+    grid-template-rows: repeat(3, 60px);
     row-gap: 2.5rem;
   }
   @media only screen and (max-width: 992px) {
@@ -28,9 +23,6 @@
   @media (min-width: 481px) and (max-width: 767px) {
     grid-template-rows: 70px 50px 50px;
   }
-  // @media only screen and (max-width: 768px) {
-  //   border: 1px solid red;
-  // }
   /* Extra Small Devices, Phones */
   @media only screen and (max-width: 480px) {
     grid-column-gap: 0rem;
@@ -73,6 +65,7 @@
     grid-template-columns: auto 120px 150px 170px;
   }
 }
+
 .searchbox-container-desk {
   display: block;
   width: 100%;

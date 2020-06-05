@@ -22,13 +22,11 @@
 </template>
 
 <script>
-import Account from "../components/Account";
 import Popdown from "@/components/Popdown/index.vue";
 import gql from "graphql-tag";
 
 export default {
   components: {
-    Account,
     Popdown
   },
   data() {

@@ -1,7 +1,6 @@
 <template>
   <button @click="onClick" :class="getDefaultStyle">
-    <!-- <i v-if="buttonStyle !== 'link'"> -->
-    <i>
+    <i class="btn-icon-wrapper">
       <slot name="btn-icon"></slot>
     </i>  
     <!-- </i> -->
@@ -21,7 +20,6 @@ export default {
       }
       return {
         [this.msize]: true,
-        // [this.marginLess]: true,
         [this.buttonStyle ? this.buttonStyle : "default"]: true
       };
     }

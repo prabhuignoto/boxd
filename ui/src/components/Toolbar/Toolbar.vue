@@ -31,22 +31,14 @@
 import Button from "../Form/Button";
 import SearchBox from "../Searchbox";
 import { mapActions } from "vuex";
-import CreateFolder from "../Folder/CreateFolder";
-import MoveCopy from "../MoveCopy/MoveCopy";
-import UploadWindow from "../Upload/index";
 import Account from "../Account";
-import Logo from "../Logo/logo";
 
 export default {
   name: "Toolbar",
   components: {
     Button,
     SearchBox,
-    CreateFolder,
-    MoveCopy,
-    UploadWindow,
     Account,
-    Logo
   },
   methods: {
     ...mapActions(["updateModalState", "updateWorkflowOrigin"]),

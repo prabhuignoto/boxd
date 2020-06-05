@@ -39,46 +39,51 @@ export default async function Download(req: Request, resp: Response) {
       });
 
       const dirName = req.session.account_id.replace(/dbid:/, "");
-      const appRoot = Path.join(
-        Path.parse(process.mainModule!.filename).dir,
+      const appRoot = require.main && Path.join(
+        // Path.parse(process.mainModule!.filename).dir,
+        Path.parse(require.main?.filename).dir,
         "../",
       );
-      const dirPath = Path.resolve(appRoot, "downloads/" + dirName);
-      const filePath = Path.resolve(dirPath, metadata.name);
-      infoLogger.log({
-        level: "info",
-        message: `Generating file path ${filePath}`,
-      });
 
-      const createFile = () => {
-        FS.exists(filePath, (exists) => {
-          if (!exists) {
-            FS.writeFile(filePath, metadata.fileBinary, (err: any) => {
-              if (err) {
-                throw new Error("Failed to create the file");
-              } else {
-                infoLogger.log({
-                  level: "info",
-                  message: `${
-                    metadata.name
-                  } successfully created on ${filePath}`,
-                });
-              }
-            });
-          }
-          resp.download(filePath, metadata.name);
+      if (appRoot) {
+        const dirPath = Path.resolve(appRoot, "downloads/" + dirName);
+        const filePath = Path.resolve(dirPath, metadata.name);
+        infoLogger.log({
+          level: "info",
+          message: `Generating file path ${filePath}`,
         });
-      };
 
-      FS.exists(dirPath, (exists) => {
-        if (!exists) {
-          FS.mkdir(dirPath, (err) => {
-            createFile();
+        const createFile = () => {
+          FS.exists(filePath, (exists) => {
+            if (!exists) {
+              FS.writeFile(filePath, metadata.fileBinary, (err: any) => {
+                if (err) {
+                  throw new Error("Failed to create the file");
+                } else {
+                  infoLogger.log({
+                    level: "info",
+                    message: `${
+                      metadata.name
+                      } successfully created on ${filePath}`,
+                  });
+                }
+              });
+            }
+            resp.download(filePath, metadata.name);
           });
-        } else {
-          createFile();
-        }
-      });
+        };
+
+        FS.exists(dirPath, (exists) => {
+          if (!exists) {
+            FS.mkdir(dirPath, (err) => {
+              createFile();
+            });
+          } else {
+            createFile();
+          }
+        });
+
+      }
     }
     return {};
   } catch (error) {

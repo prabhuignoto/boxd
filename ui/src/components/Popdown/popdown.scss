@@ -1,6 +1,7 @@
 .popdown-wrapper {
   position: relative;
 }
+
 .popdown {
   z-index: 1999;
   position: absolute;
@@ -14,6 +15,7 @@
   outline: none;
   border: 1px solid #ddd;
 }
+
 .movein-enter-active,
 .movein-leave-active {
   transition: all 0.2s;

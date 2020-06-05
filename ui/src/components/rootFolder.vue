@@ -36,6 +36,10 @@ export default {
     .root-slash {
       margin-left: 0.5rem;
     }
+    img {
+      max-height: 100%;
+      max-width: 100%;
+    }
   }
 </style>
 

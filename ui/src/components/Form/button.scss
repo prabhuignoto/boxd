@@ -1,16 +1,13 @@
 button {
-  // background: #EDF2F4;
-  border-radius: 3px;
+  border-radius: 2px;
   font-size: 0.8rem;  
   cursor: pointer;
   outline: none;
-  margin: 0 0.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   border: none;
-  // border: 1px solid rgba(255, 194, 114, .8);
   
   .label {
     font-family: "Open Sans", Arial, Helvetica, sans-serif;
@@ -19,26 +16,24 @@ button {
   }
   &.default {
     padding: 0.45rem 0.45rem;
-    // background: #FFBC01;
     
     border: 1px solid rgba(255, 194, 114, .8);
     background: rgba(255, 194, 114, .85);
-    // background: radial-gradient(ellipse at center, rgba(237,242,244,1) 0%, rgba(141,153,174,0.2) 100%);
     .label {
-      // color: #2B2D42;
       color: #2B2D42;
-      font-size: .85rem;
+      font-size: 1rem;
     }
   }
   &.rounded {
     border-radius: 4px;
-    // background: rgba(237, 242, 244, 0.5);
-    background: rgba(11, 103, 163, .85);
+    border: 1px solid #ccc;
+    background: #f1f2f2;
+    padding: 0.4rem;
+    box-shadow: inset 0 0 12px 3px #bcbabe;
     padding: 0.4rem;
     .label {
-      // color: #2B2D42;
-      color: #fff;
-      font-size: .85rem;
+      color: #000;
+      font-size: .8rem;
       font-weight: 500;
     }
   }
@@ -70,21 +65,16 @@ button {
   }
   &.disabled {
     padding: 0.5rem 0.5rem;
-    // background: #ccc;
-    // border: 1px solid #ccc;
-    // background: rgba(255, 194, 114, .6);
-    // border: 1px solid rgba(255, 194, 114, .6);
     background: #ccc;
     border: 1px solid #ccc;
     cursor: auto;
     .label {
       color: #fff;
       // color: #fff;
-      font-size: .85rem;
+      font-size: 1rem;
     }
   }
   &.icon {
-    // padding: 0.1rem;
     margin: 0;
     background: transparent;
     border: none;
@@ -123,8 +113,17 @@ button {
     }
   }
   i {
-    width: 1rem;
-    height: 1rem;
+    width: 1.25rem;
+    height: 1.25rem;
     margin-right: 0.3rem;
+  }
+}
+
+.btn-icon-wrapper {
+  display: block;
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
   }
 }

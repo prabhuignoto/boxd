@@ -45,29 +45,19 @@
 
 <script>
 import gql from "graphql-tag";
-import FolderPath from "../Path/FolderPath";
 import FolderGQL from "../../graphql/folder.gql";
 import Loader from "../Loader";
-import FileExplorer from "./FileExplorer";
 import LineItem from "./Explorer-LineItem";
-import SearchBox from "../Searchbox";
-import RootFolder from "../rootFolder";
 import { mapActions, mapGetters } from "vuex";
 import ContextControl from "../ContextActions/Control";
-import ContextActions from "../ContextActions/index.vue";
 import TreeviewWrapper from "./TreeviewWrapper";
 
 export default {
   name: "Explorer",
   components: {
     LineItem,
-    FolderPath,
     Loader,
-    SearchBox,
-    FileExplorer,
-    RootFolder,
     ContextControl,
-    ContextActions,
     TreeviewWrapper
   },
   data() {

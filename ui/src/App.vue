@@ -6,14 +6,10 @@
 
 <script>
 import WebFontLoader from "webfontloader";
-import Header from "./components/Header";
-import Footer from "./views/Footer";
 // import "../node_modules/bulma/css/bulma.css";
 
 export default {
   components: {
-    Header,
-    Footer
   },
   created() {
      WebFontLoader.load({

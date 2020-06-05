@@ -2,7 +2,7 @@
   <Popdown name="" type="icon" size="medium" leftOffset="-100px" customWidth="150px" topOffset="2.5rem">
     <template slot="icon">
       <i>
-        <img src="../../assets/ellipsis-h.svg" alt="more" />
+        <img src="../../assets/more.svg" alt="more" />
       </i>
     </template>
     <template slot="menu">

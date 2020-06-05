@@ -14,14 +14,12 @@
 <script>
 import RootFolder from "../rootFolder";
 import FileExplorer from "./FileExplorer";
-import Button from "../Form/Button";
 import { mapActions } from "vuex";
 
 export default {
   components: {
     RootFolder,
     FileExplorer,
-    Button
   },
   name: "TreeviewWrapper",
   methods: {
