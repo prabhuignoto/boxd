@@ -7,10 +7,10 @@
       <RootFolder :onClick="handleRootFolder" />
       <CreateFolderExplorer path="" />
     </div>
-    <!-- <div class="selected-path-wrapper">
-      <div class="crt-folder-sec-header">Your new folder will be created on this path</div>
+    <div class="selected-path-wrapper">
+      <!-- <div class="crt-folder-sec-header">Your new folder will be created on this path</div> -->
       <div class="selected-path">{{selectedPath === "" ? "/" :selectedPath}}</div>
-    </div> -->
+    </div>
     <div class="create-folder-controls">
       <div class="crt-folder-loader-wrapper" v-show="isMutating">
         <Loader />
@@ -20,14 +20,8 @@
         :disabled="!this.isPathSelected || this.isNameEmpty || isMutating"
         :buttonStyle="getStyle">
           <template slot="btn-icon">
-            <img src="../../assets/check.svg" alt="create-folder" v-if="getStyle !== 'disabled'">
-            <img src="../../assets/check-white.svg" alt="create-folder" v-if="getStyle === 'disabled'">
+            <ChevronRightIcon />
           </template>
-      </Button>
-      <Button name="Cancel" :onClick="handleCancel">
-        <template slot="btn-icon">
-          <img src="../../assets/times-dark.svg" alt="close-create-folder">
-        </template>
       </Button>
     </div>
     <div class="error-messages-grp" v-if="hasErrors">
@@ -43,7 +37,7 @@
 
 <script>
 import Textbox from "../Form/TextBox";
-import Treeview from "../Treeview/Treeview";
+// import Treeview from "../Treeview/Treeview";
 import CreateFolderExplorer from "./CreateFolderExplorer";
 import Button from "../Form/Button";
 import gql from "graphql-tag";
@@ -52,15 +46,16 @@ import Loader from "../Loader";
 import Vue from "vue";
 import { mapActions, mapGetters } from "vuex";
 import RootFolder from "../rootFolder";
+import { ChevronRightIcon } from "vue-feather-icons";
 
 export default Vue.component("CreateFolder", {
   components: {
     Textbox,
-    Treeview,
     CreateFolderExplorer,
     Button,
     Loader,
-    RootFolder
+    RootFolder,
+    ChevronRightIcon
   },
   data() {
     return {

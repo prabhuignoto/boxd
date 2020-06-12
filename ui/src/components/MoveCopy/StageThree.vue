@@ -5,18 +5,19 @@
     </header>
     <div class="stage3-explorer-wrapper">
       <div v-if="mode === 'move'">
-        <MoveExplorerDest path=""/>
+        <MoveExplorerDest path />
       </div>
-      <div  v-if="mode === 'copy'">
-        <CopyExplorerDest path=""/>
+      <div v-if="mode === 'copy'">
+        <CopyExplorerDest path />
       </div>
     </div>
     <div class="summary">
-      <!-- <div><span class="value mode">{{getSummaryMsg}}</span></div> -->
       <div class="summary-final">
         <span class="value">{{src}}</span>
         <i>
-          <img src="../../assets/arrow-right.svg" alt="down">
+          <!-- <img src="../../assets/arrow-right.svg" alt="down" /> -->
+          <ArrowRightIcon />
+          <!-- <ChevronRightIcon /> -->
         </i>
         <span class="value" v-if="dest !== ''">{{dest}}</span>
       </div>
@@ -25,25 +26,24 @@
       <div class="stage3-loader-wrapper" v-if="saving">
         <Loader />
       </div>
-      <div class="error-msg-container" v-if="errored">
-        Failed to {{mode}}
-      </div>
+      <div class="error-msg-container" v-if="errored">Failed to {{mode}}</div>
       <Button name="Back" :onClick="handlePrevious" v-if="!getSkipToFinal">
         <template slot="btn-icon">
-          <img src="../../assets/angle-left.svg" alt="previous">
+          <!-- <img src="../../assets/angle-left.svg" alt="previous" /> -->
+          <ChevronLeftIcon />
         </template>
       </Button>
-      <Button name="Finish" :onClick="handleNext"
+      <Button
+        name="Finish"
+        :onClick="handleNext"
         :disabled="!canFinish"
-        :buttonStyle="getStyle">
+        :buttonStyle="getStyle"
+        v-if="canFinish"
+      >
         <template slot="btn-icon">
-          <img src="../../assets/check-white.svg" alt="complete" v-if="!canFinish">
-          <img src="../../assets/check.svg" alt="complete" v-else>
-        </template>
-      </Button>
-      <Button name="Cancel" :onClick="handleCancel">
-        <template slot="btn-icon">
-          <img src="../../assets/times-dark.svg" alt="cancel">
+          <!-- <img src="../../assets/check-white.svg" alt="complete" v-if="!canFinish">
+          <img src="../../assets/check.svg" alt="complete" v-else>-->
+          <ChevronRightIcon />
         </template>
       </Button>
     </div>
@@ -56,13 +56,20 @@ import CopyExplorerDest from "./CopyExplorerDest";
 import Button from "../Form/Button";
 import { mapActions, mapGetters } from "vuex";
 import Loader from "../Loader";
+import { ChevronRightIcon } from "vue-feather-icons";
+import { ChevronLeftIcon } from "vue-feather-icons";
+import { XIcon } from "vue-feather-icons";
+import { ArrowRightIcon } from 'vue-feather-icons';
 
 export default {
   components: {
     MoveExplorerDest,
     CopyExplorerDest,
     Button,
-    Loader
+    Loader,
+    ChevronRightIcon,
+    ChevronLeftIcon,
+    ArrowRightIcon
   },
   beforeDestroy() {
     this.clearMoveResx();
@@ -106,6 +113,8 @@ export default {
     getStyle() {
       if (!this.canFinish || this.saving) {
         return "disabled";
+      } else {
+        return "";
       }
     },
     getSummaryMsg() {

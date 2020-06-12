@@ -32,7 +32,7 @@ export default {
     handleNavigation(path, $evt) {
       $evt.preventDefault();
       let pathArr = this.folderPath;
-      const newPath = pathArr.slice(0, pathArr.indexOf(path) + 1).join("/");
+      const newPath = pathArr.slice(0, pathArr.indexOf(path) + 1).join(" / ");
       this.clearList();
       this.updatePath(newPath);
     },
@@ -52,7 +52,9 @@ export default {
     folderPath() {
       let path = this.$store.state.explorer.path;
       if (path) {
-        return path.split("/");
+        return path.split(" / ");
+      } else {
+        return "";
       }
     }
   }

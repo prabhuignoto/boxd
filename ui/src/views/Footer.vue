@@ -3,20 +3,16 @@
     <div class="logo">Boxy</div>
     <div class="social">
       <i>
-        <a href="https://twitter.com/prabhumurthy2" target="_new">
-          <!-- <img src="../assets/twitter.svg" alt="twitter"> -->
-        </a>
+        <a href="https://twitter.com/prabhumurthy2" target="_new"></a>
       </i>
       <i>
-        <a href="https://github.com/prabhuignoto/boxy" target="_new">
-          <!-- <img src="../assets/github.svg" alt="github"> -->
-        </a>
+        <a href="https://github.com/prabhuignoto/boxy" target="_new"></a>
       </i>
     </div>
     <div class="footer-info">
       <span>2018 &copy; prabhumurthy.com. All rights reserved.</span>
     </div>
-  </footer>  
+  </footer>
 </template>
 
 <script>
@@ -25,7 +21,7 @@ export default {};
 
 <style lang="scss" scoped>
 .app-footer {
-  background: #2b2d42;
+  /* background: #007ee5; */
   /* background: linear-gradient(45deg, rgba(75,78,114,1) 0%, rgba(253,129,152,0.5) 100%); */
   padding: 0.25rem;
   display: grid;
@@ -50,7 +46,7 @@ export default {};
   }
 }
 .logo {
-  color: #edf2f4;
+  color: #fff;
   font-size: 2rem;
   font-family: "Open Sans", Arial, Helvetica, sans-serif;
   font-weight: 700;

@@ -3,24 +3,27 @@
     <!-- header section -->
     <header>
       <i class="type-icon">
-        <img src="../assets/info-circle.svg" alt="info-icon" v-if="type === 'Informational'">
+        <!-- <img src="../assets/info-circle.svg" alt="info-icon" v-if="type === 'Informational'"> -->
+        <InfoIcon />
       </i>
-      <span>{{title}}</span>
-      <Button :onClick="handleClose">
-        <template slot="btn-icon">
-          <img src="../assets/cancel.svg" alt="close-notification">
-        </template>
-      </Button>
+      <span>{{message.message}}</span>
+      <div :onClick="handleClose" class="close">
+        <!-- <template slot="btn-icon"> -->
+          <!-- <img src="../assets/cancel.svg" alt="close-notification"> -->
+          <XIcon />
+        <!-- </template> -->
+      </div>
     </header>
     <!-- header section -->
 
     <!-- notification content  -->
-    <div class="content">
+    <!-- <div class="content">
       <i>
-        <img src="../assets/check-green.svg" alt="check green">
-      </i>
+        <CheckIcon /> -->
+        <!-- <img src="../assets/check-green.svg" alt="check green"> -->
+      <!-- </i>
       <span>{{message.message}}</span>
-    </div>
+    </div> -->
     <!-- notification content  -->
   </div>
 </template>
@@ -28,12 +31,16 @@
 <script>
 import { mapActions } from "vuex";
 import Button from "./Form/Button";
+import { InfoIcon, CheckIcon, XIcon } from 'vue-feather-icons';
 
 export default {
   name: "Notification",
   props: ["message", "type", "title"],
   components: {
-    Button,
+    // Button,
+    InfoIcon,
+    // CheckIcon,
+    XIcon
   },
   mounted() {
     // * autoclose the notification if its informational

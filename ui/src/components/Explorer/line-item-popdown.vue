@@ -1,8 +1,16 @@
 <template>
-  <Popdown name="" type="icon" size="medium" leftOffset="-100px" customWidth="150px" topOffset="2.5rem">
+  <Popdown
+    name
+    type="icon"
+    size="medium"
+    leftOffset="-100px"
+    customWidth="150px"
+    topOffset="2.5rem"
+  >
     <template slot="icon">
       <i>
-        <img src="../../assets/more.svg" alt="more" />
+        <!-- <img src="../../assets/more.svg" alt="more" /> -->
+        <MoreHorizontalIcon />
       </i>
     </template>
     <template slot="menu">
@@ -29,11 +37,13 @@ import Popdown from "../Popdown/index";
 import { mapActions } from "vuex";
 import Axios from "axios";
 import FileSaver from "filesaver.js";
+import { MoreHorizontalIcon } from "vue-feather-icons";
 
 export default {
   name: "LineItemPopdown",
   components: {
-    Popdown
+    Popdown,
+    MoreHorizontalIcon
   },
   props: ["isFile", "pathLower"],
   methods: {
@@ -44,7 +54,7 @@ export default {
       "updateMoveCopyMode",
       "skipToFinal",
       "copyResxSource",
-      "moveResxSource",
+      "moveResxSource"
     ]),
     handleDelete(path) {
       this.deleteFolder(path);

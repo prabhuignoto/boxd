@@ -93,7 +93,6 @@ export default {
   justify-content: flex-start;
   width: 100%;
   padding: 1rem 0;
-  /* background: rgba(0, 126, 229, 1); */
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }

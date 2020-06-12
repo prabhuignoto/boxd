@@ -1,22 +1,20 @@
 <template>
-    <section class="popup" tabindex="0" @keyup.esc="handleClose">
-      <div class="popup-container">
-        <div class="closebutton-wrapper">
-          <slot></slot>
-        </div>
-        <header class="popup-header" v-if="!disableHeader">
-          <span class="popup-title">
-            {{title}}
-          </span>
-          <button class="close-modal" @click="handleClose" v-if="!getDisableCloseBtn">
-            <img src="../../assets/cancel.svg" alt="close" class="img-close">
-          </button>
-        </header>
-        <div class="popup-content" v-if="content !== ''">
-          <component :is="content"></component>
-        </div>
+  <section class="popup" tabindex="0" @keyup.esc="handleClose">
+    <div class="popup-container">
+      <div class="closebutton-wrapper">
+        <slot></slot>
       </div>
-    </section>
+      <header class="popup-header" v-if="!disableHeader">
+        <span class="popup-title">{{title}}</span>
+        <button class="close-modal" @click="handleClose" v-if="!getDisableCloseBtn">
+          <img src="../../assets/cancel.svg" alt="close" class="img-close" />
+        </button>
+      </header>
+      <div class="popup-content" v-if="content !== ''">
+        <component :is="content"></component>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>

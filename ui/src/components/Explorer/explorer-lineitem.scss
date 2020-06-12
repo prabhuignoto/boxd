@@ -1,8 +1,8 @@
 .explorer-line-item {
   display: grid;
-  grid-template-columns:35px 45% 20% 20% auto;
+  grid-template-columns: 35px 45% 20% 20% auto;
   grid-template-rows: 2rem;
-  padding: .5rem 0.25rem;
+  padding: 0.5rem 0.25rem;
   @media (min-width: 768px) and (max-width: 1024px) {
     grid-template-columns: 35px 45% 30% auto;
   }
@@ -36,21 +36,21 @@
     &.name {
       justify-self: left;
       flex: 2;
-      font-size: .8rem;
+      font-size: 0.8rem;
       width: 100%;
       padding: 0 0.5rem;
     }
     &.size {
       flex: 1;
       justify-self: left;
-      font-size: .8rem;
+      font-size: 0.8rem;
       font-weight: 500;
     }
     &.last-modified {
       flex: 1;
       justify-self: left;
       // text-align: left;
-      font-size: .8rem;
+      font-size: 0.8rem;
       font-weight: 500;
       @media (min-width: 768px) and (max-width: 1024px) {
         display: none;
@@ -63,7 +63,7 @@
       }
     }
     &.controls {
-      justify-self: center;
+      justify-self: flex-end;
     }
 
     button {
@@ -111,13 +111,13 @@
       white-space: nowrap;
       text-overflow: ellipsis;
       .folder-link {
-        color: #5A626F;
+        color: #5a626f;
         font-weight: 500;
         text-decoration: none;
       }
       .file-link {
         text-decoration: none;
-        color: #2B2D42;
+        color: #2b2d42;
       }
     }
     .loader-wrapper {
@@ -129,7 +129,6 @@
   &:hover {
     background: rgba($color: #000000, $alpha: 0.04);
   }
-
 }
 
 .search-results-message {
@@ -141,9 +140,9 @@
   font-size: 0.95rem;
   text-align: left;
   display: block;
-  background: #EDF2F4;
-  border-bottom: 1px solid #8D99AE;
-  color: #2B2D42;
+  background: #edf2f4;
+  border-bottom: 1px solid #8d99ae;
+  color: #2b2d42;
   span {
     font-weight: 700;
   }

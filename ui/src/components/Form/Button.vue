@@ -2,8 +2,7 @@
   <button @click="onClick" :class="getDefaultStyle">
     <i class="btn-icon-wrapper">
       <slot name="btn-icon"></slot>
-    </i>  
-    <!-- </i> -->
+    </i>
     <span class="label">{{name}}</span>
     <slot name="menu"></slot>
   </button>
@@ -15,9 +14,7 @@ export default {
   props: ["name", "onClick", "msize", "buttonStyle", "marginLess"],
   computed: {
     getDefaultStyle() {
-      let style = {
-        
-      }
+      let style = {};
       return {
         [this.msize]: true,
         [this.buttonStyle ? this.buttonStyle : "default"]: true

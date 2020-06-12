@@ -20,7 +20,7 @@
          rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
      id="defs11" /><sodipodi:namedview
-     pagecolor="#ffffff"
+     pagecolor="#007ee5"
      bordercolor="#666666"
      borderopacity="1"
      objecttolerance="10"
@@ -40,12 +40,12 @@
      inkscape:window-maximized="0"
      inkscape:current-layer="Layer_1" /><g
      id="g6"
-     style="fill:#ffffff"><polygon
+     style="fill:#007ee5"><polygon
        fill="#37404D"
        points="347.692,257.069 362.493,242.27 256.108,135.885 149.724,242.27 164.525,257.069 245.642,175.953    245.642,507.298 266.575,507.298 266.575,175.953  "
        id="polygon2"
-       style="fill:#ffffff" /><polygon
+       style="fill:#007ee5" /><polygon
        fill="#37404D"
        points="203.775,402.631 203.775,381.698 67.708,381.698 67.708,25.832 444.508,25.832 444.508,381.698    308.442,381.698 308.442,402.631 465.442,402.631 465.442,4.898 46.775,4.898 46.775,402.631  "
        id="polygon4"
-       style="fill:#ffffff" /></g></svg>
+       style="fill:#007ee5" /></g></svg>

@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import TextBox from "../Form/TextBox";
+// import TextBox from "../Form/TextBox";
 import Button from "../Form/Button";
 import Vue from "vue";
 import StageOne from "./StageOne";
@@ -30,7 +30,7 @@ import { setTimeout } from "timers";
 
 export default Vue.component("MoveCopy", {
   components: {
-    TextBox,
+    // TextBox,
     StageOne,
     StageTwo,
     StageThree
@@ -67,7 +67,7 @@ export default Vue.component("MoveCopy", {
             mutation: gql(CopyResxGQL),
             variables: {
               from_path: this.copyResxSrc,
-              to_path: `${this.copyResxDest}/${srcName}`
+              to_path: `${this.copyResxDest} / ${srcName}`
             },
             update: (store, data) => {}
           })
@@ -118,7 +118,7 @@ export default Vue.component("MoveCopy", {
               this.$nextTick(() => {
                 this.refreshFileExplorer({
                   status: true,
-                  path: srcPath.join("/")
+                  path: srcPath.join(" / ")
                 });
               })
             })

@@ -5,83 +5,63 @@
   align-items: center;
   justify-content: center;
 }
+
 .upload-wrapper {
   padding: 0.5rem 0.75rem;
-  width: 450px;
+  width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   .drop-zone {
     width: 100%;
     background: #fff;
-    // border: 2px dashed #8D99AE;
-    border: 2px dashed rgba(255, 170, 65, .65);
-    border-radius: 4px;
+    border: 2px dashed #e5e5e5;
+    border-radius: 0.2rem;
     position: relative;
-    font-family: "Open Sans", Arial, Helvetica, sans-serif;
+    font-family: "Nunito", "Open Sans", Arial, Helvetica, sans-serif;
     cursor: pointer;
+
     &::hover {
-      background: #8D99AE;
-    }
-    @media (min-width: 1281px) {
-      height: 180px;
-    }
-    
-    @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
-      height: 160px;
+      background: #8d99ae;
     }
 
-    @media (min-width: 481px) and (max-width: 767px) {
-      height: 180px;
-    }
-
-    @media (min-width: 320px) and (max-width: 480px) {
-      height: 180px;
-    }
-
-    @media (min-width: 768px) and (max-width: 1024px) {
-      height: 180px;
-    }
-    @media (min-width: 1025px) and (max-width: 1280px) {
-      height: 200px;
-    }
     &.drag-over {
-      border: 2px solid #EF233C;
+      border: 2px solid #007ee5;
       background: #fff;
     }
+
     &.dropped {
-      border-radius: 4px;
       background: #fff;
-      border: 4px solid transparent;
+      border: 2px solid transparent;
     }
+
     .dropped-file {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      left: 0;
-      right: 0;
-      margin-left: auto;
-      margin-right: auto;
-      // background: linear-gradient(45deg, rgba(43, 45, 66, 0.45) 0%, rgba(139, 99, 114, 0.5) 100%);
-      background: linear-gradient(45deg,rgba(255, 188, 1, .4) 0%, #3E97D1 100%);
-      // border: 1px solid #8d99ae1a;
-      height: 100%;
-      // border-radius: 4px;
+      height: 13rem;
+      background: #f2f2f2;
+      box-shadow: inset 0 0 1px 1px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      border-radius: 0.2rem;
+
       .icon-wrapper {
         width: 2rem;
         height: 2rem;
         margin-right: 0.5rem;
-        
+
         img {
           max-height: 100%;
           max-width: 100%;
         }
       }
+
       .file-name {
-        font-size: 1rem;
-        color: #fff;
-        text-shadow: 1px 1px rgba(0,0,0,0.15);
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #191919;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
@@ -89,6 +69,7 @@
         width: 90%;
         padding: 0 0.25rem;
       }
+
       .file-size {
         font-size: 1rem;
         font-weight: normal;
@@ -96,122 +77,98 @@
     }
   }
   .intro-message {
-    font-size: 1.25rem;
-    color: #8D99AE;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: #cbcbcb;
+    height: 12rem;
+    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
+
 .upload-controls {
-  width: 100%;
+  width: 95%;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   margin: 1rem 0;
   padding-right: 1.5rem;
-  button {
-    &:last-child {
-      margin-left: 1rem;
-    }
-  }
-
+  // button {
+  //   &:last-child {
+  //     margin-left: 1rem;
+  //   }
+  // }
 }
 img {
   max-height: 100%;
   max-width: 100%;
 }
+
 .upload-file-explorer-container {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
+
 .upload-explorer-wrapper {
-  width:98%;
+  width: 98%;
   overflow: auto;
   border: 1px solid #ddd;
   border-radius: 4px;
   padding-left: 0.5rem;
   padding-top: 0.5rem;
-
-  @media (min-width: 1281px) {
-    height: 170px;
-  }
-
-  @media (min-width: 1025px) and (max-width: 1280px) {
-    height: 170px;
-  }
-
-  @media (min-width: 768px) and (max-width: 1024px) {
-    height: 150px;
-  }
-
-  @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
-    height: 150px;
-  }
-
-  @media (min-width: 481px) and (max-width: 767px) {
-    height: 120px;
-  }
-  @media (min-width: 320px) and (max-width: 480px) {
-    height: 120px;
-  }
+  height: 12rem;
 }
+
 .clear-upload {
   position: absolute;
-  right: 0.25rem;
-  bottom: 0.25rem;
-  button {
-    width: 1.65rem;
-    height: 1.65rem;
-    color: #fff;
-  }
+  left: 0.2rem;
+  top: 0.25rem;
 }
+
 .progress-wrap {
-  position: absolute;
-  bottom: 1rem;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  width: 70%;
+  width: 90%;
+  margin-top: 1rem;
+  height: 1rem;
 }
+
 .upload-path-selection {
-  margin: 0.5rem 0;
-  padding: 0.25rem 0.1rem;
-  width: 95%;
+  // margin: 0.25rem 0;
+  padding: 0.5rem 0.75rem;
+  width: 90%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+
   span {
+    min-height: 1rem;
     text-align: left;
     display: block;
     width: 100%;
     display: inline-block;
     padding-left: 1rem;
     max-width: 400px;
-    font-size: 0.9rem;
-    font-weight: 500;
+    font-size: 0.85rem;
+    font-weight: 400;
     border-radius: 3px;
     padding: 0.25rem 0rem;
     padding-left: 0.1rem;
     word-break: break-word;
+
     &.highlight {
-      color: #0080FF;
+      color: #0080ff;
     }
   }
 }
 .upload-explorer-header {
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
-  font-weight: 600;
-  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
-  font-size: 0.9rem;
+  font-weight: 400;
+  font-family: "Nunito", "Open Sans", Arial, Helvetica, sans-serif;
+  font-size: .85rem;
   width: 100%;
   text-align: left;
 }
@@ -225,36 +182,29 @@ img {
   padding-left: 1.5rem;
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
-  color: #8D99AE;
+  color: #8d99ae;
 }
 .dropzone-backdrop-icon {
   width: 100%;
   height: 40%;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  top: 10%;
-  position: absolute;
+  color: #007ee5;
 
-  img {
-    max-width: 100%;
-    max-height: 100%;
+  svg {
+    width: 100%;
+    height: 100%;
   }
 }
 .uploaded-file-attrs {
-  position: absolute;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  bottom: 25%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 95%;
+  margin-top: 1rem;
+
   .upload-success-msg {
     margin-top: 1rem;
     font-size: 1rem;
-    color: #fff;
+    font-weight: 300;
+    color: #000;
   }
 }

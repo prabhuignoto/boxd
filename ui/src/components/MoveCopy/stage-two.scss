@@ -1,5 +1,5 @@
 .stage2-container {
-  width: 400px;
+  width: 90%;
   .stage2-header {
     width: 100%;
     span {
@@ -8,13 +8,14 @@
       display: block;
       padding-left: 0.5rem;
       margin: 0.5rem 0;
-      font-weight: 500;
-      font-size: 0.9rem;
+      font-weight: 400;
+      font-size: 1rem;
+      font-family: 'Nunito', Arial, Helvetica, sans-serif;
     }
   }
 }
+
 .stage2-explorer-wrapper {
-  /* height: 300px; */
   overflow: auto;
   margin-top: 1rem;
   border: 1px solid #ddd;
@@ -24,16 +25,18 @@
   height: 400px;
   overflow: auto;
 }
+
 img {
   max-height: 100%;
   max-width: 100%;
 }
+
 .stage2-controls {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  margin: 2rem 0 0 0;
+  margin: 1rem 0;
   button {
     &:not(:first-child) {
       margin-left: 1rem;
@@ -44,13 +47,15 @@ img {
     align-self: normal;
   }
 }
+
 .selected-src {
   font-size: 0.9rem;
-  margin: 1rem 0;
+  margin: 0.25rem 0 2rem 0;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+
   .value {
     margin-top: 0.5rem;
     display: block;
@@ -62,9 +67,7 @@ img {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    color: #2B2D42;
-    // background: #EDF2F4;
-    // border: 1px solid rgba(141, 153, 174, 0.5);
+    color: #2b2d42;
     border-radius: 3px;
     padding: 0.1rem 0.5rem;
   }

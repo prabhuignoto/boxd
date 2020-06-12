@@ -5,33 +5,31 @@
     </header>
     <div class="stage2-explorer-wrapper">
       <div class="move-explorer-wrapper" v-if="mode === 'move'">
-        <MoveExplorerSrc path="" />
+        <MoveExplorerSrc path />
       </div>
       <div class="copy-explorer-wrapper" v-else-if="mode === 'copy'">
-        <CopyExplorerSrc path="" />
+        <CopyExplorerSrc path />
       </div>
     </div>
     <div class="selected-src">
       <!-- <span>You have selected</span> -->
-      <span class="value">
-        {{selectedSource}}
-      </span>
+      <span class="value">{{selectedSource}}</span>
     </div>
     <div class="stage2-controls">
       <Button name="Back" :onClick="handlePrevious">
         <template slot="btn-icon">
-          <img src="../../assets/angle-left.svg" alt="next">
+          <ChevronLeftIcon />
         </template>
       </Button>
-      <Button name="Next" :onClick="handleNextStep" :disabled="!isSourceSelected" :buttonStyle="getStyle">
+      <Button
+        name="Next"
+        v-if="isSourceSelected"
+        :onClick="handleNextStep"
+        :disabled="!isSourceSelected"
+        :buttonStyle="getStyle"
+      >
         <template slot="btn-icon">
-          <img src="../../assets/angle-right-white.svg" alt="next" v-if="!isSourceSelected">
-          <img src="../../assets/angle-right.svg" alt="next" v-else>
-        </template>
-      </Button>
-      <Button name="Cancel" :onClick="handleCancel">
-        <template slot="btn-icon">
-          <img src="../../assets/times-dark.svg" alt="cancel">
+          <ChevronRightIcon />
         </template>
       </Button>
     </div>
@@ -43,12 +41,16 @@ import MoveExplorerSrc from "./MoveExplorerSrc";
 import CopyExplorerSrc from "./CopyExplorerSrc";
 import Button from "../Form/Button";
 import { mapActions } from "vuex";
+import { ChevronRightIcon } from "vue-feather-icons";
+import { ChevronLeftIcon } from "vue-feather-icons";
 
 export default {
   components: {
     MoveExplorerSrc,
     CopyExplorerSrc,
-    Button
+    Button,
+    ChevronRightIcon,
+    ChevronLeftIcon,
   },
   props: ["handleNext", "handlePrevious", "mode"],
   computed: {
@@ -69,6 +71,8 @@ export default {
     getStyle() {
       if (!this.isSourceSelected) {
         return "disabled";
+      } else {
+        return "";
       }
     }
   },
@@ -89,7 +93,7 @@ export default {
       "moveResxSource",
       "clearMoveResx",
       "moveResxSource",
-      "copyResxSource",
+      "copyResxSource"
     ])
   }
 };

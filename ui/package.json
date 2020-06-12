@@ -38,6 +38,7 @@
     "vue": "^2.6.11",
     "vue-apollo": "^3.0.3",
     "vue-cookie": "^1.1.4",
+    "vue-feather-icons": "^5.0.0",
     "vue-pose": "^0.5.1",
     "vue-router": "^3.3.2",
     "vuex": "^3.4.0",

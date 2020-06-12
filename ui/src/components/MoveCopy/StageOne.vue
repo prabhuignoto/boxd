@@ -1,56 +1,53 @@
 <template>
-  <section class="stageone-wrapper">
-    <header class="stageone-header">
-        <!-- <span>Select the operation to proceed further</span> -->
-      </header>
-      <div class="move-copy-selection">
-          <label for="move" :class="{selected: moveSelected}">
-            <!-- <i class="move-copy-sel-ico-wrapper">
-              <img src="../../assets/check-white.svg" alt="check">
-            </i> -->
-            <span>Move</span>
-            <input type="radio" name="move-copy-radio" id="move" @click="handleSelection('move')">
-          </label>
-          <label for="copy" :class="{selected: copySelected}">
-            <!-- <i class="move-copy-sel-ico-wrapper">
-              <img src="../../assets/check-white.svg" alt="check">
-            </i> -->
-            <span>Copy</span>
-            <input type="radio" name="move-copy-radio" id="copy" @change="handleSelection('copy')">
-          </label>
-      </div>
-      <div class="stage1-controls">
-        <Button name="Next" :onClick="handleStepOne" :disabled="!isModeSelected" :buttonStyle="getStyle">
-          <template slot="btn-icon">
-            <img src="../../assets/angle-right-white.svg" alt="next" v-if="!isModeSelected">
-            <img src="../../assets/angle-right.svg" alt="next" v-if="isModeSelected">
-          </template>
-        </Button>
-        <Button name="Cancel" :onClick="dismissPopup">
-          <template slot="btn-icon">
-            <img src="../../assets/times-dark.svg" alt="cancel">
-          </template>
-        </Button>
-      </div>
+  <section class="stage-one-wrapper">
+    <header class="stage-one-header">
+      <!-- <span>Select the operation to proceed further</span> -->
+    </header>
+    <div class="move-copy-selection">
+      <label for="move" :class="{selected: moveSelected}">
+        <span>Move Files to a new Destination</span>
+        <input type="radio" name="move-copy-radio" id="move" @click="handleSelection('move')" />
+        <CheckIcon :style="{visibility: moveSelected ? 'visible' : 'hidden'}" />
+      </label>
+      <label for="copy" :class="{selected: copySelected}">
+        <span>Copy Files to a new Destination</span>
+        <input type="radio" name="move-copy-radio" id="copy" @change="handleSelection('copy')" />
+        <CheckIcon :style="{visibility: copySelected ? 'visible' : 'hidden'}" />
+      </label>
+    </div>
+    <div class="stage1-controls">
+      <Button
+        name="Next"
+        :onClick="handleStepOne"
+        :disabled="!isModeSelected"
+        :buttonStyle="getStyle"
+      >
+        <template slot="btn-icon">
+          <ChevronRightIcon />
+        </template>
+      </Button>
+    </div>
   </section>
 </template>
 
 <script>
-import TextBox from "../Form/TextBox";
 import Button from "../Form/Button";
 import Vue from "vue";
 import { mapActions } from "vuex";
+import { CheckIcon } from "vue-feather-icons";
+import { ChevronRightIcon } from "vue-feather-icons";
 
 export default {
   name: "StageOne",
   components: {
     Button,
-    TextBox,
+    CheckIcon,
+    ChevronRightIcon
   },
   props: ["handleNext"],
   data() {
     return {
-      mode: "",
+      mode: ""
     };
   },
   computed: {
@@ -61,11 +58,13 @@ export default {
       return this.mode === "copy";
     },
     isModeSelected() {
-      return this.mode !== ""
+      return this.mode !== "";
     },
     getStyle() {
-      if(!this.isModeSelected) {
-        return "disabled"
+      if (!this.isModeSelected) {
+        return "disabled";
+      } else {
+        return "";
       }
     }
   },
@@ -79,9 +78,9 @@ export default {
       this.updateModalState({
         status: false,
         componentToRender: "",
-        title: "",
+        title: ""
       });
-      if(this.mode === "move") {
+      if (this.mode === "move") {
         this.clearMoveResx();
       }
     },
@@ -89,7 +88,7 @@ export default {
       this.handleNext();
     }
   }
-}
+};
 </script>
 
 <style lang="scss" src="./stage-one.scss" scoped/>

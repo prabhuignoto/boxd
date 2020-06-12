@@ -72,10 +72,9 @@
   }
 
   .selected-path {
-    font-weight: normal;
+    font-weight: 400;
     margin-top: 0.5rem;
     text-align: left;
-    border: 2px solid #D8DCDE;
     border-radius: 3px;
     min-height: 1.75rem;
     padding-left: 0.5rem;
@@ -83,8 +82,7 @@
     font-size: 0.9rem;
     display: flex;
     align-items: center;
-    color: #007ee5;
-    font-weight: 700;
+    color: #191919;
     min-height: 35px;
   }
 }

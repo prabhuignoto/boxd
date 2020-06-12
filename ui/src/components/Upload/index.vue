@@ -2,52 +2,64 @@
   <section class="upload-main">
     <!-- drop zone starts here -->
     <section class="upload-wrapper">
-      <div :class="setClass" 
-        @drop="handleDrop" @dragover="handleDragOver"
-        @drag="handleDrag" @dragstart="handleDragStart"
-        @dragend="handleDragEnd" @dragenter="handleDragEnter"
-        @dragleave="handleDragLeave" @click="openInputFile" :disabled="canDisableInput"
+      <div
+        :class="setClass"
+        @drop="handleDrop"
+        @dragover="handleDragOver"
+        @drag="handleDrag"
+        @dragstart="handleDragStart"
+        @dragend="handleDragEnd"
+        @dragenter="handleDragEnter"
+        @dragleave="handleDragLeave"
+        @click="openInputFile"
+        :disabled="canDisableInput"
       >
         <!-- dropzone main -->
         <span class="intro-message" v-if="!isDropped">Drop your file here to start the upload</span>
-        <div v-if="isDropped" class="dropped-file" :style="getResultStyle" >
+        <div v-if="isDropped" class="dropped-file" :style="getResultStyle">
           <i class="dropzone-backdrop-icon">
-            <img src="../../assets/upload_flat.svg" alt="upload icon">
+            <!-- <img src="../../assets/upload_flat.svg" alt="upload icon" /> -->
+            <UploadCloudIcon></UploadCloudIcon>
           </i>
           <div class="uploaded-file-attrs">
             <span class="file-name" v-if="!uploadSuccess">{{fileName}}</span>
-            <span v-if="uploadSuccess" class="upload-success-msg">
-              Upload to Dropbox is complete.
-            </span>
+            <span v-if="uploadSuccess" class="upload-success-msg">Upload to Dropbox is complete.</span>
             <div class="file-name" v-if="!uploadSuccess">{{prettySize}}</div>
           </div>
-          <div class="progress-wrap" v-if="uploadStarted && !uploadSuccess">
+          <!-- <div class="progress-wrap" v-if="uploadStarted && !uploadSuccess"> -->
+          <div class="progress-wrap">
             <ProgressBar :value="progress" />
           </div>
         </div>
         <!-- dropzone main -->
 
         <!-- clear upload -->
-        <div class="clear-upload" v-if="canEnableClearBtn">
+        <!-- <div class="clear-upload" v-if="canEnableClearBtn">
           <Button buttonStyle="icon" :onClick="handleClear" v-if="!uploadSuccess">
             <template slot="btn-icon">
-              <img src="../../assets/cancel.svg" alt="clear-upload">
+              <XCircleIcon />
             </template>
           </Button>
-        </div>
+        </div>-->
         <!-- clear upload -->
 
         <!-- input file -->
-        <input type="file" id="input-file" style="display: none" @change="handleInputFile" :disabled="canDisableInput">
+        <input
+          type="file"
+          id="input-file"
+          style="display: none"
+          @change="handleInputFile"
+          :disabled="canDisableInput"
+        />
         <!-- input file -->
       </div>
 
       <!-- file explorer -->
       <div class="upload-file-explorer-container" v-if="canShowFileExplorer">
-        <span class="upload-explorer-header">Choose a destination to upload your file</span>
+        <span class="upload-explorer-header">Choose destination</span>
         <div class="upload-explorer-wrapper">
-          <RootFolder :onClick="handleRootFolder"/>
-          <UploadExplorer path="" />
+          <RootFolder :onClick="handleRootFolder" />
+          <UploadExplorer path />
         </div>
       </div>
       <!-- file explorer -->
@@ -56,30 +68,34 @@
 
     <!-- selected path -->
     <div class="upload-path-selection" v-if="canShowUpladPathSelection">
-      <span v-if="!uploadSuccess">Uploading to </span>
-      <span v-if="uploadSuccess">Uploaded to </span>
+      <!-- <span v-if="!uploadSuccess">Uploading to</span> -->
+      <span v-if="uploadSuccess">Uploaded to</span>
       <span class="highlight">{{getUploadPathCustom}}</span>
     </div>
     <!-- selected path -->
 
     <!-- form controls -->
     <div class="upload-controls">
-      <Button name="Upload" :onClick="handleUpload" 
-        :disabled="canDisableUpload" :buttonStyle="getStyle" v-if="canShowControls">
-          <template slot="btn-icon">
-            <img src="../../assets/check.svg" alt="upload" v-if="!canDisableUpload">
-            <img src="../../assets/check-white.svg" alt="upload" v-if="canDisableUpload">
-          </template>
+      <span class="ps" v-if="!uploadSuccess">max file size: 50 Mb</span>
+      <Button
+        name="Upload File"
+        :onClick="handleUpload"
+        :disabled="canDisableUpload"
+        :buttonStyle="getStyle"
+        v-if="canShowControls"
+      >
+        <template slot="btn-icon">
+          <!-- <img src="../../assets/check.svg" alt="upload" v-if="!canDisableUpload" />
+          <img src="../../assets/check-white.svg" alt="upload" v-if="canDisableUpload" />-->
+          <ArrowUpIcon />
+        </template>
       </Button>
       <!-- <Button name="Close" :onClick="handleCancel">
         <template slot="btn-icon">
           <img src="../../assets/times.svg" alt="cancel upload">
         </template>
-      </Button> -->
+      </Button>-->
     </div>
-    <span class="ps" v-if="!uploadSuccess">
-      max file size: 50 Mb
-    </span>
     <!-- form controls -->
   </section>
 </template>
@@ -94,12 +110,16 @@ import ProgressBar from "../Progressbar";
 import gql from "graphql-tag";
 import PrettyBytes from "pretty-bytes";
 import RootFolder from "../rootFolder";
+import { UploadCloudIcon, ArrowUpIcon, XCircleIcon } from "vue-feather-icons";
 
 export default Vue.component("UploadWindow", {
   components: {
     Button,
     ProgressBar,
-    RootFolder
+    RootFolder,
+    UploadExplorer,
+    ArrowUpIcon,
+    UploadCloudIcon,
   },
   computed: {
     ...mapGetters([
@@ -109,7 +129,7 @@ export default Vue.component("UploadWindow", {
       "canEnableClearBtn"
     ]),
     getUploadPathCustom() {
-      return this.getUploadPath === "/$root" ? "/home" : this.getUploadPath;
+      return this.getUploadPath === "/$root" ? "/ home" : this.getUploadPath;
     },
     canDisableUpload() {
       return !this.isDropped || this.uploadStarted || this.getUploadPath === "";
@@ -122,7 +142,7 @@ export default Vue.component("UploadWindow", {
       };
     },
     getStyle() {
-      return this.canDisableUpload ? "disabled" : "";
+      return this.canDisableUpload ? "disabled big" : "big";
     },
     getResultStyle() {
       if (this.uploadSuccess === true) {
@@ -134,6 +154,8 @@ export default Vue.component("UploadWindow", {
           background: "#cb2431",
           color: "#fff"
         };
+      } else {
+        return null;
       }
     },
     prettySize() {
@@ -143,10 +165,12 @@ export default Vue.component("UploadWindow", {
       return this.isDropped && !this.uploadStarted;
     },
     canShowUpladPathSelection() {
-      return this.fileName !== '' && !this.uploadSuccess;
+      return this.fileName !== "" && !this.uploadSuccess;
     },
     canShowFileExplorer() {
-      return this.getUploadExplorerStatus && !this.uploadSuccess && this.isDropped;
+      return (
+        this.getUploadExplorerStatus && !this.uploadSuccess && this.isDropped
+      );
     },
     canDisableInput() {
       // check if the upload is completed or just started and disable input controls
@@ -197,7 +221,10 @@ export default Vue.component("UploadWindow", {
       try {
         let formData = new FormData();
         formData.append("file", this.file);
-        formData.append("uploadPath", this.getUploadPath === "/$root" ? "" : this.getUploadPath);
+        formData.append(
+          "uploadPath",
+          this.getUploadPath === "/$root" ? "" : this.getUploadPath
+        );
         this.uploadStarted = true;
         const response = Axios.post(
           `${process.env.VUE_APP_API_SERVER}/upload`,
@@ -215,8 +242,7 @@ export default Vue.component("UploadWindow", {
               }
             },
             // timeout: 15000,
-            data: data => {
-            }
+            data: data => {}
           }
         );
         response

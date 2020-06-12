@@ -1,9 +1,0 @@
-language: node_js
-node_js:
-  - "node"
-  - "8"
-script:
-  - cd ./ui
-  - yarn install
-  - yarn run build
-install: true

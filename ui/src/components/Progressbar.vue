@@ -1,8 +1,9 @@
 <template>
   <div class="progress-bar-wrapper">
-    <i v-if="value === 100">
+    <!-- <i v-if="value === 0">
       <img src="../assets/check.svg" alt="completed">
-    </i>
+      <CheckIcon size="1x" />
+    </i>-->
     <div class="progressbar-container">
       <span :style="getStyle"></span>
     </div>
@@ -21,8 +22,8 @@ export default {
         top: 0,
         height: "100%",
         width: `${this.value}%`,
-        borderRadius: "8px",
-        background: "#2B2D42"
+        borderRadius: ".1rem",
+        background: "#4BB543"
       };
     }
   }
@@ -32,26 +33,27 @@ export default {
 <style lang="scss" scoped>
 .progress-bar-wrapper {
   width: 100%;
-  height: 8px;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 8px;
 
   .progressbar-container {
-    border-radius: 8px;
+    border-radius: 0.1rem;
     width: 100%;
     height: 100%;
     position: relative;
-    background: #787986;
+    background: #d9d9d9;
   }
   i {
     width: 1.5rem;
     height: 1.5rem;
-    margin-right: 1rem;
-    img {
-      max-height: 100%;
-      max-width: 100%;
+    margin-right: 0.5rem;
+    color: #4bb543;
+
+    svg {
+      height: 100%;
+      width: 100%;
     }
   }
 }

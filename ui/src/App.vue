@@ -6,7 +6,6 @@
 
 <script>
 import WebFontLoader from "webfontloader";
-// import "../node_modules/bulma/css/bulma.css";
 
 export default {
   components: {
@@ -14,7 +13,7 @@ export default {
   created() {
      WebFontLoader.load({
       google: {
-        families: ['Open Sans:400,500,600,700']
+        families: ['Nunito:300,400,700']
       },
     });
   },
@@ -29,13 +28,15 @@ body {
   justify-content: center;
 }
 #app {
-  font-family: "Open Sans", "Avenir", Helvetica, Arial, sans-serif;
+  font-family: "Nunito", "Open Sans", "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   width: 100%;
+  min-height: 900px;
 }
+
 #nav {
   padding: 30px;
   a {

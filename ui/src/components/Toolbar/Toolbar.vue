@@ -3,17 +3,17 @@
     <div class="toolbar-buttons">
       <Button name="Upload" size="large" buttonStyle="rounded" :onClick="openUploadWindow">
         <template slot="btn-icon">
-          <img src="../../assets/upload.svg" alt="upload">
+          <img src="../../assets/upload.svg" alt="upload" />
         </template>
       </Button>
       <Button name="Add folder" size="large" buttonStyle="rounded" :onClick="openCreateFolder">
         <template slot="btn-icon">
-          <img src="../../assets/plus.svg" alt="add">
+          <img src="../../assets/plus.svg" alt="add" />
         </template>
       </Button>
       <Button name="Move / Copy" buttonStyle="rounded" :onClick="openMoveCopy">
         <template slot="btn-icon">
-          <img src="../../assets/copy.svg" alt="Copy">
+          <img src="../../assets/copy.svg" alt="Copy" />
         </template>
       </Button>
     </div>
@@ -24,7 +24,7 @@
       <Account />
       <!-- <Logo /> -->
     </div>
-  </div>  
+  </div>
 </template>
 
 <script>
@@ -33,12 +33,22 @@ import SearchBox from "../Searchbox";
 import { mapActions } from "vuex";
 import Account from "../Account";
 
+import CreateFolder from "../Folder/CreateFolder";
+import MoveCopy from "../MoveCopy/MoveCopy";
+import UploadWindow from "../Upload/index";
+
 export default {
   name: "Toolbar",
   components: {
     Button,
     SearchBox,
     Account,
+    // eslint-disable-next-line vue/no-unused-components
+    CreateFolder,
+    // eslint-disable-next-line vue/no-unused-components
+    MoveCopy,
+    // eslint-disable-next-line vue/no-unused-components
+    UploadWindow
   },
   methods: {
     ...mapActions(["updateModalState", "updateWorkflowOrigin"]),

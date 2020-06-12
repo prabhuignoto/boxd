@@ -49,14 +49,13 @@
 }
 .explorer {
   background: #fff;
-  border-radius: 5px;
+  border-radius: .2rem;
   width: 100%;
   position: relative;
-  box-shadow: 0 0 4px 1px rgba(100, 102, 117, 0.35);
+  box-shadow: 0 0 12px 2px rgba($color: #000000, $alpha: 0.2);
   .line-item-wrapper {
     &:nth-child(odd) {
-      // background: rgba(237, 242, 244, 0.5);
-      background: rgba($color: #000, $alpha: .1);
+      background: #f2f2f2;
     }
   }
 }
@@ -68,7 +67,7 @@ header.explorer-header {
   position: relative;
   margin: 0;
   // background: #2b2d42;
-  background: #0B67A3;
+  background: #007ee5;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   .header-wrapper {
@@ -86,7 +85,7 @@ header.explorer-header {
     }
     list-style-type: none;
     margin: 0;
-    padding: .55rem 0;
+    padding: 0.55rem 0;
     // border-bottom: 1px solid #8D99AE;
     .header {
       text-transform: capitalize;
@@ -96,7 +95,7 @@ header.explorer-header {
       padding-left: 0rem;
       justify-self: left;
       align-self: center;
-      color: #EDF2F4;
+      color: #edf2f4;
       position: relative;
       width: 100%;
       &.control {
@@ -155,7 +154,7 @@ header.explorer-header {
   font-weight: 700;
   padding-left: 2rem;
   a {
-    color: #2B2D42;
+    color: #2b2d42;
   }
 }
 

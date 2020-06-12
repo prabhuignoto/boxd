@@ -7,25 +7,25 @@
   border-radius: 5px;
   box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.25);
   width: 100%;
-  background: #EDF2F4;
+  background: #fff;
 }
+
 header.app-title {
-  font-size: 1.75rem;
-  font-weight: 700;
+  font-size: 1.5rem;
+  font-weight: 600;
   margin-bottom: 1rem;
   width: 100%;
-  // background: #fff;
-  color: #2B2D42;
+  color: #2b2d42;
   padding: 0.75rem 0;
   border-radius: 3px;
 }
+
 .app-logo-ensemble {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 2.5rem;
   margin-top: 0.5rem;
-  width: 75%;
   span {
     display: block;
     background-repeat: no-repeat;
@@ -34,29 +34,38 @@ header.app-title {
   }
   .dropbox-logo {
     background-image: url(../assets/dropbox-2.svg);
-    height: 4rem;
-    width: 4rem;
+    height: 3rem;
+    width: 3rem;
   }
   .app-logo {
     background-image: url(../assets/cubes.svg);
-    height: 4rem;
-    width: 4rem;
+    height: 2rem;
+    width: 2rem;
+    margin-right: 1rem;
   }
   .right-arrow {
     background-image: url(../assets/arrow-right.svg);
     height: 2rem;
     width: 2rem;
+    margin-right: 1rem;
   }
 }
+
 .app-info-wrapper {
   margin-bottom: 2rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   .app-info {
     font-size: 1.1rem;
     font-weight: 500;
-    width: 100%;
+    width: 90%;
     margin: 0.5rem 0;
   }
 }
+
 .app-content {
   width: 100%;
   display: flex;
@@ -64,6 +73,7 @@ header.app-title {
   align-items: center;
   padding-bottom: 1rem;
 }
+
 .button-grp {
   display: flex;
   align-items: center;
@@ -71,24 +81,32 @@ header.app-title {
   flex-direction: column;
   width: 70%;
 }
+
 .dropbox-btn {
   font-size: 1.1rem;
-  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+  font-family: "Nunito", "Open Sans", Arial, Helvetica, sans-serif;
   border: none;
   border-radius: 5px;
   padding: 0.75rem;
-  background: #fff;
-  color: #007EE5;
-  font-weight: 500;
+  background: #007ee5;
+  color: #fff;
+  font-weight: 400;
   cursor: pointer;
   margin: 0 0.5rem;
   width: 100%;
   margin: 0.5rem 0;
   border: 1px solid transparent;
   outline: none;
-  box-shadow: 0 0 5px 1px rgba(0,0,0,0.1);
+  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
 
   &:hover {
-    border: 1px solid #8D99AE;
+    border: 1px solid #8d99ae;
+  }
+
+  &.link {
+    background: #fff;
+    color: #007ee5;
+    text-decoration: underline;
+    box-shadow: none;
   }
 }

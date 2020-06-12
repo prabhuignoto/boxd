@@ -7,6 +7,7 @@
   padding: 0.25rem;
   width: 300px;
   font-size: 0.85rem;
+  font-family: "Nunito", "Open Sans";
 
   .child-tree {
     padding-left: 1.5rem;
@@ -32,8 +33,10 @@
     cursor: pointer;
     padding: 0.25rem;
     font-size: 0.85rem;
+
     .node-text {
-      color: #2B2D42;
+      color: #191919;
+      font-weight: 300;
       height: 100%;
       width: 100%;
       padding: 0.25rem;
@@ -44,8 +47,9 @@
       text-overflow: ellipsis;
       text-transform: lowercase;
       outline: none;
+
       &.selected {
-        background: #646675;
+        background: #191919;
         color: #fff;
         border-radius: 2px;
       }
