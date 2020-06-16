@@ -16,35 +16,35 @@ export default new Vuex.Store({
     upload: Upload,
     file: File,
     list: List,
-    notification: Notification
+    notification: Notification,
   },
   state: {
     explorer: {
-      path: ""
+      path: "",
     },
     fileExplorer: {
       activeFileNode: {},
       refresh: {
         status: false,
-        path: ""
-      }
+        path: "",
+      },
     },
     modal: {
       isActive: false,
       componentToRender: "",
       title: "",
       disableHeader: false,
-      disableCloseBtn: false
+      disableCloseBtn: false,
     },
     treeView: {
-      data: []
+      data: [],
     },
     workFlowOrigin: "",
     notification: {
       messages: [],
       unRead: [],
-      read: []
-    }
+      read: [],
+    },
   },
   mutations: {
     updatePath(state, { path }) {
@@ -64,9 +64,9 @@ export default new Vuex.Store({
       state.modal.disableCloseBtn = disableCloseBtn;
     },
     updateTreeViewData(state, { data }) {
-      state.treeView.data = data.map(x =>
+      state.treeView.data = data.map((x) =>
         Object.assign({}, x, {
-          selected: false
+          selected: false,
         })
       );
     },
@@ -76,21 +76,21 @@ export default new Vuex.Store({
     refreshFileExplorer(state, { status, path }) {
       state.fileExplorer.refresh = {
         status,
-        path
+        path,
       };
-    }
+    },
   },
   actions: {
     updatePath({ commit }, path) {
       commit({
         type: "updatePath",
-        path
+        path,
       });
     },
     updateExplorerNode({ commit }, node) {
       commit({
         type: "updateExplorerNode",
-        node
+        node,
       });
     },
     updateModalState(
@@ -103,37 +103,37 @@ export default new Vuex.Store({
         componentToRender,
         title,
         disableHeader,
-        disableCloseBtn
+        disableCloseBtn,
       });
     },
     updateTreeViewData({ commit }, data) {
       commit({
         type: "updateTreeViewData",
-        data
+        data,
       });
     },
     updateWorkflowOrigin({ commit }, origin) {
       commit({
         type: "updateWorkflowOrigin",
-        origin
+        origin,
       });
     },
     refreshFileExplorer({ commit }, { status, path }) {
       commit({
         type: "refreshFileExplorer",
         status,
-        path
+        path,
       });
-    }
+    },
   },
   getters: {
-    isModalActive: state => state.modal.isActive,
-    getPopupComponent: state => state.modal.componentToRender,
-    getPopupTitle: state => state.modal.title,
-    getIsDisableHeader: state => state.modal.disableHeader,
-    getExplorerPath: state => state.explorer.path,
-    getDisableCloseBtn: state => state.modal.disableCloseBtn,
-    getWorkflowOrigin: state => state.workFlowOrigin,
-    getRefreshFileExplorer: state => state.fileExplorer.refresh
-  }
+    isModalActive: (state) => state.modal.isActive,
+    getPopupComponent: (state) => state.modal.componentToRender,
+    getPopupTitle: (state) => state.modal.title,
+    getIsDisableHeader: (state) => state.modal.disableHeader,
+    getExplorerPath: (state) => state.explorer.path,
+    getDisableCloseBtn: (state) => state.modal.disableCloseBtn,
+    getWorkflowOrigin: (state) => state.workFlowOrigin,
+    getRefreshFileExplorer: (state) => state.fileExplorer.refresh,
+  },
 });

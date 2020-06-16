@@ -4,13 +4,14 @@
   align-items: flex-start;
   justify-content: flex-start;
   border-radius: 4px;
-  padding: 0.25rem;
+  // padding: 0.25rem;
   width: 300px;
   font-size: 0.85rem;
   font-family: "Nunito", "Open Sans";
+  margin-top: .5rem;
 
   .child-tree {
-    padding-left: 1.5rem;
+    // padding-left: 1.5rem;
     display: block;
     display: flex;
     flex-direction: column;

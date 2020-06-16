@@ -1,30 +1,38 @@
 <template>
   <div class="root-folder" @click="onClick" tabindex="0">
     <i>
-      <img src="../assets/folder.svg" alt="root-folder" />
+      <FolderIcon />
     </i>
     <span class="root-slash">Home</span>
   </div>
 </template>
 
 <script>
-export default {
+import { FolderIcon } from "vue-feather-icons";
+import Vue from "vue";
+
+export default Vue.extend({
   name: "RootFolder",
-  props: ["onClick"]
-};
+  props: ["onClick"],
+  components: {
+    FolderIcon,
+  },
+});
 </script>
 
 <style lang="scss" scoped>
 .root-folder {
-  display: flex;
   align-items: center;
-  justify-content: flex-start;
   cursor: pointer;
-  width: 80px;
+  display: flex;
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+  font-size: 0.95rem;
+  justify-content: flex-start;
+
   margin-left: 0.25rem;
   margin-top: 0.5rem;
-  font-size: 0.95rem;
-  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+
+  width: 80px;
   &:focus {
     outline: 1px dotted #2b2d42;
     outline-offset: 2px;
