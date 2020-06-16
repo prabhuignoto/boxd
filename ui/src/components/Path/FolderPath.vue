@@ -2,24 +2,34 @@
   <div class="path-wrapper">
     <ul class="path">
       <li class="path-item">
-        <a href="javascript:void(0);" @click="navToHome($event)" v-bind:class="{'disabled selected': isHome()}">
+        <a
+          href="javascript:void(0);"
+          @click="navToHome($event)"
+          v-bind:class="{ 'disabled selected': isHome() }"
+        >
           <span class="path-value home">
             <!-- <img src="../../assets/home.svg" alt="home"> -->
             <span>Home</span>
           </span>
         </a>
       </li>
-      <li v-for="path in folderPath" :key="path" v-if="path !== ''" class="path-item">
-        <a href="javascript:void(0);" v-bind:class="{'disabled selected': isCurrentDir(path), 'path-link': true}"
-            @click="handleNavigation(path, $event)">
-           <span class="path-slash">
-             <img src="../../assets/angle-right.svg" alt="arrow-right">
-           </span>
-          <span class="path-value">{{path}}</span>
+      <li v-for="path in folderPath" :key="path" class="path-item">
+        <a
+          href="javascript:void(0);"
+          v-bind:class="{
+            'disabled selected': isCurrentDir(path),
+            'path-link': true,
+          }"
+          @click="handleNavigation(path, $event)"
+        >
+          <span class="path-slash">
+            <img src="../../assets/angle-right.svg" alt="arrow-right" />
+          </span>
+          <span class="path-value">{{ path }}</span>
         </a>
       </li>
     </ul>
-  </div>  
+  </div>
 </template>
 
 <script>
@@ -46,7 +56,7 @@ export default {
     },
     isHome() {
       return this.$store.state.explorer.path === "";
-    }
+    },
   },
   computed: {
     folderPath() {
@@ -56,9 +66,9 @@ export default {
       } else {
         return "";
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style lang="scss" src="./folderpath.scss" scoped/>
+<style lang="scss" src="./folderpath.scss" scoped />

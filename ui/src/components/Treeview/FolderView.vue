@@ -1,27 +1,34 @@
 <template>
   <div class="child-tree-wrapper">
     <div @click="toggleTree(entry.path_lower)" class="folder" tabindex="0">
-      <i v-if="!folderOpen">
-        <img src="../../assets/caret-right.svg" alt="expland">
+      <!-- <i v-if="!folderOpen">
+        <img src="../../assets/caret-right.svg" alt="expland" />
       </i>
       <i v-if="folderOpen">
-        <img src="../../assets/caret-down.svg" alt="collapse">
-      </i>
-      <img src="../../assets/folder.svg" alt="folder" v-bind:class="{folderImg: true, open: folderOpen}">
-      <span>{{name}}</span>
+        <img src="../../assets/caret-down.svg" alt="collapse" />
+      </i> -->
+      <FolderPlusIcon />
+      <FolderMinusIcon />
+      <!-- <img
+        src="../../assets/folder.svg"
+        alt="folder"
+        v-bind:class="{ folderImg: true, open: folderOpen }"
+      /> -->
+      <span>{{ name }}</span>
     </div>
     <div class="child-tree" v-if="entry.path_lower !== null">
       <component
         v-bind:is="childTree"
         v-bind:path="entry.path_lower"
         v-show="showTree"
-        v-bind:handleSubfolderSelection="handleSubfolderSelection"></component>
+        v-bind:handleSubfolderSelection="handleSubfolderSelection"
+      ></component>
     </div>
   </div>
 </template>
 
 <script>
-import Treeview from "./Treeview";
+import { FolderPlusIcon, FolderMinusIcon } from "vue-feather-icons";
 export default {
   name: "FolderView",
   props: ["name", "entry", "childTree", "handleSubfolderSelection"],
@@ -29,8 +36,12 @@ export default {
     return {
       showTree: false,
       folderOpen: false,
-      highlight: false
+      highlight: false,
     };
+  },
+  components: {
+    FolderPlusIcon,
+    FolderMinusIcon,
   },
   methods: {
     toggleTree(path) {
@@ -44,9 +55,9 @@ export default {
     },
     hideHighlight() {
       this.highlight = false;
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style lang="scss" src="./folderview.scss" scoped/>
+<style lang="scss" src="./folderview.scss" scoped />

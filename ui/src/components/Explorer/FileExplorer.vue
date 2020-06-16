@@ -1,10 +1,11 @@
 <template>
   <section class="file-explorer-wrapper">
-    <Treeview path="" 
+    <Treeview
+      path=""
       v-bind:onSelect="onSelect"
       v-bind:entries="files.entries"
       childTree="FileExplorer"
-      v-bind:handleSubfolderSelection="handleSubfolderSelection" 
+      v-bind:handleSubfolderSelection="handleSubfolderSelection"
       v-if="!$apollo.loading"
     />
   </section>
@@ -24,20 +25,20 @@ export default Vue.component("FileExplorer", {
   data() {
     return {
       files: {
-        entries: []
-      }
+        entries: [],
+      },
     };
   },
   props: ["path"],
   computed: {
-    ...mapGetters(["getExplorerPath", "getRefreshFileExplorer"])
+    ...mapGetters(["getExplorerPath", "getRefreshFileExplorer"]),
   },
   watch: {
-    getRefreshFileExplorer({ path }, oldStatus) {
+    getRefreshFileExplorer({ path }) {
       if (path === this.path) {
         this.$apollo.queries.files.refresh();
       }
-    }
+    },
   },
   methods: {
     ...mapActions(["clearList"]),
@@ -50,7 +51,7 @@ export default Vue.component("FileExplorer", {
         this.$store.dispatch("updatePath", path);
       }
     },
-    ...mapActions(["updateTreeViewData"])
+    ...mapActions(["updateTreeViewData"]),
   },
   apollo: {
     files: {
@@ -60,15 +61,15 @@ export default Vue.component("FileExplorer", {
         return {
           path: this.path,
           limit: 1000,
-          cursor: ""
+          cursor: "",
         };
       },
-      result({ loading, data }) {
-        if (!loading && data.files && data.files.entries) {
-        }
-      }
-    }
-  }
+      // result({ loading, data }) {
+      //   if (!loading && data.files && data.files.entries) {
+      //   }
+      // },
+    },
+  },
 });
 </script>
 

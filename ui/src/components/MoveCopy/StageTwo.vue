@@ -13,7 +13,7 @@
     </div>
     <div class="selected-src">
       <!-- <span>You have selected</span> -->
-      <span class="value">{{selectedSource}}</span>
+      <span class="value">{{ selectedSource }}</span>
     </div>
     <div class="stage2-controls">
       <Button name="Back" :onClick="handlePrevious">
@@ -74,7 +74,7 @@ export default {
       } else {
         return "";
       }
-    }
+    },
   },
   methods: {
     handleNextStep() {
@@ -84,7 +84,7 @@ export default {
       this.updateModalState({
         state: false,
         componentToRender: "",
-        title: ""
+        title: "",
       });
       this.clearMoveResx();
     },
@@ -93,10 +93,10 @@ export default {
       "moveResxSource",
       "clearMoveResx",
       "moveResxSource",
-      "copyResxSource"
-    ])
-  }
+      "copyResxSource",
+    ]),
+  },
 };
 </script>
 
-<style lang="scss" src="./stage-two.scss" scoped/>
+<style lang="scss" src="./stage-two.scss" scoped />

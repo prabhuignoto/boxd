@@ -1,10 +1,14 @@
 <template>
   <div class="tree-view-wrapper">
     <header class="tree-view-header">
-      <img src="../../assets/sitemap.svg" alt="explorer" class="file-explorer-icon">
+      <img
+        src="../../assets/sitemap.svg"
+        alt="explorer"
+        class="file-explorer-icon"
+      />
       <span>Explorer</span>
     </header>
-    <div class="tree-view-content"> 
+    <div class="tree-view-content">
       <RootFolder :onClick="handleRootFolder" />
       <FileExplorer path="" />
     </div>
@@ -26,8 +30,8 @@ export default {
     ...mapActions(["updatePath"]),
     handleRootFolder() {
       this.updatePath("");
-    }
-  }
+    },
+  },
 };
 </script>
 

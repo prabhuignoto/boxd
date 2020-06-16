@@ -15,7 +15,11 @@
     </template>
     <template slot="menu">
       <ul class="options">
-        <li class="option-item" v-if="isFile" @click="handleDownloadFile(pathLower)">
+        <li
+          class="option-item"
+          v-if="isFile"
+          @click="handleDownloadFile(pathLower)"
+        >
           <span>Download</span>
         </li>
         <li class="option-item" @click="handleCopy(pathLower)">
@@ -43,7 +47,7 @@ export default {
   name: "LineItemPopdown",
   components: {
     Popdown,
-    MoreHorizontalIcon
+    MoreHorizontalIcon,
   },
   props: ["isFile", "pathLower"],
   methods: {
@@ -54,14 +58,14 @@ export default {
       "updateMoveCopyMode",
       "skipToFinal",
       "copyResxSource",
-      "moveResxSource"
+      "moveResxSource",
     ]),
     handleDelete(path) {
       this.deleteFolder(path);
       this.updateModalState({
         status: true,
         componentToRender: "DeleteFolder",
-        title: "Delete Resource"
+        title: "Delete Resource",
       });
     },
     handleCopy(path) {
@@ -73,7 +77,7 @@ export default {
       this.updateModalState({
         status: true,
         title: "Copy",
-        componentToRender: "MoveCopy"
+        componentToRender: "MoveCopy",
       });
     },
     handleMove(path) {
@@ -86,7 +90,7 @@ export default {
       this.updateModalState({
         status: true,
         title: "Move",
-        componentToRender: "MoveCopy"
+        componentToRender: "MoveCopy",
       });
     },
     handleDownloadFile(path) {
@@ -94,25 +98,25 @@ export default {
       Axios({
         url: `${process.env.VUE_APP_API_SERVER}/download`,
         params: {
-          path
+          path,
         },
         withCredentials: true,
-        responseType: "blob"
+        responseType: "blob",
       })
-        .then(response => {
+        .then((response) => {
           var blob = new Blob([response.data], {
-            type: `${response.headers["content-type"]};charset=utf-8`
+            type: `${response.headers["content-type"]};charset=utf-8`,
           });
           FileSaver.saveAs(blob, path.replace("/", ""));
           this.isDownloadingFile = false;
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
           this.isDownloadingFile = false;
         });
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style lang="scss" src="./line-item-popdown.scss" scoped/>
+<style lang="scss" src="./line-item-popdown.scss" scoped />

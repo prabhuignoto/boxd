@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
@@ -8,18 +8,16 @@
 import WebFontLoader from "webfontloader";
 
 export default {
-  components: {
-  },
+  components: {},
   created() {
-     WebFontLoader.load({
+    WebFontLoader.load({
       google: {
-        families: ['Nunito:300,400,700']
-      },
+        families: ["Nunito:300,400,700"]
+      }
     });
-  },
-}
+  }
+};
 </script>
-
 
 <style lang="scss">
 body {

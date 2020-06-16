@@ -1,22 +1,29 @@
 <template>
   <section class="account-wrapper">
-    <Popdown :name="account.name.display_name" type="link" leftOffset="-20px" size="large" customWidth="180px" topOffset="3rem">
+    <Popdown
+      :name="account.name.display_name"
+      type="link"
+      leftOffset="-20px"
+      size="large"
+      customWidth="180px"
+      topOffset="3rem"
+    >
       <template slot="icon">
         <i class="image-wrapper">
-          <img src="../assets/user.svg" alt="user">
+          <img src="../assets/user.svg" alt="user" />
         </i>
       </template>
       <template slot="menu">
         <ul class="account-options">
           <li class="account-option" @click="handleSignout">
             <i>
-              <img src="../assets/sign-out-alt.svg" alt="signout">
+              <img src="../assets/sign-out-alt.svg" alt="signout" />
             </i>
             <span>Logout</span>
           </li>
           <li class="account-option" @click="handleAbout">
             <i>
-              <img src="../assets/question-circle.svg" alt="About">
+              <img src="../assets/question-circle.svg" alt="About" />
             </i>
             <span>About</span>
           </li>
@@ -34,16 +41,16 @@ import { mapActions } from "vuex";
 export default {
   name: "Account",
   components: {
-    Popdown
+    Popdown,
   },
   data() {
     return {
       account: {
         name: {
           display_name: "",
-          abbreviated_name: ""
-        }
-      }
+          abbreviated_name: "",
+        },
+      },
     };
   },
   methods: {
@@ -54,7 +61,7 @@ export default {
         componentToRender: "Logout",
         status: true,
         disableHeader: true,
-        disableCloseBtn: true
+        disableCloseBtn: true,
       });
     },
     handleAbout() {
@@ -62,9 +69,9 @@ export default {
         title: "",
         componentToRender: "About",
         status: true,
-        disableHeader: true
+        disableHeader: true,
       });
-    }
+    },
   },
   apollo: {
     account: gql`
@@ -76,8 +83,8 @@ export default {
           }
         }
       }
-    `
-  }
+    `,
+  },
 };
 </script>
 

@@ -1,7 +1,11 @@
 <template>
   <section class="create-folder-wrapper">
     <div class="create-folder-inputs">
-      <Textbox name="name" :onInput="onFolderInput" placeholder="Name of the folder"/>
+      <Textbox
+        name="name"
+        :onInput="onFolderInput"
+        placeholder="Name of the folder"
+      />
     </div>
     <div class="create-folder-explorer-wrapper" v-if="!isCreateFolderExpHidden">
       <RootFolder :onClick="handleRootFolder" />
@@ -9,19 +13,23 @@
     </div>
     <div class="selected-path-wrapper">
       <!-- <div class="crt-folder-sec-header">Your new folder will be created on this path</div> -->
-      <div class="selected-path">{{selectedPath === "" ? "/" :selectedPath}}</div>
+      <div class="selected-path">
+        {{ selectedPath === "" ? "/" : selectedPath }}
+      </div>
     </div>
     <div class="create-folder-controls">
       <div class="crt-folder-loader-wrapper" v-show="isMutating">
         <Loader />
       </div>
-      <Button name="Create"
+      <Button
+        name="Create"
         :onClick="handleCreate"
         :disabled="!this.isPathSelected || this.isNameEmpty || isMutating"
-        :buttonStyle="getStyle">
-          <template slot="btn-icon">
-            <ChevronRightIcon />
-          </template>
+        :buttonStyle="getStyle"
+      >
+        <template slot="btn-icon">
+          <ChevronRightIcon />
+        </template>
       </Button>
     </div>
     <div class="error-messages-grp" v-if="hasErrors">
@@ -29,7 +37,9 @@
         <span class="err-message-val">Folder name cannot be empty</span>
       </span>
       <span class="error-message" v-if="showFolderValidError">
-        <span class="err-message-val">Please select the folder path to continue</span>
+        <span class="err-message-val"
+          >Please select the folder path to continue</span
+        >
       </span>
     </div>
   </section>
@@ -55,14 +65,14 @@ export default Vue.component("CreateFolder", {
     Button,
     Loader,
     RootFolder,
-    ChevronRightIcon
+    ChevronRightIcon,
   },
   data() {
     return {
       folderName: "",
       createHandledOnce: 0,
       disableSave: false,
-      isMutating: false
+      isMutating: false,
     };
   },
   beforeDestroy() {
@@ -95,8 +105,8 @@ export default Vue.component("CreateFolder", {
     ...mapGetters([
       "isCreateFolderExpHidden",
       "getWorkflowOrigin",
-      "getExplorerPath"
-    ])
+      "getExplorerPath",
+    ]),
   },
   methods: {
     ...mapActions([
@@ -105,7 +115,7 @@ export default Vue.component("CreateFolder", {
       "updatePath",
       "refetchData",
       "clearList",
-      "refreshFileExplorer"
+      "refreshFileExplorer",
     ]),
     handleCreate() {
       if (this.createHandledOnce < 1) {
@@ -119,26 +129,26 @@ export default Vue.component("CreateFolder", {
             mutation: gql(createFolderGQL),
             variables: {
               path: this.selectedPath,
-              name: this.folderName
+              name: this.folderName,
             },
-            update: (store, { data: { handleCreate } }) => {
+            update: () => {
               this.$store.dispatch("updateModalState", {
                 status: false,
-                componentToRender: ""
+                componentToRender: "",
               });
               this.updatePath(`${this.selectedPath}`);
               this.refetchData(true);
               this.refreshFileExplorer({
                 status: true,
-                path: this.getExplorerPath
+                path: this.getExplorerPath,
               });
-            }
+            },
           })
-          .then(data => {
+          .then(() => {
             this.disableSave = true;
             this.isMutating = true;
           })
-          .catch(error => {
+          .catch(() => {
             this.disableSave = true;
             this.isMutating = true;
           });
@@ -147,7 +157,7 @@ export default Vue.component("CreateFolder", {
     handleCancel() {
       this.$store.dispatch("updateModalState", {
         status: false,
-        componentToRender: ""
+        componentToRender: "",
       });
     },
     onFolderInput($evt) {
@@ -155,10 +165,9 @@ export default Vue.component("CreateFolder", {
     },
     handleRootFolder() {
       this.createFolderSelection("");
-    }
-  }
+    },
+  },
 });
 </script>
 
-<style lang="scss" src="./create-folder.scss" scoped>
-</style>
+<style lang="scss" src="./create-folder.scss" scoped></style>

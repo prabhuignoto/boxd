@@ -1,11 +1,13 @@
 <template>
   <section>
-    <Treeview path="" 
+    <Treeview
+      path=""
       v-bind:onSelect="onSelect"
       v-bind:entries="files"
       childTree="CreateFolderExplorer"
       hideFiles="true"
-      v-bind:handleSubfolderSelection="handleSubfolderSelection"/>
+      v-bind:handleSubfolderSelection="handleSubfolderSelection"
+    />
   </section>
 </template>
 
@@ -18,22 +20,22 @@ import { mapActions } from "vuex";
 
 export default Vue.component("CreateFolderExplorer", {
   components: {
-    Treeview
+    Treeview,
   },
   data() {
     return {
       files: {
-        entries: []
-      }
+        entries: [],
+      },
     };
   },
   props: ["path"],
   methods: {
     ...mapActions(["createFolderSelection"]),
-    onSelect(node) {},
+    // onSelect(node) {},
     handleSubfolderSelection(path) {
       this.createFolderSelection(path);
-    }
+    },
   },
   apollo: {
     files: {
@@ -42,13 +44,13 @@ export default Vue.component("CreateFolderExplorer", {
         return {
           path: this.path,
           limit: 1000,
-          cursor: ""
+          cursor: "",
         };
       },
       update(data) {
         return data.files.entries;
-      }
-    }
-  }
+      },
+    },
+  },
 });
 </script>

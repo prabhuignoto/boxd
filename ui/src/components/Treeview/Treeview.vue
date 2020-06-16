@@ -2,26 +2,40 @@
   <section class="tree file-tree">
     <div v-for="entry in entries" :key="entry.content_hash" class="node">
       <span v-if="entry.tag === 'file' && !hideFiles" class="node file-node">
-        <img :src="getFileIcon(entry.path_lower)" alt="file" class="file-img">
-        <span class="node-text" @click="selectFile({name: entry.name, path: entry.path_lower},  $event)" @blur="deselectFile" tabindex="0">{{entry.name}}</span>
+        <img :src="getFileIcon(entry.path_lower)" alt="file" class="file-img" />
+        <span
+          class="node-text"
+          @click="
+            selectFile({ name: entry.name, path: entry.path_lower }, $event)
+          "
+          @blur="deselectFile"
+          tabindex="0"
+          >{{ entry.name }}</span
+        >
       </span>
-      <span v-if="entry.tag === 'folder'"
-        class="node folder-node">
-          <FolderView
-            v-bind:name="entry.name"
-            v-bind:entry="entry"
-            v-bind:childTree="childTree"
-            v-bind:handleSubfolderSelection="handleSubfolderSelection" />
+      <span v-if="entry.tag === 'folder'" class="node folder-node">
+        <FolderView
+          v-bind:name="entry.name"
+          v-bind:entry="entry"
+          v-bind:childTree="childTree"
+          v-bind:handleSubfolderSelection="handleSubfolderSelection"
+        />
       </span>
     </div>
   </section>
 </template>
 
 <script>
-
 export default {
   name: "Treeview",
-  props: ["path", "onSelect", "entries", "childTree", "handleSubfolderSelection", "hideFiles"],
+  props: [
+    "path",
+    "onSelect",
+    "entries",
+    "childTree",
+    "handleSubfolderSelection",
+    "hideFiles",
+  ],
   components: {
     FolderView: () => import("./FolderView"),
   },
@@ -31,7 +45,7 @@ export default {
     };
   },
   methods: {
-    handleOpenFolder(path) {
+    handleOpenFolder() {
       this.showSubTree = !this.showSubTree;
     },
     selectFile(node, $evt) {
@@ -66,9 +80,9 @@ export default {
         default:
           return images("./file.svg");
       }
-    }
+    },
   },
 };
 </script>
 
-<style lang="scss" src="./treeview.scss" scoped/>
+<style lang="scss" src="./treeview.scss" scoped />

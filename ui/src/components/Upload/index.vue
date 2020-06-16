@@ -15,16 +15,20 @@
         :disabled="canDisableInput"
       >
         <!-- dropzone main -->
-        <span class="intro-message" v-if="!isDropped">Drop your file here to start the upload</span>
+        <span class="intro-message" v-if="!isDropped"
+          >Drop your file here to start the upload</span
+        >
         <div v-if="isDropped" class="dropped-file" :style="getResultStyle">
           <i class="dropzone-backdrop-icon">
             <!-- <img src="../../assets/upload_flat.svg" alt="upload icon" /> -->
             <UploadCloudIcon></UploadCloudIcon>
           </i>
           <div class="uploaded-file-attrs">
-            <span class="file-name" v-if="!uploadSuccess">{{fileName}}</span>
-            <span v-if="uploadSuccess" class="upload-success-msg">Upload to Dropbox is complete.</span>
-            <div class="file-name" v-if="!uploadSuccess">{{prettySize}}</div>
+            <span class="file-name" v-if="!uploadSuccess">{{ fileName }}</span>
+            <span v-if="uploadSuccess" class="upload-success-msg"
+              >Upload to Dropbox is complete.</span
+            >
+            <div class="file-name" v-if="!uploadSuccess">{{ prettySize }}</div>
           </div>
           <!-- <div class="progress-wrap" v-if="uploadStarted && !uploadSuccess"> -->
           <div class="progress-wrap">
@@ -47,7 +51,7 @@
         <input
           type="file"
           id="input-file"
-          style="display: none"
+          style="display: none;"
           @change="handleInputFile"
           :disabled="canDisableInput"
         />
@@ -70,7 +74,7 @@
     <div class="upload-path-selection" v-if="canShowUpladPathSelection">
       <!-- <span v-if="!uploadSuccess">Uploading to</span> -->
       <span v-if="uploadSuccess">Uploaded to</span>
-      <span class="highlight">{{getUploadPathCustom}}</span>
+      <span class="highlight">{{ getUploadPathCustom }}</span>
     </div>
     <!-- selected path -->
 
@@ -104,13 +108,12 @@
 import Button from "../Form/Button";
 import UploadExplorer from "./UploadExplorer";
 import Vue from "vue";
-import { mapActions, mapGetters, mapState } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import Axios from "axios";
 import ProgressBar from "../Progressbar";
-import gql from "graphql-tag";
 import PrettyBytes from "pretty-bytes";
 import RootFolder from "../rootFolder";
-import { UploadCloudIcon, ArrowUpIcon, XCircleIcon } from "vue-feather-icons";
+import { UploadCloudIcon, ArrowUpIcon } from "vue-feather-icons";
 
 export default Vue.component("UploadWindow", {
   components: {
@@ -126,7 +129,7 @@ export default Vue.component("UploadWindow", {
       "getUploadPath",
       "getUploadExplorerStatus",
       "getExplorerPath",
-      "canEnableClearBtn"
+      "canEnableClearBtn",
     ]),
     getUploadPathCustom() {
       return this.getUploadPath === "/$root" ? "/ home" : this.getUploadPath;
@@ -138,7 +141,7 @@ export default Vue.component("UploadWindow", {
       return {
         "drop-zone": true,
         "drag-over": this.isDragOver,
-        dropped: this.isDropped
+        dropped: this.isDropped,
       };
     },
     getStyle() {
@@ -147,12 +150,12 @@ export default Vue.component("UploadWindow", {
     getResultStyle() {
       if (this.uploadSuccess === true) {
         return {
-          color: "#fff"
+          color: "#fff",
         };
       } else if (this.uploadSuccess === false) {
         return {
           background: "#cb2431",
-          color: "#fff"
+          color: "#fff",
         };
       } else {
         return null;
@@ -178,7 +181,7 @@ export default Vue.component("UploadWindow", {
     },
     canShowControls() {
       return !this.uploadSuccess && this.isDropped;
-    }
+    },
   },
   data() {
     return {
@@ -189,7 +192,7 @@ export default Vue.component("UploadWindow", {
       file: null,
       progress: 0,
       uploadStarted: false,
-      uploadSuccess: null
+      uploadSuccess: null,
     };
   },
   beforeDestroy() {
@@ -203,7 +206,7 @@ export default Vue.component("UploadWindow", {
       "updateUploadExplorerStatus",
       "refreshFileExplorer",
       "refetchData",
-      "updateUploadExplorerStatus"
+      "updateUploadExplorerStatus",
     ]),
     reset() {
       (this.isDragOver = false),
@@ -232,29 +235,29 @@ export default Vue.component("UploadWindow", {
           {
             withCredentials: true,
             headers: {
-              "Content-Type": "multipart/form-data"
+              "Content-Type": "multipart/form-data",
             },
-            onUploadProgress: progressEvent => {
+            onUploadProgress: (progressEvent) => {
               this.progress = Math.round(
                 (progressEvent.loaded * 100) / progressEvent.total
               );
-              if (this.progress === 100) {
-              }
+              // if (this.progress === 100) {
+              // }
             },
             // timeout: 15000,
-            data: data => {}
+            // data: (data) => {},
           }
         );
         response
-          .then(data => {
+          .then(() => {
             this.uploadSuccess = true;
             this.refetchData(true);
             this.refreshFileExplorer({
               status: true,
-              path: this.getUploadPath
+              path: this.getUploadPath,
             });
           })
-          .catch(error => {
+          .catch((error) => {
             this.uploadSuccess = false;
             this.uploadStarted = false;
             console.log(error);
@@ -270,7 +273,7 @@ export default Vue.component("UploadWindow", {
       this.updateModalState({
         status: false,
         title: "",
-        componentToRender: ""
+        componentToRender: "",
       });
     },
     // * clear dropzone
@@ -302,7 +305,7 @@ export default Vue.component("UploadWindow", {
       ev.stopPropagation();
       this.isDragOver = false;
       const {
-        dataTransfer: { files }
+        dataTransfer: { files },
       } = ev;
       const file = files[0];
       this.fileName = file.name;
@@ -336,9 +339,9 @@ export default Vue.component("UploadWindow", {
       this.isDragOver = false;
       ev.preventDefault();
       ev.stopPropagation();
-    }
-  }
+    },
+  },
 });
 </script>
 
-<style lang="scss" src= "./upload.scss" scoped></style>
+<style lang="scss" src="./upload.scss" scoped></style>

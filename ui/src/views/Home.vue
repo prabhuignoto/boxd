@@ -2,7 +2,7 @@
   <div class="home">
     <transition name="fade">
       <div class="login-wrapper">
-          <Login title="Boxy"/>
+        <Login title="Boxy" />
       </div>
     </transition>
   </div>
@@ -15,8 +15,8 @@ import Login from "@/components/Login.vue";
 export default {
   name: "home",
   components: {
-    Login
-  }
+    Login,
+  },
 };
 </script>
 
@@ -38,4 +38,3 @@ export default {
   opacity: 0;
 }
 </style>
-

@@ -5,15 +5,20 @@
         <span>Boxy</span>
       </div>
       <div class="account-wrapper">
-        <Popdown :name="account.name.display_name" type="link" leftOffset="-1.25rem" v-if="!$apollo.loading" size="large">
+        <Popdown
+          :name="account.name.display_name"
+          type="link"
+          leftOffset="-1.25rem"
+          v-if="!$apollo.loading"
+          size="large"
+        >
           <template slot="icon">
             <div class="image-wrapper">
-              <img src="../assets/user-circle.svg" alt="user">
+              <img src="../assets/user-circle.svg" alt="user" />
             </div>
           </template>
           <template slot="menu">
-            <ul>
-            </ul>
+            <ul></ul>
           </template>
         </Popdown>
       </div>
@@ -27,15 +32,15 @@ import gql from "graphql-tag";
 
 export default {
   components: {
-    Popdown
+    Popdown,
   },
   data() {
     return {
       account: {
         name: {
-          display_name: ""
-        }
-      }
+          display_name: "",
+        },
+      },
     };
   },
   apollo: {
@@ -47,9 +52,9 @@ export default {
           }
         }
       }
-    `
-  }
+    `,
+  },
 };
 </script>
 
-<style lang="scss" src="./header.scss" scoped/>
+<style lang="scss" src="./header.scss" scoped />

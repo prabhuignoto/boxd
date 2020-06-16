@@ -3,22 +3,34 @@
     <div class="explorer-cee"></div>
     <div class="name explorer-cell">
       <span class="explorer-icon icon-folder" v-if="isFolder">
-        <img src="../../assets/folder.svg" alt="folder"/>
+        <img src="../../assets/folder.svg" alt="folder" />
       </span>
       <span class="explorer-icon icon-file" v-if="isFile">
-        <img :src="getFileIcon" alt="file">
+        <img :src="getFileIcon" alt="file" />
       </span>
       <span class="resource">
-        <a href="javascript:void(0);" v-if="isFolder" class="folder-link" @click="handleNavigation(path_lower, $event)">{{name}}</a>
-        <a href="javascript:void(0);" v-if="isFile" class="file-link" @click="handleFile(path_lower)">{{name}}</a>
+        <a
+          href="javascript:void(0);"
+          v-if="isFolder"
+          class="folder-link"
+          @click="handleNavigation(path_lower, $event)"
+          >{{ name }}</a
+        >
+        <a
+          href="javascript:void(0);"
+          v-if="isFile"
+          class="file-link"
+          @click="handleFile(path_lower)"
+          >{{ name }}</a
+        >
         <!-- <span v-else v-bind:title="name">{{name}}</span> -->
       </span>
     </div>
-    <div class="size explorer-cell">{{prettySize}}</div>
-    <div class="last-modified explorer-cell">{{serverModifiedFormatted}}</div>
+    <div class="size explorer-cell">{{ prettySize }}</div>
+    <div class="last-modified explorer-cell">{{ serverModifiedFormatted }}</div>
     <div class="controls explorer-cell">
       <div class="popdown-container">
-        <LineItemPopdown :isFile="isFile" :pathLower="path_lower"/>
+        <LineItemPopdown :isFile="isFile" :pathLower="path_lower" />
       </div>
     </div>
   </div>
@@ -27,8 +39,6 @@
 <script>
 import { DateTime } from "luxon";
 import { mapActions } from "vuex";
-import Axios from "axios";
-import FileSaver from "filesaver.js";
 import LineItemPopdown from "./line-item-popdown";
 import PrettyBytes from "pretty-bytes";
 
@@ -40,10 +50,10 @@ export default {
     "contentHash",
     "tag",
     "server_modified",
-    "path_lower"
+    "path_lower",
   ],
   components: {
-    LineItemPopdown
+    LineItemPopdown,
   },
   computed: {
     isFolder() {
@@ -87,12 +97,12 @@ export default {
         default:
           return images("./file.svg");
       }
-    }
+    },
   },
   data() {
     return {
       hideButtonImage: false,
-      isDownloadingFile: false
+      isDownloadingFile: false,
     };
   },
   methods: {
@@ -103,9 +113,9 @@ export default {
       "updateFileName",
       "updateFileSize",
       "updateFileModified",
-      "clearList"
+      "clearList",
     ]),
-    toggleImage(evt) {
+    toggleImage() {
       this.hideButtonImage = !this.hideButtonImage;
     },
     handleNavigation(path, $evt) {
@@ -121,11 +131,9 @@ export default {
       this.updateFileSize(this.sizeInMB);
       this.updateFileModified(this.serverModifiedFormatted);
       this.updateFileStatus("open");
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style lang="scss" src="./explorer-lineitem.scss" scoped/>
-
-
+<style lang="scss" src="./explorer-lineitem.scss" scoped />

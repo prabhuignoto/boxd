@@ -51,7 +51,9 @@ export default {
         this.notificationTitle = "Failure";
         this.addMessage({
           id: uniqid("notification-msg-"),
-          message: `Unable to delete ${resxDeleted.name.split("/").pop()} at the moment.`
+          message: `Unable to delete ${resxDeleted.name
+            .split("/")
+            .pop()} at the moment.`
         });
       }
     }
@@ -132,7 +134,9 @@ export default {
         this.notificationTitle = "Failure";
         this.addMessage({
           id: uniqid("notification-msg-"),
-          message: `Failed to create the folder ${folderAdded.name.split("/").pop()}.`
+          message: `Failed to create the folder ${folderAdded.name
+            .split("/")
+            .pop()}.`
         });
       }
     }

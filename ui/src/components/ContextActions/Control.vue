@@ -1,8 +1,14 @@
 <template>
   <div class="context-control">
-    <Popdown type="icon" size="large" leftOffset="0rem" topOffset="2.8rem" customWidth="180px">
+    <Popdown
+      type="icon"
+      size="large"
+      leftOffset="0rem"
+      topOffset="2.8rem"
+      customWidth="180px"
+    >
       <template slot="icon">
-        <img src="../../assets/bars.svg" alt="context menu">
+        <img src="../../assets/bars.svg" alt="context menu" />
       </template>
       <template slot="menu">
         <ul class="context-menu">
@@ -29,18 +35,18 @@
 
 <script>
 import Popdown from "../Popdown/index";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   name: "ContextControl",
   components: {
-    Popdown
+    Popdown,
   },
   props: {
     path: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   methods: {
     ...mapActions([
@@ -54,7 +60,7 @@ export default {
       "hideCreateFolderExplorer",
       "updateWorkflowOrigin",
       "uploadFile",
-      "updateUploadExplorerStatus"
+      "updateUploadExplorerStatus",
     ]),
     handleAddFolder() {
       this.updateWorkflowOrigin("context-control");
@@ -62,9 +68,9 @@ export default {
       this.hideCreateFolderExplorer(true);
       this.updateModalState({
         status: true,
-        componentToRender: 'CreateFolder',
-        title: 'New Folder'
-      })
+        componentToRender: "CreateFolder",
+        title: "New Folder",
+      });
     },
     handleCopyFolder() {
       this.updateMoveCopyMode("copy");
@@ -72,9 +78,9 @@ export default {
       this.skipToFinal(true);
       this.updateModalState({
         status: true,
-        componentToRender: 'MoveCopy',
-        title: `Copy folder`
-      })
+        componentToRender: "MoveCopy",
+        title: `Copy folder`,
+      });
     },
     handleMoveFolder() {
       this.updateMoveCopyMode("move");
@@ -82,17 +88,17 @@ export default {
       this.skipToFinal(true);
       this.updateModalState({
         status: true,
-        componentToRender: 'MoveCopy',
-        title: `Move folder`
-      })
+        componentToRender: "MoveCopy",
+        title: `Move folder`,
+      });
     },
     handleDeleteFolder() {
       this.deleteFolder(this.path);
       this.updateModalState({
         status: true,
-        componentToRender: 'DeleteFolder',
-        title: `Delete`
-      })
+        componentToRender: "DeleteFolder",
+        title: `Delete`,
+      });
     },
     handleUpload() {
       this.uploadFile(this.path);
@@ -100,12 +106,11 @@ export default {
       this.updateModalState({
         status: true,
         componentToRender: "UploadWindow",
-        title: "Upload"
+        title: "Upload",
       });
-    }
-  }  
-}
+    },
+  },
+};
 </script>
 
-<style lang="scss" src="./control.scss" scoped/>
-
+<style lang="scss" src="./control.scss" scoped />

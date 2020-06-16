@@ -6,11 +6,11 @@
         <!-- <img src="../assets/info-circle.svg" alt="info-icon" v-if="type === 'Informational'"> -->
         <InfoIcon />
       </i>
-      <span>{{message.message}}</span>
+      <span>{{ message.message }}</span>
       <div :onClick="handleClose" class="close">
         <!-- <template slot="btn-icon"> -->
-          <!-- <img src="../assets/cancel.svg" alt="close-notification"> -->
-          <XIcon />
+        <!-- <img src="../assets/cancel.svg" alt="close-notification"> -->
+        <XIcon />
         <!-- </template> -->
       </div>
     </header>
@@ -20,8 +20,8 @@
     <!-- <div class="content">
       <i>
         <CheckIcon /> -->
-        <!-- <img src="../assets/check-green.svg" alt="check green"> -->
-      <!-- </i>
+    <!-- <img src="../assets/check-green.svg" alt="check green"> -->
+    <!-- </i>
       <span>{{message.message}}</span>
     </div> -->
     <!-- notification content  -->
@@ -30,8 +30,7 @@
 
 <script>
 import { mapActions } from "vuex";
-import Button from "./Form/Button";
-import { InfoIcon, CheckIcon, XIcon } from 'vue-feather-icons';
+import { InfoIcon, XIcon } from "vue-feather-icons";
 
 export default {
   name: "Notification",
@@ -40,24 +39,23 @@ export default {
     // Button,
     InfoIcon,
     // CheckIcon,
-    XIcon
+    XIcon,
   },
   mounted() {
     // * autoclose the notification if its informational
-    if(this.type === "Informational") {
+    if (this.type === "Informational") {
       setTimeout(() => {
         this.handleClose();
-      }, 2000)
+      }, 2000);
     }
   },
   methods: {
     ...mapActions(["updateNotificationStatus"]),
     handleClose() {
       this.updateNotificationStatus(false);
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
-<style lang="scss" scoped src="./notification.scss">
-</style>
+<style lang="scss" scoped src="./notification.scss"></style>

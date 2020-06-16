@@ -1,9 +1,11 @@
 <template>
-  <Treeview path="" 
+  <Treeview
+    path=""
     v-bind:onSelect="onSelect"
     v-bind:entries="files.entries"
     childTree="CopyExplorerSrc"
-    v-bind:handleSubfolderSelection="handleSubfolderSelection"/>
+    v-bind:handleSubfolderSelection="handleSubfolderSelection"
+  />
 </template>
 
 <script>
@@ -15,13 +17,13 @@ import { mapActions } from "vuex";
 
 export default Vue.component("CopyExplorerSrc", {
   components: {
-    Treeview
+    Treeview,
   },
   data() {
     return {
       files: {
-        entries: []
-      }
+        entries: [],
+      },
     };
   },
   props: ["path", "actionName"],
@@ -32,7 +34,7 @@ export default Vue.component("CopyExplorerSrc", {
     },
     handleSubfolderSelection(path) {
       this.copyResxSource(path);
-    }
+    },
   },
   apollo: {
     files: {
@@ -41,10 +43,10 @@ export default Vue.component("CopyExplorerSrc", {
         return {
           path: this.path,
           cursor: "",
-          limit: 1000
+          limit: 1000,
         };
-      }
-    }
-  }
+      },
+    },
+  },
 });
 </script>

@@ -1,10 +1,17 @@
 <template>
   <div class="searchbox-wrapper">
-    <input type="text" :value="term" name="searchbox" id="searchbox-main" placeholder="search..." @keypress="handleSearch">
+    <input
+      type="text"
+      :value="term"
+      name="searchbox"
+      id="searchbox-main"
+      placeholder="search..."
+      @keypress="handleSearch"
+    />
     <div class="button-wrapper" v-if="term !== ''">
       <Button buttonStyle="icon" :onClick="handleClear">
         <template slot="btn-icon">
-          <img src="../assets/cancel.svg" alt="clear search">
+          <img src="../assets/cancel.svg" alt="clear search" />
         </template>
       </Button>
     </div>
@@ -15,7 +22,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
 import gql from "graphql-tag";
 import SearchGQL from "../graphql/search.gql";
 import Loader from "./Loader";
@@ -25,12 +32,12 @@ export default {
   name: "SearchBox",
   components: {
     Loader,
-    Button
+    Button,
   },
   data() {
     return {
       skipQuery: true,
-      term: ""
+      term: "",
     };
   },
   methods: {
@@ -39,7 +46,7 @@ export default {
       "updateSearchResults",
       "clearSearch",
       "clearList",
-      "refetchData"
+      "refetchData",
     ]),
     handleSearch({ keyCode, target }) {
       if (keyCode === 13 && target.value !== "") {
@@ -56,7 +63,7 @@ export default {
       this.term = "";
       this.clearSearch();
       this.refetchData(true);
-    }
+    },
   },
   apollo: {
     search: {
@@ -66,16 +73,16 @@ export default {
       },
       result({ loading, data }) {
         if (!loading && data && data.search) {
-          this.updateSearchResults(data.search.matches.map(x => x.metadata));
+          this.updateSearchResults(data.search.matches.map((x) => x.metadata));
         }
       },
       variables() {
         return {
-          query: this.term
+          query: this.term,
         };
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>
 
@@ -123,4 +130,3 @@ export default {
   }
 }
 </style>
-

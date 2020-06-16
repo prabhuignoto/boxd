@@ -1,23 +1,31 @@
 <template>
   <section class="context-actions-wrapper">
-    <Button name="Add a Folder here" buttonStyle="link" :onClick="handleAddFolder">
+    <Button
+      name="Add a Folder here"
+      buttonStyle="link"
+      :onClick="handleAddFolder"
+    >
       <template slot="btn-icon">
-        <img src="../../assets/plus-circle-blue.svg" alt="add folder">
+        <img src="../../assets/plus-circle-blue.svg" alt="add folder" />
       </template>
     </Button>
     <Button name="Copy this folder" buttonStyle="link" :onClick="handleCopy">
       <template slot="btn-icon">
-        <img src="../../assets/copy-blue.svg" alt="copy folder">
+        <img src="../../assets/copy-blue.svg" alt="copy folder" />
       </template>
     </Button>
     <Button name="Move this folder" buttonStyle="link" :onClick="handleMove">
       <template slot="btn-icon">
-        <img src="../../assets/copy-blue.svg" alt="move folder">
+        <img src="../../assets/copy-blue.svg" alt="move folder" />
       </template>
     </Button>
-    <Button name="Delete this folder" buttonStyle="link" :onClick="handleDelete">
+    <Button
+      name="Delete this folder"
+      buttonStyle="link"
+      :onClick="handleDelete"
+    >
       <template slot="btn-icon">
-        <img src="../../assets/times-circle-blue.svg" alt="delete folder">
+        <img src="../../assets/times-circle-blue.svg" alt="delete folder" />
       </template>
     </Button>
   </section>
@@ -25,12 +33,12 @@
 
 <script>
 import Button from "../Form/Button";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   name: "ContextActions",
   components: {
-    Button
+    Button,
   },
   props: ["path"],
   methods: {
@@ -42,7 +50,7 @@ export default {
       "skipToFinal",
       "deleteFolder",
       "createFolderSelection",
-      "hideCreateFolderExplorer"
+      "hideCreateFolderExplorer",
     ]),
     handleCopy() {
       this.updateMoveCopyMode("copy");
@@ -50,9 +58,9 @@ export default {
       this.skipToFinal(true);
       this.updateModalState({
         status: true,
-        componentToRender: 'MoveCopy',
-        title: `Copy folder`
-      })
+        componentToRender: "MoveCopy",
+        title: `Copy folder`,
+      });
     },
     handleMove() {
       this.updateMoveCopyMode("move");
@@ -60,28 +68,28 @@ export default {
       this.skipToFinal(true);
       this.updateModalState({
         status: true,
-        componentToRender: 'MoveCopy',
-        title: `Move folder`
-      })
+        componentToRender: "MoveCopy",
+        title: `Move folder`,
+      });
     },
     handleDelete() {
       this.deleteFolder(this.path);
       this.updateModalState({
         status: true,
-        componentToRender: 'DeleteFolder',
-        title: `Delete`
-      })
+        componentToRender: "DeleteFolder",
+        title: `Delete`,
+      });
     },
     handleAddFolder() {
       this.createFolderSelection(this.path);
       this.hideCreateFolderExplorer(true);
       this.updateModalState({
         status: true,
-        componentToRender: 'CreateFolder',
-        title: 'New Folder'
-      })
-    }
-  }
+        componentToRender: "CreateFolder",
+        title: "New Folder",
+      });
+    },
+  },
 };
 </script>
 

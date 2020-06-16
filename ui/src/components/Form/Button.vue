@@ -3,7 +3,7 @@
     <i class="btn-icon-wrapper">
       <slot name="btn-icon"></slot>
     </i>
-    <span class="label">{{name}}</span>
+    <span class="label">{{ name }}</span>
     <slot name="menu"></slot>
   </button>
 </template>
@@ -14,14 +14,13 @@ export default {
   props: ["name", "onClick", "msize", "buttonStyle", "marginLess"],
   computed: {
     getDefaultStyle() {
-      let style = {};
       return {
         [this.msize]: true,
-        [this.buttonStyle ? this.buttonStyle : "default"]: true
+        [this.buttonStyle ? this.buttonStyle : "default"]: true,
       };
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style lang="scss" src="./button.scss" scoped/>
+<style lang="scss" src="./button.scss" scoped />

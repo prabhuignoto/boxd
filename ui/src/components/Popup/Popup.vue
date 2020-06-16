@@ -5,8 +5,12 @@
         <slot></slot>
       </div>
       <header class="popup-header" v-if="!disableHeader">
-        <span class="popup-title">{{title}}</span>
-        <button class="close-modal" @click="handleClose" v-if="!getDisableCloseBtn">
+        <span class="popup-title">{{ title }}</span>
+        <button
+          class="close-modal"
+          @click="handleClose"
+          v-if="!getDisableCloseBtn"
+        >
           <img src="../../assets/cancel.svg" alt="close" class="img-close" />
         </button>
       </header>
@@ -18,19 +22,18 @@
 </template>
 
 <script>
-import Account from "../Account";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Popup",
   props: ["content", "title", "disableHeader"],
-  mounted: function() {
-    this.$nextTick(function() {
+  mounted: function () {
+    this.$nextTick(function () {
       this.$el.focus();
     });
   },
   computed: {
-    ...mapGetters(["getDisableCloseBtn"])
+    ...mapGetters(["getDisableCloseBtn"]),
   },
   methods: {
     ...mapActions(["updateModalState"]),
@@ -40,11 +43,11 @@ export default {
         title: "",
         componentToRender: "",
         disableHeader: false,
-        disableCloseBtn: false
+        disableCloseBtn: false,
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style lang="scss" src="./popup.scss" scoped/>
+<style lang="scss" src="./popup.scss" scoped />

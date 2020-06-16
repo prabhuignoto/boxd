@@ -6,28 +6,42 @@
       <header class="explorer-header">
         <ul class="header-wrapper">
           <li class="header control">
-            <ContextControl :path="path" type="link" name="Random"/>
+            <ContextControl :path="path" type="link" name="Random" />
           </li>
-          <li v-for="header in headers" :key="header" v-bind:class="`${header} header`">{{header}}</li>
-          <li class="header empty">
+          <li
+            v-for="header in headers"
+            :key="header"
+            v-bind:class="`${header} header`"
+          >
+            {{ header }}
           </li>
+          <li class="header empty"></li>
         </ul>
       </header>
       <section class="explorer-content">
         <div class="loader-container" v-if="$apollo.loading">
           <Loader />
         </div>
-        <div class="line-item-wrapper search-results-row" v-if="isUserSearching">
+        <div
+          class="line-item-wrapper search-results-row"
+          v-if="isUserSearching"
+        >
           <span class="search-results-message">
             <a href="javascript:void(0);" @click="handleNavBackToExplorer">
               Back to explorer
             </a>
-            <span>found {{searchCount}} items matching the search criteria</span>
+            <span
+              >found {{ searchCount }} items matching the search criteria</span
+            >
           </span>
         </div>
         <transition-group name="list-fade">
-          <div class="line-item-wrapper" v-for="file in getDataList" :key="file.name">
-            <LineItem v-bind="file"/>
+          <div
+            class="line-item-wrapper"
+            v-for="file in getDataList"
+            :key="file.name"
+          >
+            <LineItem v-bind="file" />
           </div>
         </transition-group>
         <section class="load-more" v-if="hasMoreData && !isLoadingMore">
@@ -35,7 +49,10 @@
             Show More ...
           </a>
         </section>
-        <div class="info-message" v-if="getDataList.length<1 && !$apollo.loading">
+        <div
+          class="info-message"
+          v-if="getDataList.length < 1 && !$apollo.loading"
+        >
           <span>You have no folders or files here.</span>
         </div>
       </section>
@@ -58,21 +75,21 @@ export default {
     LineItem,
     Loader,
     ContextControl,
-    TreeviewWrapper
+    TreeviewWrapper,
   },
   data() {
     return {
       files: [],
       headers: ["name", "size", "last modified"],
-      isLoadingMore: false
+      isLoadingMore: false,
     };
   },
   watch: {
-    refetchStatus: function({ status }, oldData) {
+    refetchStatus: function ({ status }) {
       if (status) {
         this.$apollo.queries.files.refresh();
       }
-    }
+    },
   },
   computed: {
     ...mapGetters([
@@ -82,7 +99,7 @@ export default {
       "hasMoreData",
       "hasSearchResultsArrived",
       "isUserSearching",
-      "searchCount"
+      "searchCount",
     ]),
     refetchStatus() {
       return this.$store.state.list.refetchStatus;
@@ -92,7 +109,7 @@ export default {
     },
     canShowFilepaneView() {
       return this.getFileStatus === "open";
-    }
+    },
   },
   methods: {
     ...mapActions([
@@ -100,7 +117,7 @@ export default {
       "updateListData",
       "clearList",
       "clearSearch",
-      "refetchData"
+      "refetchData",
     ]),
     handleLoadMore() {
       this.isLoadingMore = true;
@@ -108,22 +125,22 @@ export default {
         variables: {
           cursor: this.getCursor,
           limit: 10,
-          path: this.path
+          path: this.path,
         },
         updateQuery: (previousResult, { fetchMoreResult }) => {
           const {
-            files: { cursor, entries: listData, hasMore }
+            files: { cursor, entries: listData, hasMore },
           } = fetchMoreResult;
           this.updateListData({ listData, cursor, hasMore });
           this.isLoadingMore = false;
-        }
+        },
       });
     },
     handleNavBackToExplorer() {
       this.clearSearch();
       this.clearList();
       this.refetchData(true);
-    }
+    },
   },
   apollo: {
     files: {
@@ -132,25 +149,22 @@ export default {
         return {
           path: this.path,
           limit: 10,
-          cursor: ""
+          cursor: "",
         };
       },
       result({ loading, data }) {
         if (!loading && data && !this.isLoadingMore) {
           const {
-            files: { cursor, entries: listData, hasMore }
+            files: { cursor, entries: listData, hasMore },
           } = data;
           this.clearList();
           this.updateListData({ listData, cursor, hasMore });
         }
       },
-      fetchPolicy: "cache-and-network"
-    }
-  }
+      fetchPolicy: "cache-and-network",
+    },
+  },
 };
 </script>
 
-<style lang="scss" src="./explorer.scss" scoped>
-</style>
-
-
+<style lang="scss" src="./explorer.scss" scoped></style>

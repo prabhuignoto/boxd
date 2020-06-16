@@ -13,20 +13,20 @@
     </div>
     <div class="summary">
       <div class="summary-final">
-        <span class="value">{{src}}</span>
+        <span class="value">{{ src }}</span>
         <i>
           <!-- <img src="../../assets/arrow-right.svg" alt="down" /> -->
           <ArrowRightIcon />
           <!-- <ChevronRightIcon /> -->
         </i>
-        <span class="value" v-if="dest !== ''">{{dest}}</span>
+        <span class="value" v-if="dest !== ''">{{ dest }}</span>
       </div>
     </div>
     <div class="stage2-controls">
       <div class="stage3-loader-wrapper" v-if="saving">
         <Loader />
       </div>
-      <div class="error-msg-container" v-if="errored">Failed to {{mode}}</div>
+      <div class="error-msg-container" v-if="errored">Failed to {{ mode }}</div>
       <Button name="Back" :onClick="handlePrevious" v-if="!getSkipToFinal">
         <template slot="btn-icon">
           <!-- <img src="../../assets/angle-left.svg" alt="previous" /> -->
@@ -58,8 +58,7 @@ import { mapActions, mapGetters } from "vuex";
 import Loader from "../Loader";
 import { ChevronRightIcon } from "vue-feather-icons";
 import { ChevronLeftIcon } from "vue-feather-icons";
-import { XIcon } from "vue-feather-icons";
-import { ArrowRightIcon } from 'vue-feather-icons';
+import { ArrowRightIcon } from "vue-feather-icons";
 
 export default {
   components: {
@@ -69,7 +68,7 @@ export default {
     Loader,
     ChevronRightIcon,
     ChevronLeftIcon,
-    ArrowRightIcon
+    ArrowRightIcon,
   },
   beforeDestroy() {
     this.clearMoveResx();
@@ -84,7 +83,7 @@ export default {
       "moveResxSrc",
       "copyResxSrc",
       "moveResxDest",
-      "copyResxDest"
+      "copyResxDest",
     ]),
     mode() {
       return this.mvCopyMode;
@@ -123,7 +122,7 @@ export default {
       } else {
         return "You are copying a resource";
       }
-    }
+    },
   },
   props: ["handleComplete", "handlePrevious", "saving", "errored"],
   methods: {
@@ -132,7 +131,7 @@ export default {
       "clearMoveResx",
       "clearCopyResx",
       "skipToFinal",
-      "updateMoveCopyMode"
+      "updateMoveCopyMode",
     ]),
     handleNext() {
       this.handleComplete();
@@ -141,11 +140,11 @@ export default {
       this.updateModalState({
         state: false,
         componentToRender: "",
-        title: ""
+        title: "",
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style lang="scss" src="./stage-three.scss" scoped/>
+<style lang="scss" src="./stage-three.scss" scoped />

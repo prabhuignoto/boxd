@@ -18,14 +18,14 @@ export default {
   props: ["size", "translucent"],
   computed: {
     getClass() {
-      if(this.translucent) {
+      if (this.translucent) {
         return "loader-wrapper translucent";
       } else {
         return "loader-wrapper";
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style lang="scss" src="./loader.scss" scoped/>
+<style lang="scss" src="./loader.scss" scoped />

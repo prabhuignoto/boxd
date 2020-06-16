@@ -4,23 +4,27 @@
     <div class="delete-message">
       <span>You are about to delete</span>
       <div>
-        {{fileName}}
+        {{ fileName }}
       </div>
     </div>
-    <Textbox :placeholder="placeholder" :onInput="onInput"/>
+    <Textbox :placeholder="placeholder" :onInput="onInput" />
     <div class="delete-resx-controls">
       <div class="del-folder-loader-wrapper" v-show="isMutating">
         <Loader />
       </div>
-      <Button name="Delete" :onClick="handleDelete"
-        :disabled="!canDelete" :buttonStyle="!canDelete || isMutating ? 'disabled' : 'danger'">
+      <Button
+        name="Delete"
+        :onClick="handleDelete"
+        :disabled="!canDelete"
+        :buttonStyle="!canDelete || isMutating ? 'disabled' : 'danger'"
+      >
         <template slot="btn-icon">
-          <img src="../../assets/check-white.svg" alt="ok">
+          <img src="../../assets/check-white.svg" alt="ok" />
         </template>
       </Button>
       <Button name="Cancel" :onClick="handleCancel">
         <template slot="btn-icon">
-          <img src="../../assets/times-dark.svg" alt="cancel">
+          <img src="../../assets/times-dark.svg" alt="cancel" />
         </template>
       </Button>
     </div>
@@ -40,12 +44,12 @@ export default Vue.component("DeleteFolder", {
   components: {
     Button,
     Loader,
-    Textbox
+    Textbox,
   },
   data() {
     return {
       isMutating: false,
-      deleteConsentText: ""
+      deleteConsentText: "",
     };
   },
   computed: {
@@ -66,7 +70,7 @@ export default Vue.component("DeleteFolder", {
     },
     canDelete() {
       return this.getTarget === this.deleteConsentText;
-    }
+    },
   },
   methods: {
     ...mapActions([
@@ -74,7 +78,7 @@ export default Vue.component("DeleteFolder", {
       "deleteFolder",
       "updatePath",
       "refetchData",
-      "refreshFileExplorer"
+      "refreshFileExplorer",
     ]),
     onInput(ev) {
       this.deleteConsentText = ev.target.value;
@@ -91,17 +95,16 @@ export default Vue.component("DeleteFolder", {
             }
           `,
           variables: {
-            path: this.deletePath
+            path: this.deletePath,
           },
-          update(store, data) {
-          }
+          // update(store, data) {},
         })
-        .then(data => {
+        .then(() => {
           this.isMutating = false;
           this.updateModalState({
             status: false,
             component: "",
-            title: ""
+            title: "",
           });
           let newPathArr = this.getExplorerPath.split("/").slice(0);
           newPathArr.pop();
@@ -109,11 +112,11 @@ export default Vue.component("DeleteFolder", {
           this.$nextTick(() => {
             this.refreshFileExplorer({
               status: true,
-              path: this.getExplorerPath
+              path: this.getExplorerPath,
             });
-          })
+          });
         })
-        .catch(error => {
+        .catch(() => {
           this.isMutating = false;
         });
     },
@@ -122,11 +125,11 @@ export default Vue.component("DeleteFolder", {
       this.updateModalState({
         status: false,
         component: "",
-        title: ""
+        title: "",
       });
-    }
-  }
+    },
+  },
 });
 </script>
 
-<style lang="scss" src="./delete-folder.scss" scoped/>
+<style lang="scss" src="./delete-folder.scss" scoped />

@@ -22,7 +22,7 @@ export default Vue.component("About", {
 .about-wrapper {
   width: 100%;
   height: 100%;
-  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
   height: 130px;
   display: flex;
   align-items: center;
@@ -37,7 +37,7 @@ export default Vue.component("About", {
 .logo {
   font-size: 3rem;
   font-weight: 700;
-    color: #2B2D42;
+  color: #2b2d42;
 }
 .version {
   font-size: 0.9rem;
@@ -51,4 +51,3 @@ export default Vue.component("About", {
   font-size: 0.9rem;
 }
 </style>
-

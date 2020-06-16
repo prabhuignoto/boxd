@@ -1,12 +1,16 @@
 <template>
-  <StageOne v-if="stage === 'one' && !getSkipToFinal"
-    :handleNext="handleStepOne"/>
-  <StageTwo v-else-if="stage === 'two' && !getSkipToFinal"
+  <StageOne
+    v-if="stage === 'one' && !getSkipToFinal"
+    :handleNext="handleStepOne"
+  />
+  <StageTwo
+    v-else-if="stage === 'two' && !getSkipToFinal"
     :handleNext="handleStepTwo"
     :handlePrevious="navToStepOne"
     :mode="mode"
   />
-  <StageThree v-else-if="stage === 'three' || getSkipToFinal"
+  <StageThree
+    v-else-if="stage === 'three' || getSkipToFinal"
     :handleComplete="handleCompletion"
     :handlePrevious="navToStepTwo"
     :mode="mode"
@@ -17,7 +21,6 @@
 
 <script>
 // import TextBox from "../Form/TextBox";
-import Button from "../Form/Button";
 import Vue from "vue";
 import StageOne from "./StageOne";
 import StageTwo from "./StageTwo";
@@ -26,20 +29,19 @@ import { mapActions, mapGetters } from "vuex";
 import gql from "graphql-tag";
 import CopyResxGQL from "../../graphql/copyResource.gql";
 import MoveResxGQL from "../../graphql/moveResource.gql";
-import { setTimeout } from "timers";
 
 export default Vue.component("MoveCopy", {
   components: {
     // TextBox,
     StageOne,
     StageTwo,
-    StageThree
+    StageThree,
   },
   data() {
     return {
       stage: "one",
       saving: false,
-      errored: false
+      errored: false,
     };
   },
   methods: {
@@ -48,7 +50,7 @@ export default Vue.component("MoveCopy", {
       "clearCopyResx",
       "updateModalState",
       "refetchData",
-      "refreshFileExplorer"
+      "refreshFileExplorer",
     ]),
     handleStepOne() {
       this.stage = "two";
@@ -67,23 +69,23 @@ export default Vue.component("MoveCopy", {
             mutation: gql(CopyResxGQL),
             variables: {
               from_path: this.copyResxSrc,
-              to_path: `${this.copyResxDest} / ${srcName}`
+              to_path: `${this.copyResxDest} / ${srcName}`,
             },
-            update: (store, data) => {}
+            // update: (store, data) => {},
           })
-          .then(data => {
+          .then(() => {
             this.updateModalState({
               status: false,
               componentToRender: "",
-              title: ""
+              title: "",
             });
             this.refreshFileExplorer({
               status: true,
-              path: this.copyResxDest
+              path: this.copyResxDest,
             });
             this.saving = false;
           })
-          .catch(error => {
+          .catch(() => {
             this.saving = false;
             this.errored = true;
           });
@@ -95,35 +97,34 @@ export default Vue.component("MoveCopy", {
             mutation: gql(MoveResxGQL),
             variables: {
               from_path: this.moveResxSrc,
-              to_path: `${this.moveResxDest}/${srcName}`
+              to_path: `${this.moveResxDest}/${srcName}`,
             },
-            update: (store, data) => {
-            }
+            // update: (store, data) => {},
           })
-          .then(data => {
+          .then(() => {
             this.saving = false;
             this.refetchData(true);
             this.updateModalState({
               status: false,
               componentToRender: "",
-              title: ""
+              title: "",
             });
             let srcPath = this.moveResxSrc.split("/");
             srcPath.pop();
             this.$nextTick(() => {
               this.refreshFileExplorer({
                 status: true,
-                path: this.moveResxDest
+                path: this.moveResxDest,
               });
               this.$nextTick(() => {
                 this.refreshFileExplorer({
                   status: true,
-                  path: srcPath.join(" / ")
+                  path: srcPath.join(" / "),
                 });
-              })
-            })
+              });
+            });
           })
-          .catch(error => {
+          .catch(() => {
             this.saving = false;
             this.errored = true;
           });
@@ -144,7 +145,7 @@ export default Vue.component("MoveCopy", {
       } else {
         this.clearCopyResx();
       }
-    }
+    },
   },
   computed: {
     mode() {
@@ -155,8 +156,8 @@ export default Vue.component("MoveCopy", {
       "moveResxDest",
       "copyResxSrc",
       "copyResxDest",
-      "getSkipToFinal"
-    ])
-  }
+      "getSkipToFinal",
+    ]),
+  },
 });
 </script>

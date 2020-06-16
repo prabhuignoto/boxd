@@ -1,20 +1,32 @@
 <template>
-    <section class="popdown-wrapper" :style="getStyle">
-      <Button :name="name" :onClick="togglePopdown" :buttonStyle="type" :msize="size">
-        <template slot="btn-icon">
-          <slot name="icon"></slot>
-        </template>
-      </Button>
-        <transition name="movein">
-          <div class="popdown"
-            v-if="visible" tabindex="0"
-            @blur="close" @keyup.esc="close"
-            :style="{left: leftOffset, width: customWidth, top: topOffset ? topOffset : '100%'}"
-          >
-            <slot name="menu"></slot>
-          </div>
-        </transition>
-    </section>
+  <section class="popdown-wrapper" :style="getStyle">
+    <Button
+      :name="name"
+      :onClick="togglePopdown"
+      :buttonStyle="type"
+      :msize="size"
+    >
+      <template slot="btn-icon">
+        <slot name="icon"></slot>
+      </template>
+    </Button>
+    <transition name="movein">
+      <div
+        class="popdown"
+        v-if="visible"
+        tabindex="0"
+        @blur="close"
+        @keyup.esc="close"
+        :style="{
+          left: leftOffset,
+          width: customWidth,
+          top: topOffset ? topOffset : '100%',
+        }"
+      >
+        <slot name="menu"></slot>
+      </div>
+    </transition>
+  </section>
 </template>
 
 <script>
@@ -23,12 +35,12 @@ import Button from "../Form/Button";
 export default {
   name: "Popdown",
   components: {
-    Button
+    Button,
   },
   props: ["name", "type", "size", "leftOffset", "customWidth", "topOffset"],
   data() {
     return {
-      visible: false
+      visible: false,
     };
   },
   methods: {
@@ -39,7 +51,7 @@ export default {
         return false;
       } else {
         this.visible = !this.visible;
-        this.$nextTick(function() {
+        this.$nextTick(function () {
           this.$el.querySelector(".popdown").focus();
         });
       }
@@ -49,11 +61,11 @@ export default {
     },
     getStyle() {
       return {
-        width: this.customWidth
+        width: this.customWidth,
       };
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style lang="scss" src="./popdown.scss" scoped/>
+<style lang="scss" src="./popdown.scss" scoped />

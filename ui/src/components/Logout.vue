@@ -15,7 +15,7 @@ import { mapActions } from "vuex";
 
 export default Vue.component("Logout", {
   components: {
-    Loader
+    Loader,
   },
   methods: {
     ...mapActions(["updateModalState"]),
@@ -23,36 +23,39 @@ export default Vue.component("Logout", {
   mounted() {
     setTimeout(async () => {
       try {
-        const response = await Axios.post(`${process.env.VUE_APP_API_SERVER}/logout`, {}, {
-          withCredentials: true,
-          responseType: "text/json"
-        });
-        const {success, message} = response.data;
-        if(success) {
-          window.location.href=`${process.env.VUE_APP_UI_URL}`
+        const response = await Axios.post(
+          `${process.env.VUE_APP_API_SERVER}/logout`,
+          {},
+          {
+            withCredentials: true,
+            responseType: "text/json",
+          }
+        );
+        const { success } = response.data;
+        if (success) {
+          window.location.href = `${process.env.VUE_APP_UI_URL}`;
         }
       } catch (error) {
-        console.error("Failed to logout.")
+        console.error("Failed to logout.");
       }
     }, 1000);
   },
 });
-
 </script>
 
 <style lang="scss" scoped>
-  .logout-wrapper {
-    padding: 1.5rem;
-  }
-  .loader-wrapper {
-    margin-top: 1rem;
-  }
-  .message {
-    font-size: 1rem;
-    margin-bottom: 2rem;
-    display: block;
-    background: #fff;
-    font-weight: 700;
-    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
-  }
+.logout-wrapper {
+  padding: 1.5rem;
+}
+.loader-wrapper {
+  margin-top: 1rem;
+}
+.message {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  display: block;
+  background: #fff;
+  font-weight: 700;
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+}
 </style>

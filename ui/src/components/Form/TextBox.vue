@@ -1,7 +1,8 @@
 <template>
   <div class="textbox-wrapper">
-    <label :for="id">{{label}}</label>
-    <input type="text"
+    <label :for="id">{{ label }}</label>
+    <input
+      type="text"
       :name="name"
       :id="id"
       @input="onInput"
@@ -19,9 +20,9 @@ export default {
   computed: {
     id() {
       return uniqid(name);
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
-<style lang="scss" src="./textbox.scss" scoped/>
+<style lang="scss" src="./textbox.scss" scoped />
