@@ -1,4 +1,5 @@
 .explorer-container {
+  height: 100%;
   padding: 0.2rem 1rem 1rem;
 }
 
@@ -21,12 +22,13 @@
   background: #fff;
   border-radius: 0.2rem;
   box-shadow: 0 0 12px 2px rgba($color: #000, $alpha: 0.2);
+  height: 100%;
   position: relative;
   width: 100%;
 
   .line-item-wrapper {
-    &:nth-child(odd) {
-      background: #f2f2f2;
+    &:not(:last-child) {
+      border-bottom: 1px solid #e5e5e5;
     }
   }
 }
@@ -92,6 +94,10 @@
   }
 }
 
+.account {
+  margin-right: 1rem;
+}
+
 .search {
   margin-left: auto;
 }
@@ -109,4 +115,9 @@
 
 .context {
   margin-left: 1rem;
+}
+
+.explorer-folder-path-container {
+  margin-bottom: 1rem;
+  width: 100%;
 }

@@ -38,9 +38,7 @@
         :class="{ disabled: !canFinish }"
       >
         <template slot="btn-icon">
-          <!-- <img src="../../assets/check-white.svg" alt="complete" v-if="!canFinish">
-          <img src="../../assets/check.svg" alt="complete" v-else>-->
-          <ChevronRightIcon />
+          <CheckIcon />
         </template>
       </Button>
     </div>
@@ -53,9 +51,7 @@ import CopyExplorerDest from "./CopyExplorerDest";
 import Button from "../Form/Button";
 import { mapActions, mapGetters } from "vuex";
 import Loader from "../Loader";
-import { ChevronRightIcon } from "vue-feather-icons";
-import { ChevronLeftIcon } from "vue-feather-icons";
-import { ArrowRightIcon } from "vue-feather-icons";
+import { ArrowRightIcon, ChevronLeftIcon, CheckIcon } from "vue-feather-icons";
 
 export default {
   components: {
@@ -63,9 +59,9 @@ export default {
     CopyExplorerDest,
     Button,
     Loader,
-    ChevronRightIcon,
     ChevronLeftIcon,
     ArrowRightIcon,
+    CheckIcon,
   },
   beforeDestroy() {
     this.clearMoveResx();

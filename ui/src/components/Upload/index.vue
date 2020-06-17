@@ -86,7 +86,13 @@
 
     <!-- form controls -->
     <div class="upload-controls">
-      <span class="ps" v-if="!uploadSuccess">max file size: 50 Mb</span>
+      <span class="ps" v-if="!uploadStarted">max file size: 50 Mb</span>
+      <span class="ps" v-if="uploadStarted && !uploadSuccess">
+        <Loader />
+        <span class="ps-subtext"
+          >uploading... you will be notified on completion.</span
+        >
+      </span>
       <Button
         name="Upload File"
         :onClick="handleUpload"
@@ -120,6 +126,7 @@ import ProgressBar from "../Progressbar";
 import PrettyBytes from "pretty-bytes";
 import RootFolder from "../rootFolder";
 import { UploadCloudIcon, ArrowUpIcon } from "vue-feather-icons";
+import Loader from "../Loader";
 
 export default Vue.component("UploadWindow", {
   components: {
@@ -129,6 +136,7 @@ export default Vue.component("UploadWindow", {
     UploadExplorer,
     ArrowUpIcon,
     UploadCloudIcon,
+    Loader,
   },
   computed: {
     ...mapGetters([

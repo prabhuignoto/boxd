@@ -16,16 +16,28 @@
           <li class="ctx-menu-item" @click="handleAddFolder">
             <span>Add a folder here</span>
           </li>
-          <li class="ctx-menu-item" @click="handleUpload">
+          <li class="ctx-menu-item" @click="handleUpload" v-if="canShowAction">
             <span>Upload here</span>
           </li>
-          <li class="ctx-menu-item" @click="handleCopyFolder">
+          <li
+            class="ctx-menu-item"
+            @click="handleCopyFolder"
+            v-if="canShowAction"
+          >
             <span>Copy this folder</span>
           </li>
-          <li class="ctx-menu-item" @click="handleMoveFolder">
+          <li
+            class="ctx-menu-item"
+            @click="handleMoveFolder"
+            v-if="canShowAction"
+          >
             <span>Move this folder</span>
           </li>
-          <li class="ctx-menu-item" @click="handleDeleteFolder">
+          <li
+            class="ctx-menu-item"
+            @click="handleDeleteFolder"
+            v-if="canShowAction"
+          >
             <span>Delete this folder</span>
           </li>
         </ul>
@@ -36,8 +48,9 @@
 
 <script>
 import Popdown from "../Popdown/index";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { BoxIcon } from "vue-feather-icons";
+import { getFileName } from "../../utils";
 
 export default {
   name: "ContextControl",
@@ -49,6 +62,12 @@ export default {
     path: {
       type: String,
       required: true,
+    },
+  },
+  computed: {
+    ...mapGetters(["getExplorerPath"]),
+    canShowAction() {
+      return !!this.getExplorerPath;
     },
   },
   methods: {
@@ -83,7 +102,7 @@ export default {
       this.updateModalState({
         status: true,
         componentToRender: "MoveCopy",
-        title: `Copy folder`,
+        title: `Copy ${getFileName(this.path)}`,
         width: 480,
       });
     },
@@ -94,7 +113,7 @@ export default {
       this.updateModalState({
         status: true,
         componentToRender: "MoveCopy",
-        title: `Move folder`,
+        title: `Move ${getFileName(this.path)}`,
         width: 480,
       });
     },
@@ -103,7 +122,7 @@ export default {
       this.updateModalState({
         status: true,
         componentToRender: "DeleteFolder",
-        title: `Delete`,
+        title: `Delete ${getFileName(this.path)}`,
         width: 480,
       });
     },
@@ -114,7 +133,7 @@ export default {
         status: true,
         componentToRender: "UploadWindow",
         title: "Upload",
-        width: 480,
+        width: 550,
       });
     },
   },

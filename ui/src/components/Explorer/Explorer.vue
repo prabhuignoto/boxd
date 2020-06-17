@@ -19,6 +19,9 @@
         </ul>
       </header>
       <section class="explorer-content">
+        <div class="explorer-folder-path-container">
+          <FolderPath />
+        </div>
         <div class="loader-container" v-if="$apollo.loading">
           <Loader />
         </div>
@@ -69,18 +72,20 @@ import { mapActions, mapGetters } from "vuex";
 import ContextControl from "../ContextActions/Control";
 import Toolbar from "../Toolbar/Toolbar";
 import Account from "../Account";
+import FolderPath from "../Path/FolderPath";
 
 import SearchBox from "../Searchbox";
 
 export default {
   name: "Explorer",
   components: {
+    Account,
+    ContextControl,
+    FolderPath,
     LineItem,
     Loader,
-    ContextControl,
-    Account,
-    Toolbar,
     SearchBox,
+    Toolbar,
   },
   data() {
     return {

@@ -28,7 +28,7 @@
         :buttonStyle="getStyle"
       >
         <template slot="btn-icon">
-          <ChevronRightIcon />
+          <CheckIcon />
         </template>
       </Button>
     </div>
@@ -56,7 +56,7 @@ import Loader from "../Loader";
 import Vue from "vue";
 import { mapActions, mapGetters } from "vuex";
 import RootFolder from "../rootFolder";
-import { ChevronRightIcon } from "vue-feather-icons";
+import { CheckIcon } from "vue-feather-icons";
 
 export default Vue.component("CreateFolder", {
   components: {
@@ -65,7 +65,7 @@ export default Vue.component("CreateFolder", {
     Button,
     Loader,
     RootFolder,
-    ChevronRightIcon,
+    CheckIcon,
   },
   data() {
     return {

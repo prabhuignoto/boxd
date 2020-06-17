@@ -52,7 +52,7 @@
 
 .path {
   align-items: center;
-  background: #efefef;
+  background: #f2f2f2;
   border-radius: 0.2rem;
   display: flex;
   flex-direction: row;
@@ -61,15 +61,17 @@
   justify-content: flex-start;
   list-style-type: none;
   margin: 0;
-  padding: 0.25rem 0.5rem;
+  padding: 0.5rem;
   width: 100%;
 }
 
 .path-slash {
+  align-items: center;
   color: #191919;
+  display: flex;
   height: 1rem;
-  width: 1rem;
-  transform: rotate(-70deg);
+  justify-content: center;
+  margin: 0.1rem 0.2rem 0 0.25rem;
 
   svg {
     height: 100%;

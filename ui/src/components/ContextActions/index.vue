@@ -95,13 +95,13 @@ export default {
 
 <style lang="scss" scoped>
 .context-actions-wrapper {
-  display: flex;
-  flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
-  width: 100%;
-  padding: 1rem 0;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 1rem 0;
+  width: 100%;
 }
 </style>

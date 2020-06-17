@@ -2,7 +2,7 @@
   <section class="account-wrapper">
     <Popdown
       type="icon"
-      leftOffset="-20px"
+      rightOffset="0px"
       size="large"
       customWidth="180px"
       topOffset="3rem"
@@ -16,13 +16,13 @@
         <ul class="account-options">
           <li class="account-option" @click="handleSignout">
             <i>
-              <img src="../assets/sign-out-alt.svg" alt="signout" />
+              <LogOutIcon />
             </i>
             <span>Logout</span>
           </li>
           <li class="account-option" @click="handleAbout">
             <i>
-              <img src="../assets/question-circle.svg" alt="About" />
+              <HelpCircleIcon />
             </i>
             <span>About</span>
           </li>
@@ -37,12 +37,15 @@ import gql from "graphql-tag";
 import Popdown from "./Popdown/index";
 import { mapActions } from "vuex";
 import { UserIcon } from "vue-feather-icons";
+import { LogOutIcon, HelpCircleIcon } from "vue-feather-icons";
 
 export default {
   name: "Account",
   components: {
     Popdown,
     UserIcon,
+    LogOutIcon,
+    HelpCircleIcon,
   },
   data() {
     return {
@@ -105,25 +108,17 @@ export default {
     align-items: center;
     cursor: pointer;
     display: flex;
-    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
-    font-weight: 500;
+    font-family: Nunito, Open Sans, Arial, Helvetica, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
     justify-content: flex-start;
-    padding: 1rem 0;
+    padding: 0.5rem 0;
     position: relative;
     width: 100%;
 
     &:hover {
-      background: rgba(237, 242, 244, 0.5);
-
-      &::after {
-        background: #8b6372;
-        content: '';
-        height: 100%;
-        left: -1px;
-        position: absolute;
-        top: 0;
-        width: 1px;
-      }
+      background: #007ee5;
+      color: #fff;
     }
 
     i {

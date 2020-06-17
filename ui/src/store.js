@@ -65,7 +65,6 @@ export default new Vuex.Store({
         width,
       }
     ) {
-      debugger;
       state.modal.isActive = status;
       state.modal.componentToRender = componentToRender;
       state.modal.title = title;

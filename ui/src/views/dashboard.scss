@@ -12,7 +12,7 @@
     width: 1200px;
   }
   @media (min-width: 1025px) and (max-width: 1280px) {
-    width: 1024px;
+    width: 1200px;
   }
   @media (min-width: 1400px) {
     width: 1200px;
@@ -20,20 +20,6 @@
   @media only screen and (min-width: 1824px) {
     width: 1650px;
   }
-  // @media (min-width: 768px) and (max-width: 1024px) {
-  //   grid-template-rows: 260px auto;
-  // }
-  // @media only screen and (max-width: 992px) {
-  //   grid-template-rows: 250px auto;
-  // }
-  // @media (min-width: 481px) and (max-width: 767px) {
-  //   // border: 1px solid red;
-  //   grid-template-rows: 250px 50px auto;
-  // }
-  // @media (min-width: 320px) and (max-width: 480px) {
-  //   // border: 1px solid blue;
-  //   grid-template-rows: 280px 50px auto;
-  // }
 }
 
 .explorer-wrapper {
@@ -97,8 +83,9 @@
 
 .explorer-main {
   align-self: flex-start;
+  height: 0;
+  margin-top: 3rem;
+  min-height: 750px;
   padding: 0 0.5rem;
   width: 100%;
-  min-height: 750px;
-  margin-top: 3rem;
 }

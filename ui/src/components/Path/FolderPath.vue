@@ -23,7 +23,8 @@
         >
           <span class="path-value">{{ path ? path : "home" }}</span>
           <span class="path-slash" v-show="!isCurrentDir(path)">
-            <MinusIcon />
+            <!-- <ArrowRightIcon /> -->
+            /
           </span>
         </a>
       </li>
@@ -33,12 +34,12 @@
 
 <script>
 import { mapActions } from "vuex";
-import { MinusIcon } from "vue-feather-icons";
+// import { ArrowRightIcon } from "vue-feather-icons";
 
 export default {
   name: "FolderPath",
   components: {
-    MinusIcon,
+    // ArrowRightIcon,
   },
   methods: {
     ...mapActions(["clearList", "updatePath"]),

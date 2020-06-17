@@ -4,7 +4,7 @@ export default {
     activeFileName: "",
     activeFilePath: "",
     activeFileSize: "",
-    activeFileModified: ""
+    activeFileModified: "",
   },
   mutations: {
     updateFileName(state, { name }) {
@@ -21,44 +21,44 @@ export default {
     },
     updateFileStatus(state, { status }) {
       state.fileStatus = status;
-    }
+    },
   },
   actions: {
     updateFileName({ commit }, name) {
       commit({
         type: "updateFileName",
-        name
+        name,
       });
     },
     updateFilePath({ commit }, path) {
       commit({
         type: "updateFilePath",
-        path
+        path,
       });
     },
     updateFileStatus({ commit }, status) {
       commit({
         type: "updateFileStatus",
-        status
+        status,
       });
     },
     updateFileModified({ commit }, modified) {
       commit({
         type: "updateFileModified",
-        modified
+        modified,
       });
     },
     updateFileSize({ commit }, size) {
       commit({
         type: "updateFileSize",
-        size
+        size,
       });
-    }
+    },
   },
   getters: {
     getFileStatus: state => state.fileStatus,
     getActiveFileName: state => state.activeFileName,
     getActiveFileSize: state => state.activeFileSize,
-    getActiveFileModified: state => state.activeFileModified
-  }
+    getActiveFileModified: state => state.activeFileModified,
+  },
 };

@@ -14,16 +14,15 @@
         :onClick="handleDelete"
         :disabled="!canDelete"
         :buttonStyle="!canDelete || isMutating ? 'disabled' : 'danger'"
+        v-if="canDelete"
       >
         <template slot="btn-icon">
-          <!-- <img src="../../assets/check-white.svg" alt="ok" /> -->
           <CheckIcon />
         </template>
       </Button>
       <Button name="Cancel" :onClick="handleCancel">
         <template slot="btn-icon">
           <XIcon />
-          <!-- <img src="../../assets/times-dark.svg" alt="cancel" /> -->
         </template>
       </Button>
     </div>

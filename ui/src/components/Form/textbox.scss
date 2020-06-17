@@ -2,6 +2,7 @@
   align-items: flex-start;
   display: flex;
   flex-direction: column;
+  font-family: Nunito, Arial, Helvetica, sans-serif;
   justify-content: center;
   padding: 0.25rem 0;
   width: 100%;
@@ -11,16 +12,21 @@
     font-weight: 700;
     margin-bottom: 0.5rem;
   }
+}
 
-  input[type='text'] {
-    border-bottom: 1px solid #007ee5;
-    border-left: 0;
-    border-right: 0;
-    border-top: 0;
-    color: #2b2d42;
-    font-size: 1rem;
-    outline: none;
-    padding: 0.25rem 0.24rem;
-    width: 80%;
+input {
+  border-bottom: 1px solid #007ee5;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  color: #2b2d42;
+  font-size: 1rem;
+  outline: none;
+  padding: 0.25rem 0.24rem;
+  width: 80%;
+  
+  &::placeholder {
+    color: #191919;
+    font-size: 0.85rem;
   }
 }

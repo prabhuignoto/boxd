@@ -45,11 +45,11 @@ button {
 .big {
   box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2);
   padding: 0.5rem 0.75rem;
-
+  
   &.disabled {
     box-shadow: none;
   }
-
+  
   .label {
     font-size: 1.1rem;
   }
@@ -58,8 +58,9 @@ button {
 .danger {
   background: #cb2431;
   border-radius: 0.1rem;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
   color: #fff;
-  padding: 0.5rem 0.75rem;
+  padding: 0.35rem 0.75rem;
 
   .label {
     color: #fff;
@@ -75,8 +76,8 @@ i {
 .icon {
   background: transparent;
   border: 0;
-  margin: 0;
   color: #fff;
+  margin: 0;
 
   i {
     height: 1.25rem;

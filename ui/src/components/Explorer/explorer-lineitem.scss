@@ -2,8 +2,10 @@
   display: grid;
   grid-template-columns: 35px 45% 20% 20% auto;
   grid-template-rows: 2rem;
-  padding: 0.75rem 0.25rem;
+  padding: 0.5rem 0.25rem;
   position: relative;
+  user-select: none;
+  
   @media (min-width: 768px) and (max-width: 1024px) {
     grid-template-columns: 35px 45% 30% auto;
   }
@@ -28,117 +30,6 @@
   .popdown-container {
     margin-left: auto;
     margin-right: 1.5rem;
-  }
-
-  .explorer-cell {
-    align-items: center;
-    display: flex;
-    justify-content: flex-start;
-
-    &.name {
-      flex: 2;
-      font-size: 0.8rem;
-      justify-self: left;
-      padding: 0 0.5rem;
-      width: 100%;
-    }
-
-    &.size {
-      flex: 1;
-      font-size: 0.8rem;
-      font-weight: 500;
-      justify-self: left;
-    }
-
-    &.last-modified {
-      flex: 1;
-      // text-align: left;
-      font-size: 0.8rem;
-      font-weight: 500;
-      justify-self: left;
-      @media (min-width: 768px) and (max-width: 1024px) {
-        display: none;
-      }
-      @media (min-width: 481px) and (max-width: 767px) {
-        display: none;
-      }
-      @media (min-width: 320px) and (max-width: 480px) {
-        display: none;
-      }
-    }
-
-    &.controls {
-      justify-self: flex-end;
-    }
-
-    button {
-      background: none;
-      border-radius: 5px;
-      cursor: pointer;
-      height: 2rem;
-      margin-right: 1rem;
-      outline: none;
-      width: 2rem;
-
-      &:first-child {
-        margin-left: auto;
-      }
-
-      &.delete-btn {
-        border: 1px solid #ddd;
-
-        &:hover {
-          background: #ddd;
-          cursor: pointer;
-        }
-      }
-
-      &.download-btn {
-        border: 1px solid #ddd;
-
-        &:hover {
-          background: #007ee5;
-          cursor: pointer;
-        }
-      }
-    }
-
-    .explorer-icon {
-      display: block;
-      height: 1.5rem;
-      width: 1.5rem;
-
-      img {
-        height: 100%;
-        object-fit: contain;
-        object-position: 50% 50%;
-        width: 100%;
-      }
-    }
-
-    .resource {
-      font-weight: 500;
-      margin-left: 0.5rem;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-
-      .folder-link {
-        color: #5a626f;
-        font-weight: 500;
-        text-decoration: none;
-      }
-
-      .file-link {
-        color: #2b2d42;
-        text-decoration: none;
-      }
-    }
-
-    .loader-wrapper {
-      margin-left: auto;
-      margin-right: 0.6rem;
-    }
   }
 
   &:hover {
@@ -166,4 +57,118 @@
   a {
     margin-right: 2rem;
   }
+}
+
+
+.explorer-icon {
+  display: block;
+  height: 1.5rem;
+  width: 1.5rem;
+
+  img {
+    height: 100%;
+    object-fit: contain;
+    object-position: 50% 50%;
+    width: 100%;
+  }
+}
+
+.resource {
+  font-weight: 500;
+  margin-left: 0.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  .folder-link {
+    color: #5a626f;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .file-link {
+    color: #2b2d42;
+    text-decoration: none;
+  }
+}
+
+.loader-wrapper {
+  margin-left: auto;
+  margin-right: 0.6rem;
+}
+
+button {
+  background: none;
+  border-radius: 5px;
+  cursor: pointer;
+  height: 2rem;
+  margin-right: 1rem;
+  outline: none;
+  width: 2rem;
+
+  &:first-child {
+    margin-left: auto;
+  }
+
+}
+
+.delete-btn {
+  border: 1px solid #ddd;
+  
+  &:hover {
+    background: #ddd;
+    cursor: pointer;
+  }
+}
+  
+.download-btn {
+  border: 1px solid #ddd;
+  
+  &:hover {
+    background: #007ee5;
+    cursor: pointer;
+  }
+}
+
+.explorer-cell {
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+
+  &.name {
+    flex: 2;
+    font-size: 0.8rem;
+    justify-self: left;
+    padding: 0 0.5rem;
+    width: 100%;
+  }
+
+  &.size {
+    flex: 1;
+    font-size: 0.8rem;
+    font-weight: 500;
+    justify-self: left;
+  }
+
+  &.last-modified {
+    flex: 1;
+    // text-align: left;
+    font-size: 0.8rem;
+    font-weight: 500;
+    justify-self: left;
+    @media (min-width: 768px) and (max-width: 1024px) {
+      display: none;
+    }
+    @media (min-width: 481px) and (max-width: 767px) {
+      display: none;
+    }
+    @media (min-width: 320px) and (max-width: 480px) {
+      display: none;
+    }
+  }
+
+  &.controls {
+    justify-self: flex-end;
+  }
+
 }
