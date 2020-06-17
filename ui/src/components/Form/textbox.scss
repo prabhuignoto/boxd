@@ -1,25 +1,26 @@
 .textbox-wrapper {
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   justify-content: center;
-  padding: 0.25rem 0rem;
+  padding: 0.25rem 0;
   width: 100%;
 
   label {
+    font-size: 0.9rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
-    font-size: 0.9rem;
   }
-  input[type="text"] {
-    border-bottom: 1px solid #000;
-    border-top: none;
-    border-left: none;
-    border-right: none;
+
+  input[type='text'] {
+    border-bottom: 1px solid #007ee5;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    color: #2b2d42;
+    font-size: 1rem;
+    outline: none;
     padding: 0.25rem 0.24rem;
     width: 80%;
-    outline: none;
-    font-size: 1rem;
-    color: #2B2D42;
   }
 }

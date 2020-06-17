@@ -1,8 +1,5 @@
 <template>
   <section class="stage2-container">
-    <header class="stage2-header">
-      <span>Choose the source by selecting a file or folder</span>
-    </header>
     <div class="stage2-explorer-wrapper">
       <div class="move-explorer-wrapper" v-if="mode === 'move'">
         <MoveExplorerSrc path />
@@ -13,7 +10,7 @@
     </div>
     <div class="selected-src">
       <!-- <span>You have selected</span> -->
-      <span class="value">{{ selectedSource }}</span>
+      <span class="value" v-if="selectedSource">{{ selectedSource }}</span>
     </div>
     <div class="stage2-controls">
       <Button name="Back" :onClick="handlePrevious">

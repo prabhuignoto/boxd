@@ -13,12 +13,12 @@ const AppRouter = new Router({
     {
       path: "/",
       name: "home",
-      component: Home
+      component: Home,
     },
     {
       path: "/home",
       name: "alt-home",
-      component: Home
+      component: Home,
     },
     {
       path: "/dashboard",
@@ -28,7 +28,7 @@ const AppRouter = new Router({
         const response = await Axios.get(
           `${process.env.VUE_APP_API_SERVER}/isLoggedIn`,
           {
-            withCredentials: true
+            withCredentials: true,
           }
         );
         const { loggedin } = response.data;
@@ -37,9 +37,9 @@ const AppRouter = new Router({
         } else {
           next("/home");
         }
-      }
-    }
-  ]
+      },
+    },
+  ],
 });
 
 export default AppRouter;

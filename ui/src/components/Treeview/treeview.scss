@@ -1,65 +1,62 @@
 .tree {
+  align-items: flex-start;
+  border-radius: 4px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  border-radius: 4px;
-  // padding: 0.25rem;
-  width: 300px;
+  font-family: Nunito, Open Sans;
   font-size: 0.85rem;
-  font-family: "Nunito", "Open Sans";
-  margin-top: .5rem;
+  justify-content: flex-start;
 
   .child-tree {
-    // padding-left: 1.5rem;
-    display: block;
+    align-items: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: flex-start;
   }
 
   .folder-node {
+    align-items: flex-start;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
     justify-content: flex-start;
+    user-select: none;
   }
 
   .file-node {
-    display: flex;
     align-items: flex-start;
+    cursor: pointer;
+    display: flex;
+    font-size: 0.85rem;
     justify-content: center;
     overflow-wrap: break-word;
-    cursor: pointer;
     padding: 0.25rem;
-    font-size: 0.85rem;
 
     .node-text {
       color: #191919;
       font-weight: 300;
       height: 100%;
-      width: 100%;
+      max-width: 200px;
+      outline: none;
+      overflow: hidden;
       padding: 0.25rem;
       text-align: left;
-      max-width: 200px;
-      white-space: nowrap;
-      overflow: hidden;
       text-overflow: ellipsis;
       text-transform: lowercase;
-      outline: none;
+      white-space: nowrap;
+      width: 100%;
 
       &.selected {
-        background: #191919;
-        color: #fff;
+        background: #efefef;
         border-radius: 2px;
+        color: #191919;
       }
     }
   }
+  
   .file-img {
     height: 1.2rem;
-    width: 1.2rem;
     margin-right: 0.25rem;
     margin-top: 0.25rem;
+    width: 1.2rem;
   }
 }

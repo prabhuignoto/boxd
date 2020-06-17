@@ -1,8 +1,5 @@
 <template>
   <section class="stage2-container">
-    <header>
-      <span>Choose the destination</span>
-    </header>
     <div class="stage3-explorer-wrapper">
       <div v-if="mode === 'move'">
         <MoveExplorerDest path />

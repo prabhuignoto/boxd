@@ -1,21 +1,17 @@
 <template>
   <div class="loader-wrapper translucent">
-    <div class="lds-ellipsis">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-    <div class="loader-content">
-      <slot></slot>
-    </div>
+    <LoaderIcon size="2x" />
   </div>
 </template>
 
 <script>
+import { LoaderIcon } from "vue-feather-icons";
 export default {
   name: "Loader",
   props: ["size", "translucent"],
+  components: {
+    LoaderIcon,
+  },
   computed: {
     getClass() {
       if (this.translucent) {

@@ -5,7 +5,10 @@
     </header>
     <div class="move-copy-selection">
       <label for="move" :class="{ selected: moveSelected }">
-        <span>Move Files to a new Destination</span>
+        <i>
+          <MoveIcon />
+        </i>
+        <span>Move Files</span>
         <input
           type="radio"
           name="move-copy-radio"
@@ -17,7 +20,10 @@
         />
       </label>
       <label for="copy" :class="{ selected: copySelected }">
-        <span>Copy Files to a new Destination</span>
+        <i>
+          <CopyIcon />
+        </i>
+        <span>Copy Files</span>
         <input
           type="radio"
           name="move-copy-radio"
@@ -47,8 +53,12 @@
 <script>
 import Button from "../Form/Button";
 import { mapActions } from "vuex";
-import { CheckIcon } from "vue-feather-icons";
-import { ChevronRightIcon } from "vue-feather-icons";
+import {
+  CheckIcon,
+  ChevronRightIcon,
+  MoveIcon,
+  CopyIcon,
+} from "vue-feather-icons";
 
 export default {
   name: "StageOne",
@@ -56,6 +66,8 @@ export default {
     Button,
     CheckIcon,
     ChevronRightIcon,
+    MoveIcon,
+    CopyIcon,
   },
   props: ["handleNext"],
   data() {

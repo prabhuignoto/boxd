@@ -9,11 +9,11 @@
     </div>
     <div class="create-folder-explorer-wrapper" v-if="!isCreateFolderExpHidden">
       <RootFolder :onClick="handleRootFolder" />
-      <CreateFolderExplorer path="" />
+      <CreateFolderExplorer path />
     </div>
     <div class="selected-path-wrapper">
       <!-- <div class="crt-folder-sec-header">Your new folder will be created on this path</div> -->
-      <div class="selected-path">
+      <div class="selected-path" v-if="selectedPath">
         {{ selectedPath === "" ? "/" : selectedPath }}
       </div>
     </div>

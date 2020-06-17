@@ -68,6 +68,7 @@ export default {
         status: true,
         componentToRender: "CreateFolder",
         title: "Add folder",
+        width: 500,
       });
     },
     openMoveCopy() {
@@ -75,7 +76,8 @@ export default {
       this.updateModalState({
         status: true,
         componentToRender: "MoveCopy",
-        title: "Select an operation to proceed further",
+        title: "Choose an Option",
+        width: 500,
       });
     },
     openUploadWindow() {
@@ -84,6 +86,7 @@ export default {
         status: true,
         componentToRender: "UploadWindow",
         title: "Upload",
+        width: 500,
       });
     },
   },

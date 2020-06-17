@@ -35,15 +35,15 @@
             >
           </span>
         </div>
-        <transition-group name="list-fade">
-          <div
-            class="line-item-wrapper"
-            v-for="file in getDataList"
-            :key="file.name"
-          >
-            <LineItem v-bind="file" />
-          </div>
-        </transition-group>
+        <!-- <transition-group name="list-fade"> -->
+        <div
+          class="line-item-wrapper"
+          v-for="file in getDataList"
+          :key="file.name"
+        >
+          <LineItem v-bind="file" />
+        </div>
+        <!-- </transition-group> -->
         <section class="load-more" v-if="hasMoreData && !isLoadingMore">
           <a href="javascript:void(0);" @click="handleLoadMore">
             Show More ...
@@ -85,7 +85,7 @@ export default {
     };
   },
   watch: {
-    refetchStatus: function ({ status }) {
+    refetchStatus: function({ status }) {
       if (status) {
         this.$apollo.queries.files.refresh();
       }

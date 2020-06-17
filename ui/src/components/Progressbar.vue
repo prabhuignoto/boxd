@@ -23,10 +23,10 @@ export default {
         height: "100%",
         width: `${this.value}%`,
         borderRadius: ".1rem",
-        background: "#4BB543"
+        background: "#4BB543",
       };
-    }
-  }
+    },
+  },
 };
 </script>
 

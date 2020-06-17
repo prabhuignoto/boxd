@@ -59,8 +59,12 @@
       </div>
 
       <!-- file explorer -->
-      <div class="upload-file-explorer-container" v-if="canShowFileExplorer">
-        <span class="upload-explorer-header">Choose destination</span>
+      <div
+        class="upload-file-explorer-container"
+        v-if="canShowFileExplorer"
+        :class="{ disabled: canDisableInput }"
+      >
+        <!-- <span class="upload-explorer-header">Choose destination</span> -->
         <div class="upload-explorer-wrapper">
           <RootFolder :onClick="handleRootFolder" />
           <UploadExplorer path />
@@ -74,7 +78,9 @@
     <div class="upload-path-selection" v-if="canShowUpladPathSelection">
       <!-- <span v-if="!uploadSuccess">Uploading to</span> -->
       <span v-if="uploadSuccess">Uploaded to</span>
-      <span class="highlight">{{ getUploadPathCustom }}</span>
+      <span class="highlight" v-if="getUploadPathCustom">
+        {{ getUploadPathCustom }}
+      </span>
     </div>
     <!-- selected path -->
 
@@ -237,7 +243,7 @@ export default Vue.component("UploadWindow", {
             headers: {
               "Content-Type": "multipart/form-data",
             },
-            onUploadProgress: (progressEvent) => {
+            onUploadProgress: progressEvent => {
               this.progress = Math.round(
                 (progressEvent.loaded * 100) / progressEvent.total
               );
@@ -257,7 +263,7 @@ export default Vue.component("UploadWindow", {
               path: this.getUploadPath,
             });
           })
-          .catch((error) => {
+          .catch(error => {
             this.uploadSuccess = false;
             this.uploadStarted = false;
             console.log(error);

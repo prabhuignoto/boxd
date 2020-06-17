@@ -51,12 +51,15 @@ export default Vue.component("MoveCopy", {
       "updateModalState",
       "refetchData",
       "refreshFileExplorer",
+      "updateModalTitle",
     ]),
     handleStepOne() {
       this.stage = "two";
+      this.updateModalTitle(`${this.mode} - select source`);
     },
     handleStepTwo() {
       this.stage = "three";
+      this.updateModalTitle(`${this.mode} - select destination`);
     },
     handleCompletion() {
       this.saving = true;

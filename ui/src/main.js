@@ -16,14 +16,14 @@ console.log(process.env);
 
 const httpLink = new HttpLink({
   credentials: "include",
-  uri: `${process.env.VUE_APP_API_SERVER}/graphql`
+  uri: `${process.env.VUE_APP_API_SERVER}/graphql`,
 });
 
 const wsLink = new WebSocketLink({
   uri: `${process.env.VUE_APP_WS_API_SERVER}/graphql`,
   options: {
-    reconnect: true
-  }
+    reconnect: true,
+  },
 });
 
 const link = split(
@@ -38,16 +38,16 @@ const link = split(
 const apolloClient = new ApolloClient({
   link: link,
   cache: new InMemoryCache(),
-  connectToDevTools: true
+  connectToDevTools: true,
 });
 
 const apolloProvider = new VueApollo({
   defaultClient: apolloClient,
   defaultOptions: {
     $query: {
-      fetchPolicy: "cache-and-network"
-    }
-  }
+      fetchPolicy: "cache-and-network",
+    },
+  },
 });
 
 Vue.use(VueApollo);
@@ -56,5 +56,5 @@ new Vue({
   router,
   store,
   apolloProvider,
-  render: h => h(App)
+  render: h => h(App),
 }).$mount("#app");

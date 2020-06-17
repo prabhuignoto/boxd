@@ -25,28 +25,32 @@ export default Vue.extend({
   align-items: center;
   cursor: pointer;
   display: flex;
-  font-family: "Open Sans", Arial, Helvetica, sans-serif;
-  font-size: 0.95rem;
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+  font-size: 0.85rem;
   justify-content: flex-start;
+  padding: 0.2rem 0.1rem;
+  user-select: none;
+  width: 4.5rem;
 
-  margin-left: 0.25rem;
-  margin-top: 0.5rem;
-
-  width: 80px;
   &:focus {
-    outline: 1px dotted #2b2d42;
-    outline-offset: 2px;
+    background: #efefef;
+    border-radius: 0.2rem;
+    outline: 0;
   }
+
   i {
-    width: 1.25rem;
+    color: #007ee5;
     height: 1.25rem;
+    width: 1.25rem;
   }
+
   .root-slash {
     margin-left: 0.5rem;
   }
-  img {
-    max-height: 100%;
-    max-width: 100%;
+
+  svg {
+    height: 100%;
+    width: 100%;
   }
 }
 </style>

@@ -1,11 +1,11 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import MoveCopy from "./modules/move-copy";
-import Upload from "./modules/upload";
-import Folder from "./modules/folder";
 import File from "./modules/file";
+import Folder from "./modules/folder";
 import List from "./modules/list";
+import MoveCopy from "./modules/move-copy";
 import Notification from "./modules/notification";
+import Upload from "./modules/upload";
 
 Vue.use(Vuex);
 
@@ -35,6 +35,7 @@ export default new Vuex.Store({
       title: "",
       disableHeader: false,
       disableCloseBtn: false,
+      width: 450,
     },
     treeView: {
       data: [],
@@ -55,16 +56,28 @@ export default new Vuex.Store({
     },
     updateModalState(
       state,
-      { status, componentToRender, title, disableHeader, disableCloseBtn }
+      {
+        status,
+        componentToRender,
+        title,
+        disableHeader,
+        disableCloseBtn,
+        width,
+      }
     ) {
+      debugger;
       state.modal.isActive = status;
       state.modal.componentToRender = componentToRender;
       state.modal.title = title;
       state.modal.disableHeader = disableHeader;
       state.modal.disableCloseBtn = disableCloseBtn;
+      state.modal.width = width;
+    },
+    updateModalTitle(state, { title }) {
+      state.modal.title = title;
     },
     updateTreeViewData(state, { data }) {
-      state.treeView.data = data.map((x) =>
+      state.treeView.data = data.map(x =>
         Object.assign({}, x, {
           selected: false,
         })
@@ -93,9 +106,22 @@ export default new Vuex.Store({
         node,
       });
     },
+    updateModalTitle({ commit }, title) {
+      commit({
+        type: "updateModalTitle",
+        title,
+      });
+    },
     updateModalState(
       { commit },
-      { status, componentToRender, title, disableHeader, disableCloseBtn }
+      {
+        status,
+        componentToRender,
+        title,
+        disableHeader,
+        disableCloseBtn,
+        width,
+      }
     ) {
       commit({
         type: "updateModalState",
@@ -104,6 +130,7 @@ export default new Vuex.Store({
         title,
         disableHeader,
         disableCloseBtn,
+        width,
       });
     },
     updateTreeViewData({ commit }, data) {
@@ -127,13 +154,14 @@ export default new Vuex.Store({
     },
   },
   getters: {
-    isModalActive: (state) => state.modal.isActive,
-    getPopupComponent: (state) => state.modal.componentToRender,
-    getPopupTitle: (state) => state.modal.title,
-    getIsDisableHeader: (state) => state.modal.disableHeader,
-    getExplorerPath: (state) => state.explorer.path,
-    getDisableCloseBtn: (state) => state.modal.disableCloseBtn,
-    getWorkflowOrigin: (state) => state.workFlowOrigin,
-    getRefreshFileExplorer: (state) => state.fileExplorer.refresh,
+    isModalActive: state => state.modal.isActive,
+    getPopupComponent: state => state.modal.componentToRender,
+    getPopupTitle: state => state.modal.title,
+    getIsDisableHeader: state => state.modal.disableHeader,
+    getExplorerPath: state => state.explorer.path,
+    getDisableCloseBtn: state => state.modal.disableCloseBtn,
+    getWorkflowOrigin: state => state.workFlowOrigin,
+    getRefreshFileExplorer: state => state.fileExplorer.refresh,
+    getModalWidth: state => state.modal.width,
   },
 });

@@ -70,6 +70,7 @@ export default {
         status: true,
         componentToRender: "CreateFolder",
         title: "New Folder",
+        width: 480,
       });
     },
     handleCopyFolder() {
@@ -80,6 +81,7 @@ export default {
         status: true,
         componentToRender: "MoveCopy",
         title: `Copy folder`,
+        width: 480,
       });
     },
     handleMoveFolder() {
@@ -90,6 +92,7 @@ export default {
         status: true,
         componentToRender: "MoveCopy",
         title: `Move folder`,
+        width: 480,
       });
     },
     handleDeleteFolder() {
@@ -98,6 +101,7 @@ export default {
         status: true,
         componentToRender: "DeleteFolder",
         title: `Delete`,
+        width: 480,
       });
     },
     handleUpload() {
@@ -107,6 +111,7 @@ export default {
         status: true,
         componentToRender: "UploadWindow",
         title: "Upload",
+        width: 480,
       });
     },
   },

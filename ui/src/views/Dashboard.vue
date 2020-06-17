@@ -15,8 +15,8 @@
           :content="getPopupComponent"
           :title="getPopupTitle"
           :disableHeader="getIsDisableHeader"
-        >
-        </Popup>
+          :width="getModalWidth"
+        ></Popup>
       </div>
     </transition>
     <transition name="peek">
@@ -63,6 +63,7 @@ export default {
       "getIsDisableHeader",
       "getNotificationStatus",
       "getNewMessage",
+      "getModalWidth",
     ]),
   },
   methods: {

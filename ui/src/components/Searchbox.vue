@@ -73,7 +73,7 @@ export default {
       },
       result({ loading, data }) {
         if (!loading && data && data.search) {
-          this.updateSearchResults(data.search.matches.map((x) => x.metadata));
+          this.updateSearchResults(data.search.matches.map(x => x.metadata));
         }
       },
       variables() {
