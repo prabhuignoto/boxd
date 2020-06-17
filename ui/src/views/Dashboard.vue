@@ -1,11 +1,5 @@
 <template>
   <section class="dashboard-wrapper">
-    <div class="toolbar-container">
-      <Toolbar />
-    </div>
-    <div class="folder-path-container">
-      <!-- <FolderPath /> -->
-    </div>
     <div class="explorer-main">
       <Explorer />
     </div>
@@ -33,18 +27,18 @@
 <script>
 import Explorer from "../components/Explorer/Explorer.vue";
 import Popup from "../components/Popup/Popup";
-import Toolbar from "../components/Toolbar/Toolbar";
-// import "../../node_modules/bulma/css/bulma.css";
 import { mapGetters, mapActions } from "vuex";
 import Notification from "../components/Notification";
 import NotificationSub from "../notificationSub.js";
+import DeleteFolder from "../components/Folder/DeleteFolder";
 
 export default {
   components: {
     Explorer,
     Popup,
-    Toolbar,
     Notification,
+    // eslint-disable-next-line vue/no-unused-components
+    DeleteFolder,
   },
   data() {
     return {

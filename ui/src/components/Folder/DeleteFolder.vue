@@ -1,12 +1,9 @@
 <template>
   <div class="delete-folder-wrapper">
     <div class="delete-alert">Tread with Caution</div>
-    <div class="delete-message">
+    <!-- <div class="delete-message">
       <span>You are about to delete</span>
-      <div>
-        {{ fileName }}
-      </div>
-    </div>
+    </div> -->
     <Textbox :placeholder="placeholder" :onInput="onInput" />
     <div class="delete-resx-controls">
       <div class="del-folder-loader-wrapper" v-show="isMutating">
@@ -19,12 +16,14 @@
         :buttonStyle="!canDelete || isMutating ? 'disabled' : 'danger'"
       >
         <template slot="btn-icon">
-          <img src="../../assets/check-white.svg" alt="ok" />
+          <!-- <img src="../../assets/check-white.svg" alt="ok" /> -->
+          <CheckIcon />
         </template>
       </Button>
       <Button name="Cancel" :onClick="handleCancel">
         <template slot="btn-icon">
-          <img src="../../assets/times-dark.svg" alt="cancel" />
+          <XIcon />
+          <!-- <img src="../../assets/times-dark.svg" alt="cancel" /> -->
         </template>
       </Button>
     </div>
@@ -38,6 +37,7 @@ import { mapActions, mapGetters } from "vuex";
 import Loader from "../Loader";
 import gql from "graphql-tag";
 import Textbox from "../Form/TextBox";
+import { CheckIcon, XIcon } from "vue-feather-icons";
 
 export default Vue.component("DeleteFolder", {
   props: ["name"],
@@ -45,6 +45,8 @@ export default Vue.component("DeleteFolder", {
     Button,
     Loader,
     Textbox,
+    CheckIcon,
+    XIcon,
   },
   data() {
     return {
@@ -66,10 +68,10 @@ export default Vue.component("DeleteFolder", {
       return parts[parts.length - 1];
     },
     placeholder() {
-      return `Type ${this.getTarget} to proceed`;
+      return `Type delete to proceed`;
     },
     canDelete() {
-      return this.getTarget === this.deleteConsentText;
+      return "delete" === this.deleteConsentText;
     },
   },
   methods: {

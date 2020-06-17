@@ -1,62 +1,78 @@
 .path-wrapper {
-  padding: 0.25rem;
-  padding-left: 0.5rem;
-  .path {
-    list-style-type: none;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    margin:0;
-    padding: 0.3rem 0.25rem;
-    border-radius: 5px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.path-link {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.home {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+
+  img {
+    height: 1rem;
+    margin-right: 0.25rem;
+    width: 1rem;
   }
-  .path-slash {
-    margin: 0.2rem 0.25rem 0;
+}
+
+.path-item {
+  margin-right: 0.1rem;
+
+  a {
     color: #007ee5;
-    width: 1.1rem;
-    height: 1.1rem;
-    img {
-      max-height: 100%;
-      max-width: 100%;
-    }
+    text-decoration: none;
   }
-  .path-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+}
+
+.disabled {
+  color: #000;
+  pointer-events: none;
+}
+
+.selected {
+  .path-value {
+    border-radius: 4px;
+    color: rgba(0, 0, 0, 1);
   }
-  .path-item {
-    font-size: 1rem;
-    font-weight: 500;
-    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
-    a {
-      text-decoration: none;
-      color: #007ee5;
-      .path-value {
-        padding: 0.25rem 0.25rem;
-      }
-      &.disabled {
-        pointer-events: none;
-        color: #000;
-      }
-      &.selected {
-        .path-value {
-          border-radius: 4px;
-          color: rgba(0,0,0,1);
-        }
-      }
-    }
-  }
-  .home {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    img {
-      width: 1rem;
-      height: 1rem;
-      margin-right: 0.25rem;
-    }
+}
+
+.path-value {
+  font-family: Nunito, Open Sans, Arial, Helvetica, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+}
+
+.path {
+  align-items: center;
+  background: #efefef;
+  border-radius: 0.2rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 1.3rem;
+  justify-content: flex-start;
+  list-style-type: none;
+  margin: 0;
+  padding: 0.25rem 0.5rem;
+  width: 100%;
+}
+
+.path-slash {
+  color: #191919;
+  height: 1rem;
+  width: 1rem;
+  transform: rotate(-70deg);
+
+  svg {
+    height: 100%;
+    width: 100%;
   }
 }

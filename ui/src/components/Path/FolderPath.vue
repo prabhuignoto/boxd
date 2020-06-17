@@ -1,18 +1,17 @@
 <template>
   <div class="path-wrapper">
     <ul class="path">
-      <li class="path-item">
+      <!-- <li class="path-item">
         <a
           href="javascript:void(0);"
           @click="navToHome($event)"
           v-bind:class="{ 'disabled selected': isHome() }"
         >
           <span class="path-value home">
-            <!-- <img src="../../assets/home.svg" alt="home"> -->
             <span>Home</span>
           </span>
         </a>
-      </li>
+      </li> -->
       <li v-for="path in folderPath" :key="path" class="path-item">
         <a
           href="javascript:void(0);"
@@ -22,10 +21,10 @@
           }"
           @click="handleNavigation(path, $event)"
         >
-          <span class="path-slash">
-            <img src="../../assets/angle-right.svg" alt="arrow-right" />
+          <span class="path-value">{{ path ? path : "home" }}</span>
+          <span class="path-slash" v-show="!isCurrentDir(path)">
+            <MinusIcon />
           </span>
-          <span class="path-value">{{ path }}</span>
         </a>
       </li>
     </ul>
@@ -34,15 +33,19 @@
 
 <script>
 import { mapActions } from "vuex";
+import { MinusIcon } from "vue-feather-icons";
 
 export default {
   name: "FolderPath",
+  components: {
+    MinusIcon,
+  },
   methods: {
     ...mapActions(["clearList", "updatePath"]),
     handleNavigation(path, $evt) {
       $evt.preventDefault();
       let pathArr = this.folderPath;
-      const newPath = pathArr.slice(0, pathArr.indexOf(path) + 1).join(" / ");
+      const newPath = pathArr.slice(0, pathArr.indexOf(path) + 1).join("/");
       this.clearList();
       this.updatePath(newPath);
     },
@@ -62,7 +65,7 @@ export default {
     folderPath() {
       let path = this.$store.state.explorer.path;
       if (path) {
-        return path.split(" / ");
+        return path.split("/");
       } else {
         return "";
       }

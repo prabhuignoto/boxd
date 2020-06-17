@@ -25,12 +25,14 @@ export default Vue.extend({
   align-items: center;
   cursor: pointer;
   display: flex;
-  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+  font-family: Open Sans, Arial, Helvetica, sans-serif;
   font-size: 0.85rem;
   justify-content: flex-start;
-  padding: 0.2rem 0.1rem;
+  padding: 0.2rem 0;
+  padding-left: 0.25rem;
   user-select: none;
   width: 4.5rem;
+  color: #191919;
 
   &:focus {
     background: #efefef;
@@ -45,7 +47,7 @@ export default Vue.extend({
   }
 
   .root-slash {
-    margin-left: 0.5rem;
+    margin-left: 0.25rem;
   }
 
   svg {

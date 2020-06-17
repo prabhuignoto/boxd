@@ -35,7 +35,7 @@
         :onClick="handleNext"
         :disabled="!canFinish"
         :buttonStyle="getStyle"
-        v-if="canFinish"
+        :class="{ disabled: !canFinish }"
       >
         <template slot="btn-icon">
           <!-- <img src="../../assets/check-white.svg" alt="complete" v-if="!canFinish">

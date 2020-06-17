@@ -122,7 +122,7 @@ export default Vue.component("MoveCopy", {
               this.$nextTick(() => {
                 this.refreshFileExplorer({
                   status: true,
-                  path: srcPath.join(" / "),
+                  path: srcPath.join("/"),
                 });
               });
             });

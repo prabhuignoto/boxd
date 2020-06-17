@@ -9,8 +9,7 @@
   >
     <template slot="icon">
       <i>
-        <!-- <img src="../../assets/more.svg" alt="more" /> -->
-        <MoreHorizontalIcon />
+        <MoreHorizontalIcon color="#007ee5" />
       </i>
     </template>
     <template slot="menu">
@@ -42,6 +41,7 @@ import { mapActions } from "vuex";
 import Axios from "axios";
 import FileSaver from "filesaver.js";
 import { MoreHorizontalIcon } from "vue-feather-icons";
+import { getFileName } from "../../utils";
 
 export default {
   name: "LineItemPopdown",
@@ -50,6 +50,14 @@ export default {
     MoreHorizontalIcon,
   },
   props: ["isFile", "pathLower"],
+  data: () => ({
+    path: "",
+  }),
+  computed: {
+    fileName() {
+      return getFileName(this.path);
+    },
+  },
   methods: {
     ...mapActions([
       "deleteFolder",
@@ -61,14 +69,17 @@ export default {
       "moveResxSource",
     ]),
     handleDelete(path) {
+      this.path = path;
       this.deleteFolder(path);
       this.updateModalState({
         status: true,
         componentToRender: "DeleteFolder",
-        title: "Delete Resource",
+        title: `Delete ${this.fileName}`,
+        width: 500,
       });
     },
     handleCopy(path) {
+      this.path = path;
       // set the operation mode
       this.updateMoveCopyMode("copy");
       // skip to the final step
@@ -76,11 +87,13 @@ export default {
       this.copyResxSource(path);
       this.updateModalState({
         status: true,
-        title: "Copy",
+        title: `Copy ${this.fileName}`,
         componentToRender: "MoveCopy",
+        width: 500,
       });
     },
     handleMove(path) {
+      this.path = path;
       // set the operation Mode
       this.updateMoveCopyMode("move");
       // skip to the final step
@@ -89,8 +102,9 @@ export default {
       // open the modal
       this.updateModalState({
         status: true,
-        title: "Move",
+        title: `Move ${this.fileName}`,
         componentToRender: "MoveCopy",
+        width: 500,
       });
     },
     handleDownloadFile(path) {
@@ -103,14 +117,14 @@ export default {
         withCredentials: true,
         responseType: "blob",
       })
-        .then((response) => {
+        .then(response => {
           var blob = new Blob([response.data], {
             type: `${response.headers["content-type"]};charset=utf-8`,
           });
           FileSaver.saveAs(blob, path.replace("/", ""));
           this.isDownloadingFile = false;
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
           this.isDownloadingFile = false;
         });

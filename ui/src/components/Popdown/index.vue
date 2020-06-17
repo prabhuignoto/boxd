@@ -4,7 +4,7 @@
       :name="name"
       :onClick="togglePopdown"
       :buttonStyle="type"
-      :msize="size"
+      :size="size"
     >
       <template slot="btn-icon">
         <slot name="icon"></slot>
@@ -56,7 +56,9 @@ export default {
         });
       }
     },
-    close() {
+    close(ev) {
+      debugger;
+      console.log(ev);
       this.visible = false;
     },
     getStyle() {

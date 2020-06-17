@@ -21,25 +21,28 @@ export default {
 
 <style lang="scss">
 body {
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: center;
 }
+
 #app {
-  font-family: "Nunito", "Open Sans", "Avenir", Helvetica, Arial, sans-serif;
+  color: #2c3e50;
+  font-family: 'Nunito', 'Open Sans', 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  width: 100%;
   min-height: 900px;
+  text-align: center;
+  width: 100%;
 }
 
 #nav {
   padding: 30px;
+
   a {
-    font-weight: 700;
     color: #2c3e50;
+    font-weight: 700;
+
     &.router-link-exact-active {
       color: #42b983;
     }

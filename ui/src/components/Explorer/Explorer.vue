@@ -1,21 +1,21 @@
 <template>
   <div class="explorer-container">
-    <TreeviewWrapper />
-    <!-- <FolderPath /> -->
+    <!-- <TreeviewWrapper /> -->
     <div class="explorer">
       <header class="explorer-header">
         <ul class="header-wrapper">
-          <li class="header control">
+          <li class="header control context">
             <ContextControl :path="path" type="link" name="Random" />
           </li>
-          <li
-            v-for="header in headers"
-            :key="header"
-            v-bind:class="`${header} header`"
-          >
-            {{ header }}
+          <li class="header control toolbar">
+            <Toolbar />
           </li>
-          <li class="header empty"></li>
+          <li class="header control search">
+            <SearchBox />
+          </li>
+          <li class="header control account">
+            <Account />
+          </li>
         </ul>
       </header>
       <section class="explorer-content">
@@ -27,9 +27,9 @@
           v-if="isUserSearching"
         >
           <span class="search-results-message">
-            <a href="javascript:void(0);" @click="handleNavBackToExplorer">
-              Back to explorer
-            </a>
+            <a href="javascript:void(0);" @click="handleNavBackToExplorer"
+              >Back to explorer</a
+            >
             <span
               >found {{ searchCount }} items matching the search criteria</span
             >
@@ -45,9 +45,9 @@
         </div>
         <!-- </transition-group> -->
         <section class="load-more" v-if="hasMoreData && !isLoadingMore">
-          <a href="javascript:void(0);" @click="handleLoadMore">
-            Show More ...
-          </a>
+          <a href="javascript:void(0);" @click="handleLoadMore"
+            >Show More ...</a
+          >
         </section>
         <div
           class="info-message"
@@ -67,7 +67,10 @@ import Loader from "../Loader";
 import LineItem from "./Explorer-LineItem";
 import { mapActions, mapGetters } from "vuex";
 import ContextControl from "../ContextActions/Control";
-import TreeviewWrapper from "./TreeviewWrapper";
+import Toolbar from "../Toolbar/Toolbar";
+import Account from "../Account";
+
+import SearchBox from "../Searchbox";
 
 export default {
   name: "Explorer",
@@ -75,7 +78,9 @@ export default {
     LineItem,
     Loader,
     ContextControl,
-    TreeviewWrapper,
+    Account,
+    Toolbar,
+    SearchBox,
   },
   data() {
     return {
@@ -85,7 +90,7 @@ export default {
     };
   },
   watch: {
-    refetchStatus: function({ status }) {
+    refetchStatus: function ({ status }) {
       if (status) {
         this.$apollo.queries.files.refresh();
       }

@@ -88,42 +88,48 @@ export default {
 
 <style lang="scss" scoped>
 .searchbox-wrapper {
-  width: 100%;
-  height: 100%;
-  position: relative;
+  align-items: center;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  height: 100%;
   justify-content: center;
+  position: relative;
+  width: 100%;
 
-  input[type="text"] {
-    width: 100%;
-    height: 90%;
-    border-radius: 4px;
-    border: 1px solid #c2c7c8;
-    padding: 0 0.75rem 0 0.5rem;
-    outline: none;
+  input {
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid #fff;
+    font-family: Nunito, Arial, Helvetica, sans-serif;
     font-size: 1.2rem;
+    font-weight: 400;
+    height: 100%;
+    outline: none;
+    width: 100%;
   }
+
   .search-loader-wrapper {
-    position: absolute;
-    right: 3.5rem;
     bottom: -0.75rem;
     left: 0;
-    right: 0;
     margin-left: auto;
     margin-right: auto;
+    position: absolute;
+    right: 3.5rem;
+    right: 0;
   }
+
   .button-wrapper {
     position: absolute;
     right: 0.5rem;
     top: 50%;
     transform: translateY(-50%);
   }
+
   button {
     height: 1.85rem;
     width: 1.85rem;
   }
+
   img {
     max-height: 100%;
     max-width: 100%;

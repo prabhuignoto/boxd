@@ -1,19 +1,19 @@
 .stage2-container {
   width: 90%;
+}
 
-  header {
+header {
+  width: 100%;
+  
+  span {
+    display: block;
+    font-family: Nunito, Arial, Helvetica, sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    margin: 0.25rem 0;
+    padding-left: 0.5rem;
+    text-align: left;
     width: 100%;
-
-    span {
-      display: block;
-      font-family: Nunito, Arial, Helvetica, sans-serif;
-      font-size: 0.9rem;
-      font-weight: 400;
-      margin: 0.25rem 0;
-      padding-left: 0.5rem;
-      text-align: left;
-      width: 100%;
-    }
   }
 }
 
@@ -64,35 +64,38 @@ img {
     margin: 0.25rem 0;
   }
 
-  .summary-final {
-    align-items: center;
+}
+
+.summary-final {
+  align-items: center;
+  border-radius: 0.1rem;
+  color: #007ee5;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0.25rem 0;
+  min-height: 4rem;
+  
+  span {
+    border-radius: 3px;
     background: #efefef;
-    border-radius: 0.1rem;
-    color: #007ee5;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin: 0.25rem 0;
-
-    span {
-      border-radius: 3px;
-      font-size: 0.9rem;
-      padding: 0.25rem 0.5rem;
-      text-align: left;
-      word-break: break-word;
-    }
-    
-    i {
-      color: #000;
-      height: 1rem;
-      margin: 0 0.5rem;
-      width: 1rem;
-
-      svg {
-        height: 100%;
-        width: 100%;
-      }
-    }
+    font-size: 0.9rem;
+    padding: 0.25rem 0.5rem;
+    text-align: left;
+    word-break: break-word;
+  }
+      
+  i {
+    color: #000;
+    height: 1rem;
+    margin: 0 0.5rem;
+    width: 1rem;
+  
+  }
+  
+  svg {
+    height: 100%;
+    width: 100%;
   }
 }
 

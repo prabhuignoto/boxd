@@ -1,64 +1,58 @@
 <template>
   <div class="toolbar-wrapper">
     <div class="toolbar-buttons">
-      <Button
-        name="Upload"
-        size="large"
-        buttonStyle="rounded"
-        :onClick="openUploadWindow"
-      >
+      <Button :onClick="openUploadWindow" buttonStyle="icon" size="large">
         <template slot="btn-icon">
-          <img src="../../assets/upload.svg" alt="upload" />
+          <HomeIcon />
         </template>
       </Button>
-      <Button
-        name="Add folder"
-        size="large"
-        buttonStyle="rounded"
-        :onClick="openCreateFolder"
-      >
+      <Button :onClick="openUploadWindow" buttonStyle="icon" size="large">
         <template slot="btn-icon">
-          <img src="../../assets/plus.svg" alt="add" />
+          <UploadIcon />
         </template>
       </Button>
-      <Button name="Move / Copy" buttonStyle="rounded" :onClick="openMoveCopy">
+      <Button :onClick="openCreateFolder" buttonStyle="icon" size="large">
         <template slot="btn-icon">
-          <img src="../../assets/copy.svg" alt="Copy" />
+          <PlusIcon />
+        </template>
+      </Button>
+      <Button :onClick="openMoveCopy" buttonStyle="icon" size="large">
+        <template slot="btn-icon">
+          <CopyIcon />
         </template>
       </Button>
     </div>
-    <div class="searchbox-container-desk">
-      <SearchBox />
-    </div>
-    <div class="account-settings-wrapper">
-      <Account />
-      <!-- <Logo /> -->
+    <div class="folder-path-container">
+      <FolderPath />
     </div>
   </div>
 </template>
 
 <script>
 import Button from "../Form/Button";
-import SearchBox from "../Searchbox";
 import { mapActions } from "vuex";
-import Account from "../Account";
 
 import CreateFolder from "../Folder/CreateFolder";
 import MoveCopy from "../MoveCopy/MoveCopy";
+import FolderPath from "../Path/FolderPath";
 import UploadWindow from "../Upload/index";
+import { UploadIcon, PlusIcon, CopyIcon, HomeIcon } from "vue-feather-icons";
 
 export default {
   name: "Toolbar",
   components: {
     Button,
-    SearchBox,
-    Account,
     // eslint-disable-next-line vue/no-unused-components
     CreateFolder,
     // eslint-disable-next-line vue/no-unused-components
     MoveCopy,
     // eslint-disable-next-line vue/no-unused-components
     UploadWindow,
+    UploadIcon,
+    PlusIcon,
+    CopyIcon,
+    HomeIcon,
+    FolderPath,
   },
   methods: {
     ...mapActions(["updateModalState", "updateWorkflowOrigin"]),

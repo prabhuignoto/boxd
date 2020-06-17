@@ -1,57 +1,65 @@
 .delete-folder-wrapper {
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
   max-width: 450px;
   padding: 0.1rem 0.5rem;
+  width: 100%;
 
-  & > div:not(:last-child) {
+  > div:not(:last-child) {
     margin: 0.25rem 0 0.25rem 0.25rem;
   }
+
   .delete-alert {
-    font-size: 1rem;
-    font-weight: 700;
     color: #cb2431;
-  }
-  .delete-message {
     font-size: 1rem;
-    text-align: left;
+    font-weight: 600;
+  }
+
+  .delete-message {
+    align-items: flex-start;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    font-size: 1rem;
+    text-align: left;
     width: 100%;
     word-break: break-word;
+
     span {
       margin: 0.25rem 0;
     }
   }
+
   .delete-resx-controls {
-    // margin-top: 2rem;
-    margin: 2rem 0 .5rem 0;
-    display: flex;
-    width: 100%;
     align-items: center;
+    display: flex;
     justify-content: flex-end;
+    // margin-top: 2rem;
+    margin: 2rem 0 0.5rem;
+    width: 100%;
+
     button {
       &:last-child {
         margin-left: 1rem;
       }
     }
   }
+
   .del-folder-loader-wrapper {
+    align-self: normal;
     margin-right: auto;
     position: relative;
-    align-self: normal;
   }
+
   img {
     max-height: 100%;
     max-width: 100%;
   }
+
   .delete-path {
-    background: #EDF2F4;
-    padding: 0.25rem;
-    margin-top: 1rem;
+    background: #edf2f4;
     border-radius: 3px;
+    margin-top: 1rem;
+    padding: 0.25rem;
   }
 }

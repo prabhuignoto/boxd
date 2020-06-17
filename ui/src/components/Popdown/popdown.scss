@@ -1,27 +1,38 @@
 .popdown-wrapper {
   position: relative;
+
+  button {
+    display: flex;
+    height: 2rem;
+    width: 3;
+  }
+
+  svg {
+    height: 100%;
+    width: 100%;
+  }
 }
 
 .popdown {
-  z-index: 1999;
-  position: absolute;
-  top: 2.5rem;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 0.1rem;
   margin-left: auto;
   margin-right: auto;
   min-height: 50px;
-  background: #fff;
-  box-shadow: 0 0 12px 1px rgba(0, 0, 0, 0.2);
-  border-radius: .2rem;
   outline: none;
-  border: 1px solid #ddd;
+  position: absolute;
+  top: 2.5rem;
+  z-index: 1999;
 }
 
 .movein-enter-active,
 .movein-leave-active {
-  transition: all 0.2s;
-  transform: translateY(0%);
+  opacity: 1;
+  transition: opacity 0.1s;
 }
-.movein-enter, .movein-leave-to /* .fade-leave-active below version 2.1.8 */ {
+
+.movein-enter,
+.movein-leave-to {
   opacity: 0;
-  transform: translateY(10%);
 }

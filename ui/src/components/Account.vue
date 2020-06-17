@@ -1,8 +1,7 @@
 <template>
   <section class="account-wrapper">
     <Popdown
-      :name="account.name.display_name"
-      type="link"
+      type="icon"
       leftOffset="-20px"
       size="large"
       customWidth="180px"
@@ -10,7 +9,7 @@
     >
       <template slot="icon">
         <i class="image-wrapper">
-          <img src="../assets/user.svg" alt="user" />
+          <UserIcon />
         </i>
       </template>
       <template slot="menu">
@@ -37,11 +36,13 @@
 import gql from "graphql-tag";
 import Popdown from "./Popdown/index";
 import { mapActions } from "vuex";
+import { UserIcon } from "vue-feather-icons";
 
 export default {
   name: "Account",
   components: {
     Popdown,
+    UserIcon,
   },
   data() {
     return {
@@ -90,45 +91,47 @@ export default {
 
 <style lang="scss" scoped>
 .account-options {
-  list-style: none;
-  width: 100%;
-  font-size: 0.95rem;
-  padding: 0px;
-  margin: 0;
-  display: flex;
   align-items: center;
+  display: flex;
   flex-direction: column;
+  font-size: 0.95rem;
   justify-content: flex-start;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
 
   .account-option {
-    font-family: "Open Sans", Arial, Helvetica, sans-serif;
-    width: 100%;
-    padding: 1rem 0 1rem 0;
-    font-weight: 500;
-    display: flex;
     align-items: center;
-    justify-content: flex-start;
-    position: relative;
     cursor: pointer;
+    display: flex;
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    justify-content: flex-start;
+    padding: 1rem 0;
+    position: relative;
+    width: 100%;
 
     &:hover {
       background: rgba(237, 242, 244, 0.5);
+
       &::after {
-        content: "";
-        position: absolute;
+        background: #8b6372;
+        content: '';
+        height: 100%;
         left: -1px;
+        position: absolute;
         top: 0;
         width: 1px;
-        height: 100%;
-        background: #8b6372;
       }
     }
 
     i {
-      width: 1.5rem;
       height: 1.5rem;
       margin-left: 1rem;
+      width: 1.5rem;
     }
+
     span {
       margin-left: 0.5rem;
     }

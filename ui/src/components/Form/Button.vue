@@ -11,11 +11,11 @@
 <script>
 export default {
   name: "Button",
-  props: ["name", "onClick", "msize", "buttonStyle", "marginLess"],
+  props: ["name", "onClick", "size", "buttonStyle", "marginLess"],
   computed: {
     getDefaultStyle() {
       return {
-        [this.msize]: true,
+        [this.size]: true,
         [this.buttonStyle ? this.buttonStyle : "default"]: true,
       };
     },

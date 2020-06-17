@@ -1,7 +1,7 @@
 <template>
   <section class="file-explorer-wrapper">
     <Treeview
-      path=""
+      path
       v-bind:onSelect="onSelect"
       v-bind:entries="files.entries"
       childTree="FileExplorer"
@@ -64,6 +64,7 @@ export default Vue.component("FileExplorer", {
           cursor: "",
         };
       },
+      fetchPolicy: "cache-and-network",
       // result({ loading, data }) {
       //   if (!loading && data.files && data.files.entries) {
       //   }
@@ -75,18 +76,19 @@ export default Vue.component("FileExplorer", {
 
 <style lang="scss" scoped>
 .file-explorer-wrapper {
-  width: 100%;
   position: relative;
+  width: 100%;
 }
+
 .file-explorer-loader-wrapper {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  height: 100%;
   left: 0;
-  right: 0;
   margin-left: auto;
   margin-right: auto;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
   width: 100%;
-  height: 100%;
 }
 </style>

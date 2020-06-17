@@ -4,11 +4,12 @@
       type="icon"
       size="large"
       leftOffset="0rem"
-      topOffset="2.8rem"
+      topOffset="3rem"
       customWidth="180px"
     >
       <template slot="icon">
-        <img src="../../assets/bars.svg" alt="context menu" />
+        <!-- <img src="../../assets/bars.svg" alt="context menu" /> -->
+        <BoxIcon color="#fff" />
       </template>
       <template slot="menu">
         <ul class="context-menu">
@@ -36,11 +37,13 @@
 <script>
 import Popdown from "../Popdown/index";
 import { mapActions } from "vuex";
+import { BoxIcon } from "vue-feather-icons";
 
 export default {
   name: "ContextControl",
   components: {
     Popdown,
+    BoxIcon,
   },
   props: {
     path: {
