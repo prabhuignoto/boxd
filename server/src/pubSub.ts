@@ -1,3 +1,3 @@
-import { PubSub } from "apollo-server";
+import { PubSub } from 'apollo-server';
 
 export default new PubSub();

@@ -1,11 +1,11 @@
 <template>
   <div class="child-tree-wrapper">
     <div @click="toggleTree(entry.path_lower)" class="folder" tabindex="0">
-      <i>
+      <i class="folder-icon">
         <FolderPlusIcon v-if="!folderOpen" />
         <FolderMinusIcon v-if="folderOpen" />
       </i>
-      <span>{{ name }}</span>
+      <span class="folder-name">{{ name }}</span>
     </div>
     <div class="child-tree" v-if="entry.path_lower !== null">
       <component

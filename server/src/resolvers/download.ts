@@ -1,18 +1,14 @@
-import { Dropbox, files } from "dropbox";
-import FS from "fs";
-import Path from "path";
-import { createLogger, format, transports } from "winston";
+import { Dropbox, files } from 'dropbox';
+import FS from 'fs';
+import Path from 'path';
+import { createLogger, format, transports } from 'winston';
+import { ErrorLogger } from '../logger';
 
 const logFormat = format.combine(format.timestamp(), format.prettyPrint());
-const errorLogger = createLogger({
-  format: logFormat,
-  level: "error",
-  transports: [new transports.Console()],
-});
 const infoLogger = createLogger({
   format: logFormat,
-  level: "info",
-  transports: [new transports.Console()],
+  level: 'info',
+  transports: [new transports.Console()]
 });
 
 export default {
@@ -22,46 +18,46 @@ export default {
         type DownloadMetadata = files.FileMetadata & { fileBinary: Buffer };
 
         infoLogger.log({
-          level: "info",
-          message: `Downloading ${args.path}`,
+          level: 'info',
+          message: `Downloading ${args.path}`
         });
 
         const metadata: DownloadMetadata = (await new Dropbox({
           accessToken: context.session.access_token,
-          clientId: process.env.CLIENT_ID,
+          clientId: process.env.CLIENT_ID
         }).filesDownload({
-          path: args.path,
+          path: args.path
         })) as DownloadMetadata;
 
         infoLogger.log({
-          level: "error",
-          message: `Downloaded file ${metadata.name}`,
+          level: 'error',
+          message: `Downloaded file ${metadata.name}`
         });
 
-        const dirName = context.session.account_id.replace(/dbid:/, "");
+        const dirName = context.session.account_id.replace(/dbid:/, '');
         const appRoot = require.main && Path.join(
           Path.parse(require.main.filename).dir,
-          "../",
+          '../'
         );
 
         if (appRoot) {
-          const dirPath = Path.resolve(appRoot, "downloads/" + dirName);
+          const dirPath = Path.resolve(appRoot, 'downloads/' + dirName);
           const filePath = Path.resolve(dirPath, metadata.name);
           infoLogger.log({
-            level: "info",
-            message: `Generating file path ${filePath}`,
+            level: 'info',
+            message: `Generating file path ${filePath}`
           });
 
-          const createFile = () => {
-            FS.exists(filePath, (exists) => {
+          const createFile = async () => {
+            await FS.access(filePath, (exists) => {
               if (!exists) {
                 FS.writeFile(filePath, metadata.fileBinary, (err: any) => {
                   if (err) {
-                    throw new Error("Failed to create the file");
+                    throw new Error('Failed to create the file');
                   } else {
                     infoLogger.log({
                       message: `${metadata.name} successfully created on ${filePath}`,
-                      level: "info",
+                      level: 'info'
                     });
                   }
                 });
@@ -69,9 +65,9 @@ export default {
             });
           };
 
-          FS.exists(dirPath, (exists) => {
+          await FS.access(dirPath, async (exists) => {
             if (!exists) {
-              FS.mkdir(dirPath, (err) => {
+              await FS.mkdir(dirPath, () => {
                 createFile();
               });
             } else {
@@ -86,19 +82,18 @@ export default {
             path_display: metadata.path_display,
             path_lower: metadata.path_lower,
             rev: metadata.rev,
-            size: metadata.size,
+            size: metadata.size
           };
-
         } else {
           return null;
         }
       } catch (error) {
-        errorLogger.log({
-          level: "error",
-          message: error.response.statusText,
+        ErrorLogger.log({
+          level: 'error',
+          message: error.response.statusText
         });
         return {};
       }
-    },
-  },
+    }
+  }
 };

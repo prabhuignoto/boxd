@@ -6,14 +6,7 @@
   font-family: Nunito, Open Sans;
   font-size: 0.85rem;
   justify-content: flex-start;
-
-  .child-tree {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-  }
-
+  
   .folder-node {
     align-items: flex-start;
     color: #191919;
@@ -53,7 +46,7 @@
       }
     }
   }
-  
+
   .file-img {
     height: 1.2rem;
     margin-right: 0.25rem;

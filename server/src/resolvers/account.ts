@@ -1,16 +1,7 @@
-import { Dropbox, users } from "dropbox";
-import { createLogger, format, transports } from "winston";
+// eslint-disable-next-line no-unused-vars
+import { Dropbox, users } from 'dropbox';
 
-const logFormat = format.combine(
-  format.prettyPrint(),
-  format.colorize(),
-);
-
-const errorLogger = createLogger({
-  format: logFormat,
-  level: "error",
-  transports: [new transports.Console()],
-});
+import { ErrorLogger } from '../logger';
 
 export default {
   Query: {
@@ -18,15 +9,15 @@ export default {
       try {
         const accountData: users.BasicAccount = await new Dropbox({
           accessToken: context.session.access_token,
-          clientId: process.env.CLIENT_ID,
+          clientId: process.env.CLIENT_ID
         }).usersGetAccount({
-          account_id: context.session.account_id,
+          account_id: context.session.account_id
         });
         return {
-          name: accountData.name,
+          name: accountData.name
         };
       } catch (error) {
-        errorLogger.log(error);
+        ErrorLogger.log(error);
         return {};
       }
     },
@@ -34,17 +25,17 @@ export default {
       try {
         const spaceData: users.SpaceUsage = await new Dropbox({
           accessToken: context.session.access_token,
-          clientId: process.env.CLIENT_ID,
+          clientId: process.env.CLIENT_ID
         }).usersGetSpaceUsage(undefined);
 
         return {
           used: spaceData.used,
-          allocation: spaceData.allocation,
+          allocation: spaceData.allocation
         };
       } catch (error) {
-        errorLogger.log(error);
+        ErrorLogger.log(error);
         return {};
       }
-    },
-  },
+    }
+  }
 };

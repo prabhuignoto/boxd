@@ -1,4 +1,4 @@
-import metadata from "./metadata";
+import metadata from './metadata';
 
 const SearchResults = `
   type match {

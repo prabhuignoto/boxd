@@ -19,8 +19,13 @@
         </ul>
       </header>
       <section class="explorer-content">
-        <div class="explorer-folder-path-container">
-          <FolderPath />
+        <div class="explorer-top-bar">
+          <div class="explorer-folder-path-container">
+            <FolderPath />
+          </div>
+          <div class="explorer-toolbar-container" v-if="getBulkItems.length">
+            <ExplorerToolbar />
+          </div>
         </div>
         <div class="loader-container" v-if="$apollo.loading">
           <Loader />
@@ -44,7 +49,11 @@
           v-for="file in getDataList"
           :key="file.name"
         >
-          <LineItem v-bind="file" />
+          <LineItem
+            v-bind="file"
+            v-on:selected="handleLineItemSelection"
+            v-on:deselected="handleLineItemDeselection"
+          />
         </div>
         <!-- </transition-group> -->
         <section class="load-more" v-if="hasMoreData && !isLoadingMore">
@@ -73,6 +82,7 @@ import ContextControl from "../ContextActions/Control";
 import Toolbar from "../Toolbar/Toolbar";
 import Account from "../Account";
 import FolderPath from "../Path/FolderPath";
+import ExplorerToolbar from "./explorer-toolbar";
 
 import SearchBox from "../Searchbox";
 
@@ -86,6 +96,7 @@ export default {
     Loader,
     SearchBox,
     Toolbar,
+    ExplorerToolbar,
   },
   data() {
     return {
@@ -110,6 +121,7 @@ export default {
       "hasSearchResultsArrived",
       "isUserSearching",
       "searchCount",
+      "getBulkItems",
     ]),
     refetchStatus() {
       return this.$store.state.list.refetchStatus;
@@ -128,6 +140,8 @@ export default {
       "clearList",
       "clearSearch",
       "refetchData",
+      "addItemForBulk",
+      "removeItemFromBulk",
     ]),
     handleLoadMore() {
       this.isLoadingMore = true;
@@ -150,6 +164,12 @@ export default {
       this.clearSearch();
       this.clearList();
       this.refetchData(true);
+    },
+    handleLineItemSelection(data) {
+      this.addItemForBulk(data);
+    },
+    handleLineItemDeselection(data) {
+      this.removeItemFromBulk(data);
     },
   },
   apollo: {

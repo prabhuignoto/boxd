@@ -1,0 +1,51 @@
+.explorer-toolbar-wrapper {
+  padding: 0.25rem;
+}
+
+.explorer-toolbar {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.explorer-toolbar-item {
+  align-items: center;
+  background: #e5e5e5;
+  border-radius: 50%;
+  color: #007ee5;
+  cursor: pointer;
+  display: flex;
+  height: 2rem;
+  justify-content: center;
+  margin: 0 0.5rem;
+  width: 2rem;
+
+  &:hover {
+    background: #007ee5;
+    color: #fff;
+  }
+  
+  i {
+    align-items: center;
+    display: block;
+    display: flex;
+    height: 1rem;
+    justify-content: center;
+    width: 1rem;
+  }
+
+  span {
+    font-family: Nunito, Open Sans, Arial, Helvetica, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 400;
+    margin-left: 0.2rem;
+  }
+
+  svg {
+    height: 100%;
+    width: 100%;
+  }
+}

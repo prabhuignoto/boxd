@@ -1,9 +1,6 @@
 <template>
   <div class="delete-folder-wrapper">
     <div class="delete-alert">Tread with Caution</div>
-    <!-- <div class="delete-message">
-      <span>You are about to delete</span>
-    </div> -->
     <Textbox :placeholder="placeholder" :onInput="onInput" />
     <div class="delete-resx-controls">
       <div class="del-folder-loader-wrapper" v-show="isMutating">
@@ -80,6 +77,7 @@ export default Vue.component("DeleteFolder", {
       "updatePath",
       "refetchData",
       "refreshFileExplorer",
+      "removeItemFromBulk",
     ]),
     onInput(ev) {
       this.deleteConsentText = ev.target.value;
@@ -109,6 +107,9 @@ export default Vue.component("DeleteFolder", {
           });
           let newPathArr = this.getExplorerPath.split("/").slice(0);
           newPathArr.pop();
+          this.removeItemFromBulk({
+            path_lower: this.deletePath,
+          });
           this.refetchData(true);
           this.$nextTick(() => {
             this.refreshFileExplorer({

@@ -1,30 +1,19 @@
 .explorer-line-item {
   display: grid;
-  grid-template-columns: 35px 45% 20% 20% auto;
+  grid-template-columns: 3rem 45% 20% 20% auto;
   grid-template-rows: 2rem;
   padding: 0.5rem 0.25rem;
   position: relative;
   user-select: none;
   
   @media (min-width: 768px) and (max-width: 1024px) {
-    grid-template-columns: 35px 45% 30% auto;
+    grid-template-columns: 3rem 45% 30% auto;
   }
   @media (min-width: 481px) and (max-width: 767px) {
-    grid-template-columns: 35px 45% 30% auto;
+    grid-template-columns: 3rem 45% 30% auto;
   }
   @media (min-width: 320px) and (max-width: 480px) {
-    grid-template-columns: 35px 45% 35% auto;
-  }
-
-  &:hover {
-    &::after {
-      background: #007ee5;  // transform: translateX(0%);
-      content: '';
-      height: 100%;
-      left: 0;
-      position: absolute;
-      width: 1px;
-    }
+    grid-template-columns: 3rem 45% 35% auto;
   }
 
   .popdown-container {
@@ -171,4 +160,22 @@ button {
     justify-self: flex-end;
   }
 
+}
+
+.explorer-line-item-check {
+  align-items: center;
+  color: #191919;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  opacity: 0.2;
+  width: 3rem;
+
+  &:opacity {
+    opacity: 1;
+  }
+
+  &.selected {
+    opacity: 0.85;
+  }
 }

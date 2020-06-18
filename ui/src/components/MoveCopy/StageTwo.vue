@@ -10,7 +10,9 @@
     </div>
     <div class="selected-src">
       <!-- <span>You have selected</span> -->
-      <span class="value" v-if="selectedSource">{{ selectedSource }}</span>
+      <span class="value" v-if="selectedSource">
+        {{ mode === "move" ? moveResxSrcFormatted : copyResxSrcFormatted }}
+      </span>
     </div>
     <div class="stage2-controls">
       <Button name="Back" :onClick="handlePrevious">
@@ -37,7 +39,7 @@
 import MoveExplorerSrc from "./MoveExplorerSrc";
 import CopyExplorerSrc from "./CopyExplorerSrc";
 import Button from "../Form/Button";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { ChevronRightIcon } from "vue-feather-icons";
 import { ChevronLeftIcon } from "vue-feather-icons";
 
@@ -51,6 +53,7 @@ export default {
   },
   props: ["handleNext", "handlePrevious", "mode"],
   computed: {
+    ...mapGetters(["moveResxSrcFormatted", "copyResxSrcFormatted"]),
     selectedSource() {
       if (this.mode === "move") {
         return this.$store.getters.moveResxSrc;

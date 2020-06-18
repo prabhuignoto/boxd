@@ -1,7 +1,7 @@
 export default {
   state: {
     uploadPath: "",
-    enableUploadExplorer: true
+    enableUploadExplorer: true,
   },
   mutations: {
     uploadFile(state, { path }) {
@@ -9,24 +9,24 @@ export default {
     },
     updateUploadExplorerStatus(state, { status }) {
       state.enableUploadExplorer = status;
-    }
+    },
   },
   actions: {
     uploadFile({ commit }, path) {
       commit({
         type: "uploadFile",
-        path
+        path,
       });
     },
     updateUploadExplorerStatus({ commit }, status) {
       commit({
         type: "updateUploadExplorerStatus",
-        status
+        status,
       });
-    }
+    },
   },
   getters: {
     getUploadPath: state => state.uploadPath,
-    getUploadExplorerStatus: state => state.enableUploadExplorer
-  }
+    getUploadExplorerStatus: state => state.enableUploadExplorer,
+  },
 };

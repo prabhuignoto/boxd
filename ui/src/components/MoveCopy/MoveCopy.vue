@@ -44,6 +44,9 @@ export default Vue.component("MoveCopy", {
       errored: false,
     };
   },
+  beforeDestroy() {
+    this.clearMoveCopyState();
+  },
   methods: {
     ...mapActions([
       "clearMoveResx",
@@ -52,6 +55,7 @@ export default Vue.component("MoveCopy", {
       "refetchData",
       "refreshFileExplorer",
       "updateModalTitle",
+      "clearMoveCopyState",
     ]),
     handleStepOne() {
       this.stage = "two";

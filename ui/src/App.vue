@@ -12,10 +12,10 @@ export default {
   created() {
     WebFontLoader.load({
       google: {
-        families: ["Nunito:300,400,700"]
-      }
+        families: ["Nunito:300,400,700"],
+      },
     });
-  }
+  },
 };
 </script>
 

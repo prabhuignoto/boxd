@@ -1,6 +1,13 @@
 <template>
   <div class="explorer-line-item">
-    <div class="explorer-cee"></div>
+    <div
+      class="explorer-line-item-check"
+      @click="handleCheck()"
+      :class="{ selected: selected }"
+    >
+      <SquareIcon v-if="!selected" />
+      <CheckSquareIcon v-if="selected" />
+    </div>
     <div class="name explorer-cell">
       <span class="explorer-icon icon-folder" v-if="isFolder">
         <img src="../../assets/folder.svg" alt="folder" />
@@ -41,6 +48,7 @@ import { DateTime } from "luxon";
 import { mapActions } from "vuex";
 import LineItemPopdown from "./line-item-popdown";
 import PrettyBytes from "pretty-bytes";
+import { SquareIcon, CheckSquareIcon } from "vue-feather-icons";
 
 export default {
   name: "ExplorerLineItem",
@@ -54,6 +62,8 @@ export default {
   ],
   components: {
     LineItemPopdown,
+    SquareIcon,
+    CheckSquareIcon,
   },
   computed: {
     isFolder() {
@@ -103,6 +113,7 @@ export default {
     return {
       hideButtonImage: false,
       isDownloadingFile: false,
+      selected: false,
     };
   },
   methods: {
@@ -131,6 +142,23 @@ export default {
       this.updateFileSize(this.sizeInMB);
       this.updateFileModified(this.serverModifiedFormatted);
       this.updateFileStatus("open");
+    },
+    handleCheck() {
+      this.selected = !this.selected;
+
+      if (this.selected) {
+        this.$emit("selected", {
+          name: this.name,
+          content_hash: this.content_hash,
+          path_lower: this.path_lower,
+        });
+      } else {
+        this.$emit("deselected", {
+          name: this.name,
+          content_hash: this.content_hash,
+          path_lower: this.path_lower,
+        });
+      }
     },
   },
 };

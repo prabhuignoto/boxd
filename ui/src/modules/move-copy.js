@@ -2,14 +2,14 @@ export default {
   state: {
     moveResource: {
       src: "",
-      dest: ""
+      dest: "",
     },
     copyResource: {
       src: "",
-      dest: ""
+      dest: "",
     },
     mode: "",
-    skipToFinal: false
+    skipToFinal: false,
   },
   mutations: {
     moveResxSource(state, { path }) {
@@ -32,60 +32,71 @@ export default {
       state.copyResource.src = "";
       state.copyResource.dest = "";
     },
+    clearMoveCopyState(state) {
+      state.moveResource.src = "";
+      state.moveResource.dest = "";
+      state.copyResource.src = "";
+      state.copyResource.dest = "";
+    },
     updateMoveCopyMode(state, { mode }) {
       state.mode = mode;
     },
     skipToFinal(state, { status }) {
       state.skipToFinal = status;
-    }
+    },
   },
   actions: {
     moveResxSource({ commit }, path) {
       commit({
         type: "moveResxSource",
-        path
+        path,
       });
     },
     moveResxDest({ commit }, path) {
       commit({
         type: "moveResxDest",
-        path
+        path,
       });
     },
     copyResxSource({ commit }, path) {
       commit({
         type: "copyResxSource",
-        path
+        path,
       });
     },
     copyResxDest({ commit }, path) {
       commit({
         type: "copyResxDest",
-        path
+        path,
       });
     },
     clearMoveResx({ commit }) {
       commit({
-        type: "clearMoveResx"
+        type: "clearMoveResx",
       });
     },
     clearCopyResx({ commit }) {
       commit({
-        type: "clearCopyResx"
+        type: "clearCopyResx",
       });
     },
     skipToFinal({ commit }, status) {
       commit({
         type: "skipToFinal",
-        status
+        status,
       });
     },
     updateMoveCopyMode({ commit }, mode) {
       commit({
         type: "updateMoveCopyMode",
-        mode
+        mode,
       });
-    }
+    },
+    clearMoveCopyState({ commit }) {
+      commit({
+        type: "clearMoveCopyState",
+      });
+    },
   },
   getters: {
     moveResxSrc: state => state.moveResource.src,
@@ -93,6 +104,14 @@ export default {
     copyResxSrc: state => state.copyResource.src,
     copyResxDest: state => state.copyResource.dest,
     mvCopyMode: state => state.mode,
-    getSkipToFinal: state => state.skipToFinal
-  }
+    getSkipToFinal: state => state.skipToFinal,
+    moveResxSrcFormatted: state =>
+      state.moveResource && state.moveResource.src.split("/").join(" / "),
+    copyResxSrcFormatted: state =>
+      state.copyResource && state.copyResource.src.split("/").join(" / "),
+    moveResxDestFormatted: state =>
+      state.moveResource && state.moveResource.dest.split("/").join(" / "),
+    copyResxDestFormatted: state =>
+      state.copyResource && state.copyResource.dest.split("/").join(" / "),
+  },
 };

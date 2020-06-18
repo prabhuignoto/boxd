@@ -1,6 +1,6 @@
 export default `
   type metadata {
-    name: String!
+    name: String
     tag: String
     id: String!
     client_modified: String
@@ -11,4 +11,4 @@ export default `
     path_display: String!
     content_hash: String
   }
-`
+`;

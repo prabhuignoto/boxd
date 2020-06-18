@@ -1,9 +1,5 @@
-import { Dropbox, files } from "dropbox";
-import { createLogger, transports } from "winston";
-const errorLogger = createLogger({
-  level: "error",
-  transports: [new transports.Console()],
-});
+import { Dropbox, files } from 'dropbox';
+import { ErrorLogger } from '../logger';
 
 export default {
   Query: {
@@ -11,28 +7,28 @@ export default {
       try {
         const folderResult: files.SearchResult = await new Dropbox({
           accessToken: context.session.access_token,
-          clientId: process.env.CLIENT_ID,
+          clientId: process.env.CLIENT_ID
         }).filesSearch({
           max_results: 10,
-          path: "",
-          query: args.query,
+          path: '',
+          query: args.query
         });
 
         return {
           matches: folderResult.matches.map((x) => {
             return Object.assign({}, x, {
               metadata: Object.assign({}, x.metadata, {
-                tag: x.metadata[".tag"],
-              }),
+                tag: x.metadata['.tag']
+              })
             });
           }),
           more: folderResult.more,
-          start: folderResult.start,
+          start: folderResult.start
         };
       } catch (error) {
-        errorLogger.log(error);
+        ErrorLogger.log(error);
         return {};
       }
-    },
-  },
+    }
+  }
 };

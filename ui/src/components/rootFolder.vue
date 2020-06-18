@@ -23,6 +23,7 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .root-folder {
   align-items: center;
+  color: #191919;
   cursor: pointer;
   display: flex;
   font-family: Open Sans, Arial, Helvetica, sans-serif;
@@ -31,8 +32,7 @@ export default Vue.extend({
   padding: 0.2rem 0;
   padding-left: 0.25rem;
   user-select: none;
-  width: 4.5rem;
-  color: #191919;
+  width: 5rem;
 
   &:focus {
     background: #efefef;
@@ -42,12 +42,15 @@ export default Vue.extend({
 
   i {
     color: #007ee5;
-    height: 1.25rem;
-    width: 1.25rem;
+    height: 1.5rem;
+    width: 1.5rem;
   }
 
   .root-slash {
+    font-size: 0.9rem;
+    font-weight: 400;
     margin-left: 0.25rem;
+    text-transform: lowercase;
   }
 
   svg {

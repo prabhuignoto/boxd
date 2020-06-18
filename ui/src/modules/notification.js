@@ -3,7 +3,7 @@ export default {
     messages: [],
     read: [],
     unRead: [],
-    enabled: false
+    enabled: false,
   },
   mutations: {
     addMessage(state, { message }) {
@@ -21,45 +21,45 @@ export default {
       if (idx > -1) {
         let message = state.messages[idx];
         let updatedMessage = Object.assign({}, message, {
-          read: true
+          read: true,
         });
         state.messages.splice(idx, 1, updatedMessage);
       }
     },
     updateNotificationStatus(state, { status }) {
       state.enabled = status;
-    }
+    },
   },
   actions: {
     addMessage({ commit }, message) {
       commit({
         type: "addMessage",
-        message
+        message,
       });
     },
     removeMessage({ commit }, id) {
       commit({
         type: "removeMessage",
-        id
+        id,
       });
     },
     clearMessages({ commit }) {
       commit({
-        type: "clearMessages"
+        type: "clearMessages",
       });
     },
     markAsRead({ commit }, id) {
       commit({
         type: "markAsRead",
-        id
+        id,
       });
     },
     updateNotificationStatus({ commit }, status) {
       commit({
         type: "updateNotificationStatus",
-        status
+        status,
       });
-    }
+    },
   },
   getters: {
     allMessages: state => state.messages,
@@ -70,6 +70,6 @@ export default {
       if (state.messages.length > 0) {
         return state.messages[state.messages.length - 1];
       }
-    }
-  }
+    },
+  },
 };

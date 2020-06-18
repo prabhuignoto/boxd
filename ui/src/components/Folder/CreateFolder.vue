@@ -13,8 +13,8 @@
     </div>
     <div class="selected-path-wrapper">
       <!-- <div class="crt-folder-sec-header">Your new folder will be created on this path</div> -->
-      <div class="selected-path" v-if="selectedPath">
-        {{ selectedPath === "" ? "/" : selectedPath }}
+      <div class="selected-path" v-if="getFolderSelection">
+        {{ getFolderSelection === "" ? "/" : getFolderSelection }}
       </div>
     </div>
     <div class="create-folder-controls">
@@ -106,6 +106,7 @@ export default Vue.component("CreateFolder", {
       "isCreateFolderExpHidden",
       "getWorkflowOrigin",
       "getExplorerPath",
+      "getFolderSelection",
     ]),
   },
   methods: {

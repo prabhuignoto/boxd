@@ -2,11 +2,11 @@ export default {
   state: {
     createFolder: {
       selection: null,
-      hideExplorer: false
+      hideExplorer: false,
     },
     deleteFolder: {
-      path: ""
-    }
+      path: "",
+    },
   },
   mutations: {
     createFolderSelection(state, { path }) {
@@ -17,31 +17,34 @@ export default {
     },
     hideCreateFolderExplorer(state, { status }) {
       state.createFolder.hideExplorer = status;
-    }
+    },
   },
   actions: {
     createFolderSelection({ commit }, path) {
       commit({
         type: "createFolderSelection",
-        path
+        path,
       });
     },
     deleteFolder({ commit }, path) {
       commit({
         type: "deleteFolder",
-        path
+        path,
       });
     },
     hideCreateFolderExplorer({ commit }, status) {
       commit({
         type: "hideCreateFolderExplorer",
-        status
+        status,
       });
-    }
+    },
   },
   getters: {
     deletePath: state => state.deleteFolder.path,
     createFolderSelection: state => state.createFolder.selection,
-    isCreateFolderExpHidden: state => state.createFolder.hideExplorer
-  }
+    isCreateFolderExpHidden: state => state.createFolder.hideExplorer,
+    getFolderSelection: state =>
+      state.createFolder.selection &&
+      state.createFolder.selection.split("/").join(" / "),
+  },
 };

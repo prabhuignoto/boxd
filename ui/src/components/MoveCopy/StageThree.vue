@@ -10,13 +10,15 @@
     </div>
     <div class="summary">
       <div class="summary-final">
-        <span class="value">{{ src }}</span>
+        <span class="value">{{
+          mode === "move" ? moveResxSrcFormatted : copyResxSrcFormatted
+        }}</span>
         <i>
-          <!-- <img src="../../assets/arrow-right.svg" alt="down" /> -->
           <ArrowRightIcon />
-          <!-- <ChevronRightIcon /> -->
         </i>
-        <span class="value" v-if="dest !== ''">{{ dest }}</span>
+        <span class="value" v-if="dest !== ''">{{
+          mode === "move" ? moveResxDestFormatted : copyResxDestFormatted
+        }}</span>
       </div>
     </div>
     <div class="stage2-controls">
@@ -26,7 +28,6 @@
       <div class="error-msg-container" v-if="errored">Failed to {{ mode }}</div>
       <Button name="Back" :onClick="handlePrevious" v-if="!getSkipToFinal">
         <template slot="btn-icon">
-          <!-- <img src="../../assets/angle-left.svg" alt="previous" /> -->
           <ChevronLeftIcon />
         </template>
       </Button>
@@ -77,6 +78,10 @@ export default {
       "copyResxSrc",
       "moveResxDest",
       "copyResxDest",
+      "moveResxSrcFormatted",
+      "copyResxSrcFormatted",
+      "moveResxDestFormatted",
+      "copyResxDestFormatted",
     ]),
     mode() {
       return this.mvCopyMode;

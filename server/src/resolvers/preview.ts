@@ -1,20 +1,11 @@
-import { Dropbox, files } from "dropbox";
-import { createLogger, transports, format } from "winston";
+// eslint-disable-next-line no-unused-vars
+import { Dropbox, files } from 'dropbox';
 
-const logFormat = format.combine(
-  format.prettyPrint(),
-  format.colorize(),
-)
-
-const errorLogger = createLogger({
-  level: "error",
-  format: logFormat,
-  transports: [new transports.Console()]
-});
+import { ErrorLogger } from '../logger';
 
 export default {
   Query: {
-    getPreview: async(obj: any, args: any, context: any, info: any) => {
+    getPreview: async (obj: any, args: any, context: any, info: any) => {
       try {
         const previewData: files.FileMetadata = await new Dropbox({
           accessToken: context.session.access_token,
@@ -24,11 +15,11 @@ export default {
         });
         return {
           name: previewData.name
-        }
+        };
       } catch (error) {
-        errorLogger.log(error);
+        ErrorLogger.log(error);
         return {};
       }
     }
   }
-}
+};

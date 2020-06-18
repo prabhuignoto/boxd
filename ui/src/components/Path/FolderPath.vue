@@ -1,17 +1,6 @@
 <template>
   <div class="path-wrapper">
     <ul class="path">
-      <!-- <li class="path-item">
-        <a
-          href="javascript:void(0);"
-          @click="navToHome($event)"
-          v-bind:class="{ 'disabled selected': isHome() }"
-        >
-          <span class="path-value home">
-            <span>Home</span>
-          </span>
-        </a>
-      </li> -->
       <li v-for="path in folderPath" :key="path" class="path-item">
         <a
           href="javascript:void(0);"
