@@ -83,7 +83,7 @@ import Toolbar from "../Toolbar/Toolbar";
 import Account from "../Account";
 import FolderPath from "../Path/FolderPath";
 import ExplorerToolbar from "./explorer-toolbar";
-
+import BatchSub from "../../batchSub";
 import SearchBox from "../Searchbox";
 
 export default {
@@ -103,6 +103,7 @@ export default {
       files: [],
       headers: ["name", "size", "last modified"],
       isLoadingMore: false,
+      notificationType: "",
     };
   },
   watch: {
@@ -142,6 +143,9 @@ export default {
       "refetchData",
       "addItemForBulk",
       "removeItemFromBulk",
+      "markBulkCompletion",
+      "showNotification",
+      "removeItemsFromList",
     ]),
     handleLoadMore() {
       this.isLoadingMore = true;
@@ -193,6 +197,7 @@ export default {
       },
       fetchPolicy: "cache-and-network",
     },
+    $subscribe: BatchSub,
   },
 };
 </script>

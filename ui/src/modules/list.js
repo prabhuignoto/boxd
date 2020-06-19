@@ -9,12 +9,21 @@ export default {
     },
     refetchStatus: false,
     bulkOps: [],
+    bulkOpActive: false,
   },
   mutations: {
     updateListData(state, { listData, cursor, hasMore }) {
       state.data = state.data.slice(0).concat(listData);
       state.cursor = cursor;
       state.hasMore = hasMore;
+    },
+    removeFromList(state, { path }) {
+      state.data = state.data.filter(item => item.path_lower !== path);
+    },
+    removeItemsFromList(state, { paths }) {
+      state.data = state.data.filter(
+        item => paths.indexOf(item.path_lower) < 0
+      );
     },
     clearList(state) {
       state.data = [];
@@ -41,6 +50,29 @@ export default {
       state.bulkOps = state.bulkOps.filter(
         i => i.path_lower !== item.path_lower
       );
+    },
+    markItemsForBulkOp(state, { mode }) {
+      state.data = state.data.map(op => {
+        const itemFound = state.bulkOps.find(
+          item => item.path_lower === op.path_lower
+        );
+        if (itemFound) {
+          return Object.assign({}, op, {
+            bulk_op_in_progress: true,
+            bulk_op_mode: mode,
+          });
+        } else {
+          return op;
+        }
+      });
+      state.bulkOpActive = true;
+    },
+    markBulkCompletion(state, { mode }) {
+      if (mode === "delete") {
+        state.data = state.data.filter(item => !item.bulk_op_in_progress);
+      }
+      state.bulkOps = [];
+      state.bulkOpActive = false;
     },
     clearAllBulk(state) {
       state.bulkOps = [];
@@ -95,10 +127,33 @@ export default {
         item,
       });
     },
-    clearAllBulk({ commit }, item) {
+    clearAllBulk({ commit }) {
       commit({
         type: "clearAllBulk",
-        item,
+      });
+    },
+    markItemsForBulkOp({ commit }, mode) {
+      commit({
+        type: "markItemsForBulkOp",
+        mode,
+      });
+    },
+    markBulkCompletion({ commit }, mode) {
+      commit({
+        type: "markBulkCompletion",
+        mode,
+      });
+    },
+    removeFromList({ commit }, path) {
+      commit({
+        type: "removeFromList",
+        path,
+      });
+    },
+    removeItemsFromList({ commit }, paths) {
+      commit({
+        type: "removeItemsFromList",
+        paths,
       });
     },
   },
@@ -116,5 +171,6 @@ export default {
       state.search && state.searchResults.data.length > 0,
     searchCount: state => state.searchResults.data.length,
     getBulkItems: state => state.bulkOps,
+    getBulkOpActive: state => state.bulkOpActive,
   },
 };

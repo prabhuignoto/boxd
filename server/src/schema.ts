@@ -13,6 +13,7 @@ import FolderResolver from './resolvers/folder';
 import GetPreviewResolver from './resolvers/preview';
 import SearchResolver from './resolvers/search';
 import UploadResolver from './resolvers/upload';
+import BulkResolver from './resolvers/bulk';
 
 export default makeExecutableSchema({
   resolvers: [
@@ -21,7 +22,8 @@ export default makeExecutableSchema({
     SearchResolver,
     DownloadResolver,
     GetPreviewResolver,
-    UploadResolver
+    UploadResolver,
+    BulkResolver
   ],
   typeDefs: [
     AccountTypedef,

@@ -5,6 +5,12 @@ const ErrorLogger = createLogger({
   transports: [new transports.Console()]
 });
 
+const InfoLogger = createLogger({
+  level: 'info',
+  transports: [new transports.Console()]
+});
+
 export {
-  ErrorLogger
+  ErrorLogger,
+  InfoLogger
 };

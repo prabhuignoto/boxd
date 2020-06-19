@@ -8,15 +8,20 @@
       customWidth="180px"
     >
       <template slot="icon">
-        <!-- <img src="../../assets/bars.svg" alt="context menu" /> -->
         <BoxIcon color="#fff" />
       </template>
       <template slot="menu">
         <ul class="context-menu">
           <li class="ctx-menu-item" @click="handleAddFolder">
+            <i class="ctx-menu-icon">
+              <PlusIcon />
+            </i>
             <span>Add a folder here</span>
           </li>
           <li class="ctx-menu-item" @click="handleUpload" v-if="canShowAction">
+            <i class="ctx-menu-icon">
+              <UploadIcon />
+            </i>
             <span>Upload here</span>
           </li>
           <li
@@ -24,6 +29,9 @@
             @click="handleCopyFolder"
             v-if="canShowAction"
           >
+            <i class="ctx-menu-icon">
+              <CopyIcon />
+            </i>
             <span>Copy this folder</span>
           </li>
           <li
@@ -31,6 +39,9 @@
             @click="handleMoveFolder"
             v-if="canShowAction"
           >
+            <i class="ctx-menu-icon">
+              <ArrowRightIcon />
+            </i>
             <span>Move this folder</span>
           </li>
           <li
@@ -38,6 +49,9 @@
             @click="handleDeleteFolder"
             v-if="canShowAction"
           >
+            <i class="ctx-menu-icon">
+              <TrashIcon />
+            </i>
             <span>Delete this folder</span>
           </li>
         </ul>
@@ -49,7 +63,14 @@
 <script>
 import Popdown from "../Popdown/index";
 import { mapActions, mapGetters } from "vuex";
-import { BoxIcon } from "vue-feather-icons";
+import {
+  BoxIcon,
+  ArrowRightIcon,
+  TrashIcon,
+  CopyIcon,
+  UploadIcon,
+  PlusIcon,
+} from "vue-feather-icons";
 import { getFileName } from "../../utils";
 
 export default {
@@ -57,6 +78,11 @@ export default {
   components: {
     Popdown,
     BoxIcon,
+    PlusIcon,
+    ArrowRightIcon,
+    TrashIcon,
+    CopyIcon,
+    UploadIcon,
   },
   props: {
     path: {

@@ -78,6 +78,7 @@ export default Vue.component("DeleteFolder", {
       "refetchData",
       "refreshFileExplorer",
       "removeItemFromBulk",
+      "removeFromList"
     ]),
     onInput(ev) {
       this.deleteConsentText = ev.target.value;
@@ -107,16 +108,17 @@ export default Vue.component("DeleteFolder", {
           });
           let newPathArr = this.getExplorerPath.split("/").slice(0);
           newPathArr.pop();
+          this.removeFromList(this.deletePath);
           this.removeItemFromBulk({
             path_lower: this.deletePath,
           });
-          this.refetchData(true);
-          this.$nextTick(() => {
-            this.refreshFileExplorer({
-              status: true,
-              path: this.getExplorerPath,
-            });
-          });
+          // this.refetchData(true);
+          // this.$nextTick(() => {
+          //   this.refreshFileExplorer({
+          //     status: true,
+          //     path: this.getExplorerPath,
+          //   });
+          // });
         })
         .catch(() => {
           this.isMutating = false;

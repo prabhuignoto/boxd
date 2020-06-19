@@ -1,12 +1,12 @@
 <template>
-  <div class="explorer-line-item">
+  <div class="explorer-line-item" :class="{ disabled: bulk_op_in_progress }">
     <div
       class="explorer-line-item-check"
       @click="handleCheck()"
       :class="{ selected: selected }"
     >
-      <SquareIcon v-if="!selected" />
-      <CheckSquareIcon v-if="selected" />
+      <SquareIcon v-if="!selected && !bulk_op_in_progress" />
+      <CheckSquareIcon v-if="selected && !bulk_op_in_progress" />
     </div>
     <div class="name explorer-cell">
       <span class="explorer-icon icon-folder" v-if="isFolder">
@@ -30,13 +30,12 @@
           @click="handleFile(path_lower)"
           >{{ name }}</a
         >
-        <!-- <span v-else v-bind:title="name">{{name}}</span> -->
       </span>
     </div>
     <div class="size explorer-cell">{{ prettySize }}</div>
     <div class="last-modified explorer-cell">{{ serverModifiedFormatted }}</div>
     <div class="controls explorer-cell">
-      <div class="popdown-container">
+      <div class="popdown-container" v-if="!bulk_op_in_progress">
         <LineItemPopdown :isFile="isFile" :pathLower="path_lower" />
       </div>
     </div>
@@ -59,6 +58,7 @@ export default {
     "tag",
     "server_modified",
     "path_lower",
+    "bulk_op_in_progress",
   ],
   components: {
     LineItemPopdown,
@@ -125,12 +125,14 @@ export default {
       "updateFileSize",
       "updateFileModified",
       "clearList",
+      "clearAllBulk",
     ]),
     toggleImage() {
       this.hideButtonImage = !this.hideButtonImage;
     },
     handleNavigation(path, $evt) {
       $evt.preventDefault();
+      this.clearAllBulk();
       this.clearList();
       this.updatePath(path);
     },

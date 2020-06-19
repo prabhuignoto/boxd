@@ -14,12 +14,7 @@
       </div>
     </transition>
     <transition name="peek">
-      <Notification
-        :type="notificationType"
-        :title="notificationTitle"
-        :message="getNewMessage"
-        v-if="getNotificationStatus"
-      />
+      <Notification :message="getNewMessage" v-if="getNewMessage" />
     </transition>
   </section>
 </template>
@@ -45,8 +40,6 @@ export default {
       files: {
         entries: [],
       },
-      notificationTitle: "",
-      notificationType: "",
     };
   },
   computed: {
@@ -61,7 +54,7 @@ export default {
     ]),
   },
   methods: {
-    ...mapActions(["addMessage"]),
+    ...mapActions(["showNotification"]),
   },
   apollo: {
     $subscribe: NotificationSub,

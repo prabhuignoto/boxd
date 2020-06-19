@@ -15,18 +15,17 @@
 }
 
 input {
-  border-bottom: 1px solid #007ee5;
-  border-left: 0;
-  border-right: 0;
-  border-top: 0;
+  background: #ecf5fc;
+  border-radius: 0.25rem;
+  border: 1px solid #d6dee4;
   color: #2b2d42;
   font-size: 1rem;
   outline: none;
-  padding: 0.25rem 0.24rem;
-  width: 80%;
-  
+  padding: 0.2rem 0.2rem;
+  width: 100%;
+
   &::placeholder {
-    color: #191919;
+    color: #000;
     font-size: 0.85rem;
   }
 }

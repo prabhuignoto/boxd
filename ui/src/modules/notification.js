@@ -1,46 +1,33 @@
 export default {
   state: {
-    messages: [],
     read: [],
     unRead: [],
     enabled: false,
   },
   mutations: {
-    addMessage(state, { message }) {
-      state.messages.push(message);
-      state.enabled = true;
+    showNotification(state, { message }) {
+      state.unRead.push(message);
     },
-    removeMessage(state, id) {
-      state.messages = state.messages.filter(message => message.id !== id);
+    closeNotification(state, { message }) {
+      state.unRead = state.unRead.filter(m => m.id !== message.id);
+      state.read.push(message);
     },
     clearMessages(state) {
-      state.messages = [];
-    },
-    markAsRead(state, id) {
-      const idx = state.messages.findIndex(msg => msg.id === id);
-      if (idx > -1) {
-        let message = state.messages[idx];
-        let updatedMessage = Object.assign({}, message, {
-          read: true,
-        });
-        state.messages.splice(idx, 1, updatedMessage);
-      }
-    },
-    updateNotificationStatus(state, { status }) {
-      state.enabled = status;
+      state.read = [];
+      state.unRead = [];
     },
   },
   actions: {
-    addMessage({ commit }, message) {
+    showNotification({ commit }, message) {
       commit({
-        type: "addMessage",
+        type: "showNotification",
         message,
       });
     },
-    removeMessage({ commit }, id) {
+    closeNotification({ commit }, message) {
       commit({
-        type: "removeMessage",
-        id,
+        type: "closeNotification",
+        message,
       });
     },
     clearMessages({ commit }) {
@@ -48,27 +35,15 @@ export default {
         type: "clearMessages",
       });
     },
-    markAsRead({ commit }, id) {
-      commit({
-        type: "markAsRead",
-        id,
-      });
-    },
-    updateNotificationStatus({ commit }, status) {
-      commit({
-        type: "updateNotificationStatus",
-        status,
-      });
-    },
   },
   getters: {
-    allMessages: state => state.messages,
+    allMessages: state => state.read.concat(state.unRead),
     readMessages: state => state.read,
     unreadMessages: state => state.unread,
     getNotificationStatus: state => state.enabled,
     getNewMessage: state => {
-      if (state.messages.length > 0) {
-        return state.messages[state.messages.length - 1];
+      if (state.unRead.length > 0) {
+        return state.unRead[state.unRead.length - 1];
       }
     },
   },

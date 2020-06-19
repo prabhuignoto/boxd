@@ -1,18 +1,13 @@
 <template>
   <section class="create-folder-wrapper">
     <div class="create-folder-inputs">
-      <Textbox
-        name="name"
-        :onInput="onFolderInput"
-        placeholder="Name of the folder"
-      />
+      <Textbox name="name" :onInput="onFolderInput" placeholder="Name..." />
     </div>
     <div class="create-folder-explorer-wrapper" v-if="!isCreateFolderExpHidden">
       <RootFolder :onClick="handleRootFolder" />
       <CreateFolderExplorer path />
     </div>
     <div class="selected-path-wrapper">
-      <!-- <div class="crt-folder-sec-header">Your new folder will be created on this path</div> -->
       <div class="selected-path" v-if="getFolderSelection">
         {{ getFolderSelection === "" ? "/" : getFolderSelection }}
       </div>
@@ -20,6 +15,9 @@
     <div class="create-folder-controls">
       <div class="crt-folder-loader-wrapper" v-show="isMutating">
         <Loader />
+        <span class="loader-message">
+          creating folder ...
+        </span>
       </div>
       <Button
         name="Create"
@@ -47,7 +45,6 @@
 
 <script>
 import Textbox from "../Form/TextBox";
-// import Treeview from "../Treeview/Treeview";
 import CreateFolderExplorer from "./CreateFolderExplorer";
 import Button from "../Form/Button";
 import gql from "graphql-tag";

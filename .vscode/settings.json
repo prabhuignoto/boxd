@@ -11,5 +11,8 @@
     "popdown",
     "popdown wrapper",
     "wrapper"
+  ],
+  "eslint.workingDirectories": [
+    {"mode": "auto"}
   ]
 }

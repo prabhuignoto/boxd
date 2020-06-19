@@ -1,61 +1,52 @@
 <template>
   <div class="notification-wrapper">
+    <div class="status-icon" :class="message.type">
+      <CircleIcon />
+    </div>
     <!-- header section -->
-    <header>
+    <div class="notification-content">
       <i class="type-icon">
-        <!-- <img src="../assets/info-circle.svg" alt="info-icon" v-if="type === 'Informational'"> -->
         <InfoIcon />
       </i>
       <span>{{ message.message }}</span>
-      <div :onClick="handleClose" class="close">
-        <!-- <template slot="btn-icon"> -->
-        <!-- <img src="../assets/cancel.svg" alt="close-notification"> -->
+      <div @click="handleClose" class="close">
         <XIcon />
-        <!-- </template> -->
       </div>
-    </header>
-    <!-- header section -->
-
-    <!-- notification content  -->
-    <!-- <div class="content">
-      <i>
-        <CheckIcon /> -->
-    <!-- <img src="../assets/check-green.svg" alt="check green"> -->
-    <!-- </i>
-      <span>{{message.message}}</span>
-    </div> -->
-    <!-- notification content  -->
+    </div>
   </div>
 </template>
 
 <script>
 import { mapActions } from "vuex";
-import { InfoIcon, XIcon } from "vue-feather-icons";
+import { InfoIcon, XIcon, CircleIcon } from "vue-feather-icons";
+import Vue from "vue";
 
-export default {
+export default Vue.extend({
   name: "Notification",
-  props: ["message", "type", "title"],
+  props: ["message"],
   components: {
-    // Button,
     InfoIcon,
-    // CheckIcon,
     XIcon,
+    CircleIcon,
   },
   mounted() {
-    // * autoclose the notification if its informational
-    if (this.type === "Informational") {
-      setTimeout(() => {
-        this.handleClose();
-      }, 2000);
-    }
+    // * autoclose the notification if its info
+    setTimeout(() => {
+      this.handleClose();
+    }, 1500);
+  },
+  updated() {
+    setTimeout(() => {
+      this.handleClose();
+    }, 1500);
   },
   methods: {
-    ...mapActions(["updateNotificationStatus"]),
+    ...mapActions(["updateNotificationStatus", "closeNotification"]),
     handleClose() {
-      this.updateNotificationStatus(false);
+      this.closeNotification(this.message);
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped src="./notification.scss"></style>

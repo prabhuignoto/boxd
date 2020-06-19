@@ -8,6 +8,6 @@ export default `
     deleteFolder(path: String!): metadata!
     moveResource(from_path: String!, to_path: String!): metadata!
     copyResource(from_path: String!, to_path: String!): metadata!
-    deleteBulk(options: deleteBulkOptions): metadata!
+    deleteBulk(options: deleteBulkOptions): Boolean
   }
 `;

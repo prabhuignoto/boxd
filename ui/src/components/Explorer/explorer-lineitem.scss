@@ -24,6 +24,11 @@
   &:hover {
     background: rgba($color: #000, $alpha: 0.04);
   }
+
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
 }
 
 .search-results-message {
@@ -168,14 +173,16 @@ button {
   cursor: pointer;
   display: flex;
   justify-content: center;
-  opacity: 0.2;
+  opacity: 0.45;
   width: 3rem;
-
-  &:opacity {
+  
+  &:hover {
+    color: #007ee5;
     opacity: 1;
   }
-
+  
   &.selected {
-    opacity: 0.85;
+    color: #007ee5;
+    opacity: 0.95;
   }
 }

@@ -56,9 +56,7 @@ export default {
         });
       }
     },
-    close(ev) {
-      debugger;
-      console.log(ev);
+    close() {
       this.visible = false;
     },
     getStyle() {

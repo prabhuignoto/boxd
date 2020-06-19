@@ -1,8 +1,8 @@
+/* eslint-disable no-unused-vars */
 import { Dropbox, files } from 'dropbox';
-import Agenda from '../agenda';
+import getDropboxClient from '../dropboxClient';
 import { ErrorLogger } from '../logger';
 import PubSub from '../pubSub';
-import getDropboxClient from '../dropboxClient';
 
 export default {
   Mutation: {
@@ -84,38 +84,6 @@ export default {
           }
         });
         return {};
-      }
-    },
-    deleteBulk: async (obj: any, args: any, context: any, info: any) => {
-      try {
-        const result: files.DeleteBatchLaunch = await new Dropbox({
-          accessToken: context.session.access_token,
-          clientId: process.env.CLIENT_ID
-        }).filesDeleteBatch({
-          entries: args.paths.map((p: any) => ({
-            path: p.path
-          }))
-        });
-
-        if (result['.tag'] === 'complete') {
-          PubSub.publish('dropbox_batch_work_complete', {
-            path_lower: args.path,
-            entries: result.entries,
-            success: true
-          });
-        } else if (result['.tag'] === 'async_job_id') {
-          Agenda.every('6 seconds', 'poll batch status');
-        }
-
-        return Promise.resolve();
-      } catch (error) {
-        ErrorLogger.log(error);
-        PubSub.publish('resx_deleted', {
-          resxDeleted: {
-            message: 'Failed to delete the folder',
-            success: false
-          }
-        });
       }
     },
     moveResource: async (obj: any, args: any, context: any, info: any) => {

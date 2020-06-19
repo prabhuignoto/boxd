@@ -2,7 +2,6 @@
   <section>
     <Treeview
       path=""
-      v-bind:onSelect="onSelect"
       v-bind:entries="files"
       childTree="CreateFolderExplorer"
       hideFiles="true"
@@ -32,7 +31,6 @@ export default Vue.component("CreateFolderExplorer", {
   props: ["path"],
   methods: {
     ...mapActions(["createFolderSelection"]),
-    // onSelect(node) {},
     handleSubfolderSelection(path) {
       this.createFolderSelection(path);
     },

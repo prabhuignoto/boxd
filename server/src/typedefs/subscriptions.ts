@@ -5,5 +5,8 @@ export default `
     resxMoved: resxMessage!
     resxCopied: resxMessage!
     folderAdded: folderAddedMessage!
+    batchWorkComplete: batchWorkMessage!
+    batchWorkRunning: batchWorkMessage!
+    batchWorkFailed: batchWorkMessage!
   }
 `;

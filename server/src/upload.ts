@@ -1,10 +1,11 @@
-import pubsub from './pubSub';
+import { Buffer } from 'buffer';
+import { Dropbox } from 'dropbox';
 // eslint-disable-next-line no-unused-vars
 import { Request, Response } from 'express';
-import { Dropbox } from 'dropbox';
-import { createLogger, transports, format } from 'winston';
 import FS from 'graceful-fs';
-import { Buffer } from 'buffer';
+import nodeFetch from 'node-fetch';
+import { createLogger, format, transports } from 'winston';
+import pubsub from './pubSub';
 
 const logFormat = format.combine(format.timestamp(), format.prettyPrint());
 const errorLogger = createLogger({
@@ -19,7 +20,7 @@ const infoLogger = createLogger({
 });
 
 // tslint: disable-next-line
-export default function Upload (req: Request, resp: Response) {
+export default function Upload(req: Request, resp: Response) {
   try {
     const files: any = req.files;
     infoLogger.log({
@@ -32,18 +33,22 @@ export default function Upload (req: Request, resp: Response) {
     readStream.on('error', () => {
       throw new Error('Failed to read the file');
     });
+
     readStream.on('data', chunk => {
       chunks.push(chunk);
     });
+
     readStream.on('close', () => {
       const response = new Dropbox({
         accessToken: req.session!.access_token,
-        clientId: process.env.CLIENT_ID
+        clientId: process.env.CLIENT_ID,
+        fetch: nodeFetch
       }).filesUpload({
         contents: Buffer.concat(chunks),
         autorename: true,
         path: `${req.body.uploadPath}/${files[0].originalname}`
       });
+
       FS.unlink(files[0].path, function (err) {
         if (err) {
           throw new Error('Failed to complete the cleanup.');

@@ -9,6 +9,11 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  
+  &.disabled {
+    filter: opacity(0.65);
+    pointer-events: none;
+  }
 }
 
 .explorer-toolbar-item {
@@ -18,15 +23,16 @@
   color: #007ee5;
   cursor: pointer;
   display: flex;
-  height: 2rem;
+  height: 1.75rem;
   justify-content: center;
   margin: 0 0.5rem;
-  width: 2rem;
+  width: 1.75rem;
 
   &:hover {
     background: #007ee5;
     color: #fff;
   }
+
   
   i {
     align-items: center;

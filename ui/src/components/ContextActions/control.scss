@@ -22,18 +22,8 @@
     color: #fff;
   }
 
-  // &:first-child {
-  //   border-top-left-radius: 5px;
-  //   border-top-right-radius: 5px;
-  // }
-
-  // &:last-child {
-  //   border-bottom-left-radius: 5px;
-  //   border-bottom-right-radius: 5px;
-  // }
-
   span {
-    margin-left: 1rem;
+    margin-left: 0.5rem;
   }
 
   i {
@@ -47,6 +37,16 @@
     height: 100%;
     object-fit: contain;
     object-position: 50% 50%;
+    width: 100%;
+  }
+}
+
+.ctx-menu-icon {
+  height: 1.2rem;
+  width: 1.2rem;
+
+  svg {
+    height: 100%;
     width: 100%;
   }
 }

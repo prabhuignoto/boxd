@@ -13,16 +13,16 @@ export default {
     `,
     result({ data: { fileUploaded } }) {
       if (fileUploaded.success) {
-        this.notificationType = "Informational";
-        this.notificationTitle = "Upload complete";
-        this.addMessage({
+        this.showNotification({
+          type: "info",
+          title: "Upload Complete",
           id: uniqid("notification-msg-"),
           message: `Uploaded ${fileUploaded.fileName} successfully.`,
         });
       } else {
-        this.notificationType = "Error";
-        this.notificationTitle = "Upload Failed";
-        this.addMessage({
+        this.showNotification({
+          type: "Error",
+          notificationTitle: "Upload Failed",
           id: uniqid("notification-msg-"),
           message: `Could not upload ${fileUploaded.fileName}.`,
         });
@@ -40,16 +40,16 @@ export default {
     `,
     result({ data: { resxDeleted } }) {
       if (resxDeleted.success) {
-        this.notificationType = "Informational";
-        this.notificationTitle = "Deleted resource";
-        this.addMessage({
+        this.showNotification({
+          type: "info",
+          notificationTitle: "Deleted resource",
           id: uniqid("notification-msg-"),
           message: `Deleted ${resxDeleted.name.split("/").pop()} successfully.`,
         });
       } else {
-        this.notificationType = "Error";
-        this.notificationTitle = "Failure";
-        this.addMessage({
+        this.showNotification({
+          type: "Error",
+          notificationTitle: "Failure",
           id: uniqid("notification-msg-"),
           message: `Unable to delete ${resxDeleted.name
             .split("/")
@@ -69,16 +69,16 @@ export default {
     `,
     result({ data: { resxCopied } }) {
       if (resxCopied.success) {
-        this.notificationType = "Informational";
-        this.notificationTitle = "Copy resource";
-        this.addMessage({
+        this.showNotification({
+          type: "info",
+          notificationTitle: "Copy resource",
           id: uniqid("notification-msg-"),
           message: `Copied ${resxCopied.name.split("/").pop()} successfully.`,
         });
       } else {
-        this.notificationType = "Error";
-        this.notificationTitle = "Failure";
-        this.addMessage({
+        this.showNotification({
+          type: "Error",
+          notificationTitle: "Failure",
           id: uniqid("notification-msg-"),
           message: `Unable to copy ${resxCopied.name.split("/").pop()}.`,
         });
@@ -96,16 +96,16 @@ export default {
     `,
     result({ data: { resxMoved } }) {
       if (resxMoved.success) {
-        this.notificationType = "Informational";
-        this.notificationTitle = "Move resource";
-        this.addMessage({
+        this.showNotification({
+          type: "info",
+          notificationTitle: "Move resource",
           id: uniqid("notification-msg-"),
           message: `Moved ${resxMoved.name.split("/").pop()} successfully.`,
         });
       } else {
-        this.notificationType = "Error";
-        this.notificationTitle = "Failure";
-        this.addMessage({
+        this.showNotification({
+          type: "Error",
+          notificationTitle: "Failure",
           id: uniqid("notification-msg-"),
           message: `Unable to move ${resxMoved.name.split("/").pop()}.`,
         });
@@ -123,16 +123,16 @@ export default {
     `,
     result({ data: { folderAdded } }) {
       if (folderAdded.success) {
-        this.notificationType = "Informational";
-        this.notificationTitle = "Folder Added";
-        this.addMessage({
+        this.showNotification({
+          type: "info",
+          notificationTitle: "Folder Added",
           id: uniqid("notification-msg-"),
-          message: `Added ${folderAdded.name.split("/").pop()} successfully.`,
+          message: `Created ${folderAdded.name.split("/").pop()} successfully.`,
         });
       } else {
-        this.notificationType = "Error";
-        this.notificationTitle = "Failure";
-        this.addMessage({
+        this.showNotification({
+          type: "Error",
+          notificationTitle: "Failure",
           id: uniqid("notification-msg-"),
           message: `Failed to create the folder ${folderAdded.name
             .split("/")

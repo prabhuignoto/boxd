@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import { Dropbox, files } from 'dropbox';
 import { ErrorLogger } from '../logger';
 

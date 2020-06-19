@@ -101,7 +101,6 @@ export async function Authenticate (req: express.Request, resp: express.Response
     // dropbox oauth callback
     redirect_uri: process.env.OAUTH_CALLBACK
   };
-  console.log(requestBody);
   // setup axios config
   const config = {
     headers: {
@@ -110,13 +109,11 @@ export async function Authenticate (req: express.Request, resp: express.Response
   };
   try {
     // fetch the access token
-    console.log('fetching token');
     const oAuthTokenResponse = await Axios.post(
       process.env.OAUTH_TOKEN_URL as string,
       querystring.stringify(requestBody),
       config
     );
-    console.log('received token');
 
     const oAuthResponse: IAccessToken = oAuthTokenResponse.data as IAccessToken;
     // check if the session is established and store the access token
@@ -136,7 +133,6 @@ export async function Authenticate (req: express.Request, resp: express.Response
     }
     // redirect to home
   } catch (error) {
-    console.log(error);
     errorLogger.log({
       level: 'error',
       message: error.response.status

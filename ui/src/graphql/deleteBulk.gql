@@ -1,0 +1,3 @@
+mutation deleteBulk($options: deleteBulkOptions!){
+  delete: deleteBulk(options: $options)
+}
