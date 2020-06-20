@@ -18,7 +18,7 @@
             </i>
             <span>Add a folder here</span>
           </li>
-          <li class="ctx-menu-item" @click="handleUpload" v-if="canShowAction">
+          <li class="ctx-menu-item" @click="handleUpload">
             <i class="ctx-menu-icon">
               <UploadIcon />
             </i>

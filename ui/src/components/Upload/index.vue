@@ -149,7 +149,7 @@ export default Vue.component("UploadWindow", {
       return this.getUploadPath === "/$root" ? "/ home" : this.getUploadPath;
     },
     canDisableUpload() {
-      return !this.isDropped || this.uploadStarted || this.getUploadPath === "";
+      return !this.isDropped || this.uploadStarted;
     },
     setClass() {
       return {

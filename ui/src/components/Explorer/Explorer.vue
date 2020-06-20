@@ -20,6 +20,9 @@
       </header>
       <section class="explorer-content">
         <div class="explorer-top-bar">
+          <div>
+            <MenuIcon />
+          </div>
           <div class="explorer-folder-path-container">
             <FolderPath />
           </div>
@@ -28,7 +31,7 @@
           </div>
         </div>
         <div class="loader-container" v-if="$apollo.loading">
-          <Loader />
+          <Loader size="2x" />
         </div>
         <div
           class="line-item-wrapper search-results-row"
@@ -85,8 +88,10 @@ import FolderPath from "../Path/FolderPath";
 import ExplorerToolbar from "./explorer-toolbar";
 import BatchSub from "../../batchSub";
 import SearchBox from "../Searchbox";
+import { MenuIcon } from "vue-feather-icons";
+import Vue from "vue";
 
-export default {
+export default Vue.extend({
   name: "Explorer",
   components: {
     Account,
@@ -97,6 +102,7 @@ export default {
     SearchBox,
     Toolbar,
     ExplorerToolbar,
+    MenuIcon,
   },
   data() {
     return {
@@ -199,7 +205,7 @@ export default {
     },
     $subscribe: BatchSub,
   },
-};
+});
 </script>
 
 <style lang="scss" src="./explorer.scss" scoped></style>
