@@ -45,7 +45,9 @@ try {
   app.use(morgan(process.env.MORGAN_LOG_MODE as string));
 
   // * invoke body parser
-  app.use(BodyParser());
+  app.use(BodyParser.urlencoded());
+
+  app.use(BodyParser.json());
 
   // * setup express-session and hook up with redis store for storing the sessions
   app.use(

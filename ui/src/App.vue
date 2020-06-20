@@ -28,7 +28,7 @@ body {
 
 #app {
   color: #2c3e50;
-  font-family: 'Nunito', 'Open Sans', 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Nunito", "Open Sans", "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 900px;

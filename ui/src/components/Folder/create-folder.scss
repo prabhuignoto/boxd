@@ -94,10 +94,25 @@
   width: 100%;
 }
 
+.crt-folder-loader-container {
+  height: 1.25rem;
+  width: 1.25rem;
+}
+
 .crt-folder-loader-wrapper {
-  align-self: normal;
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
   margin-right: auto;
   position: relative;
+  
+  .loader-message {
+    color: #8d99ae;
+    font-family: Nunito, Arial, Helvetica, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    margin-left: 0.5rem;
+  }
 }
 
 img {
@@ -106,6 +121,5 @@ img {
 }
 
 .create-folder-inputs {
-  margin-left: 0.5rem;
-  width: 10rem;
+  width: 15rem;
 }

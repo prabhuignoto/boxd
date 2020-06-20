@@ -14,7 +14,9 @@
     </div>
     <div class="create-folder-controls">
       <div class="crt-folder-loader-wrapper" v-show="isMutating">
-        <Loader />
+        <div class="crt-folder-loader-container">
+          <Loader />
+        </div>
         <span class="loader-message">
           creating folder ...
         </span>
@@ -43,16 +45,16 @@
   </section>
 </template>
 
-<script>
-import Textbox from "../Form/TextBox";
-import CreateFolderExplorer from "./CreateFolderExplorer";
-import Button from "../Form/Button";
+<script lang="ts">
+import Textbox from "../Form/TextBox.vue";
+import CreateFolderExplorer from "./CreateFolderExplorer.vue";
+import Button from "../Form/Button.vue";
 import gql from "graphql-tag";
 import createFolderGQL from "../../graphql/createFolder.gql";
-import Loader from "../Loader";
+import Loader from "../Loader.vue";
 import Vue from "vue";
 import { mapActions, mapGetters } from "vuex";
-import RootFolder from "../rootFolder";
+import RootFolder from "../rootFolder.vue";
 import { CheckIcon } from "vue-feather-icons";
 
 export default Vue.component("CreateFolder", {

@@ -1,18 +1,30 @@
 {
   "cSpell.words": [
     "active",
+    "apollo",
+    "apollo cache inmemory",
     "backdrop",
+    "cache",
+    "config",
     "dropzone",
     "dropzone backdrop icon",
     "enter",
+    "filesaver",
+    "filesaver js",
     "icon",
+    "inmemory",
+    "js",
     "movein",
     "movein enter active",
     "popdown",
     "popdown wrapper",
+    "standard",
+    "stylelint",
+    "stylelint config standard",
     "wrapper"
   ],
   "eslint.workingDirectories": [
     {"mode": "auto"}
-  ]
+  ],
+  "eslint.validate": [".ts", ".vue"]
 }

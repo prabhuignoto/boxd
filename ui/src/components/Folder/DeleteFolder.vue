@@ -78,7 +78,7 @@ export default Vue.component("DeleteFolder", {
       "refetchData",
       "refreshFileExplorer",
       "removeItemFromBulk",
-      "removeFromList"
+      "removeFromList",
     ]),
     onInput(ev) {
       this.deleteConsentText = ev.target.value;

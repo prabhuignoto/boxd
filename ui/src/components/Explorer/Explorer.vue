@@ -4,9 +4,9 @@
     <div class="explorer">
       <header class="explorer-header">
         <ul class="header-wrapper">
-          <li class="header control context">
+          <!-- <li class="header control context">
             <ContextControl :path="path" type="link" name="Random" />
-          </li>
+          </li> -->
           <li class="header control toolbar">
             <Toolbar />
           </li>
@@ -21,7 +21,7 @@
       <section class="explorer-content">
         <div class="explorer-top-bar">
           <div>
-            <MenuIcon />
+            <ContextControl :path="path" type="link" name="Random" />
           </div>
           <div class="explorer-folder-path-container">
             <FolderPath />
@@ -75,20 +75,20 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import gql from "graphql-tag";
 import FolderGQL from "../../graphql/folder.gql";
-import Loader from "../Loader";
-import LineItem from "./Explorer-LineItem";
+import Loader from "../Loader.vue";
+import LineItem from "./Explorer-LineItem.vue";
 import { mapActions, mapGetters } from "vuex";
-import ContextControl from "../ContextActions/Control";
-import Toolbar from "../Toolbar/Toolbar";
-import Account from "../Account";
-import FolderPath from "../Path/FolderPath";
-import ExplorerToolbar from "./explorer-toolbar";
+import ContextControl from "../ContextActions/Control.vue";
+import Toolbar from "../Toolbar/Toolbar.vue";
+import Account from "../Account.vue";
+import FolderPath from "../Path/FolderPath.vue";
+import ExplorerToolbar from "./explorer-toolbar.vue";
 import BatchSub from "../../batchSub";
-import SearchBox from "../Searchbox";
-import { MenuIcon } from "vue-feather-icons";
+import SearchBox from "../Searchbox.vue";
+// import { ZapIcon } from "vue-feather-icons";
 import Vue from "vue";
 
 export default Vue.extend({
@@ -102,7 +102,6 @@ export default Vue.extend({
     SearchBox,
     Toolbar,
     ExplorerToolbar,
-    MenuIcon,
   },
   data() {
     return {

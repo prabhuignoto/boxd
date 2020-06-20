@@ -3,25 +3,17 @@ import { Dropbox, files } from 'dropbox';
 import { Request, Response } from 'express';
 import FS from 'graceful-fs';
 import Path from 'path';
-import { createLogger, format, transports } from 'winston';
+import util from 'util';
+import { ErrorLogger, InfoLogger } from './logger';
 
-const logFormat = format.combine(format.timestamp(), format.prettyPrint());
-const errorLogger = createLogger({
-  format: logFormat,
-  level: 'error',
-  transports: [new transports.Console()]
-});
-const infoLogger = createLogger({
-  format: logFormat,
-  level: 'info',
-  transports: [new transports.Console()]
-});
+const fileExists = util.promisify(FS.exists);
+const writeFileAsync = util.promisify(FS.writeFile);
 
-export default async function Download (req: Request, resp: Response) {
+export default async function Download(req: Request, resp: Response) {
   try {
     type DownloadMetadata = files.FileMetadata & { fileBinary: Buffer };
 
-    infoLogger.log({
+    InfoLogger.log({
       level: 'info',
       message: `Downloading ${req.query.path}`
     });
@@ -34,11 +26,6 @@ export default async function Download (req: Request, resp: Response) {
         path: req.query.path
       })) as DownloadMetadata;
 
-      infoLogger.log({
-        level: 'error',
-        message: `Downloaded file ${metadata.name}`
-      });
-
       const dirName = req.session.account_id.replace(/dbid:/, '');
       const appRoot = require.main && Path.join(
         // Path.parse(process.mainModule!.filename).dir,
@@ -49,29 +36,25 @@ export default async function Download (req: Request, resp: Response) {
       if (appRoot) {
         const dirPath = Path.resolve(appRoot, 'downloads/' + dirName);
         const filePath = Path.resolve(dirPath, metadata.name);
-        infoLogger.log({
+
+        InfoLogger.log({
           level: 'info',
           message: `Generating file path ${filePath}`
         });
 
         const createFile = async () => {
-          await FS.exists(filePath, (exists) => {
-            if (!exists) {
-              FS.writeFile(filePath, metadata.fileBinary, (err: any) => {
-                if (err) {
-                  throw new Error('Failed to create the file');
-                } else {
-                  infoLogger.log({
-                    level: 'info',
-                    message: `${
-                      metadata.name
-                      } successfully created on ${filePath}`
-                  });
-                }
-              });
-            }
-            resp.download(filePath, metadata.name);
-          });
+          const result = await fileExists(filePath);
+
+          if (!result) {
+            await writeFileAsync(filePath, metadata.fileBinary);
+            InfoLogger.log({
+              level: 'info',
+              message: `${
+                metadata.name
+                } successfully created on ${filePath}`
+            });
+          }
+          resp.download(filePath, metadata.name);
         };
 
         await FS.exists(dirPath, (exists) => {
@@ -87,7 +70,7 @@ export default async function Download (req: Request, resp: Response) {
     }
     return {};
   } catch (error) {
-    errorLogger.log({
+    ErrorLogger.log({
       level: 'error',
       message: error.response.statusText
     });

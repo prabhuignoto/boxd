@@ -2,7 +2,7 @@
 
 module.exports = {
   devServer: {
-    hot: true
+    hot: true,
   },
   configureWebpack: {
     devtool: "source-map",
@@ -11,16 +11,16 @@ module.exports = {
         {
           test: /\.mjs$/,
           include: /node_modules/,
-          type: "javascript/auto"
+          type: "javascript/auto",
         },
         {
           test: /\.gql?$/,
-          loader: "webpack-graphql-loader"
-        }
-      ]
+          loader: "webpack-graphql-loader",
+        },
+      ],
     },
     resolve: {
-      extensions: [".webpack.js", ".web.js", ".mjs", ".js", ".json"]
-    }
-  }
+      extensions: [".webpack.js", ".web.js", ".mjs", ".js", ".json"],
+    },
+  },
 };

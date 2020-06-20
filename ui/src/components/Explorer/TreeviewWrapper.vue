@@ -94,7 +94,7 @@ export default {
   &::after {
     background: #c2c7c8;
     bottom: 0;
-    content: '';
+    content: "";
     height: 1px;
     left: 0;
     position: absolute;

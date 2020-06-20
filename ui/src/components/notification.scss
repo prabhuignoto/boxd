@@ -2,7 +2,6 @@
   align-items: flex-start;
   background: #fff;
   border: 1px solid rgba(141, 153, 174, 0.5);
-  // box-shadow: inset 0 0 1px 1px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.2);
   display: flex;
@@ -14,8 +13,8 @@
   margin-left: auto;
   margin-right: auto;
   max-width: 380px;
-  min-height: 30px;
-  min-width: 150px;
+  min-height: 20px;
+  min-width: 100px;
   position: fixed;
   right: 0;
   transform: translateY(80vh);
@@ -28,39 +27,23 @@
   font-size: 0.85rem;
   font-weight: 400;
   height: 100%;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-left: 1rem;
   width: 100%;
 
   span {
     font-weight: 500;
     text-align: left;
   }
-
-  button {
-    background: none;
-    border: 0;
-    margin-left: auto;
-    padding: 0;
-
-    i {
-      height: 1rem;
-      width: 1rem;
-    }
-
-    img {
-      max-height: 100%;
-      max-width: 100%;
-    }
-  }
 }
 
 .close {
-  height: 1.5rem;
+  height: 1rem;
   margin-left: auto;
   position: absolute;
   right: 0.5rem;
   top: 0.5rem;
-  width: 1.5rem;
+  width: 1rem;
 
   svg {
     height: 100%;

@@ -5,9 +5,6 @@
     </div>
     <!-- header section -->
     <div class="notification-content">
-      <i class="type-icon">
-        <InfoIcon />
-      </i>
       <span>{{ message.message }}</span>
       <div @click="handleClose" class="close">
         <XIcon />
@@ -16,16 +13,15 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapActions } from "vuex";
-import { InfoIcon, XIcon, CircleIcon } from "vue-feather-icons";
+import { XIcon, CircleIcon } from "vue-feather-icons";
 import Vue from "vue";
 
 export default Vue.extend({
   name: "Notification",
   props: ["message"],
   components: {
-    InfoIcon,
     XIcon,
     CircleIcon,
   },
