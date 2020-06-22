@@ -42,6 +42,7 @@ const apolloClient = new ApolloClient({
   typeDefs: gql`
     input deleteBulkOptions {
       paths: [String!]!
+      ui_job_id: String!
     }
 
     input relocationEntry {
@@ -53,6 +54,7 @@ const apolloClient = new ApolloClient({
     input relocationOptions {
       entries: [relocationEntry!]!
       autorename: Boolean
+      ui_job_id: String!
     }
   `,
   connectToDevTools: true,

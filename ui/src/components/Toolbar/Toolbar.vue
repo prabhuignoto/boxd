@@ -69,7 +69,6 @@ export default {
     PlusIcon,
     CopyIcon,
     HomeIcon,
-
   },
   computed: {
     ...mapGetters(["getExplorerPath"]),

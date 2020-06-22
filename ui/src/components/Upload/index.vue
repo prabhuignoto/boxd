@@ -88,7 +88,9 @@
     <div class="upload-controls">
       <span class="ps" v-if="!uploadStarted">max file size: 50 Mb</span>
       <span class="ps" v-if="uploadStarted && !uploadSuccess">
-        <Loader />
+        <span class="loader-wrapper">
+          <Loader />
+        </span>
         <span class="ps-subtext"
           >uploading... you will be notified on completion.</span
         >
@@ -101,16 +103,9 @@
         v-if="canShowControls"
       >
         <template slot="btn-icon">
-          <!-- <img src="../../assets/check.svg" alt="upload" v-if="!canDisableUpload" />
-          <img src="../../assets/check-white.svg" alt="upload" v-if="canDisableUpload" />-->
           <ArrowUpIcon />
         </template>
       </Button>
-      <!-- <Button name="Close" :onClick="handleCancel">
-        <template slot="btn-icon">
-          <img src="../../assets/times.svg" alt="cancel upload">
-        </template>
-      </Button>-->
     </div>
     <!-- form controls -->
   </section>
@@ -222,6 +217,7 @@ export default Vue.component("UploadWindow", {
       "refreshFileExplorer",
       "refetchData",
       "updateUploadExplorerStatus",
+      "closeModal",
     ]),
     reset() {
       (this.isDragOver = false),
@@ -235,7 +231,7 @@ export default Vue.component("UploadWindow", {
     handleRootFolder() {
       this.uploadFile("/$root");
     },
-    handleUpload() {
+    async handleUpload() {
       try {
         let formData = new FormData();
         formData.append("file", this.file);
@@ -244,40 +240,30 @@ export default Vue.component("UploadWindow", {
           this.getUploadPath === "/$root" ? "" : this.getUploadPath
         );
         this.uploadStarted = true;
-        const response = Axios.post(
-          `${process.env.VUE_APP_API_SERVER}/upload`,
-          formData,
-          {
-            withCredentials: true,
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-            onUploadProgress: progressEvent => {
-              this.progress = Math.round(
-                (progressEvent.loaded * 100) / progressEvent.total
-              );
-              // if (this.progress === 100) {
-              // }
-            },
-            // timeout: 15000,
-            // data: (data) => {},
-          }
-        );
-        response
-          .then(() => {
-            this.uploadSuccess = true;
-            this.refetchData(true);
-            this.refreshFileExplorer({
-              status: true,
-              path: this.getUploadPath,
-            });
-          })
-          .catch(error => {
-            this.uploadSuccess = false;
-            this.uploadStarted = false;
-            console.log(error);
-          });
+        await Axios.post(`${process.env.VUE_APP_API_SERVER}/upload`, formData, {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          onUploadProgress: progressEvent => {
+            this.progress = Math.round(
+              (progressEvent.loaded * 100) / progressEvent.total
+            );
+            // if (this.progress === 100) {
+            // }
+          },
+          // timeout: 15000,
+          // data: (data) => {},
+        });
+        this.uploadSuccess = true;
+        this.closeModal();
+        this.refetchData(true);
+        this.refreshFileExplorer({
+          status: true,
+          path: this.getUploadPath,
+        });
       } catch (error) {
+        this.uploadSuccess = false;
         this.uploadStarted = false;
       }
     },

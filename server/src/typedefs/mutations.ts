@@ -1,6 +1,7 @@
 export default `
   input deleteBulkOptions {
     paths: [String!]!
+    ui_job_id: String!
   }
 
   type Mutation {

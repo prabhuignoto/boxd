@@ -16,6 +16,7 @@
     <transition name="peek">
       <Notification :message="getNewMessage" v-if="getNewMessage" />
     </transition>
+    <JobRunner />
   </section>
 </template>
 
@@ -24,6 +25,7 @@ import Explorer from "../components/Explorer/Explorer.vue";
 import Popup from "../components/Popup/Popup";
 import { mapGetters, mapActions } from "vuex";
 import Notification from "../components/Notification";
+import JobRunner from "../components/JobRunner";
 import NotificationSub from "../notificationSub.js";
 import DeleteFolder from "../components/Folder/DeleteFolder";
 
@@ -34,6 +36,7 @@ export default {
     Notification,
     // eslint-disable-next-line vue/no-unused-components
     DeleteFolder,
+    JobRunner,
   },
   data() {
     return {

@@ -9,11 +9,16 @@ export default {
     },
     refetchStatus: false,
     bulkOps: [],
-    bulkOpActive: false,
   },
   mutations: {
     updateListData(state, { listData, cursor, hasMore }) {
-      state.data = state.data.slice(0).concat(listData);
+      state.data = state.data.slice(0).concat(
+        listData.map(x =>
+          Object.assign({}, x, {
+            hidden: false,
+          })
+        )
+      );
       state.cursor = cursor;
       state.hasMore = hasMore;
     },
@@ -27,12 +32,6 @@ export default {
       state.data = [];
       state.cursor = "";
       state.hasMore = false;
-    },
-    updateSearch(state, { term }) {
-      state.search = term;
-    },
-    updateSearchResults(state, { data }) {
-      state.searchResults.data = data;
     },
     clearSearch(state) {
       state.searchResults.data = [];
@@ -49,36 +48,44 @@ export default {
         i => i.path_lower !== item.path_lower
       );
     },
-    markItemsForBulkOp(state, { mode }) {
-      state.data = state.data.map(op => {
-        const itemFound = state.bulkOps.find(item => item.id === op.id);
-        if (itemFound) {
-          return Object.assign({}, op, {
-            bulk_op_in_progress: true,
-            bulk_op_mode: mode,
-          });
-        } else {
-          return op;
-        }
-      });
-      state.bulkOpActive = true;
-    },
-    markBulkCompletion(state, { mode }) {
-      if (mode === "delete" || mode === "move") {
-        state.data = state.data.filter(item => !item.bulk_op_in_progress);
-      } else if (mode === "copy") {
-        state.data = state.data.map(item =>
-          Object.assign({}, item, {
-            bulk_op_in_progress: false,
-            bulk_op_mode: "",
-          })
-        );
-      }
-      state.bulkOps = [];
-      state.bulkOpActive = false;
-    },
     clearAllBulk(state) {
       state.bulkOps = [];
+    },
+    lockItems(state, { items, lockType, jobId }) {
+      state.bulkOps = state.bulkOps.map(i => {
+        if (items.indexOf(i.id) > -1) {
+          return Object.assign({}, i, {
+            locked: true,
+            jobId,
+          });
+        } else {
+          return i;
+        }
+      });
+      state.data = state.data.map(item => {
+        if (items.indexOf(item.id) >= 0) {
+          return Object.assign({}, item, {
+            locked: true,
+            lockType,
+            jobId,
+          });
+        }
+        return item;
+      });
+    },
+    unLockItems(state, { jobId }) {
+      state.bulkOps = state.bulkOps.filter(f => f.jobId !== jobId);
+      state.data = state.data.map(item => {
+        if (item.jobId && item.jobId === jobId) {
+          return Object.assign({}, item, {
+            locked: false,
+            lockType: null,
+            jobId: null,
+            hidden: item.lockType === "MOVE" || item.lockType === "DELETE",
+          });
+        }
+        return item;
+      });
     },
   },
   actions: {
@@ -93,23 +100,6 @@ export default {
     clearList({ commit }) {
       commit({
         type: "clearList",
-      });
-    },
-    updateSearch({ commit }, term) {
-      commit({
-        type: "updateSearch",
-        term,
-      });
-    },
-    clearSearch({ commit }) {
-      commit({
-        type: "clearSearch",
-      });
-    },
-    updateSearchResults({ commit }, data) {
-      commit({
-        type: "updateSearchResults",
-        data,
       });
     },
     refetchData({ commit }, status) {
@@ -135,18 +125,6 @@ export default {
         type: "clearAllBulk",
       });
     },
-    markItemsForBulkOp({ commit }, mode) {
-      commit({
-        type: "markItemsForBulkOp",
-        mode,
-      });
-    },
-    markBulkCompletion({ commit }, mode) {
-      commit({
-        type: "markBulkCompletion",
-        mode,
-      });
-    },
     removeFromList({ commit }, path) {
       commit({
         type: "removeFromList",
@@ -159,13 +137,27 @@ export default {
         ids,
       });
     },
+    lockItems({ commit }, { items, lockType, jobId }) {
+      commit({
+        type: "lockItems",
+        items,
+        lockType,
+        jobId,
+      });
+    },
+    unLockItems({ commit }, { jobId }) {
+      commit({
+        type: "unLockItems",
+        jobId,
+      });
+    },
   },
   getters: {
     getDataList: state => {
       if (state.searchResults.data.length > 0) {
         return state.searchResults.data;
       } else {
-        return state.data;
+        return state.data.filter(item => !item.hidden);
       }
     },
     getCursor: state => state.cursor,
@@ -173,7 +165,8 @@ export default {
     isUserSearching: state =>
       state.search && state.searchResults.data.length > 0,
     searchCount: state => state.searchResults.data.length,
-    getBulkItems: state => state.bulkOps,
-    getBulkOpActive: state => state.bulkOpActive,
+    getBulkItems: state => {
+      return state.bulkOps.filter(f => !f.locked);
+    },
   },
 };

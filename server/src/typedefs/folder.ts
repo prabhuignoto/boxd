@@ -36,6 +36,7 @@ const folder = `
     error: String
     entries: [entry!]
     job_type: String
+    ui_job_id: String
   }
   
   input relocationEntry {
@@ -47,6 +48,7 @@ const folder = `
   input relocationOptions {
     entries: [relocationEntry!]!
     autorename: Boolean
+    ui_job_id: String
   }
 
 `;

@@ -9,6 +9,7 @@ export default {
           job_id
           status
           job_type
+          ui_job_id
           entries {
             metadata {
               id
@@ -21,19 +22,30 @@ export default {
     `,
     result({ data: { batchWorkComplete } }) {
       const jobType = batchWorkComplete.job_type;
-      this.markBulkCompletion(batchWorkComplete.job_type);
+      const status = batchWorkComplete.status;
+      const uiJobId = batchWorkComplete.ui_job_id;
+      this.unLockItems({ jobId: uiJobId });
 
-      if (jobType === "move" || jobType == "delete") {
-        this.removeItemsFromList(
-          batchWorkComplete.entries.map(entry => entry.metadata.id)
-        );
-      }
-
-      this.showNotification({
-        type: "info",
-        id: uniqid("notification-msg-"),
-        message: `Files ${jobType}d successfully`,
+      this.refreshFileExplorer({
+        status: true,
+        path: this.getExplorerPath,
       });
+
+      if (status === "complete") {
+        this.completeJob({ id: uiJobId });
+        this.showNotification({
+          type: "info",
+          id: uniqid("notification-msg-"),
+          message: `Files ${jobType}d successfully`,
+        });
+      } else {
+        this.failedJob({ id: uiJobId, reason: "failure" });
+        this.showNotification({
+          type: "error",
+          id: uniqid("notification-msg-"),
+          message: `The ${jobType} successfully`,
+        });
+      }
     },
   },
   dropbox_batch_work_running: {
@@ -43,6 +55,7 @@ export default {
           job_id
           status
           job_type
+          ui_job_id
           entries {
             metadata {
               id
@@ -64,6 +77,7 @@ export default {
           job_id
           status
           job_type
+          ui_job_id
           entries {
             metadata {
               id
@@ -76,7 +90,6 @@ export default {
     `,
     // result({ data: { batchWorkFailed } }) {
     result() {
-      this.markBulkCompletion("failed");
       this.showNotification({
         type: "failure",
         id: uniqid("notification-msg-"),

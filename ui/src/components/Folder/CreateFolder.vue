@@ -1,7 +1,12 @@
 <template>
   <section class="create-folder-wrapper">
     <div class="create-folder-inputs">
-      <Textbox name="name" :onInput="onFolderInput" placeholder="Name..." />
+      <Textbox
+        name="name"
+        :onInput="onFolderInput"
+        placeholder="Name..."
+        :onEnter="handleEnter"
+      />
     </div>
     <div class="create-folder-explorer-wrapper" v-if="!isCreateFolderExpHidden">
       <RootFolder :onClick="handleRootFolder" />
@@ -115,6 +120,9 @@ export default Vue.component("CreateFolder", {
       "clearList",
       "refreshFileExplorer",
     ]),
+    handleEnter() {
+      this.handleCreate();
+    },
     handleCreate() {
       if (this.createHandledOnce < 1) {
         this.createHandledOnce += 1;

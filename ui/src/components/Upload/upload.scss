@@ -176,7 +176,7 @@ img {
 
 .ps {
   align-items: center;
-  color: #8d99ae;
+  color: #007ee5;
   display: flex;
   font-family: Nunito, Arial, Helvetica, sans-serif;
   font-size: 0.75rem;
@@ -192,6 +192,11 @@ img {
   .ps-subtext {
     margin-left: 0.5rem;
   }
+}
+
+.loader-wrapper {
+  height: 1.5rem;
+  width: 1.5rem;
 }
 
 .dropzone-backdrop-icon {

@@ -6,6 +6,7 @@
       :name="name"
       :id="id"
       @input="onInput"
+      @keypress="handlKeyPress"
       :placeholder="placeholder"
     />
   </div>
@@ -16,10 +17,17 @@ import uniqid from "uniqid";
 
 export default {
   name: "Textbox",
-  props: ["name", "label", "onInput", "placeholder"],
+  props: ["name", "label", "onInput", "placeholder", "onEnter"],
   computed: {
     id() {
       return uniqid(name);
+    },
+  },
+  methods: {
+    handlKeyPress(ev) {
+      if (ev.keyCode === 13) {
+        this.onEnter && this.onEnter();
+      }
     },
   },
 };

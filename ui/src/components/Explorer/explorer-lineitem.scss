@@ -25,8 +25,9 @@
     background: rgba($color: #000, $alpha: 0.04);
   }
 
-  &.disabled {
-    opacity: 0.5;
+  &.locked {
+    filter: grayscale(60%);
+    opacity: 0.75;
     pointer-events: none;
   }
 }
@@ -55,14 +56,15 @@
 
 
 .explorer-icon {
-  display: block;
+  align-items: center;
+  color: #007ee5;
+  display: flex;
   height: 1.5rem;
+  justify-content: center;
   width: 1.5rem;
 
-  img {
+  svg {
     height: 100%;
-    object-fit: contain;
-    object-position: 50% 50%;
     width: 100%;
   }
 }
@@ -131,7 +133,7 @@ button {
 
   &.name {
     flex: 2;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     justify-self: left;
     padding: 0 0.5rem;
     width: 100%;
@@ -139,16 +141,14 @@ button {
 
   &.size {
     flex: 1;
-    font-size: 0.8rem;
-    font-weight: 500;
+    font-size: 0.85rem;
     justify-self: left;
   }
 
   &.last-modified {
     flex: 1;
-    // text-align: left;
-    font-size: 0.8rem;
-    font-weight: 500;
+    font-size: 0.85rem;
+    font-weight: 400;
     justify-self: left;
     @media (min-width: 768px) and (max-width: 1024px) {
       display: none;
@@ -162,7 +162,7 @@ button {
   }
 
   &.controls {
-    justify-self: flex-end;
+    justify-self: center;
   }
 
 }
@@ -185,4 +185,9 @@ button {
     color: #007ee5;
     opacity: 0.95;
   }
+}
+
+.status-label {
+  font-size: 0.85rem;
+  font-weight: 400;
 }

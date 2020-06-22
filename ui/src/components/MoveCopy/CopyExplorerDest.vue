@@ -50,7 +50,6 @@ export default Vue.component("CopyExplorerDest", {
       }
     },
     handleSubfolderSelection(path) {
-      debugger;
       this.copyResxDest(path);
       if (this.getBulkMode) {
         this.setCopyResxBulk(

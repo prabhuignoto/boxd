@@ -1,5 +1,8 @@
 <template>
-  <StageOne v-if="stage === 'one' && !getSkipToFinal" :handleNext="handleStepOne" />
+  <StageOne
+    v-if="stage === 'one' && !getSkipToFinal"
+    :handleNext="handleStepOne"
+  />
   <StageTwo
     v-else-if="stage === 'two' && !getSkipToFinal"
     :handleNext="handleStepTwo"
@@ -26,8 +29,8 @@ import { mapActions, mapGetters } from "vuex";
 import gql from "graphql-tag";
 import CopyResxGQL from "../../graphql/copyResource.gql";
 import MoveResxGQL from "../../graphql/moveResource.gql";
-import MoveBulkGQL from "../../graphql/moveBulk.gql";
-import CopyBulkGQL from "../../graphql/copyBulk.gql";
+// import MoveBulkGQL from "../../graphql/moveBulk.gql";
+// import CopyBulkGQL from "../../graphql/copyBulk.gql";
 
 export default Vue.component("MoveCopy", {
   components: {
@@ -55,7 +58,7 @@ export default Vue.component("MoveCopy", {
       "updateModalTitle",
       "clearMoveCopyState",
       "closeModal",
-      "markItemsForBulkOp",
+      "addJob",
     ]),
     handleStepOne() {
       this.stage = "two";
@@ -70,51 +73,46 @@ export default Vue.component("MoveCopy", {
       this.errored = false;
 
       try {
-        if (this.getBulkMode) {
-          this.markItemsForBulkOp(this.getMoveCopyMode);
-        }
-
         if (this.getMoveCopyMode === "copy") {
-          debugger;
-          await this.$apollo.mutate({
-            mutation: this.getBulkMode ? gql(CopyBulkGQL) : gql(CopyResxGQL),
-            variables: this.getBulkMode
-              ? {
-                  options: {
-                    entries: this.getCopyResourceBulk,
-                    autorename: false,
-                  },
-                }
-              : {
-                  from_path: this.copyResxSrc,
-                  to_path: `${this.copyResxDest}/${this.copyResxSrc
-                    .split("/")
-                    .pop()}`,
-                },
-          });
+          if (this.getBulkMode) {
+            this.addJob({
+              jobType: "COPY",
+              data: {
+                items: JSON.parse(JSON.stringify(this.getCopyResourceBulk)),
+              },
+            });
+          } else {
+            await this.$apollo.mutate({
+              mutation: gql(CopyResxGQL),
+              variables: {
+                from_path: this.copyResxSrc,
+                to_path: `${this.copyResxDest}/${this.copyResxSrc
+                  .split("/")
+                  .pop()}`,
+              },
+            });
+          }
           this.closeModal();
-          this.refreshFileExplorer({
-            status: true,
-            path: this.copyResxDest,
-          });
           this.saving = false;
         } else if (this.getMoveCopyMode === "move") {
-          await this.$apollo.mutate({
-            mutation: this.getBulkMode ? gql(MoveBulkGQL) : gql(MoveResxGQL),
-            variables: this.getBulkMode
-              ? {
-                  options: {
-                    entries: this.getMoveResourceBulk,
-                    autorename: false,
-                  },
-                }
-              : {
-                  from_path: this.moveResxSrc,
-                  to_path: `${this.moveResxDest}/${this.moveResxSrc
-                    .split("/")
-                    .pop()}`,
-                },
-          });
+          if (this.getBulkMode) {
+            this.addJob({
+              jobType: "MOVE",
+              data: {
+                items: JSON.parse(JSON.stringify(this.getMoveResourceBulk)),
+              },
+            });
+          } else {
+            await this.$apollo.mutate({
+              mutation: gql(MoveResxGQL),
+              variables: {
+                from_path: this.moveResxSrc,
+                to_path: `${this.moveResxDest}/${this.moveResxSrc
+                  .split("/")
+                  .pop()}`,
+              },
+            });
+          }
           this.saving = false;
           this.closeModal();
         }

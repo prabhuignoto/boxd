@@ -23,14 +23,16 @@ export default {
             batchWorkComplete: {
               entries: result.entries,
               status: 'completed',
-              job_type: 'delete'
+              job_type: 'delete',
+              ui_job_id: args.options.ui_job_id
             }
           });
         } else if (result['.tag'] === 'async_job_id') {
           await Agenda.define<Job>(result.async_job_id, deleteJob);
           await Agenda.every('3 seconds', result.async_job_id, {
             accessToken: context.session.access_token,
-            asyncJobId: result.async_job_id
+            asyncJobId: result.async_job_id,
+            ui_job_id: args.options.ui_job_id
           });
         }
         return Promise.resolve(true);
@@ -39,7 +41,8 @@ export default {
         PubSub.publish('dropbox_batch_work_failed', {
           batchWorkFailed: {
             job_type: 'delete',
-            status: 'failure'
+            status: 'failure',
+            ui_job_id: args.options.ui_job_id
           }
         });
         return Promise.resolve(false);
@@ -63,14 +66,16 @@ export default {
             batchWorkComplete: {
               entries: result.entries,
               status: 'completed',
-              job_type: 'move'
+              job_type: 'move',
+              ui_job_id: args.options.ui_job_id
             }
           });
         } else if (result['.tag'] === 'async_job_id') {
           await Agenda.define<Job>(result.async_job_id, moveJob);
           await Agenda.every('3 seconds', result.async_job_id, {
             accessToken: context.session.access_token,
-            asyncJobId: result.async_job_id
+            asyncJobId: result.async_job_id,
+            ui_job_id: args.options.ui_job_id
           });
         }
         return Promise.resolve(true);
@@ -79,7 +84,8 @@ export default {
         PubSub.publish('dropbox_batch_work_failed', {
           batchWorkFailed: {
             job_type: 'move',
-            status: 'failure'
+            status: 'failure',
+            ui_job_id: args.options.ui_job_id
           }
         });
         return Promise.resolve(false);
@@ -103,14 +109,17 @@ export default {
             batchWorkComplete: {
               entries: result.entries,
               status: 'completed',
-              job_type: 'move'
+              job_type: 'copy',
+              ui_job_id: args.options.ui_job_id
+
             }
           });
         } else if (result['.tag'] === 'async_job_id') {
           await Agenda.define<Job>(result.async_job_id, copyJob);
           await Agenda.every('3 seconds', result.async_job_id, {
             accessToken: context.session.access_token,
-            asyncJobId: result.async_job_id
+            asyncJobId: result.async_job_id,
+            ui_job_id: args.options.ui_job_id
           });
         }
         return Promise.resolve(true);
@@ -120,7 +129,8 @@ export default {
           resxDeleted: {
             batchWorkFailed: {
               job_type: 'copy',
-              status: 'failure'
+              status: 'failure',
+              ui_job_id: args.options.ui_job_id
             }
           }
         });

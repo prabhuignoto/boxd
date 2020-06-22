@@ -47,6 +47,7 @@
             v-bind="file"
             v-on:selected="handleLineItemSelection"
             v-on:deselected="handleLineItemDeselection"
+            v-if="!file.hidden"
           />
         </div>
         <!-- </transition-group> -->
@@ -76,7 +77,7 @@ import Toolbar from "../Toolbar/Toolbar.vue";
 import Account from "../Account.vue";
 import FolderPath from "../Path/FolderPath.vue";
 import ExplorerToolbar from "./explorer-toolbar.vue";
-import BatchSub from "../../batchSub";
+// import BatchSub from "../../batchSub";
 // import SearchBox from "../Searchbox.vue";
 import Vue from "vue";
 
@@ -135,8 +136,6 @@ export default Vue.extend({
       "refetchData",
       "addItemForBulk",
       "removeItemFromBulk",
-      "markBulkCompletion",
-      "showNotification",
       "removeItemsFromList",
     ]),
     handleLoadMore() {
@@ -189,7 +188,7 @@ export default Vue.extend({
       },
       fetchPolicy: "cache-and-network",
     },
-    $subscribe: BatchSub,
+    // $subscribe: BatchSub,
   },
 });
 </script>

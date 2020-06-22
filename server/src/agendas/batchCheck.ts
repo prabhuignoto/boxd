@@ -11,7 +11,8 @@ import PubSub from '../pubSub';
 export interface Job {
   accessToken: string;
   asyncJobId: string;
-  path: string
+  path: string;
+  ui_job_id: string;
 }
 
 export interface entry {
@@ -46,6 +47,7 @@ interface JobResult {
   tag: string;
   entries?: entry[];
   status?: string;
+  ui_job_id?: string;
 }
 
 interface JobInterface {
@@ -86,7 +88,7 @@ function jobFactory<T extends JobInterface> (config: T) {
   };
 
   return async function (job: Agenda.Job<Job>) {
-    const { accessToken, asyncJobId } = job.attrs.data;
+    const { accessToken, asyncJobId, ui_job_id } = job.attrs.data;
     try {
       const client = getClient(accessToken);
       const { onComplete, onProgress, onFailed, mode } = config;
@@ -98,20 +100,23 @@ function jobFactory<T extends JobInterface> (config: T) {
             entries: transformEntries(result.entries, mode),
             job_id: asyncJobId,
             tag: result['.tag'],
-            status: 'complete'
+            status: 'complete',
+            ui_job_id
           });
           agenda.cancel({ name: asyncJobId });
         } else if (result['.tag'] === 'in_progress') {
           onProgress && onProgress({
             job_id: asyncJobId,
             tag: result['.tag'],
-            status: 'running'
+            status: 'running',
+            ui_job_id
           });
         } else if (result['.tag'] === 'failed') {
           onFailed && onFailed({
             job_id: asyncJobId,
             tag: result['.tag'],
-            status: 'failed'
+            status: 'failed',
+            ui_job_id
           });
           agenda.cancel({ name: asyncJobId });
         }
@@ -143,33 +148,36 @@ function jobFactory<T extends JobInterface> (config: T) {
 const loadJob = function (mode: JobMode) {
   return jobFactory({
     mode,
-    onComplete: ({ entries, status, job_id, tag }) => {
+    onComplete: ({ entries, status, job_id, tag, ui_job_id }) => {
       PubSub.publish('dropbox_batch_work_complete', {
         batchWorkComplete: {
           job_id,
           tag,
           entries,
           status,
-          job_type: mode
+          job_type: mode,
+          ui_job_id
         }
       });
       agenda.cancel({ name: job_id });
     },
-    onProgress: ({ status, job_id, tag }) => {
+    onProgress: ({ status, job_id, tag, ui_job_id }) => {
       PubSub.publish('dropbox_batch_work_running', {
         batchWorkRunning: {
           job_id,
           tag,
-          status
+          status,
+          ui_job_id
         }
       });
     },
-    onFailed: ({ job_id, tag }) => {
+    onFailed: ({ job_id, tag, ui_job_id }) => {
       PubSub.publish('dropbox_batch_work_failed', {
         batchWorkFailed: {
           job_id,
           tag,
-          status: 'failed'
+          status: 'failed',
+          ui_job_id
         }
       });
       agenda.cancel({ name: job_id });

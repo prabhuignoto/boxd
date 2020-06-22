@@ -41,13 +41,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions([
-      "updateSearch",
-      "updateSearchResults",
-      "clearSearch",
-      "clearList",
-      "refetchData",
-    ]),
+    ...mapActions(["updateSearch", "clearSearch", "clearList", "refetchData"]),
     handleSearch({ keyCode, target }) {
       if (keyCode === 13 && target.value !== "") {
         this.term = target.value;
@@ -73,7 +67,7 @@ export default {
       },
       result({ loading, data }) {
         if (!loading && data && data.search) {
-          this.updateSearchResults(data.search.matches.map(x => x.metadata));
+          // this.updateSearchResults(data.search.matches.map(x => x.metadata));
         }
       },
       variables() {

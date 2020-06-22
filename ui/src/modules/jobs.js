@@ -1,75 +1,109 @@
 import _ from "lodash";
+import uniqid from "uniqid";
+import Vue from "vue";
 
 export default {
   state: {
-    items: {},
+    jobs: {},
   },
   mutations: {
-    addJob(state, { jobId, jobType }) {
-      state.items[jobId] = {
-        jobId,
+    addJob(state, { jobType, data }) {
+      const id = uniqid();
+      Vue.set(state.jobs, id, {
+        id: id,
+        // type of job MOVE/COPY/DELETE
         jobType,
         running: false,
         startTime: null,
         endTime: null,
-        data: null,
-      };
+        data,
+        records: data.records || [],
+      });
     },
-    removeJob(state, { jobId }) {
-      if (jobId in state.items) {
-        delete state.items[jobId];
+    removeJob(state, { id }) {
+      if (id in state.jobs) {
+        delete state.jobs[id];
       }
     },
-    startJob(state, { jobId }) {
-      if (jobId in state.items) {
-        state.items[jobId].running = true;
-        state.items[jobId].startTime = Date.now();
+    startJob(state, { id }) {
+      if (id in state.jobs) {
+        const item = state.jobs[id];
+        item.running = true;
+        item.startTime = Date.now();
+        item.status = "running";
       }
     },
-    completeJob(state, { jobId, jobData }) {
-      if (jobId in state.items) {
-        state.items[jobId].running = false;
-        state.items[jobId].endTime = Date.now();
-        state.items[jobId].status = "completed";
-        state.items[jobId].data = jobData;
+    completeJob(state, { id }) {
+      if (id in state.jobs) {
+        const item = state.jobs[id];
+        item.running = false;
+        item.endTime = Date.now();
+        item.status = "completed";
+      }
+    },
+    failedJob(state, { id, reason }) {
+      if (id in state.jobs) {
+        const item = state.jobs[id];
+        item.running = false;
+        item.endTime = Date.now();
+        item.status = "failed";
+        item.reason = reason;
       }
     },
   },
   actions: {
-    addJob({ commit }, jobId, jobType) {
+    addJob({ commit }, { jobType, data }) {
       commit({
         type: "addJob",
-        jobId,
         jobType,
+        data,
       });
     },
-    removeJob({ commit }, jobId) {
+    removeJob({ commit }, id) {
       commit({
         type: "removeJob",
-        jobId,
+        id,
       });
     },
-    startJob({ commit }, jobId) {
+    startJob({ commit }, id) {
       commit({
         type: "startJob",
-        jobId,
+        id,
       });
     },
-    completeJob({ commit }, jobId, jobData) {
+    completeJob({ commit }, { id }) {
       commit({
-        type: "startJob",
-        jobId,
-        jobData,
+        type: "completeJob",
+        id,
+      });
+    },
+    failedJob({ commit }, { id, reason }) {
+      commit({
+        type: "failedJob",
+        id,
+        reason,
       });
     },
   },
   getters: {
-    getJobById: state => id => state.items[id],
-    getAllJobs: state => state.items,
-    getAllRunningJobs: state => _.filter(state.items, item => item.running),
-    getAllCompletedJobs: state =>
-      _.filter(state.items, item => item.status === "completed"),
-    getAllNewJobs: state =>
-      _.filter(state.items, item => !item.startTime && !item.running),
+    getJobById: state => id => state.jobs[id],
+    getAllJobs: state => state.jobs,
+    getAllRunningJobs: state => _.filter(state.jobs, item => item.running),
+    getAllCompletedJobs: state => {
+      return Object.keys(state.jobs)
+        .filter(key => {
+          const item = state.jobs[key];
+          return item.status === "completed";
+        })
+        .map(id => state.jobs[id]);
+    },
+    getAllNewJobs: state => {
+      return Object.keys(state.jobs)
+        .filter(key => {
+          const item = state.jobs[key];
+          return !item.running && !item.startTime;
+        })
+        .map(id => state.jobs[id]);
+    },
   },
 };

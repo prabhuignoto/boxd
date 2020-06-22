@@ -15,14 +15,15 @@
 }
 
 input {
-  background: #ecf5fc;
-  border: 1px solid #d6dee4;
+  background: #e7e7e7;
+  border: 0;
   border-radius: 0.25rem;
   color: #2b2d42;
-  font-size: 0.75rem;
-  height: 1.5rem;
+  font-size: 0.85rem;
+  height: 1.75rem;
   outline: none;
   padding: 0.2rem;
+  padding-left: 0.5rem;
   width: 100%;
 
   &::placeholder {

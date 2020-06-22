@@ -1,6 +1,6 @@
 <template>
   <nav class="explorer-toolbar-wrapper">
-    <ul class="explorer-toolbar" :class="{ disabled: getBulkOpActive }">
+    <ul class="explorer-toolbar">
       <li class="explorer-toolbar-item context" title="Quick Actions">
         <ContextControl :path="getExplorerPath" type="link" name="Random" />
       </li>
@@ -41,8 +41,6 @@
 <script>
 import Vue from "vue";
 import { TrashIcon, ArrowRightIcon, CopyIcon } from "vue-feather-icons";
-import deleteBulkGQL from "../../graphql/deleteBulk.gql";
-import gql from "graphql-tag";
 import { mapGetters, mapActions } from "vuex";
 
 import ContextControl from "../ContextActions/Control.vue";
@@ -56,30 +54,22 @@ export default Vue.extend({
     ContextControl,
   },
   computed: {
-    ...mapGetters([
-      "getBulkItems",
-      "getBulkOpActive",
-      "getBulkItems",
-      "getExplorerPath",
-    ]),
+    ...mapGetters(["getBulkItems", "getBulkItems", "getExplorerPath"]),
   },
   methods: {
     ...mapActions([
-      "markItemsForBulkOp",
       "enableBulkMode",
       "skipToFinal",
       "updateModalState",
       "setMoveResxBulk",
       "updateMoveCopyMode",
+      "addJob",
     ]),
     handleBulkDelete() {
-      this.markItemsForBulkOp("delete");
-      this.$apollo.mutate({
-        mutation: gql(deleteBulkGQL),
-        variables: {
-          options: {
-            paths: this.getBulkItems.map(p => p.path_lower),
-          },
+      this.addJob({
+        jobType: "DELETE",
+        data: {
+          items: JSON.parse(JSON.stringify(this.getBulkItems)),
         },
       });
     },
