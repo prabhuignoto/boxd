@@ -20,33 +20,38 @@ export default Vue.component("About", {
 
 <style lang="scss" scoped>
 .about-wrapper {
-  width: 100%;
-  height: 100%;
-  font-family: "Open Sans", Arial, Helvetica, sans-serif;
-  height: 130px;
-  display: flex;
   align-items: center;
+  display: flex;
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+  height: 100%;
+  height: 130px;
   justify-content: space-around;
+  width: 100%;
 }
+
 .info {
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   justify-content: center;
 }
+
 .logo {
+  color: #2b2d42;
   font-size: 3rem;
   font-weight: 700;
-  color: #2b2d42;
 }
+
 .version {
+  display: block;
   font-size: 0.9rem;
   font-weight: 700;
-  display: block;
 }
+
 .built-with {
   font-size: 0.9rem;
 }
+
 .copyright {
   font-size: 0.9rem;
 }

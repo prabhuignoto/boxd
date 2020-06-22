@@ -9,9 +9,9 @@ import Session from 'express-session';
 import { createServer } from 'http';
 import morgan from 'morgan';
 import Redis from 'redis';
-import { ErrorLogger } from './logger';
 import Routers from './router';
 import schema from './schema';
+import { ErrorLogger } from './logger';
 
 // * initialize redis store and client
 // tslint:disable-next-line:no-var-requires
@@ -28,10 +28,6 @@ const RedisClient = Redis.createClient({
   }
 });
 
-// RedisClient.auth(process.env.REDIS_PASSWD || "");
-
-// * create error logger
-
 // * initialize express
 const app = express();
 
@@ -45,7 +41,7 @@ try {
   app.use(morgan(process.env.MORGAN_LOG_MODE as string));
 
   // * invoke body parser
-  app.use(BodyParser.urlencoded());
+  app.use(BodyParser.urlencoded({ extended: true }));
 
   app.use(BodyParser.json());
 
@@ -120,5 +116,9 @@ try {
     console.log('🚀 Server ready')
   );
 } catch (error) {
-  ErrorLogger.log(error);
+  ErrorLogger.log({
+    level: 'error',
+    message: error
+  });
+  console.log(error);
 }

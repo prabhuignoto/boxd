@@ -1,31 +1,41 @@
 <template>
   <section class="stage2-container">
     <div class="stage3-explorer-wrapper">
-      <div v-if="mode === 'move'">
+      <div v-if="getMoveCopyMode === 'move'">
         <MoveExplorerDest path />
       </div>
-      <div v-if="mode === 'copy'">
+      <div v-if="getMoveCopyMode === 'copy'">
         <CopyExplorerDest path />
       </div>
     </div>
     <div class="summary">
       <div class="summary-final">
-        <span class="value">{{
-          mode === "move" ? moveResxSrcFormatted : copyResxSrcFormatted
-        }}</span>
+        <span class="value">
+          {{
+            getMoveCopyMode === "move"
+              ? moveResxSrcFormatted
+              : copyResxSrcFormatted
+          }}
+        </span>
         <i>
           <ArrowRightIcon />
         </i>
-        <span class="value" v-if="dest !== ''">{{
-          mode === "move" ? moveResxDestFormatted : copyResxDestFormatted
-        }}</span>
+        <span class="value" v-if="dest">
+          {{
+            getMoveCopyMode === "move"
+              ? moveResxDestFormatted
+              : copyResxDestFormatted
+          }}
+        </span>
       </div>
     </div>
     <div class="stage2-controls">
       <div class="stage3-loader-wrapper" v-if="saving">
         <Loader />
       </div>
-      <div class="error-msg-container" v-if="errored">Failed to {{ mode }}</div>
+      <div class="error-msg-container" v-if="errored">
+        Failed to {{ getMoveCopyMode }}
+      </div>
       <Button name="Back" :onClick="handlePrevious" v-if="!getSkipToFinal">
         <template slot="btn-icon">
           <ChevronLeftIcon />
@@ -65,15 +75,14 @@ export default {
     CheckIcon,
   },
   beforeDestroy() {
-    this.clearMoveResx();
-    this.clearCopyResx();
+    this.clearMoveCopyState();
     this.skipToFinal(false);
-    this.updateMoveCopyMode("");
+    this.updateMoveCopyMode(null);
   },
   computed: {
     ...mapGetters([
       "getSkipToFinal",
-      "mvCopyMode",
+      "getMoveCopyMode",
       "moveResxSrc",
       "copyResxSrc",
       "moveResxDest",
@@ -82,29 +91,35 @@ export default {
       "copyResxSrcFormatted",
       "moveResxDestFormatted",
       "copyResxDestFormatted",
+      "getBulkMode",
     ]),
-    mode() {
-      return this.mvCopyMode;
-    },
     src() {
-      if (this.mode === "move") {
+      if (this.getMoveCopyMode === "move") {
         return this.moveResxSrc;
       } else {
         return this.copyResxSrc;
       }
     },
     dest() {
-      if (this.mode === "move") {
+      if (this.getMoveCopyMode === "move") {
         return this.moveResxDest;
       } else {
         return this.copyResxDest;
       }
     },
     canFinish() {
-      if (this.mode === "move") {
-        return this.moveResxSrc && this.moveResxDest;
+      if (this.getMoveCopyMode === "move") {
+        if (this.getBulkMode) {
+          return this.moveResxDest;
+        } else {
+          return this.moveResxSrc && this.moveResxDest;
+        }
       } else {
-        return this.copyResxSrc && this.copyResxDest;
+        if (this.getBulkMode) {
+          return this.copyResxDest;
+        } else {
+          return this.copyResxSrc && this.copyResxDest;
+        }
       }
     },
     getStyle() {
@@ -115,21 +130,20 @@ export default {
       }
     },
     getSummaryMsg() {
-      if (this.mode === "move") {
+      if (this.getMoveCopyMode === "move") {
         return "You are moving a resource";
       } else {
         return "You are copying a resource";
       }
     },
   },
-  props: ["handleComplete", "handlePrevious", "saving", "errored"],
+  props: ["handleComplete", "handlePrevious", "saving", "errored", "bulkMode"],
   methods: {
     ...mapActions([
       "updateModalState",
-      "clearMoveResx",
-      "clearCopyResx",
       "skipToFinal",
       "updateMoveCopyMode",
+      "clearMoveCopyState",
     ]),
     handleNext() {
       this.handleComplete();

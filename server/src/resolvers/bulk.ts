@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { Dropbox, files } from 'dropbox';
 import Agenda from '../agenda';
-import { deleteJob, Job } from '../agendas/batchCheck';
+import { deleteJob, Job, moveJob, copyJob } from '../agendas/batchCheck';
 import { ErrorLogger } from '../logger';
 import PubSub from '../pubSub';
 
@@ -22,12 +22,13 @@ export default {
           PubSub.publish('dropbox_batch_work_complete', {
             batchWorkComplete: {
               entries: result.entries,
-              status: 'completed'
+              status: 'completed',
+              job_type: 'delete'
             }
           });
         } else if (result['.tag'] === 'async_job_id') {
           await Agenda.define<Job>(result.async_job_id, deleteJob);
-          await Agenda.every('4 seconds', result.async_job_id, {
+          await Agenda.every('3 seconds', result.async_job_id, {
             accessToken: context.session.access_token,
             asyncJobId: result.async_job_id
           });
@@ -35,10 +36,92 @@ export default {
         return Promise.resolve(true);
       } catch (error) {
         ErrorLogger.log(error);
-        PubSub.publish('resx_deleted', {
+        PubSub.publish('dropbox_batch_work_failed', {
+          batchWorkFailed: {
+            job_type: 'delete',
+            status: 'failure'
+          }
+        });
+        return Promise.resolve(false);
+      }
+    },
+    moveBulk: async (obj: any, args: any, context: any, info: any) => {
+      try {
+        const result: files.RelocationBatchV2Launch = await new Dropbox({
+          accessToken: context.session.access_token,
+          clientId: process.env.CLIENT_ID
+        }).filesMoveBatchV2({
+          entries: args.options.entries.map((item: any) => ({
+            from_path: item.from_path,
+            to_path: item.to_path
+          })),
+          autorename: args.options.autorename
+        });
+
+        if (result['.tag'] === 'complete') {
+          PubSub.publish('dropbox_batch_work_complete', {
+            batchWorkComplete: {
+              entries: result.entries,
+              status: 'completed',
+              job_type: 'move'
+            }
+          });
+        } else if (result['.tag'] === 'async_job_id') {
+          await Agenda.define<Job>(result.async_job_id, moveJob);
+          await Agenda.every('3 seconds', result.async_job_id, {
+            accessToken: context.session.access_token,
+            asyncJobId: result.async_job_id
+          });
+        }
+        return Promise.resolve(true);
+      } catch (error) {
+        ErrorLogger.log(error);
+        PubSub.publish('dropbox_batch_work_failed', {
+          batchWorkFailed: {
+            job_type: 'move',
+            status: 'failure'
+          }
+        });
+        return Promise.resolve(false);
+      }
+    },
+    copyBulk: async (obj: any, args: any, context: any, info: any) => {
+      try {
+        const result: files.RelocationBatchV2Launch = await new Dropbox({
+          accessToken: context.session.access_token,
+          clientId: process.env.CLIENT_ID
+        }).filesCopyBatchV2({
+          entries: args.options.entries.map((item: any) => ({
+            from_path: item.from_path,
+            to_path: item.to_path
+          })),
+          autorename: args.options.autorename
+        });
+
+        if (result['.tag'] === 'complete') {
+          PubSub.publish('dropbox_batch_work_complete', {
+            batchWorkComplete: {
+              entries: result.entries,
+              status: 'completed',
+              job_type: 'move'
+            }
+          });
+        } else if (result['.tag'] === 'async_job_id') {
+          await Agenda.define<Job>(result.async_job_id, copyJob);
+          await Agenda.every('3 seconds', result.async_job_id, {
+            accessToken: context.session.access_token,
+            asyncJobId: result.async_job_id
+          });
+        }
+        return Promise.resolve(true);
+      } catch (error) {
+        ErrorLogger.log(error);
+        PubSub.publish('dropbox_batch_work_failed', {
           resxDeleted: {
-            message: 'Failed to delete the folder',
-            success: false
+            batchWorkFailed: {
+              job_type: 'copy',
+              status: 'failure'
+            }
           }
         });
         return Promise.resolve(false);

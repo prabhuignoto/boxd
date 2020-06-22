@@ -36,6 +36,7 @@ export default new Vuex.Store({
       disableHeader: false,
       disableCloseBtn: false,
       width: 450,
+      status: false,
     },
     treeView: {
       data: [],
@@ -89,6 +90,17 @@ export default new Vuex.Store({
       state.fileExplorer.refresh = {
         status,
         path,
+      };
+    },
+    closeModal(state) {
+      state.modal = {
+        isActive: false,
+        componentToRender: "",
+        title: "",
+        disableHeader: false,
+        disableCloseBtn: false,
+        width: 450,
+        status: false,
       };
     },
   },
@@ -149,6 +161,11 @@ export default new Vuex.Store({
         type: "refreshFileExplorer",
         status,
         path,
+      });
+    },
+    closeModal({ commit }) {
+      commit({
+        type: "closeModal",
       });
     },
   },

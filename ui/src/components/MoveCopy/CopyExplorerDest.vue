@@ -14,7 +14,7 @@ import Treeview from "../Treeview/Treeview";
 import Vue from "vue";
 import gql from "graphql-tag";
 import FolderGQL from "../../graphql/folder.gql";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default Vue.component("CopyExplorerDest", {
   components: {
@@ -28,13 +28,39 @@ export default Vue.component("CopyExplorerDest", {
     };
   },
   props: ["path", "actionName"],
+  computed: {
+    ...mapGetters(["getBulkMode", "getBulkItems"]),
+  },
   methods: {
-    ...mapActions(["copyResxDest"]),
+    ...mapActions([
+      "copyResxDest",
+      "setCopyResxBulk",
+      "updateDestForCopyResxBulk",
+    ]),
     onSelect(node) {
       this.copyResxDest(node.path);
+      if (this.getBulkMode) {
+        this.setCopyResxBulk(
+          this.getBulkItems.map(item => ({
+            from_path: item.path_lower,
+            id: item.id,
+          }))
+        );
+        this.updateDestForCopyResxBulk(node.path);
+      }
     },
     handleSubfolderSelection(path) {
+      debugger;
       this.copyResxDest(path);
+      if (this.getBulkMode) {
+        this.setCopyResxBulk(
+          this.getBulkItems.map(item => ({
+            from_path: item.path_lower,
+            id: item.id,
+          }))
+        );
+        this.updateDestForCopyResxBulk(path);
+      }
     },
   },
   apollo: {

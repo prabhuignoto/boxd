@@ -1,26 +1,23 @@
 <template>
-  <StageOne
-    v-if="stage === 'one' && !getSkipToFinal"
-    :handleNext="handleStepOne"
-  />
+  <StageOne v-if="stage === 'one' && !getSkipToFinal" :handleNext="handleStepOne" />
   <StageTwo
     v-else-if="stage === 'two' && !getSkipToFinal"
     :handleNext="handleStepTwo"
     :handlePrevious="navToStepOne"
-    :mode="mode"
+    :mode="getMoveCopyMode"
   />
   <StageThree
     v-else-if="stage === 'three' || getSkipToFinal"
     :handleComplete="handleCompletion"
     :handlePrevious="navToStepTwo"
-    :mode="mode"
+    :mode="getMoveCopyMode"
     :saving="saving"
     :errored="errored"
+    :bulkMode="getBulkMode"
   />
 </template>
 
 <script>
-// import TextBox from "../Form/TextBox";
 import Vue from "vue";
 import StageOne from "./StageOne";
 import StageTwo from "./StageTwo";
@@ -29,10 +26,11 @@ import { mapActions, mapGetters } from "vuex";
 import gql from "graphql-tag";
 import CopyResxGQL from "../../graphql/copyResource.gql";
 import MoveResxGQL from "../../graphql/moveResource.gql";
+import MoveBulkGQL from "../../graphql/moveBulk.gql";
+import CopyBulkGQL from "../../graphql/copyBulk.gql";
 
 export default Vue.component("MoveCopy", {
   components: {
-    // TextBox,
     StageOne,
     StageTwo,
     StageThree,
@@ -56,90 +54,77 @@ export default Vue.component("MoveCopy", {
       "refreshFileExplorer",
       "updateModalTitle",
       "clearMoveCopyState",
+      "closeModal",
+      "markItemsForBulkOp",
     ]),
     handleStepOne() {
       this.stage = "two";
-      this.updateModalTitle(`${this.mode} - select source`);
+      this.updateModalTitle(`${this.getMoveCopyMode} - select source`);
     },
     handleStepTwo() {
       this.stage = "three";
-      this.updateModalTitle(`${this.mode} - select destination`);
+      this.updateModalTitle(`${this.getMoveCopyMode} - select destination`);
     },
-    handleCompletion() {
+    async handleCompletion() {
       this.saving = true;
       this.errored = false;
-      if (this.mode === "copy") {
-        let pathArray = this.copyResxSrc.split("/");
-        let srcName = pathArray[pathArray.length - 1];
-        this.$apollo
-          .mutate({
-            mutation: gql(CopyResxGQL),
-            variables: {
-              from_path: this.copyResxSrc,
-              to_path: `${this.copyResxDest} / ${srcName}`,
-            },
-            // update: (store, data) => {},
-          })
-          .then(() => {
-            this.updateModalState({
-              status: false,
-              componentToRender: "",
-              title: "",
-            });
-            this.refreshFileExplorer({
-              status: true,
-              path: this.copyResxDest,
-            });
-            this.saving = false;
-          })
-          .catch(() => {
-            this.saving = false;
-            this.errored = true;
+
+      try {
+        if (this.getBulkMode) {
+          this.markItemsForBulkOp(this.getMoveCopyMode);
+        }
+
+        if (this.getMoveCopyMode === "copy") {
+          debugger;
+          await this.$apollo.mutate({
+            mutation: this.getBulkMode ? gql(CopyBulkGQL) : gql(CopyResxGQL),
+            variables: this.getBulkMode
+              ? {
+                  options: {
+                    entries: this.getCopyResourceBulk,
+                    autorename: false,
+                  },
+                }
+              : {
+                  from_path: this.copyResxSrc,
+                  to_path: `${this.copyResxDest}/${this.copyResxSrc
+                    .split("/")
+                    .pop()}`,
+                },
           });
-      } else if (this.mode === "move") {
-        let pathArray = this.moveResxSrc.split("/");
-        let srcName = pathArray[pathArray.length - 1];
-        this.$apollo
-          .mutate({
-            mutation: gql(MoveResxGQL),
-            variables: {
-              from_path: this.moveResxSrc,
-              to_path: `${this.moveResxDest}/${srcName}`,
-            },
-            // update: (store, data) => {},
-          })
-          .then(() => {
-            this.saving = false;
-            this.refetchData(true);
-            this.updateModalState({
-              status: false,
-              componentToRender: "",
-              title: "",
-            });
-            let srcPath = this.moveResxSrc.split("/");
-            srcPath.pop();
-            this.$nextTick(() => {
-              this.refreshFileExplorer({
-                status: true,
-                path: this.moveResxDest,
-              });
-              this.$nextTick(() => {
-                this.refreshFileExplorer({
-                  status: true,
-                  path: srcPath.join("/"),
-                });
-              });
-            });
-          })
-          .catch(() => {
-            this.saving = false;
-            this.errored = true;
+          this.closeModal();
+          this.refreshFileExplorer({
+            status: true,
+            path: this.copyResxDest,
           });
+          this.saving = false;
+        } else if (this.getMoveCopyMode === "move") {
+          await this.$apollo.mutate({
+            mutation: this.getBulkMode ? gql(MoveBulkGQL) : gql(MoveResxGQL),
+            variables: this.getBulkMode
+              ? {
+                  options: {
+                    entries: this.getMoveResourceBulk,
+                    autorename: false,
+                  },
+                }
+              : {
+                  from_path: this.moveResxSrc,
+                  to_path: `${this.moveResxDest}/${this.moveResxSrc
+                    .split("/")
+                    .pop()}`,
+                },
+          });
+          this.saving = false;
+          this.closeModal();
+        }
+      } catch (error) {
+        console.log(error);
       }
     },
     navToStepOne() {
       this.stage = "one";
-      if (this.mode === "move") {
+      if (this.getMoveCopyMode === "move") {
         this.clearMoveResx();
       } else {
         this.clearCopyResx();
@@ -147,7 +132,7 @@ export default Vue.component("MoveCopy", {
     },
     navToStepTwo() {
       this.stage = "two";
-      if (this.mode === "move") {
+      if (this.getMoveCopyMode === "move") {
         this.clearMoveResx();
       } else {
         this.clearCopyResx();
@@ -164,6 +149,11 @@ export default Vue.component("MoveCopy", {
       "copyResxSrc",
       "copyResxDest",
       "getSkipToFinal",
+      "getMoveCopyMode",
+      "getBulkMode",
+      "getMoveResourceBulk",
+      "getCopyResourceBulk",
+      "getBulkItems",
     ]),
   },
 });

@@ -20,10 +20,8 @@ export default {
     removeFromList(state, { path }) {
       state.data = state.data.filter(item => item.path_lower !== path);
     },
-    removeItemsFromList(state, { paths }) {
-      state.data = state.data.filter(
-        item => paths.indexOf(item.path_lower) < 0
-      );
+    removeItemsFromList(state, { ids }) {
+      state.data = state.data.filter(item => ids.indexOf(item.id) < 0);
     },
     clearList(state) {
       state.data = [];
@@ -53,9 +51,7 @@ export default {
     },
     markItemsForBulkOp(state, { mode }) {
       state.data = state.data.map(op => {
-        const itemFound = state.bulkOps.find(
-          item => item.path_lower === op.path_lower
-        );
+        const itemFound = state.bulkOps.find(item => item.id === op.id);
         if (itemFound) {
           return Object.assign({}, op, {
             bulk_op_in_progress: true,
@@ -68,8 +64,15 @@ export default {
       state.bulkOpActive = true;
     },
     markBulkCompletion(state, { mode }) {
-      if (mode === "delete") {
+      if (mode === "delete" || mode === "move") {
         state.data = state.data.filter(item => !item.bulk_op_in_progress);
+      } else if (mode === "copy") {
+        state.data = state.data.map(item =>
+          Object.assign({}, item, {
+            bulk_op_in_progress: false,
+            bulk_op_mode: "",
+          })
+        );
       }
       state.bulkOps = [];
       state.bulkOpActive = false;
@@ -150,10 +153,10 @@ export default {
         path,
       });
     },
-    removeItemsFromList({ commit }, paths) {
+    removeItemsFromList({ commit }, ids) {
       commit({
         type: "removeItemsFromList",
-        paths,
+        ids,
       });
     },
   },

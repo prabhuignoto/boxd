@@ -64,12 +64,14 @@
 .peek-enter-active,
 .peek-leave-active {
   opacity: 1;
+  right: 1rem;
   transition: all 0.25s;
 }
 
 .peek-enter,
 .peek-leave-to {
   opacity: 0;
+  right: -10rem;
 }
 
 .folder-path-container {

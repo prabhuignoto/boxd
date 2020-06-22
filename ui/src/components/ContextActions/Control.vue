@@ -8,7 +8,7 @@
       customWidth="180px"
     >
       <template slot="icon">
-        <BoxIcon color="#fff" />
+        <BoxIcon />
       </template>
       <template slot="menu">
         <ul class="context-menu">

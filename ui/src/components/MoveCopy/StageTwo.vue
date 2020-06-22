@@ -55,14 +55,14 @@ export default {
   computed: {
     ...mapGetters(["moveResxSrcFormatted", "copyResxSrcFormatted"]),
     selectedSource() {
-      if (this.mode === "move") {
+      if (this.getMoveCopyMode === "move") {
         return this.$store.getters.moveResxSrc;
       } else {
         return this.$store.getters.copyResxSrc;
       }
     },
     isSourceSelected() {
-      if (this.mode === "move") {
+      if (this.getMoveCopyMode === "move") {
         return this.$store.getters.moveResxSrc !== "";
       } else {
         return this.$store.getters.copyResxSrc !== "";
@@ -94,6 +94,7 @@ export default {
       "clearMoveResx",
       "moveResxSource",
       "copyResxSource",
+      "getMoveCopyMode"
     ]),
   },
 };

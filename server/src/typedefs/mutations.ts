@@ -9,5 +9,7 @@ export default `
     moveResource(from_path: String!, to_path: String!): metadata!
     copyResource(from_path: String!, to_path: String!): metadata!
     deleteBulk(options: deleteBulkOptions): Boolean
+    moveBulk(options: relocationOptions): Boolean
+    copyBulk(options: relocationOptions): Boolean
   }
 `;

@@ -78,9 +78,9 @@
     <div class="upload-path-selection" v-if="canShowUpladPathSelection">
       <!-- <span v-if="!uploadSuccess">Uploading to</span> -->
       <span v-if="uploadSuccess">Uploaded to</span>
-      <span class="highlight" v-if="getUploadPathCustom">
-        {{ getUploadPathCustom }}
-      </span>
+      <span class="highlight" v-if="getUploadPathCustom">{{
+        getUploadPathFormatted
+      }}</span>
     </div>
     <!-- selected path -->
 
@@ -144,6 +144,7 @@ export default Vue.component("UploadWindow", {
       "getUploadExplorerStatus",
       "getExplorerPath",
       "canEnableClearBtn",
+      "getUploadPathFormatted",
     ]),
     getUploadPathCustom() {
       return this.getUploadPath === "/$root" ? "/ home" : this.getUploadPath;

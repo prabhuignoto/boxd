@@ -41,10 +41,10 @@ export default {
   },
   getters: {
     deletePath: state => state.deleteFolder.path,
-    createFolderSelection: state => state.createFolder.selection,
     isCreateFolderExpHidden: state => state.createFolder.hideExplorer,
-    getFolderSelection: state =>
+    getFolderSelectionFormatted: state =>
       state.createFolder.selection &&
       state.createFolder.selection.split("/").join(" / "),
+    getFolderSelection: state => state.createFolder.selection,
   },
 };

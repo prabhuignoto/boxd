@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
 
 // eslint-disable-next-line no-unused-vars
-// eslint-disable-next-line no-unused-vars
 import Agenda from 'agenda';
+// eslint-disable-next-line no-unused-vars
 import { Dropbox, files } from 'dropbox';
 import agenda from '../agenda';
 import { ErrorLogger } from '../logger';
@@ -11,15 +11,22 @@ import PubSub from '../pubSub';
 export interface Job {
   accessToken: string;
   asyncJobId: string;
+  path: string
 }
 
 export interface entry {
-  '.tag': string;
-  metadata: {
-    '.tag': string;
-    name: string;
-    path_lower: string;
-    content_hash: string;
+  tag: string;
+  metadata?: {
+    tag: string;
+    name?: string;
+    path_lower?: string;
+    content_hash?: string;
+  };
+  success?: {
+    tag: string;
+    name?: string;
+    path_lower?: string;
+    content_hash?: string;
   }
 }
 
@@ -49,33 +56,59 @@ interface JobInterface {
 }
 
 type JobStatusResult = files.RelocationBatchV2JobStatus | files.DeleteBatchJobStatus;
+type resultEntry = files.RelocationBatchResultEntry | files.DeleteBatchResultEntry;
 
-function jobFactory<T extends JobInterface>(config: T) {
+function jobFactory<T extends JobInterface> (config: T) {
+  const transformEntries: (e: resultEntry[], m: JobMode) => entry[] = (entries, mode) => {
+    return entries.map(item => {
+      let data = null;
+      let metaData = null;
+
+      if (mode === JobMode.copy || mode === JobMode.move) {
+        data = (<files.RelocationBatchResultEntrySuccess & {success: {id: string}}>item);
+        metaData = data.success;
+      } else {
+        data = (<files.DeleteBatchResultEntrySuccess & {metadata: {id: string }}>item);
+        metaData = data.metadata;
+      }
+
+      return {
+        tag: item['.tag'],
+        metadata: {
+          id: metaData.id,
+          tag: data['.tag'],
+          name: metaData.name,
+          path_lower: metaData.path_lower,
+          path_display: metaData.path_display
+        }
+      };
+    });
+  };
+
   return async function (job: Agenda.Job<Job>) {
     const { accessToken, asyncJobId } = job.attrs.data;
     try {
       const client = getClient(accessToken);
+      const { onComplete, onProgress, onFailed, mode } = config;
       let result: JobStatusResult;
 
       const process = (result: JobStatusResult) => {
         if (result['.tag'] === 'complete') {
-          config.onComplete && config.onComplete({
-            entries: (<entry[]>result.entries).map(entry => Object.assign({}, entry, {
-              tag: entry['.tag']
-            })),
+          onComplete && onComplete({
+            entries: transformEntries(result.entries, mode),
             job_id: asyncJobId,
             tag: result['.tag'],
             status: 'complete'
           });
           agenda.cancel({ name: asyncJobId });
         } else if (result['.tag'] === 'in_progress') {
-          config.onProgress && config.onProgress({
+          onProgress && onProgress({
             job_id: asyncJobId,
             tag: result['.tag'],
             status: 'running'
           });
         } else if (result['.tag'] === 'failed') {
-          config.onFailed && config.onFailed({
+          onFailed && onFailed({
             job_id: asyncJobId,
             tag: result['.tag'],
             status: 'failed'
@@ -84,17 +117,17 @@ function jobFactory<T extends JobInterface>(config: T) {
         }
       };
 
-      if (config.mode === JobMode.copy) {
+      if (mode === JobMode.copy) {
         result = await client.filesCopyBatchCheckV2({
           async_job_id: asyncJobId
         });
         process(result);
-      } else if (config.mode === JobMode.move) {
+      } else if (mode === JobMode.move) {
         result = await client.filesMoveBatchCheckV2({
           async_job_id: asyncJobId
         });
         process(result);
-      } else if (config.mode === JobMode.delete) {
+      } else if (mode === JobMode.delete) {
         result = await client.filesDeleteBatchCheck({
           async_job_id: asyncJobId
         });
@@ -116,7 +149,8 @@ const loadJob = function (mode: JobMode) {
           job_id,
           tag,
           entries,
-          status
+          status,
+          job_type: mode
         }
       });
       agenda.cancel({ name: job_id });
@@ -152,4 +186,3 @@ export {
   moveJob,
   deleteJob
 };
-

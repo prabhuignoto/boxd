@@ -8,26 +8,31 @@ export default {
         batchWorkComplete {
           job_id
           status
+          job_type
           entries {
             metadata {
+              id
               name
               path_lower
-              content_hash
             }
           }
         }
       }
     `,
     result({ data: { batchWorkComplete } }) {
-      this.markBulkCompletion("delete");
-      this.removeItemsFromList(
-        batchWorkComplete.entries.map(entry => entry.metadata.path_lower)
-      );
+      const jobType = batchWorkComplete.job_type;
+      this.markBulkCompletion(batchWorkComplete.job_type);
+
+      if (jobType === "move" || jobType == "delete") {
+        this.removeItemsFromList(
+          batchWorkComplete.entries.map(entry => entry.metadata.id)
+        );
+      }
 
       this.showNotification({
         type: "info",
         id: uniqid("notification-msg-"),
-        message: `Files deleted successfully`,
+        message: `Files ${jobType}d successfully`,
       });
     },
   },
@@ -37,11 +42,12 @@ export default {
         batchWorkRunning {
           job_id
           status
+          job_type
           entries {
             metadata {
+              id
               name
               path_lower
-              content_hash
             }
           }
         }
@@ -57,11 +63,12 @@ export default {
         batchWorkFailed {
           job_id
           status
+          job_type
           entries {
             metadata {
+              id
               name
               path_lower
-              content_hash
             }
           }
         }

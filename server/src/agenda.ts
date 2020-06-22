@@ -7,7 +7,14 @@ if (process.env.NODE_ENV === 'development') {
 
 const mongoConnectionString: string = process.env.MONGO_DB_URL as string;
 
-const agenda = new Agenda({ db: { address: mongoConnectionString } });
+const agenda = new Agenda({
+  db: {
+    address: mongoConnectionString,
+    options: {
+      useUnifiedTopology: true
+    }
+  }
+});
 
 (async function () {
   agenda.maxConcurrency(25);

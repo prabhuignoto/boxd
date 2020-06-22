@@ -1,0 +1,3 @@
+mutation copyBulk($options: relocationOptions!) {
+  move: copyBulk(options: $options)
+}

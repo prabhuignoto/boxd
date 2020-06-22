@@ -28,5 +28,7 @@ export default {
   getters: {
     getUploadPath: state => state.uploadPath,
     getUploadExplorerStatus: state => state.enableUploadExplorer,
+    getUploadPathFormatted: state =>
+      state.uploadPath && state.uploadPath.split("/").join(" / "),
   },
 };

@@ -4,14 +4,8 @@
     <div class="explorer">
       <header class="explorer-header">
         <ul class="header-wrapper">
-          <!-- <li class="header control context">
-            <ContextControl :path="path" type="link" name="Random" />
-          </li> -->
           <li class="header control toolbar">
             <Toolbar />
-          </li>
-          <li class="header control search">
-            <SearchBox />
           </li>
           <li class="header control account">
             <Account />
@@ -20,18 +14,15 @@
       </header>
       <section class="explorer-content">
         <div class="explorer-top-bar">
-          <div>
-            <ContextControl :path="path" type="link" name="Random" />
+          <div class="explorer-toolbar-container">
+            <ExplorerToolbar />
           </div>
           <div class="explorer-folder-path-container">
             <FolderPath />
           </div>
-          <div class="explorer-toolbar-container" v-if="getBulkItems.length">
-            <ExplorerToolbar />
-          </div>
         </div>
         <div class="loader-container" v-if="$apollo.loading">
-          <Loader size="2x" />
+          <!-- <Loader size="2x" /> -->
         </div>
         <div
           class="line-item-wrapper search-results-row"
@@ -75,31 +66,28 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import gql from "graphql-tag";
 import FolderGQL from "../../graphql/folder.gql";
-import Loader from "../Loader.vue";
+// import Loader from "../Loader.vue";
 import LineItem from "./Explorer-LineItem.vue";
 import { mapActions, mapGetters } from "vuex";
-import ContextControl from "../ContextActions/Control.vue";
 import Toolbar from "../Toolbar/Toolbar.vue";
 import Account from "../Account.vue";
 import FolderPath from "../Path/FolderPath.vue";
 import ExplorerToolbar from "./explorer-toolbar.vue";
 import BatchSub from "../../batchSub";
-import SearchBox from "../Searchbox.vue";
-// import { ZapIcon } from "vue-feather-icons";
+// import SearchBox from "../Searchbox.vue";
 import Vue from "vue";
 
 export default Vue.extend({
   name: "Explorer",
   components: {
     Account,
-    ContextControl,
     FolderPath,
     LineItem,
-    Loader,
-    SearchBox,
+    // Loader,
+    // SearchBox,
     Toolbar,
     ExplorerToolbar,
   },
@@ -127,7 +115,6 @@ export default Vue.extend({
       "hasSearchResultsArrived",
       "isUserSearching",
       "searchCount",
-      "getBulkItems",
     ]),
     refetchStatus() {
       return this.$store.state.list.refetchStatus;

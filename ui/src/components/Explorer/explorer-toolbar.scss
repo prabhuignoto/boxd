@@ -18,7 +18,8 @@
 
 .explorer-toolbar-item {
   align-items: center;
-  background: #e5e5e5;
+  background: #fff;
+  border: 1px solid #e5e5e5;
   border-radius: 50%;
   color: #007ee5;
   cursor: pointer;
@@ -30,6 +31,7 @@
 
   &:hover {
     background: #007ee5;
+    border: 1px solid transparent;
     color: #fff;
   }
 
@@ -38,9 +40,9 @@
     align-items: center;
     display: block;
     display: flex;
-    height: 1rem;
+    height: 1.25rem;
     justify-content: center;
-    width: 1rem;
+    width: 1.25rem;
   }
 
   span {
@@ -54,4 +56,10 @@
     height: 100%;
     width: 100%;
   }
+}
+
+.context {
+  background: #007ee5;
+  border: 1px solid transparent;
+  margin-left: 1rem;
 }

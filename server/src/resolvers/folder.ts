@@ -23,7 +23,10 @@ export default {
         });
         return result.metadata;
       } catch (error) {
-        ErrorLogger.log(error);
+        ErrorLogger.log({
+          level: 'error',
+          message: error.message
+        });
         PubSub.publish('resx_copied', {
           resxCopied: {
             message: 'Failed to copy the resource',
@@ -50,7 +53,10 @@ export default {
         });
         return result.metadata;
       } catch (error) {
-        ErrorLogger.log(error);
+        ErrorLogger.log({
+          level: 'error',
+          message: error.message
+        });
         PubSub.publish('folder_added', {
           folderAdded: {
             message: 'Failed to add the folder',
@@ -76,7 +82,10 @@ export default {
         });
         return result.metadata;
       } catch (error) {
-        ErrorLogger.log(error);
+        ErrorLogger.log({
+          level: 'error',
+          message: error.message
+        });
         PubSub.publish('resx_deleted', {
           resxDeleted: {
             message: 'Failed to delete the folder',
@@ -147,7 +156,10 @@ export default {
           hasMore: folderResult.has_more
         };
       } catch (error) {
-        ErrorLogger.log(error);
+        ErrorLogger.log({
+          level: 'error',
+          message: error.message
+        });
         return {};
       }
     }

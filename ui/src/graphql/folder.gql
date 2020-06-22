@@ -7,6 +7,7 @@ query list($path: String!, $limit: Int!, $cursor: String) {
       path_lower
       content_hash
       server_modified
+      id
     }
     hasMore,
     cursor

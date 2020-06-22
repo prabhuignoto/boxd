@@ -25,16 +25,6 @@ li {
     color: #fff;
   }
   
-  &:first-child {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-  }
-  
-  &:last-child {
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-  }
-  
   i {
     display: block;
     height: 0.25rem;

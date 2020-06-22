@@ -8,8 +8,10 @@
       <CreateFolderExplorer path />
     </div>
     <div class="selected-path-wrapper">
-      <div class="selected-path" v-if="getFolderSelection">
-        {{ getFolderSelection === "" ? "/" : getFolderSelection }}
+      <div class="selected-path" v-if="getFolderSelectionFormatted">
+        {{
+          getFolderSelectionFormatted === "" ? "/" : getFolderSelectionFormatted
+        }}
       </div>
     </div>
     <div class="create-folder-controls">
@@ -17,9 +19,7 @@
         <div class="crt-folder-loader-container">
           <Loader />
         </div>
-        <span class="loader-message">
-          creating folder ...
-        </span>
+        <span class="loader-message">creating folder ...</span>
       </div>
       <Button
         name="Create"
@@ -45,7 +45,7 @@
   </section>
 </template>
 
-<script lang="ts">
+<script>
 import Textbox from "../Form/TextBox.vue";
 import CreateFolderExplorer from "./CreateFolderExplorer.vue";
 import Button from "../Form/Button.vue";
@@ -79,14 +79,11 @@ export default Vue.component("CreateFolder", {
     this.createFolderSelection(null);
   },
   computed: {
-    selectedPath() {
-      return this.$store.getters.createFolderSelection;
-    },
     isNameEmpty() {
       return this.folderName === "";
     },
     isPathSelected() {
-      return this.selectedPath !== null;
+      return this.getFolderSelection !== null;
     },
     showFolderValidError() {
       return this.createHandledOnce > 0 && !this.isPathSelected;
@@ -105,6 +102,7 @@ export default Vue.component("CreateFolder", {
       "isCreateFolderExpHidden",
       "getWorkflowOrigin",
       "getExplorerPath",
+      "getFolderSelectionFormatted",
       "getFolderSelection",
     ]),
   },
@@ -128,7 +126,7 @@ export default Vue.component("CreateFolder", {
           .mutate({
             mutation: gql(createFolderGQL),
             variables: {
-              path: this.selectedPath,
+              path: this.getFolderSelection,
               name: this.folderName,
             },
             update: () => {
@@ -136,7 +134,7 @@ export default Vue.component("CreateFolder", {
                 status: false,
                 componentToRender: "",
               });
-              this.updatePath(`${this.selectedPath}`);
+              this.updatePath(`${this.getFolderSelection}`);
               this.refetchData(true);
               this.refreshFileExplorer({
                 status: true,

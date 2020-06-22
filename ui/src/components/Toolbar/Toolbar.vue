@@ -49,6 +49,7 @@ import MoveCopy from "../MoveCopy/MoveCopy";
 import UploadWindow from "../Upload/index";
 import { UploadIcon, PlusIcon, CopyIcon, HomeIcon } from "vue-feather-icons";
 import About from "../About";
+import Logout from "../Logout";
 
 export default {
   name: "Toolbar",
@@ -62,10 +63,13 @@ export default {
     UploadWindow,
     // eslint-disable-next-line vue/no-unused-components
     About,
+    // eslint-disable-next-line vue/no-unused-components
+    Logout,
     UploadIcon,
     PlusIcon,
     CopyIcon,
     HomeIcon,
+
   },
   computed: {
     ...mapGetters(["getExplorerPath"]),

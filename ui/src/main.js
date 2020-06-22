@@ -43,6 +43,17 @@ const apolloClient = new ApolloClient({
     input deleteBulkOptions {
       paths: [String!]!
     }
+
+    input relocationEntry {
+      from_path: String!
+      to_path: String!
+      is: String!
+    }
+
+    input relocationOptions {
+      entries: [relocationEntry!]!
+      autorename: Boolean
+    }
   `,
   connectToDevTools: true,
 });

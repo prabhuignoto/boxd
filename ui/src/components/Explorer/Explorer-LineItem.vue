@@ -59,6 +59,7 @@ export default {
     "server_modified",
     "path_lower",
     "bulk_op_in_progress",
+    "id",
   ],
   components: {
     LineItemPopdown,
@@ -153,12 +154,14 @@ export default {
           name: this.name,
           content_hash: this.content_hash,
           path_lower: this.path_lower,
+          id: this.id,
         });
       } else {
         this.$emit("deselected", {
           name: this.name,
           content_hash: this.content_hash,
           path_lower: this.path_lower,
+          id: this.id,
         });
       }
     },

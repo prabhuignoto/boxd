@@ -23,7 +23,6 @@
 
 <script>
 import { mapActions } from "vuex";
-// import { ArrowRightIcon } from "vue-feather-icons";
 
 export default {
   name: "FolderPath",
@@ -31,11 +30,12 @@ export default {
     // ArrowRightIcon,
   },
   methods: {
-    ...mapActions(["clearList", "updatePath"]),
+    ...mapActions(["clearList", "updatePath", "clearAllBulk"]),
     handleNavigation(path, $evt) {
       $evt.preventDefault();
       let pathArr = this.folderPath;
       const newPath = pathArr.slice(0, pathArr.indexOf(path) + 1).join("/");
+      this.clearAllBulk();
       this.clearList();
       this.updatePath(newPath);
     },
