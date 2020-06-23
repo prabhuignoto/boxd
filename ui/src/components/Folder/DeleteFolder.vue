@@ -97,7 +97,6 @@ export default Vue.component("DeleteFolder", {
           variables: {
             path: this.deletePath,
           },
-          // update(store, data) {},
         })
         .then(() => {
           this.isMutating = false;
@@ -112,13 +111,6 @@ export default Vue.component("DeleteFolder", {
           this.removeItemFromBulk({
             path_lower: this.deletePath,
           });
-          // this.refetchData(true);
-          // this.$nextTick(() => {
-          //   this.refreshFileExplorer({
-          //     status: true,
-          //     path: this.getExplorerPath,
-          //   });
-          // });
         })
         .catch(() => {
           this.isMutating = false;

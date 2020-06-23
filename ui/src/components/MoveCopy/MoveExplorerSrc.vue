@@ -39,6 +39,7 @@ export default Vue.component("MoveExplorerSrc", {
   apollo: {
     files: {
       query: gql(FolderGQL),
+      fetchPolicy: "network-only",
       variables() {
         return {
           path: this.path,

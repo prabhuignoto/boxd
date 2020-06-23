@@ -7,15 +7,16 @@ button {
   font-size: 0.85rem;
   justify-content: center;
   outline: 0;
-  padding: 0.35rem 0.75rem;
+  padding: 0.3rem;
   position: relative;
 
   > .label {
     font-family: Nunito, Open Sans, Arial, Helvetica, sans-serif;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     font-weight: 500;
     margin-bottom: 0 !important;
-    text-transform: capitalize;
+    margin-left: 0.25rem;
+    text-transform: uppercase;
     white-space: nowrap;
   }
 }
@@ -32,8 +33,7 @@ button {
 .default {
   background: #fff;
   border: 1px solid #007ee5;
-  border-radius: 0.1rem;
-  // box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.25);
+  border-radius: 0.2rem;
 
   &:hover {
     background: #007ee5;
@@ -42,9 +42,9 @@ button {
 }
 
 .disabled {
-  background: #ccc;
-  cursor: auto;
-  filter: opacity(0.3) grayscale(95%);
+  background: #e5e5e5;
+  border: 1px solid transparent;
+  filter: opacity(0.6);
   pointer-events: none;
 }
 
@@ -52,7 +52,7 @@ button {
   background: #fff;
   border: 1px solid #007ee5;
   padding: 0.5rem 0.75rem;
-  
+
   &.disabled {
     box-shadow: none;
   }
@@ -61,9 +61,9 @@ button {
     background: #007ee5;
     color: #fff;
   }
-  
+
   .label {
-    font-size: 1.1rem;
+    font-size: 0.9rem;
   }
 }
 
@@ -81,7 +81,6 @@ button {
 
 i {
   height: 1.25rem;
-  margin-right: 0.1rem;
   width: 1.25rem;
 }
 
@@ -90,27 +89,34 @@ i {
   border: 0;
   color: #fff;
   margin: 0;
+  padding: 0.3rem 0.5rem;
 
   i {
     height: 1.25rem;
-    margin-right: 0;
     width: 1.25rem;
   }
 
+  &:hover {
+    background: rgba(25, 25, 25, 0.1);
+  }
+
+  .label {
+    font-weight: 500;
+  }
 }
 
 .large {
   border: 0;
-  
+
   i {
-    height: 1.5rem;
-    width: 1.5rem;
+    height: 1.25rem;
+    width: 1.25rem;
   }
 }
-  
+
 .medium {
   border: 0;
-  
+
   i {
     height: 2rem;
     width: 2rem;

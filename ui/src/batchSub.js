@@ -88,12 +88,19 @@ export default {
         }
       }
     `,
-    // result({ data: { batchWorkFailed } }) {
-    result() {
+    result({ data: { batchWorkFailed } }) {
+      debugger
+      const jobType = batchWorkFailed.job_type;
+      // const status = batchWorkFailed.status;
+      const uiJobId = batchWorkFailed.ui_job_id;
+
+      this.unLockItems({ jobId: uiJobId, failed: true });
+      this.failedJob({ id: uiJobId });
+
       this.showNotification({
         type: "failure",
         id: uniqid("notification-msg-"),
-        message: `Files deleted successfully`,
+        message: `The ${jobType} job failed.`,
       });
     },
   },

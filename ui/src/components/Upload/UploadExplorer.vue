@@ -32,7 +32,7 @@ export default Vue.component("UploadExplorer", {
   props: ["path"],
   methods: {
     ...mapActions(["createFolderSelection", "uploadFile"]),
-    // onSelect(node) {},
+    onSelect() {},
     handleSubfolderSelection(path) {
       this.uploadFile(path);
     },

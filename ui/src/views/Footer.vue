@@ -1,12 +1,12 @@
 <template>
   <footer class="app-footer">
-    <div class="logo">Boxy</div>
+    <div class="logo">Boxd</div>
     <div class="social">
       <i>
         <a href="https://twitter.com/prabhumurthy2" target="_new"></a>
       </i>
       <i>
-        <a href="https://github.com/prabhuignoto/boxy" target="_new"></a>
+        <a href="https://github.com/prabhuignoto/Boxd" target="_new"></a>
       </i>
     </div>
     <div class="footer-info">

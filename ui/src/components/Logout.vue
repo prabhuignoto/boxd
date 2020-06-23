@@ -38,24 +38,40 @@ export default Vue.component("Logout", {
       } catch (error) {
         console.error("Failed to logout.");
       }
-    }, 1000);
+    }, 100000);
   },
 });
 </script>
 
 <style lang="scss" scoped>
 .logout-wrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding: 1.5rem;
 }
-.loader-wrapper {
+
+.logout-loader-wrapper {
+  align-items: center;
+  align-self: center;
+  display: flex;
+  height: 2rem;
+  justify-content: center;
   margin-top: 1rem;
+  width: 2rem;
+
+  svg {
+    height: 100%;
+    width: 100%;
+  }
 }
+
 .message {
-  font-size: 1rem;
-  margin-bottom: 2rem;
-  display: block;
   background: #fff;
-  font-weight: 700;
-  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+  display: block;
+  font-family: Nunito, Open Sans, Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
 }
 </style>

@@ -62,11 +62,11 @@
 }
 
 .status-icon {
-  height: 0.5rem;
+  height: 0.7rem;
   left: 0.3rem;
   position: absolute;
-  top: 0.1rem;
-  width: 0.5rem;
+  top: 0;
+  width: 0.7rem;
 
   svg {
     height: 100%;
@@ -79,5 +79,13 @@
 
   svg {
     fill: #4bb543;
+  }
+}
+
+.failure {
+  color: #f31431;
+
+  svg {
+    fill: #f31431;
   }
 }

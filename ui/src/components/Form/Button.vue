@@ -3,7 +3,7 @@
     <i class="btn-icon-wrapper">
       <slot name="btn-icon"></slot>
     </i>
-    <span class="label">{{ name }}</span>
+    <span class="label" v-if="name">{{ name }}</span>
     <slot name="menu"></slot>
   </button>
 </template>

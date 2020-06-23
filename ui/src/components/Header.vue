@@ -2,7 +2,7 @@
   <header class="app-header">
     <nav>
       <div class="logo">
-        <span>Boxy</span>
+        <span>Boxd</span>
       </div>
       <div class="account-wrapper">
         <Popdown

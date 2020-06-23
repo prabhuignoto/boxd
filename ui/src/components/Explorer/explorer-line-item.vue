@@ -105,32 +105,6 @@ export default {
           )
         : "";
     },
-    getFileIcon() {
-      const parts = this.path_lower.split("/");
-      const fileName = parts[parts.length - 1];
-      const fileNameParts = fileName.split(".");
-      const ext = fileNameParts[fileNameParts.length - 1];
-      const images = require.context("../../assets", false, /\.svg$/);
-
-      switch (ext) {
-        case "pdf":
-          return images("./pdf.svg");
-        case "ppt":
-          return images("./ppt.svg");
-        case "jpg":
-          return images("./jpg.svg");
-        case "png":
-          return images("./png.svg");
-        case "xls":
-          return images("./xls.svg");
-        case "doc":
-          return images("./doc.svg");
-        case "txt":
-          return images("./txt.svg");
-        default:
-          return images("./file.svg");
-      }
-    },
   },
   data() {
     return {
@@ -191,4 +165,4 @@ export default {
 };
 </script>
 
-<style lang="scss" src="./explorer-lineitem.scss" scoped />
+<style lang="scss" src="./explorer-line-item.scss" scoped />

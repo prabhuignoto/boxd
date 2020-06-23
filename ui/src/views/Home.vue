@@ -2,7 +2,7 @@
   <div class="home">
     <transition name="fade">
       <div class="login-wrapper">
-        <Login title="Boxy" />
+        <Login title="Boxd" />
       </div>
     </transition>
   </div>

@@ -11,7 +11,7 @@
           @click="handleClose"
           v-if="!getDisableCloseBtn"
         >
-          <img src="../../assets/cancel.svg" alt="close" class="img-close" />
+          <XIcon />
         </button>
       </header>
       <div class="popup-content" v-if="content !== ''">
@@ -23,6 +23,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import { XIcon } from "vue-feather-icons";
 
 export default {
   name: "Popup",
@@ -31,6 +32,9 @@ export default {
     this.$nextTick(function () {
       this.$el.focus();
     });
+  },
+  components: {
+    XIcon,
   },
   computed: {
     ...mapGetters(["getDisableCloseBtn", "getPopupTitle"]),

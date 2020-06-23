@@ -1,6 +1,5 @@
 <template>
   <div class="explorer-container">
-    <!-- <TreeviewWrapper /> -->
     <div class="explorer">
       <header class="explorer-header">
         <ul class="header-wrapper">
@@ -21,9 +20,6 @@
             <FolderPath />
           </div>
         </div>
-        <div class="loader-container" v-if="$apollo.loading">
-          <!-- <Loader size="2x" /> -->
-        </div>
         <div
           class="line-item-wrapper search-results-row"
           v-if="isUserSearching"
@@ -37,7 +33,6 @@
             >
           </span>
         </div>
-        <!-- <transition-group name="list-fade"> -->
         <div
           class="line-item-wrapper"
           v-for="file in getDataList"
@@ -50,7 +45,6 @@
             v-if="!file.hidden"
           />
         </div>
-        <!-- </transition-group> -->
         <section class="load-more" v-if="hasMoreData && !isLoadingMore">
           <a href="javascript:void(0);" @click="handleLoadMore"
             >Show More ...</a
@@ -70,15 +64,12 @@
 <script>
 import gql from "graphql-tag";
 import FolderGQL from "../../graphql/folder.gql";
-// import Loader from "../Loader.vue";
-import LineItem from "./Explorer-LineItem.vue";
+import LineItem from "./explorer-line-item.vue";
 import { mapActions, mapGetters } from "vuex";
 import Toolbar from "../Toolbar/Toolbar.vue";
 import Account from "../Account.vue";
 import FolderPath from "../Path/FolderPath.vue";
 import ExplorerToolbar from "./explorer-toolbar.vue";
-// import BatchSub from "../../batchSub";
-// import SearchBox from "../Searchbox.vue";
 import Vue from "vue";
 
 export default Vue.extend({
@@ -87,8 +78,6 @@ export default Vue.extend({
     Account,
     FolderPath,
     LineItem,
-    // Loader,
-    // SearchBox,
     Toolbar,
     ExplorerToolbar,
   },

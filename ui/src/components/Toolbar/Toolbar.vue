@@ -1,7 +1,13 @@
 <template>
   <div class="toolbar-wrapper">
     <div class="toolbar-buttons">
-      <Button :onClick="openHome" buttonStyle="icon" size="large" title="Home">
+      <Button
+        :onClick="openHome"
+        buttonStyle="icon"
+        size="large"
+        title="Home"
+        name="Home"
+      >
         <template slot="btn-icon">
           <HomeIcon />
         </template>
@@ -11,6 +17,7 @@
         buttonStyle="icon"
         size="large"
         title="upload"
+        name="upload"
       >
         <template slot="btn-icon">
           <UploadIcon />
@@ -21,6 +28,7 @@
         buttonStyle="icon"
         size="large"
         title="Add folder"
+        name="Add folder"
       >
         <template slot="btn-icon">
           <PlusIcon />
@@ -31,6 +39,7 @@
         buttonStyle="icon"
         size="large"
         title="Move/Copy"
+        name="Move or Copy"
       >
         <template slot="btn-icon">
           <CopyIcon />

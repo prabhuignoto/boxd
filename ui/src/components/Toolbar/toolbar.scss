@@ -12,9 +12,13 @@
 }
 
 .toolbar-buttons {
-  align-self: center;
   display: flex;
   height: 100%;
+  justify-content: space-evenly;
+
+  button {
+    margin: 0 0.25rem;
+  }
 }
 
 .searchbox-container-desk {

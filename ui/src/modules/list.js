@@ -73,15 +73,16 @@ export default {
         return item;
       });
     },
-    unLockItems(state, { jobId }) {
+    unLockItems(state, { jobId, failed }) {
       state.bulkOps = state.bulkOps.filter(f => f.jobId !== jobId);
       state.data = state.data.map(item => {
+        const canHide = item.lockType === "MOVE" || item.lockType === "DELETE";
         if (item.jobId && item.jobId === jobId) {
           return Object.assign({}, item, {
             locked: false,
             lockType: null,
             jobId: null,
-            hidden: item.lockType === "MOVE" || item.lockType === "DELETE",
+            hidden: !failed && canHide,
           });
         }
         return item;
@@ -145,10 +146,11 @@ export default {
         jobId,
       });
     },
-    unLockItems({ commit }, { jobId }) {
+    unLockItems({ commit }, { jobId, failed }) {
       commit({
         type: "unLockItems",
         jobId,
+        failed,
       });
     },
   },

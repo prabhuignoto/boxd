@@ -64,7 +64,7 @@ export default Vue.component("FileExplorer", {
           cursor: "",
         };
       },
-      fetchPolicy: "cache-and-network",
+      fetchPolicy: "network-only",
       // result({ loading, data }) {
       //   if (!loading && data.files && data.files.entries) {
       //   }

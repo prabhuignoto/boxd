@@ -1,11 +1,11 @@
 <template>
   <section class="about-wrapper">
-    <div class="logo">
-      Boxy
-    </div>
+    <div class="logo">Boxd</div>
     <div class="info">
       <span class="version">Version: 0.1</span>
-      <span class="copyright">2018 &copy; PrabhuMurthy</span>
+      <span class="copyright"
+        >{{ new Date().getFullYear() }} &copy; PrabhuMurthy</span
+      >
     </div>
   </section>
 </template>
@@ -22,11 +22,13 @@ export default Vue.component("About", {
 .about-wrapper {
   align-items: center;
   display: flex;
-  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+  flex-direction: column;
+  font-family: Nunito, Open Sans, Arial, Helvetica, sans-serif;
   height: 100%;
   height: 130px;
+  height: 350px;
   justify-content: space-around;
-  width: 100%;
+  width: 280px;
 }
 
 .info {
@@ -37,15 +39,17 @@ export default Vue.component("About", {
 }
 
 .logo {
-  color: #2b2d42;
+  color: #007ee5;
   font-size: 3rem;
-  font-weight: 700;
+  font-weight: 600;
+  width: 100%;
 }
 
 .version {
   display: block;
   font-size: 0.9rem;
-  font-weight: 700;
+  font-weight: 400;
+  width: 100%;
 }
 
 .built-with {

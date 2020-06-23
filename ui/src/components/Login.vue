@@ -3,24 +3,20 @@
     <header class="app-title">{{ title }}</header>
     <section class="app-content">
       <section class="app-info-wrapper">
-        <section class="app-info">Boxy is a Dropbox client for the Web</section>
-        <section class="app-info">
-          Get started by logging with your dropbox account
-        </section>
+        <section class="app-info">Boxd is a Dropbox client for the Web</section>
+        <section class="app-info">Get started by logging with your dropbox account</section>
       </section>
       <div class="app-logo-ensemble">
         <!-- <div class="app-logo-wrapper">
           <Logo />
         </div>
         <span class="app-logo"></span>
-        <span class="right-arrow"></span> -->
+        <span class="right-arrow"></span>-->
         <span class="dropbox-logo"></span>
       </div>
       <div class="button-grp">
         <button class="dropbox-btn" v-on:click="handleLogin">Login</button>
-        <button class="dropbox-btn link" v-on:click="handleAccountCreation">
-          Create Account
-        </button>
+        <button class="dropbox-btn link" v-on:click="handleAccountCreation">Create Account</button>
       </div>
     </section>
   </div>
