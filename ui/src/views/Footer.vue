@@ -21,17 +21,17 @@ export default {};
 
 <style lang="scss" scoped>
 .app-footer {
+  bottom: 0;
+  display: grid;
+  grid-template-columns: 200px 100px auto;
+  height: 80px;
+  left: 0;
+  margin-bottom: 0;
   /* background: #007ee5; */
   /* background: linear-gradient(45deg, rgba(75,78,114,1) 0%, rgba(253,129,152,0.5) 100%); */
   padding: 0.25rem;
-  display: grid;
   position: fixed;
-  grid-template-columns: 200px 100px auto;
-  height: 80px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-  margin-bottom: 0px;
+  right: 0;
 
   @media (min-width: 481px) and (max-width: 767px) {
     grid-template-columns: 200px auto;
@@ -45,32 +45,35 @@ export default {};
     height: 140px;
   }
 }
+
 .logo {
-  color: #fff;
-  font-size: 2rem;
-  font-family: "Open Sans", Arial, Helvetica, sans-serif;
-  font-weight: 700;
   align-self: center;
+  color: #fff;
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
   justify-self: center;
   margin-bottom: 0.95rem;
   @media (min-width: 481px) and (max-width: 767px) {
-    padding-left: 1rem;
     justify-self: left;
+    padding-left: 1rem;
   }
   @media (min-width: 320px) and (max-width: 480px) {
-    padding-left: 1rem;
     justify-self: left;
+    padding-left: 1rem;
   }
 }
+
 .footer-info {
-  color: #000;
-  justify-self: right;
   align-self: center;
-  margin-right: 0.5rem;
-  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+  color: #000;
   display: inline-block;
-  width: 100%;
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+  justify-self: right;
+  margin-right: 0.5rem;
   text-align: right;
+  width: 100%;
+
   span {
     display: block;
     height: 100%;
@@ -84,11 +87,12 @@ export default {};
     text-align: center;
   }
 }
+
 .social {
-  display: flex;
   align-items: center;
-  justify-content: center;
   align-self: center;
+  display: flex;
+  justify-content: center;
   justify-self: center;
   @media (min-width: 481px) and (max-width: 767px) {
     align-self: center;
@@ -100,9 +104,9 @@ export default {};
   }
 
   i {
-    width: 1.5rem;
     height: 1.5rem;
     margin-right: 1rem;
+    width: 1.5rem;
   }
 }
 </style>

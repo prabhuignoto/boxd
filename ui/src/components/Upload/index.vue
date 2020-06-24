@@ -31,9 +31,9 @@
             <div class="file-name" v-if="!uploadSuccess">{{ prettySize }}</div>
           </div>
           <!-- <div class="progress-wrap" v-if="uploadStarted && !uploadSuccess"> -->
-          <div class="progress-wrap">
+          <!-- <div class="progress-wrap">
             <ProgressBar :value="progress" />
-          </div>
+          </div> -->
         </div>
         <!-- dropzone main -->
 
@@ -116,8 +116,7 @@ import Button from "../Form/Button";
 import UploadExplorer from "./UploadExplorer";
 import Vue from "vue";
 import { mapActions, mapGetters } from "vuex";
-import Axios from "axios";
-import ProgressBar from "../Progressbar";
+// import ProgressBar from "../Progressbar";
 import PrettyBytes from "pretty-bytes";
 import RootFolder from "../rootFolder";
 import { UploadCloudIcon, ArrowUpIcon } from "vue-feather-icons";
@@ -126,12 +125,17 @@ import Loader from "../Loader";
 export default Vue.component("UploadWindow", {
   components: {
     Button,
-    ProgressBar,
+    // ProgressBar,
     RootFolder,
     UploadExplorer,
     ArrowUpIcon,
     UploadCloudIcon,
     Loader,
+  },
+  watch: {
+    getJobDataById() {
+      debugger;
+    },
   },
   computed: {
     ...mapGetters([
@@ -140,9 +144,10 @@ export default Vue.component("UploadWindow", {
       "getExplorerPath",
       "canEnableClearBtn",
       "getUploadPathFormatted",
+      "getJobDataById",
     ]),
     getUploadPathCustom() {
-      return this.getUploadPath === "/$root" ? "/ home" : this.getUploadPath;
+      return this.getUploadPath === "/$root" ? "/home" : this.getUploadPath;
     },
     canDisableUpload() {
       return !this.isDropped || this.uploadStarted;
@@ -155,7 +160,8 @@ export default Vue.component("UploadWindow", {
       };
     },
     getStyle() {
-      return this.canDisableUpload ? "disabled big" : "big";
+      debugger;
+      return this.canDisableUpload ? "disabled xl" : "xl";
     },
     getResultStyle() {
       if (this.uploadSuccess === true) {
@@ -218,6 +224,7 @@ export default Vue.component("UploadWindow", {
       "refetchData",
       "updateUploadExplorerStatus",
       "closeModal",
+      "addJob",
     ]),
     reset() {
       (this.isDragOver = false),
@@ -240,28 +247,14 @@ export default Vue.component("UploadWindow", {
           this.getUploadPath === "/$root" ? "" : this.getUploadPath
         );
         this.uploadStarted = true;
-        await Axios.post(`${process.env.VUE_APP_API_SERVER}/upload`, formData, {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "multipart/form-data",
+        this.addJob({
+          jobType: "UPLOAD",
+          data: {
+            formData,
           },
-          onUploadProgress: progressEvent => {
-            this.progress = Math.round(
-              (progressEvent.loaded * 100) / progressEvent.total
-            );
-            // if (this.progress === 100) {
-            // }
-          },
-          // timeout: 15000,
-          // data: (data) => {},
         });
         this.uploadSuccess = true;
         this.closeModal();
-        this.refetchData(true);
-        this.refreshFileExplorer({
-          status: true,
-          path: this.getUploadPath,
-        });
       } catch (error) {
         this.uploadSuccess = false;
         this.uploadStarted = false;

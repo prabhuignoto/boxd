@@ -1,6 +1,14 @@
 <template>
   <div class="loader-wrapper">
-    <LoaderIcon :size="size" />
+    <div class="spinner">
+      <LoaderIcon :size="size" v-if="type === 'spinner'" />
+    </div>
+    <div class="throbbing-loader" v-if="type === 'throb'">
+      <div class="throb-ball active"></div>
+      <span class="throb-ball-msg" v-if="message">
+        {{ message }}
+      </span>
+    </div>
   </div>
 </template>
 
@@ -14,6 +22,12 @@ export default Vue.extend({
     size: {
       default: "1.5x",
       type: String,
+    },
+    type: {
+      default: "spinner",
+    },
+    message: {
+      default: "",
     },
   },
   components: {

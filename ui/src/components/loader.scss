@@ -1,16 +1,17 @@
 .loader-wrapper {
   align-items: center;
-  animation: loading 1.5s linear infinite;
   color: #007ee5;
   display: flex;
-  // height: 1.5rem;
   justify-content: center;
-  // width: 1.5rem;
-
+  
   svg {
     height: 100%;
     width: 100%;
   }
+}
+
+.spinner {
+  animation: loading 1.5s linear infinite;
 }
 
 @keyframes loading {
@@ -20,5 +21,46 @@
 
   100% {
     transform: rotate(360deg);
+  }
+}
+
+.throbbing-loader {
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.throb-ball {
+  background: #4bb543;
+  border-radius: 50%;
+  height: 0.5rem;
+  width: 0.5rem;
+
+  &.active {
+    animation-direction: alternate;
+    animation-duration: 0.75s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-name: throb;
+    animation-timing-function: ease-in;
+  }
+}
+
+.throb-ball-msg {
+  font-size: 0.75rem;
+  font-weight: 400;
+  margin-left: 0.5rem;
+  text-transform: capitalize;
+}
+
+@keyframes throb {
+  from {
+    background-color: #4bb543;
+    opacity: 1;
+  }
+
+  to {
+    background: #fff;
+    opacity: 0;
   }
 }

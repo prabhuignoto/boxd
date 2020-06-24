@@ -43,6 +43,7 @@ export default {
       files: {
         entries: [],
       },
+      prabhu: "murthy",
     };
   },
   computed: {
@@ -54,10 +55,11 @@ export default {
       "getNotificationStatus",
       "getNewMessage",
       "getModalWidth",
+      "getExplorerPath",
     ]),
   },
   methods: {
-    ...mapActions(["showNotification"]),
+    ...mapActions(["showNotification", "refreshFileExplorer", "refetchData"]),
   },
   apollo: {
     $subscribe: NotificationSub,

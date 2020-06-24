@@ -1,5 +1,5 @@
-mutation createFolder($path: String!, $name: String!) {
-  folder: createFolder(path: $path, name: $name) {
+mutation createFolder($path: String!, $name: String!, $ui_job_id: String!) {
+  folder: createFolder(path: $path, name: $name, ui_job_id: $ui_job_id) {
     name
   }
 }

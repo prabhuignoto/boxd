@@ -26,8 +26,8 @@
   }
 
   &.locked {
-    filter: grayscale(30%);
-    opacity: 0.75;
+    filter: grayscale(10%);
+    opacity: 0.95;
     pointer-events: none;
   }
 }
@@ -188,6 +188,13 @@ button {
 }
 
 .status-label {
+  align-items: center;
+  display: flex;
   font-size: 0.85rem;
   font-weight: 400;
+  justify-content: flex-start;
+
+  span {
+    text-transform: capitalize;
+  }
 }

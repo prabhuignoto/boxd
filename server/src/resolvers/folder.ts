@@ -48,7 +48,9 @@ export default {
         PubSub.publish('folder_added', {
           folderAdded: {
             name: args.name,
-            success: true
+            path: args.path,
+            success: true,
+            ui_job_id: args.ui_job_id
           }
         });
         return result.metadata;
@@ -59,8 +61,10 @@ export default {
         });
         PubSub.publish('folder_added', {
           folderAdded: {
+            name: args.name,
             message: 'Failed to add the folder',
-            success: false
+            success: false,
+            ui_job_id: args.ui_job_id
           }
         });
         return {};

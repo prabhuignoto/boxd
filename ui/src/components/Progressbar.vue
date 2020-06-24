@@ -32,24 +32,25 @@ export default {
 
 <style lang="scss" scoped>
 .progress-bar-wrapper {
-  width: 100%;
-  height: 100%;
-  display: flex;
   align-items: center;
+  display: flex;
+  height: 100%;
   justify-content: center;
+  width: 100%;
 
   .progressbar-container {
+    background: #d9d9d9;
     border-radius: 0.1rem;
-    width: 100%;
     height: 100%;
     position: relative;
-    background: #d9d9d9;
+    width: 100%;
   }
+
   i {
-    width: 1.5rem;
+    color: #4bb543;
     height: 1.5rem;
     margin-right: 0.5rem;
-    color: #4bb543;
+    width: 1.5rem;
 
     svg {
       height: 100%;

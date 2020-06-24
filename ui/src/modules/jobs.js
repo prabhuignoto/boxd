@@ -11,18 +11,17 @@ export default {
       const id = uniqid();
       Vue.set(state.jobs, id, {
         id: id,
-        // type of job MOVE/COPY/DELETE
         jobType,
         running: false,
         startTime: null,
         endTime: null,
         data,
-        records: data.records || [],
+        status: "not started",
       });
     },
     removeJob(state, { id }) {
       if (id in state.jobs) {
-        delete state.jobs[id];
+        Vue.delete(state.jobs, id);
       }
     },
     startJob(state, { id }) {
@@ -39,6 +38,7 @@ export default {
         item.running = false;
         item.endTime = Date.now();
         item.status = "completed";
+        item.data = null;
       }
     },
     failedJob(state, { id, reason }) {
@@ -48,6 +48,12 @@ export default {
         item.endTime = Date.now();
         item.status = "failed";
         item.reason = reason;
+      }
+    },
+    updateJob(state, { id, data }) {
+      if (id in state.jobs) {
+        const item = state.jobs[id];
+        Vue.set(item, "data", Object.assign({}, state.jobs[id].data, data));
       }
     },
   },
@@ -84,19 +90,23 @@ export default {
         reason,
       });
     },
+    updateJob({ commit }, { id, data }) {
+      commit({
+        type: "updateJob",
+        data,
+        id,
+      });
+    },
   },
   getters: {
     getJobById: state => id => state.jobs[id],
+    getJobDataById: state => id => {
+      return state.jobs[id].data;
+    },
     getAllJobs: state => state.jobs,
     getAllRunningJobs: state => _.filter(state.jobs, item => item.running),
-    getAllCompletedJobs: state => {
-      return Object.keys(state.jobs)
-        .filter(key => {
-          const item = state.jobs[key];
-          return item.status === "completed";
-        })
-        .map(id => state.jobs[id]);
-    },
+    getAllCompletedJobs: state =>
+      _.filter(state.jobs, item => item.status === "completed"),
     getAllNewJobs: state => {
       return Object.keys(state.jobs)
         .filter(key => {
@@ -105,5 +115,7 @@ export default {
         })
         .map(id => state.jobs[id]);
     },
+    getJobsEmpty: state => Object.keys(state.jobs).length < 1,
+    getJobsActive: state => _.filter(state.jobs, item => item.running).length > 0,
   },
 };

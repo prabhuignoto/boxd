@@ -15,10 +15,10 @@
 }
 
 input {
-  background: #f0f0f0;
+  background: #f4f4f4;
   border: 0;
   border-radius: 0.25rem;
-  box-shadow: inset 0 0 2px 2px #e7e7e7;
+  box-shadow: inset 0 0 2px 2px #f0f0f0;
   color: #2b2d42;
   font-size: 0.95rem;
   height: 1.75rem;
@@ -28,7 +28,7 @@ input {
   width: 100%;
 
   &::placeholder {
-    color: #a1a1a1;
+    color: #a8a8a8;
     font-size: 0.85rem;
   }
 }

@@ -39,7 +39,9 @@
       <div class="popdown-container" v-if="!locked">
         <LineItemPopdown :isFile="isFile" :pathLower="path_lower" />
       </div>
-      <span v-if="locked" class="status-label">{{ getStatusLabel }}</span>
+      <div v-if="locked" class="status-label">
+        <Loader type="throb" :message="getStatusLabel" />
+      </div>
     </div>
   </div>
 </template>
@@ -56,6 +58,7 @@ import {
   FolderIcon,
   FileIcon,
 } from "vue-feather-icons";
+import Loader from "../Loader";
 
 export default {
   name: "ExplorerLineItem",
@@ -77,6 +80,7 @@ export default {
     LockIcon,
     FolderIcon,
     FileIcon,
+    Loader,
   },
   computed: {
     getStatusLabel() {

@@ -29,8 +29,6 @@ import { mapActions, mapGetters } from "vuex";
 import gql from "graphql-tag";
 import CopyResxGQL from "../../graphql/copyResource.gql";
 import MoveResxGQL from "../../graphql/moveResource.gql";
-// import MoveBulkGQL from "../../graphql/moveBulk.gql";
-// import CopyBulkGQL from "../../graphql/copyBulk.gql";
 
 export default Vue.component("MoveCopy", {
   components: {

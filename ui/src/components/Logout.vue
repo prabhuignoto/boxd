@@ -1,8 +1,7 @@
 <template>
   <section class="logout-wrapper">
-    <span class="message">Please wait as we sign you out</span>
     <div class="logout-loader-wrapper">
-      <Loader />
+      <Loader type="throb" message="Please wait as we sign you out" />
     </div>
   </section>
 </template>
@@ -49,7 +48,7 @@ export default Vue.component("Logout", {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 1.5rem;
+  padding: 0.5rem;
 }
 
 .logout-loader-wrapper {
@@ -58,8 +57,7 @@ export default Vue.component("Logout", {
   display: flex;
   height: 2rem;
   justify-content: center;
-  margin-top: 1rem;
-  width: 2rem;
+  width: 200px;
 
   svg {
     height: 100%;

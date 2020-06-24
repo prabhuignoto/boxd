@@ -28,6 +28,8 @@ const folder = `
   type folderAddedMessage {
     success: Boolean!
     name: String!
+    path: String!
+    ui_job_id: String
   }
 
   type batchWorkMessage {

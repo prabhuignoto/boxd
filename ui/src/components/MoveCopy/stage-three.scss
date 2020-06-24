@@ -48,10 +48,12 @@ img {
 }
 
 .stage3-loader-wrapper {
+  align-items: center;
+  display: flex;
   height: 1.5rem;
+  justify-content: center;
   margin-right: auto;
   position: relative;
-  width: 1.5rem;
 
   svg {
     height: 100%;
@@ -76,7 +78,7 @@ img {
 .summary-final {
   align-items: center;
   border-radius: 0.1rem;
-  color: #007ee5;
+  color: #fff;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -84,8 +86,8 @@ img {
   min-height: 4rem;
   
   span {
-    background: #efefef;
-    border-radius: 3px;
+    background: #007ee5;
+    border-radius: .2rem;
     font-size: 0.9rem;
     padding: 0.25rem 0.5rem;
     text-align: left;

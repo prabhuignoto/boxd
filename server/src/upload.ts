@@ -11,7 +11,7 @@ import pubsub from './pubSub';
 const unlinkAsync = util.promisify(FS.unlink);
 
 // tslint: disable-next-line
-export default async function Upload(req: Request, resp: Response) {
+export default async function Upload (req: Request, resp: Response) {
   try {
     const files: any = req.files;
 
@@ -56,21 +56,24 @@ export default async function Upload(req: Request, resp: Response) {
         pubsub.publish('upload_completed', {
           fileUploaded: {
             success: true,
-            fileName: files[0].originalname as string
+            fileName: files[0].originalname as string,
+            ui_job_id: req.body.ui_job_id
           }
         });
       }
     });
-    return true;
+    return Promise.resolve(true);
   } catch (error) {
     ErrorLogger.log({
       level: 'error',
       message: error.response.statusText
     });
-    return resp.json({
-      success: false,
-      status: 'failed',
-      status_text: 'Upload failed'
+    pubsub.publish('upload_completed', {
+      fileUploaded: {
+        success: false,
+        ui_job_id: req.body.ui_job_id
+      }
     });
+    return Promise.resolve(false);
   }
 }

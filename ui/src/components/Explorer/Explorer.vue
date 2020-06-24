@@ -6,6 +6,9 @@
           <li class="header control toolbar">
             <Toolbar />
           </li>
+          <li class="header control notifications">
+            <NotificationsPopdown />
+          </li>
           <li class="header control account">
             <Account />
           </li>
@@ -20,31 +23,7 @@
             <FolderPath />
           </div>
         </div>
-        <div
-          class="line-item-wrapper search-results-row"
-          v-if="isUserSearching"
-        >
-          <span class="search-results-message">
-            <a href="javascript:void(0);" @click="handleNavBackToExplorer"
-              >Back to explorer</a
-            >
-            <span
-              >found {{ searchCount }} items matching the search criteria</span
-            >
-          </span>
-        </div>
-        <div
-          class="line-item-wrapper"
-          v-for="file in getDataList"
-          :key="file.name"
-        >
-          <LineItem
-            v-bind="file"
-            v-on:selected="handleLineItemSelection"
-            v-on:deselected="handleLineItemDeselection"
-            v-if="!file.hidden"
-          />
-        </div>
+        <ExplorerLineItems :items="getDataList" />
         <section class="load-more" v-if="hasMoreData && !isLoadingMore">
           <a href="javascript:void(0);" @click="handleLoadMore"
             >Show More ...</a
@@ -64,12 +43,13 @@
 <script>
 import gql from "graphql-tag";
 import FolderGQL from "../../graphql/folder.gql";
-import LineItem from "./explorer-line-item.vue";
 import { mapActions, mapGetters } from "vuex";
 import Toolbar from "../Toolbar/Toolbar.vue";
 import Account from "../Account.vue";
 import FolderPath from "../Path/FolderPath.vue";
 import ExplorerToolbar from "./explorer-toolbar.vue";
+import NotificationsPopdown from "../Notifications/NotificationsPopdown";
+import ExplorerLineItems from "./explorer-line-items";
 import Vue from "vue";
 
 export default Vue.extend({
@@ -77,9 +57,10 @@ export default Vue.extend({
   components: {
     Account,
     FolderPath,
-    LineItem,
+    ExplorerLineItems,
     Toolbar,
     ExplorerToolbar,
+    NotificationsPopdown,
   },
   data() {
     return {
@@ -123,8 +104,6 @@ export default Vue.extend({
       "clearList",
       "clearSearch",
       "refetchData",
-      "addItemForBulk",
-      "removeItemFromBulk",
       "removeItemsFromList",
     ]),
     handleLoadMore() {
@@ -148,12 +127,6 @@ export default Vue.extend({
       this.clearSearch();
       this.clearList();
       this.refetchData(true);
-    },
-    handleLineItemSelection(data) {
-      this.addItemForBulk(data);
-    },
-    handleLineItemDeselection(data) {
-      this.removeItemFromBulk(data);
     },
   },
   apollo: {

@@ -87,9 +87,9 @@ export default {
     },
     getStyle() {
       if (!this.isModeSelected) {
-        return "disabled";
+        return "disabled xl";
       } else {
-        return "";
+        return "xl";
       }
     },
   },

@@ -1,7 +1,9 @@
 <template>
   <div class="delete-folder-wrapper">
-    <div class="delete-alert">Tread with Caution</div>
-    <Textbox :placeholder="placeholder" :onInput="onInput" />
+    <div class="delete-form-wrapper">
+      <div class="delete-alert">Tread with Caution</div>
+      <Textbox :placeholder="placeholder" :onInput="onInput" />
+    </div>
     <div class="delete-resx-controls">
       <div class="del-folder-loader-wrapper" v-show="isMutating">
         <Loader />

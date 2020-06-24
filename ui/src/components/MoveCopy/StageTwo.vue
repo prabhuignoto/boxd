@@ -15,7 +15,7 @@
       </span>
     </div>
     <div class="stage2-controls">
-      <Button name="Back" :onClick="handlePrevious">
+      <Button name="Back" :onClick="handlePrevious" :buttonStyle="getStyle">
         <template slot="btn-icon">
           <ChevronLeftIcon />
         </template>
@@ -70,9 +70,9 @@ export default {
     },
     getStyle() {
       if (!this.isSourceSelected) {
-        return "disabled";
+        return "disabled xl";
       } else {
-        return "";
+        return "xl";
       }
     },
   },
@@ -94,7 +94,7 @@ export default {
       "clearMoveResx",
       "moveResxSource",
       "copyResxSource",
-      "getMoveCopyMode"
+      "getMoveCopyMode",
     ]),
   },
 };

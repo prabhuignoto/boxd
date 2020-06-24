@@ -56,7 +56,7 @@
   border: 1px solid #cce5f9;
   display: flex;
   flex-direction: column;
-  height: 14rem;
+  height: 12rem;
   justify-content: center;
 
   .icon-wrapper {
@@ -149,6 +149,7 @@ img {
   span {
     align-items: center;
     border-radius: 0.1rem;
+    border-radius: 0.2rem;
     display: flex;
     font-size: 0.9rem;
     font-weight: 400;
@@ -158,8 +159,8 @@ img {
     word-break: break-word;
 
     &.highlight {
-      background: #efefef;
-      color: #007ee5;
+      background: #007ee5;
+      color: #fff;
     }
   }
 }

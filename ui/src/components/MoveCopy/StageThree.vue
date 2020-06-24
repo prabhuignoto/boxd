@@ -31,12 +31,17 @@
     </div>
     <div class="stage2-controls">
       <div class="stage3-loader-wrapper" v-if="saving">
-        <Loader />
+        <Loader type="throb" message="Processing..." />
       </div>
       <div class="error-msg-container" v-if="errored">
         Failed to {{ getMoveCopyMode }}
       </div>
-      <Button name="Back" :onClick="handlePrevious" v-if="!getSkipToFinal">
+      <Button
+        name="Back"
+        :onClick="handlePrevious"
+        v-if="!getSkipToFinal"
+        :buttonStyle="getStyle"
+      >
         <template slot="btn-icon">
           <ChevronLeftIcon />
         </template>
@@ -124,9 +129,9 @@ export default {
     },
     getStyle() {
       if (!this.canFinish || this.saving) {
-        return "disabled";
+        return "disabled xl";
       } else {
-        return "";
+        return "xl";
       }
     },
     getSummaryMsg() {

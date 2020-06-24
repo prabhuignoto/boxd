@@ -1,7 +1,7 @@
 <template>
   <div class="toolbar-wrapper">
     <div class="toolbar-buttons">
-      <Button
+      <!-- <Button
         :onClick="openHome"
         buttonStyle="icon"
         size="large"
@@ -11,7 +11,7 @@
         <template slot="btn-icon">
           <HomeIcon />
         </template>
-      </Button>
+      </Button> -->
       <Button
         :onClick="openUploadWindow"
         buttonStyle="icon"
@@ -56,7 +56,7 @@ import { mapActions, mapGetters } from "vuex";
 import CreateFolder from "../Folder/CreateFolder";
 import MoveCopy from "../MoveCopy/MoveCopy";
 import UploadWindow from "../Upload/index";
-import { UploadIcon, PlusIcon, CopyIcon, HomeIcon } from "vue-feather-icons";
+import { UploadIcon, PlusIcon, CopyIcon } from "vue-feather-icons";
 import About from "../About";
 import Logout from "../Logout";
 
@@ -77,7 +77,7 @@ export default {
     UploadIcon,
     PlusIcon,
     CopyIcon,
-    HomeIcon,
+    // HomeIcon,
   },
   computed: {
     ...mapGetters(["getExplorerPath"]),

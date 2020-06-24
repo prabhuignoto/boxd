@@ -41,7 +41,7 @@ export default {
       } else {
         this.failedJob({ id: uiJobId, reason: "failure" });
         this.showNotification({
-          type: "error",
+          type: "failure",
           id: uniqid("notification-msg-"),
           message: `The ${jobType} successfully`,
         });
@@ -89,7 +89,6 @@ export default {
       }
     `,
     result({ data: { batchWorkFailed } }) {
-      debugger
       const jobType = batchWorkFailed.job_type;
       // const status = batchWorkFailed.status;
       const uiJobId = batchWorkFailed.ui_job_id;
@@ -102,6 +101,75 @@ export default {
         id: uniqid("notification-msg-"),
         message: `The ${jobType} job failed.`,
       });
+    },
+  },
+  folder_added: {
+    query: gql`
+      subscription {
+        folderAdded {
+          success
+          name
+          ui_job_id
+        }
+      }
+    `,
+    result({ data: { folderAdded } }) {
+      if (folderAdded.success) {
+        this.completeJob({ id: folderAdded.ui_job_id });
+        this.showNotification({
+          type: "info",
+          id: uniqid("notification-msg-"),
+          message: `Created ${folderAdded.name} successfully.`,
+        });
+        this.refetchData(true);
+        this.refreshFileExplorer({
+          status: true,
+          path: this.getExplorerPath,
+        });
+      } else {
+        this.failedJob({ id: folderAdded.ui_job_id });
+        this.showNotification({
+          type: "failure",
+          id: uniqid("notification-msg-"),
+          message: `Failed to create the folder ${folderAdded.name}.`,
+        });
+      }
+    },
+  },
+  upload_completed: {
+    query: gql`
+      subscription {
+        fileUploaded {
+          success
+          fileName
+          ui_job_id
+        }
+      }
+    `,
+    result({ data: { fileUploaded } }) {
+      if (fileUploaded.success) {
+        this.completeJob({ id: fileUploaded.ui_job_id });
+
+        this.showNotification({
+          type: "info",
+          id: uniqid("notification-msg-"),
+          message: `Uploaded ${fileUploaded.fileName} successfully.`,
+        });
+
+        this.refetchData(true);
+        this.refreshFileExplorer({
+          status: true,
+          path: this.getExplorerPath,
+        });
+      } else {
+        this.failedJob({ id: fileUploaded.ui_job_id });
+
+        this.showNotification({
+          type: "failure",
+          id: uniqid("notification-msg-"),
+          message: `Could not upload ${fileUploaded.fileName}.`,
+        });
+      }
     },
   },
 };

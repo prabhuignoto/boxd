@@ -16,12 +16,9 @@
         v-if="visible"
         tabindex="0"
         @blur="close"
-        @keyup.esc="close"
-        :style="{
-          left: leftOffset,
-          width: customWidth,
-          top: topOffset ? topOffset : '100%',
-        }"
+        @key:esc="close"
+        :style="getPopdownStyle"
+        ref="popdownButton"
       >
         <slot name="menu"></slot>
       </div>
@@ -37,11 +34,38 @@ export default {
   components: {
     Button,
   },
-  props: ["name", "type", "size", "leftOffset", "customWidth", "topOffset"],
+  props: [
+    "name",
+    "type",
+    "size",
+    "leftOffset",
+    "customWidth",
+    "topOffset",
+    "position",
+  ],
   data() {
     return {
       visible: false,
+      childWidth: 0,
     };
+  },
+  computed: {
+    getPopdownStyle() {
+      let style = {
+        left: this.leftOffset,
+        width: this.customWidth,
+        top: this.topOffset ? this.topOffset : "100%",
+      };
+      if (this.position === "right") {
+        return Object.assign({}, style, {
+          right: 0,
+        });
+      } else {
+        return Object.assign({}, style, {
+          left: 0,
+        });
+      }
+    },
   },
   methods: {
     togglePopdown(ev) {

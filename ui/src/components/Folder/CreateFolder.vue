@@ -100,8 +100,8 @@ export default Vue.component("CreateFolder", {
     },
     getStyle() {
       return !this.isPathSelected || this.isNameEmpty || this.isMutating
-        ? "disabled"
-        : "";
+        ? "disabled xl"
+        : "xl";
     },
     ...mapGetters([
       "isCreateFolderExpHidden",
@@ -119,6 +119,8 @@ export default Vue.component("CreateFolder", {
       "refetchData",
       "clearList",
       "refreshFileExplorer",
+      "addJob",
+      "closeModal"
     ]),
     handleEnter() {
       this.handleCreate();
@@ -130,6 +132,15 @@ export default Vue.component("CreateFolder", {
       if (!this.hasErrors) {
         this.disableSave = true;
         this.isMutating = true;
+        this.addJob({
+          jobType: "CREATE_FOLDER",
+          data: {
+            path: JSON.parse(JSON.stringify(this.getFolderSelection)),
+            name: this.folderName,
+          },
+        });
+        this.closeModal();
+
         this.$apollo
           .mutate({
             mutation: gql(createFolderGQL),

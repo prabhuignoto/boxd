@@ -2,33 +2,6 @@ import gql from "graphql-tag";
 import uniqid from "uniqid";
 
 export default {
-  upload_completed: {
-    query: gql`
-      subscription {
-        fileUploaded {
-          success
-          fileName
-        }
-      }
-    `,
-    result({ data: { fileUploaded } }) {
-      if (fileUploaded.success) {
-        this.showNotification({
-          type: "info",
-          title: "Upload Complete",
-          id: uniqid("notification-msg-"),
-          message: `Uploaded ${fileUploaded.fileName} successfully.`,
-        });
-      } else {
-        this.showNotification({
-          type: "Error",
-          notificationTitle: "Upload Failed",
-          id: uniqid("notification-msg-"),
-          message: `Could not upload ${fileUploaded.fileName}.`,
-        });
-      }
-    },
-  },
   resx_deleted: {
     query: gql`
       subscription {
@@ -102,41 +75,17 @@ export default {
           id: uniqid("notification-msg-"),
           message: `Moved ${resxMoved.name.split("/").pop()} successfully.`,
         });
+        this.refetchData(true);
+        this.refreshFileExplorer({
+          status: true,
+          path: this.getExplorerPath,
+        });
       } else {
         this.showNotification({
           type: "Error",
           notificationTitle: "Failure",
           id: uniqid("notification-msg-"),
           message: `Unable to move ${resxMoved.name.split("/").pop()}.`,
-        });
-      }
-    },
-  },
-  folder_added: {
-    query: gql`
-      subscription {
-        folderAdded {
-          success
-          name
-        }
-      }
-    `,
-    result({ data: { folderAdded } }) {
-      if (folderAdded.success) {
-        this.showNotification({
-          type: "info",
-          notificationTitle: "Folder Added",
-          id: uniqid("notification-msg-"),
-          message: `Created ${folderAdded.name.split("/").pop()} successfully.`,
-        });
-      } else {
-        this.showNotification({
-          type: "Error",
-          notificationTitle: "Failure",
-          id: uniqid("notification-msg-"),
-          message: `Failed to create the folder ${folderAdded.name
-            .split("/")
-            .pop()}.`,
         });
       }
     },

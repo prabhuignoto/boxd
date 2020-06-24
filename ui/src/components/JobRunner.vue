@@ -4,8 +4,10 @@ import { mapGetters, mapActions } from "vuex";
 import DeleteBulkGQL from "../graphql/deleteBulk.gql";
 import MoveBulkGQL from "../graphql/moveBulk.gql";
 import CopyBulkGQL from "../graphql/copyBulk.gql";
+import CreateFolderGQL from "../graphql/createFolder.gql";
 import gql from "graphql-tag";
 import BatchSub from "../batchSub";
+import Axios from "axios";
 
 export default Vue.extend({
   name: "JobRunner",
@@ -21,6 +23,10 @@ export default Vue.extend({
             this.runMoveJob(job);
           } else if (job.jobType === "COPY") {
             this.runCopyJob(job);
+          } else if (job.jobType === "CREATE_FOLDER") {
+            this.runCreateFolder(job);
+          } else if (job.jobType === "UPLOAD") {
+            this.runUploadJob(job);
           }
         });
       }
@@ -31,9 +37,12 @@ export default Vue.extend({
       "startJob",
       "completeJob",
       "failedJob",
+      "updateJob",
       "showNotification",
       "lockItems",
       "unLockItems",
+      "refreshFileExplorer",
+      "refetchData",
       "refreshFileExplorer",
     ]),
     async runDeleteJob(job) {
@@ -119,9 +128,56 @@ export default Vue.extend({
         });
       }
     },
+    async runCreateFolder(job) {
+      const { path, name } = job.data;
+      try {
+        await this.$apollo.mutate({
+          mutation: gql(CreateFolderGQL),
+          variables: {
+            path: path,
+            name: name,
+            ui_job_id: job.id,
+          },
+        });
+      } catch (error) {
+        this.failedJob({
+          id: job.id,
+          reason: error,
+        });
+      }
+    },
+    async runUploadJob(job) {
+      const { formData } = job.data;
+      debugger;
+      formData.append("ui_job_id", job.id);
+      try {
+        await Axios.post(`${process.env.VUE_APP_API_SERVER}/upload`, formData, {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          onUploadProgress: progressEvent => {
+            const progress = Math.round(
+              (progressEvent.loaded * 100) / progressEvent.total
+            );
+            this.updateJob({
+              id: job.id,
+              data: {
+                progress,
+              },
+            });
+          },
+        });
+      } catch (error) {
+        this.failedJob({
+          id: job.id,
+          reason: error,
+        });
+      }
+    },
   },
   computed: {
-    ...mapGetters(["getExplorerPath"]),
+    ...mapGetters(["getExplorerPath", "getJobDataById"]),
   },
   render: () => null,
   apollo: {

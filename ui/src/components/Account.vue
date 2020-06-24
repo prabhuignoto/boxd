@@ -2,16 +2,17 @@
   <section class="account-wrapper">
     <Popdown
       type="icon"
-      rightOffset="0px"
       size="large"
       customWidth="180px"
       topOffset="3rem"
+      position="right"
     >
       <template slot="icon">
         <i class="image-wrapper">
           <UserIcon />
         </i>
       </template>
+      // eslint-disable-next-line vue/no-unused-vars
       <template slot="menu">
         <ul class="account-options">
           <li class="account-option" @click="handleSignout">

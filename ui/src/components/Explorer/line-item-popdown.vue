@@ -3,7 +3,7 @@
     name
     type="icon"
     size="medium"
-    leftOffset="-100px"
+    position="right"
     customWidth="150px"
     topOffset="2.5rem"
   >
@@ -75,7 +75,7 @@ export default {
         status: true,
         componentToRender: "DeleteFolder",
         title: `Delete ${this.fileName}`,
-        width: 500,
+        width: 400,
       });
     },
     handleCopy(path) {

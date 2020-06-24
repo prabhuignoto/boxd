@@ -18,7 +18,10 @@
     width: 1200px;
   }
   @media only screen and (min-width: 1824px) {
-    width: 1650px;
+    width: 1750px;
+  }
+  @media only screen and (max-width: 1024px) {
+    width: 950px;
   }
 }
 
