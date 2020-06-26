@@ -4,7 +4,7 @@
     type="icon"
     size="medium"
     position="right"
-    customWidth="150px"
+    customWidth="150"
     topOffset="2.5rem"
   >
     <template slot="icon">
@@ -75,7 +75,7 @@ export default {
         status: true,
         componentToRender: "DeleteFolder",
         title: `Delete ${this.fileName}`,
-        width: 400,
+        width: 450,
       });
     },
     handleCopy(path) {

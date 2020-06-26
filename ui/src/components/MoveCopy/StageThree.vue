@@ -36,12 +36,7 @@
       <div class="error-msg-container" v-if="errored">
         Failed to {{ getMoveCopyMode }}
       </div>
-      <Button
-        name="Back"
-        :onClick="handlePrevious"
-        v-if="!getSkipToFinal"
-        :buttonStyle="getStyle"
-      >
+      <Button name="Back" :onClick="handlePrevious" :buttonStyle="getStyle">
         <template slot="btn-icon">
           <ChevronLeftIcon />
         </template>

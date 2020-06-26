@@ -30,22 +30,7 @@
             >
             <div class="file-name" v-if="!uploadSuccess">{{ prettySize }}</div>
           </div>
-          <!-- <div class="progress-wrap" v-if="uploadStarted && !uploadSuccess"> -->
-          <!-- <div class="progress-wrap">
-            <ProgressBar :value="progress" />
-          </div> -->
         </div>
-        <!-- dropzone main -->
-
-        <!-- clear upload -->
-        <!-- <div class="clear-upload" v-if="canEnableClearBtn">
-          <Button buttonStyle="icon" :onClick="handleClear" v-if="!uploadSuccess">
-            <template slot="btn-icon">
-              <XCircleIcon />
-            </template>
-          </Button>
-        </div>-->
-        <!-- clear upload -->
 
         <!-- input file -->
         <input
@@ -132,11 +117,6 @@ export default Vue.component("UploadWindow", {
     UploadCloudIcon,
     Loader,
   },
-  watch: {
-    getJobDataById() {
-      debugger;
-    },
-  },
   computed: {
     ...mapGetters([
       "getUploadPath",
@@ -160,7 +140,6 @@ export default Vue.component("UploadWindow", {
       };
     },
     getStyle() {
-      debugger;
       return this.canDisableUpload ? "disabled xl" : "xl";
     },
     getResultStyle() {
@@ -238,7 +217,7 @@ export default Vue.component("UploadWindow", {
     handleRootFolder() {
       this.uploadFile("/$root");
     },
-    async handleUpload() {
+    handleUpload() {
       try {
         let formData = new FormData();
         formData.append("file", this.file);

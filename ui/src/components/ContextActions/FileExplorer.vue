@@ -5,7 +5,7 @@
       size="large"
       leftOffset="0rem"
       topOffset="2.8rem"
-      customWidth="300px"
+      customWidth="300"
     >
       <template slot="icon">
         <!-- <img src="../../assets/bars.svg" alt="context menu" /> -->

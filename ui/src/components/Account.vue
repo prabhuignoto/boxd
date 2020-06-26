@@ -3,7 +3,7 @@
     <Popdown
       type="icon"
       size="large"
-      customWidth="180px"
+      customWidth="180"
       topOffset="3rem"
       position="right"
     >
@@ -104,33 +104,33 @@ export default {
   margin: 0;
   padding: 0;
   width: 100%;
+}
 
-  .account-option {
-    align-items: center;
-    cursor: pointer;
-    display: flex;
-    font-family: Nunito, Open Sans, Arial, Helvetica, sans-serif;
-    font-size: 0.85rem;
-    font-weight: 400;
-    justify-content: flex-start;
-    padding: 0.5rem 0;
-    position: relative;
-    width: 100%;
+.account-option {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  font-family: Nunito, Open Sans, Arial, Helvetica, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  justify-content: flex-start;
+  padding: 0.5rem 0;
+  position: relative;
+  width: 100%;
 
-    &:hover {
-      background: #007ee5;
-      color: #fff;
-    }
+  &:hover {
+    background: #007ee5;
+    color: #fff;
+  }
 
-    i {
-      height: 1.5rem;
-      margin-left: 1rem;
-      width: 1.5rem;
-    }
+  i {
+    height: 1.5rem;
+    margin-left: 1rem;
+    width: 1.5rem;
+  }
 
-    span {
-      margin-left: 0.5rem;
-    }
+  span {
+    margin-left: 0.5rem;
   }
 }
 </style>

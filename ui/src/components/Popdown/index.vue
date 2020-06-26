@@ -13,11 +13,11 @@
     <transition name="movein">
       <div
         class="popdown"
-        v-if="visible"
+        v-show="visible"
         tabindex="0"
         @blur="close"
         @key:esc="close"
-        :style="getPopdownStyle"
+        :style="style"
         ref="popdownButton"
       >
         <slot name="menu"></slot>
@@ -47,29 +47,30 @@ export default {
     return {
       visible: false,
       childWidth: 0,
+      pos: {
+        x: 0,
+        y: 0,
+      },
+      clientWidth: 0,
+      style: {
+        left: 0,
+        top: 0,
+        width: 0,
+      },
     };
-  },
-  computed: {
-    getPopdownStyle() {
-      let style = {
-        left: this.leftOffset,
-        width: this.customWidth,
-        top: this.topOffset ? this.topOffset : "100%",
-      };
-      if (this.position === "right") {
-        return Object.assign({}, style, {
-          right: 0,
-        });
-      } else {
-        return Object.assign({}, style, {
-          left: 0,
-        });
-      }
-    },
   },
   methods: {
     togglePopdown(ev) {
       const $el = this.$el;
+      const { x, y } = this.$el.getBoundingClientRect();
+      this.style = {
+        left:
+          this.position === "right"
+            ? `${x - (Number(this.customWidth) - $el.clientWidth)}px`
+            : `${x}px`,
+        width: `${this.customWidth}px`,
+        top: `${y + $el.clientHeight + 15}px`,
+      };
       const popdown = $el && $el.querySelector(".popdown");
       if (popdown && popdown.contains(ev.target)) {
         return false;

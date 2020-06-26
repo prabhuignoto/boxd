@@ -22,7 +22,7 @@
     <div class="create-folder-controls">
       <div class="crt-folder-loader-wrapper" v-show="isMutating">
         <div class="crt-folder-loader-container">
-          <Loader />
+          <Loader type="throb" />
         </div>
         <span class="loader-message">creating folder ...</span>
       </div>
@@ -54,8 +54,6 @@
 import Textbox from "../Form/TextBox.vue";
 import CreateFolderExplorer from "./CreateFolderExplorer.vue";
 import Button from "../Form/Button.vue";
-import gql from "graphql-tag";
-import createFolderGQL from "../../graphql/createFolder.gql";
 import Loader from "../Loader.vue";
 import Vue from "vue";
 import { mapActions, mapGetters } from "vuex";
@@ -120,12 +118,12 @@ export default Vue.component("CreateFolder", {
       "clearList",
       "refreshFileExplorer",
       "addJob",
-      "closeModal"
+      "closeModal",
     ]),
     handleEnter() {
       this.handleCreate();
     },
-    handleCreate() {
+    async handleCreate() {
       if (this.createHandledOnce < 1) {
         this.createHandledOnce += 1;
       }
@@ -140,35 +138,6 @@ export default Vue.component("CreateFolder", {
           },
         });
         this.closeModal();
-
-        this.$apollo
-          .mutate({
-            mutation: gql(createFolderGQL),
-            variables: {
-              path: this.getFolderSelection,
-              name: this.folderName,
-            },
-            update: () => {
-              this.$store.dispatch("updateModalState", {
-                status: false,
-                componentToRender: "",
-              });
-              this.updatePath(`${this.getFolderSelection}`);
-              this.refetchData(true);
-              this.refreshFileExplorer({
-                status: true,
-                path: this.getExplorerPath,
-              });
-            },
-          })
-          .then(() => {
-            this.disableSave = true;
-            this.isMutating = true;
-          })
-          .catch(() => {
-            this.disableSave = true;
-            this.isMutating = true;
-          });
       }
     },
     handleCancel() {

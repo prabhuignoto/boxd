@@ -56,6 +56,9 @@ export default {
         Vue.set(item, "data", Object.assign({}, state.jobs[id].data, data));
       }
     },
+    clearAllJobs(state) {
+      state.jobs = {};
+    },
   },
   actions: {
     addJob({ commit }, { jobType, data }) {
@@ -97,6 +100,11 @@ export default {
         id,
       });
     },
+    clearAllJobs({ commit }) {
+      commit({
+        type: "clearAllJobs",
+      });
+    },
   },
   getters: {
     getJobById: state => id => state.jobs[id],
@@ -116,6 +124,7 @@ export default {
         .map(id => state.jobs[id]);
     },
     getJobsEmpty: state => Object.keys(state.jobs).length < 1,
-    getJobsActive: state => _.filter(state.jobs, item => item.running).length > 0,
+    getJobsActive: state =>
+      _.filter(state.jobs, item => item.running).length > 0,
   },
 };

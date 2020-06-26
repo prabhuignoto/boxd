@@ -1,12 +1,11 @@
 <template>
   <div class="delete-folder-wrapper">
     <div class="delete-form-wrapper">
-      <div class="delete-alert">Tread with Caution</div>
       <Textbox :placeholder="placeholder" :onInput="onInput" />
     </div>
     <div class="delete-resx-controls">
       <div class="del-folder-loader-wrapper" v-show="isMutating">
-        <Loader />
+        <Loader type="throb" message="Processing..." />
       </div>
       <Button
         name="Delete"
@@ -19,7 +18,7 @@
           <CheckIcon />
         </template>
       </Button>
-      <Button name="Cancel" :onClick="handleCancel">
+      <Button name="Cancel" :onClick="handleCancel" buttonStyle="xl">
         <template slot="btn-icon">
           <XIcon />
         </template>

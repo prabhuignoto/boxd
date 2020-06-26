@@ -1,6 +1,6 @@
 <template>
   <Treeview
-    path=""
+    path
     v-bind:onSelect="onSelect"
     v-bind:entries="files.entries"
     childTree="MoveExplorerSrc"

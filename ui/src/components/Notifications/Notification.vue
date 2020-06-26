@@ -62,9 +62,9 @@ export default Vue.extend({
   background: #fff;
   border-radius: 0.2rem;
   display: grid;
-  grid-template-columns: 5% 40% repeat(2, auto);
+  grid-template-columns: 5% 45% repeat(2, 25%);
   height: 100%;
-  width: 98%;
+  width: 100%;
 }
 
 .notification-message {

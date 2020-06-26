@@ -169,21 +169,18 @@ button {
 
 .explorer-line-item-check {
   align-items: center;
-  color: #191919;
+  color: #e5e5e5;
   cursor: pointer;
   display: flex;
   justify-content: center;
-  opacity: 0.2;
   width: 3rem;
   
   &:hover {
     color: #007ee5;
-    opacity: 1;
   }
   
   &.selected {
     color: #007ee5;
-    opacity: 0.95;
   }
 }
 

@@ -9,10 +9,9 @@
       </div>
     </div>
     <div class="selected-src">
-      <!-- <span>You have selected</span> -->
-      <span class="value" v-if="selectedSource">
-        {{ mode === "move" ? moveResxSrcFormatted : copyResxSrcFormatted }}
-      </span>
+      <span class="value" v-if="selectedSource">{{
+        mode === "move" ? moveResxSrcFormatted : copyResxSrcFormatted
+      }}</span>
     </div>
     <div class="stage2-controls">
       <Button name="Back" :onClick="handlePrevious" :buttonStyle="getStyle">
@@ -24,7 +23,6 @@
         name="Next"
         v-if="isSourceSelected"
         :onClick="handleNextStep"
-        :disabled="!isSourceSelected"
         :buttonStyle="getStyle"
       >
         <template slot="btn-icon">
@@ -53,19 +51,26 @@ export default {
   },
   props: ["handleNext", "handlePrevious", "mode"],
   computed: {
-    ...mapGetters(["moveResxSrcFormatted", "copyResxSrcFormatted"]),
+    ...mapGetters([
+      "moveResxSrcFormatted",
+      "copyResxSrcFormatted",
+      "moveResxSrc",
+      "copyResxSrc",
+      "moveResxDest",
+      "getMoveCopyMode",
+    ]),
     selectedSource() {
       if (this.getMoveCopyMode === "move") {
-        return this.$store.getters.moveResxSrc;
+        return this.moveResxSrc;
       } else {
-        return this.$store.getters.copyResxSrc;
+        return this.copyResxSrc;
       }
     },
     isSourceSelected() {
       if (this.getMoveCopyMode === "move") {
-        return this.$store.getters.moveResxSrc !== "";
+        return this.moveResxSrc;
       } else {
-        return this.$store.getters.copyResxSrc !== "";
+        return this.copyResxSrc;
       }
     },
     getStyle() {
@@ -94,7 +99,6 @@ export default {
       "clearMoveResx",
       "moveResxSource",
       "copyResxSource",
-      "getMoveCopyMode",
     ]),
   },
 };

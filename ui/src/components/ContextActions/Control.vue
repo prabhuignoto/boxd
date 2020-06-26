@@ -5,7 +5,7 @@
       size="large"
       leftOffset="0rem"
       topOffset="3rem"
-      customWidth="180px"
+      customWidth="180"
     >
       <template slot="icon">
         <BoxIcon />

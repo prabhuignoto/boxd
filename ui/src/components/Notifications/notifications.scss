@@ -2,25 +2,27 @@
   display: flex;
   flex-direction: column;
   height: 0;
-  max-height: 320px;
-  min-height: 280px;
-  overflow-y: auto;
-  width: 480px;
+  min-height: 300px;
+  width: 100%;
 }
 
 .notifications {
   align-items: center;
   display: flex;
   flex-direction: column;
+  height: 100%;
   justify-content: flex-start;
   list-style: none;
   margin-top: 1.75rem;
+  max-height: 320px;
+  min-height: 280px;
+  overflow-y: auto;
   padding: 0;
   width: 100%;
 }
 
 .notification {
-  width: 97%;
+  width: 100%;
 
   &:not(:last-child) {
     border-bottom: 1px solid #e5e5e5;
@@ -62,30 +64,83 @@ i {
   }
 }
 
-.notifications-header {
-  background: #007ee5;
-  border-bottom: 1px solid #007ee5;
+.notifications-table-header {
+  background: #fff;
+  border-bottom: 1px solid #cecece;
   display: grid;
   font-family: Nunito, Arial, Helvetica, sans-serif;
-  grid-template-columns: 45% repeat(2, auto);
-  height: 1.75rem;
+  grid-template-columns: 50% repeat(2, 25%);
+  height: 100%;
   justify-self: flex-start;
-  left: 0;
   list-style: none;
   margin: 0;
   padding: 0;
+  width: 100%;
+  
+  li {
+    align-items: center;
+    color: #191919;
+    display: flex;
+    font-size: 0.7rem;
+    font-weight: 700;
+    height: 100%;
+    justify-content: flex-start;
+    padding-left: 0.75rem;
+    text-transform: uppercase;
+  }
+}
+
+.notifications-header-wrapper {
+  height: 1.75rem;
+  left: 0;
   position: absolute;
   top: 0;
   width: 100%;
+}
 
-  li {
+.notifications-table {
+  background: #fff;
+  position: relative;
+  width: 100%;
+}
+
+.notifications-toolbar {
+  margin-left: auto;
+  margin-right: 0.5rem;
+  width: 98%;
+
+  .toolbar {
     align-items: center;
-    color: #fff;
     display: flex;
-    font-size: 0.7rem;
+    justify-content: flex-end;
+    list-style: none;
+    margin: 0.5rem 0;
+    padding: 0;
+  }
+
+  .toolbar-item {
+    background: #007ee5;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.2rem 0.4rem;
+    text-transform: capitalize;
+  }
+}
+
+.notifications-header {
+  align-items: center;
+  display: flex;
+  height: 3rem;
+  margin-bottom: 1rem;
+  width: 100%;
+
+  .title {
+    color: #007ee5;
+    font-size: 1rem;
     font-weight: 400;
-    height: 100%;
-    justify-content: flex-start;
-    padding-left: 1.5rem;
+    padding-left: 0.5rem;
+    white-space: nowrap;
   }
 }

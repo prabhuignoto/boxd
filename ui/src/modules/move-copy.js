@@ -160,7 +160,9 @@ export default {
     },
   },
   getters: {
-    moveResxSrc: state => state.moveResource && state.moveResource.src,
+    moveResxSrc: state => {
+      return state.moveResource && state.moveResource.src;
+    },
     moveResxDest: state => state.moveResource && state.moveResource.dest,
     copyResxSrc: state => state.copyResource && state.copyResource.src,
     copyResxDest: state => state.copyResource && state.copyResource.dest,

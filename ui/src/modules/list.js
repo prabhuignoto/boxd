@@ -43,10 +43,16 @@ export default {
     addItemForBulk(state, { item }) {
       state.bulkOps = state.bulkOps.concat(item);
     },
+    addItemsForBulk(state, { items }) {
+      state.bulkOps = items;
+    },
     removeItemFromBulk(state, { item }) {
       state.bulkOps = state.bulkOps.filter(
         i => i.path_lower !== item.path_lower
       );
+    },
+    removeItemsFromBulk(state) {
+      state.bulkOps = [];
     },
     clearAllBulk(state) {
       state.bulkOps = [];
@@ -115,10 +121,21 @@ export default {
         item,
       });
     },
+    addItemsForBulk({ commit }, items) {
+      commit({
+        type: "addItemsForBulk",
+        items,
+      });
+    },
     removeItemFromBulk({ commit }, item) {
       commit({
         type: "removeItemFromBulk",
         item,
+      });
+    },
+    removeItemsFromBulk({ commit }) {
+      commit({
+        type: "removeItemsFromBulk",
       });
     },
     clearAllBulk({ commit }) {

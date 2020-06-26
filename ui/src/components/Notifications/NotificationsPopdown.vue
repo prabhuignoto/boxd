@@ -3,7 +3,13 @@
     <div class="not-indicator" v-if="getJobsActive">
       <Loader type="throb" />
     </div>
-    <Popdown type="icon" size="large" topOffset="3rem" position="right">
+    <Popdown
+      type="icon"
+      size="large"
+      topOffset="3rem"
+      position="right"
+      customWidth="550"
+    >
       <template slot="icon">
         <i class="image-wrapper">
           <MessageSquareIcon />

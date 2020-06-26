@@ -33,8 +33,8 @@
 .throb-ball {
   background: #4bb543;
   border-radius: 50%;
-  height: 0.5rem;
-  width: 0.5rem;
+  height: 8px;
+  width: 8px;
 
   &.active {
     animation-direction: alternate;
@@ -47,10 +47,10 @@
 }
 
 .throb-ball-msg {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 400;
   margin-left: 0.5rem;
-  text-transform: capitalize;
+  text-transform: uppercase;
 }
 
 @keyframes throb {

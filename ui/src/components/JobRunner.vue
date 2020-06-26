@@ -148,7 +148,6 @@ export default Vue.extend({
     },
     async runUploadJob(job) {
       const { formData } = job.data;
-      debugger;
       formData.append("ui_job_id", job.id);
       try {
         await Axios.post(`${process.env.VUE_APP_API_SERVER}/upload`, formData, {

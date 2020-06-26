@@ -12,7 +12,6 @@
         >
           <span class="path-value">{{ path ? path : "home" }}</span>
           <span class="path-slash" v-show="!isCurrentDir(path)">
-            <!-- <ArrowRightIcon /> -->
             /
           </span>
         </a>
@@ -26,9 +25,6 @@ import { mapActions } from "vuex";
 
 export default {
   name: "FolderPath",
-  components: {
-    // ArrowRightIcon,
-  },
   methods: {
     ...mapActions(["clearList", "updatePath", "clearAllBulk"]),
     handleNavigation(path, $evt) {

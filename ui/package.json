@@ -11,7 +11,7 @@
   "dependencies": {
     "@types/dotenv": "^8.2.0",
     "@types/file-saver": "^2.0.1",
-    "@types/luxon": "^1.24.0",
+    "@types/luxon": "^1.24.1",
     "@types/pretty-bytes": "^5.2.0",
     "@types/uniqid": "^5.2.0",
     "@types/vue": "^2.0.0",
@@ -48,13 +48,13 @@
     "webfontloader": "^1.6.28"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.156",
+    "@types/lodash": "^4.14.157",
     "@types/vue-feather-icons": "^5.0.0",
-    "@vue/cli-plugin-babel": "^4.4.5",
-    "@vue/cli-plugin-eslint": "~4.4.5",
-    "@vue/cli-plugin-pwa": "^4.4.5",
-    "@vue/cli-plugin-unit-mocha": "^4.4.5",
-    "@vue/cli-service": "^4.4.5",
+    "@vue/cli-plugin-babel": "^4.4.6",
+    "@vue/cli-plugin-eslint": "~4.4.6",
+    "@vue/cli-plugin-pwa": "^4.4.6",
+    "@vue/cli-plugin-unit-mocha": "^4.4.6",
+    "@vue/cli-service": "^4.4.6",
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/test-utils": "^1.0.3",
     "babel-eslint": "^10.1.0",

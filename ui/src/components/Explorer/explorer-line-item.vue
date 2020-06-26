@@ -72,6 +72,7 @@ export default {
     "id",
     "locked",
     "lockType",
+    "selected"
   ],
   components: {
     LineItemPopdown,
@@ -114,7 +115,7 @@ export default {
     return {
       hideButtonImage: false,
       isDownloadingFile: false,
-      selected: false,
+      // selected: false,
     };
   },
   methods: {
