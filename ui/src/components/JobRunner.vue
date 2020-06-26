@@ -5,7 +5,7 @@ import DeleteBulkGQL from "../graphql/deleteBulk.gql";
 import MoveBulkGQL from "../graphql/moveBulk.gql";
 import CopyBulkGQL from "../graphql/copyBulk.gql";
 import CreateFolderGQL from "../graphql/createFolder.gql";
-import FolderGQL from "../graphql/folder.gql";
+// import FolderGQL from "../graphql/folder.gql";
 import gql from "graphql-tag";
 import BatchSub from "../batchSub";
 import Axios from "axios";
@@ -191,17 +191,16 @@ export default Vue.extend({
     },
     async runGetFiles() {
       try {
-        const response = await this.$apollo.query({
-          query: gql(FolderGQL),
-          variables: {
-            path: "",
-            limit: 1000,
-          },
-          result(response) {
-            console.log(response);
-          },
-        });
-
+        // const response = await this.$apollo.query({
+        //   query: gql(FolderGQL),
+        //   variables: {
+        //     path: "",
+        //     limit: 1000,
+        //   },
+        //   result(response) {
+        //     console.log(response);
+        //   },
+        // });
       } catch (error) {
         debugger;
       }

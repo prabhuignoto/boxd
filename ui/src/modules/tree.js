@@ -18,7 +18,7 @@ export default {
     deleteTree(state) {
       state.tree = {};
     },
-    repopulateTree(state, { path }) {
+    repopulateTree(state) {
       state.refetch = true;
     },
     repopulateTreeComplete(state) {
