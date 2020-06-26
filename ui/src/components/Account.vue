@@ -108,6 +108,7 @@ export default {
 
 .account-option {
   align-items: center;
+  color: #007ee5;
   cursor: pointer;
   display: flex;
   font-family: Nunito, Open Sans, Arial, Helvetica, sans-serif;

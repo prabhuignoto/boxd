@@ -1,10 +1,7 @@
 <template>
   <div class="notifications-wrapper" ref="not">
-    <header class="notifications-header">
-      <span class="title">
-        Notifications Center
-      </span>
-      <nav class="notifications-toolbar" v-if="!getJobsEmpty">
+    <header class="notifications-header" v-if="!getJobsEmpty">
+      <nav class="notifications-toolbar">
         <ul class="toolbar">
           <li class="toolbar-item" @click="handleClear">
             clear all

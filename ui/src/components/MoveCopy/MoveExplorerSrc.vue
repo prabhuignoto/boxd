@@ -47,6 +47,10 @@ export default Vue.component("MoveExplorerSrc", {
           cursor: "",
         };
       },
+      update(data) {
+        debugger;
+        console.log(data);
+      },
     },
   },
 });

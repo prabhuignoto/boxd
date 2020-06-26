@@ -61,7 +61,9 @@ export default {
     },
   },
   actions: {
-    addJob({ commit }, { jobType, data }) {
+    addJob({ commit, rootState }, { jobType, data }) {
+      console.log(rootState);
+      debugger;
       commit({
         type: "addJob",
         jobType,

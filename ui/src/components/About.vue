@@ -1,8 +1,11 @@
 <template>
   <section class="about-wrapper">
+    <div class="close-modal" @click="closeModal">
+      <XIcon />
+    </div>
     <div class="logo">Boxd</div>
     <div class="info">
-      <span class="version">Version: 0.1</span>
+      <span class="version">Version: 1.0</span>
       <span class="copyright"
         >{{ new Date().getFullYear() }} &copy; PrabhuMurthy</span
       >
@@ -12,9 +15,17 @@
 
 <script>
 import Vue from "vue";
+import { mapActions } from "vuex";
+import { XIcon } from "vue-feather-icons";
 
 export default Vue.component("About", {
   name: "About",
+  methods: {
+    ...mapActions(["closeModal"]),
+  },
+  components: {
+    XIcon,
+  },
 });
 </script>
 
@@ -25,8 +36,7 @@ export default Vue.component("About", {
   flex-direction: column;
   font-family: Nunito, Open Sans, Arial, Helvetica, sans-serif;
   height: 100%;
-  height: 130px;
-  height: 350px;
+  height: 300px;
   justify-content: space-around;
   width: 280px;
 }
@@ -58,5 +68,22 @@ export default Vue.component("About", {
 
 .copyright {
   font-size: 0.9rem;
+}
+
+.close-modal {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  height: 1.5rem;
+  justify-content: center;
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+  width: 1.5rem;
+
+  svg {
+    display: 100%;
+    height: 100%;
+  }
 }
 </style>

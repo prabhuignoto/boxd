@@ -6,7 +6,7 @@
           <div
             class="bulk-selection-button"
             @click="handleBulkSelection"
-            :class="{ selected: bulkSelected }"
+            :class="{ selected: bulkSelected, disabled: getJobsActive }"
           >
             <SquareIcon v-if="!bulkSelected" />
             <CheckSquareIcon v-if="bulkSelected" />
@@ -35,7 +35,7 @@
 <script>
 import Vue from "vue";
 import LineItem from "./explorer-line-item";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { CheckSquareIcon, SquareIcon } from "vue-feather-icons";
 
 export default Vue.extend({
@@ -50,6 +50,9 @@ export default Vue.extend({
     return {
       bulkSelected: false,
     };
+  },
+  computed: {
+    ...mapGetters(["getJobsActive"]),
   },
   methods: {
     ...mapActions([
@@ -140,6 +143,7 @@ export default Vue.extend({
   cursor: pointer;
   display: flex;
   height: 1.5rem;
+  padding-left: 0.5rem;
   width: 1.5rem;
 
   &.selected {
@@ -148,6 +152,11 @@ export default Vue.extend({
 
   &:hover {
     color: #007ee5;
+  }
+
+  &.disabled {
+    opacity: 0.4;
+    pointer-events: none;
   }
 
   svg {

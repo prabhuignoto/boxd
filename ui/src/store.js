@@ -7,6 +7,7 @@ import MoveCopy from "./modules/move-copy";
 import Notification from "./modules/notification";
 import Upload from "./modules/upload";
 import Jobs from "./modules/jobs";
+import Tree from "./modules/tree";
 
 Vue.use(Vuex);
 
@@ -19,6 +20,7 @@ export default new Vuex.Store({
     list: List,
     notification: Notification,
     jobs: Jobs,
+    tree: Tree,
   },
   state: {
     explorer: {

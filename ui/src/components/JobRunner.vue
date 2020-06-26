@@ -5,6 +5,7 @@ import DeleteBulkGQL from "../graphql/deleteBulk.gql";
 import MoveBulkGQL from "../graphql/moveBulk.gql";
 import CopyBulkGQL from "../graphql/copyBulk.gql";
 import CreateFolderGQL from "../graphql/createFolder.gql";
+import FolderGQL from "../graphql/folder.gql";
 import gql from "graphql-tag";
 import BatchSub from "../batchSub";
 import Axios from "axios";
@@ -31,6 +32,14 @@ export default Vue.extend({
         });
       }
     );
+    this.$store.watch(
+      (state, getters) => getters.getRefetchTreeStatus,
+      status => {
+        if (status) {
+          this.runGetFiles();
+        }
+      }
+    );
   },
   methods: {
     ...mapActions([
@@ -44,6 +53,7 @@ export default Vue.extend({
       "refreshFileExplorer",
       "refetchData",
       "refreshFileExplorer",
+      "repopulateTree",
     ]),
     async runDeleteJob(job) {
       const items = job.data && job.data.items;
@@ -63,6 +73,7 @@ export default Vue.extend({
               },
             },
           });
+          this.repopulateTree();
         }
       } catch (error) {
         items && this.unLockItems({ items: items.map(item => item.id) });
@@ -91,6 +102,7 @@ export default Vue.extend({
               },
             },
           });
+          this.repopulateTree();
         }
       } catch (error) {
         items && this.unLockItems({ jobId: job.id });
@@ -119,6 +131,7 @@ export default Vue.extend({
               },
             },
           });
+          this.repopulateTree();
         }
       } catch (error) {
         items && this.unLockItems({ items: items.map(item => item.id) });
@@ -139,6 +152,7 @@ export default Vue.extend({
             ui_job_id: job.id,
           },
         });
+        this.repopulateTree(path);
       } catch (error) {
         this.failedJob({
           id: job.id,
@@ -167,11 +181,29 @@ export default Vue.extend({
             });
           },
         });
+        this.repopulateTree();
       } catch (error) {
         this.failedJob({
           id: job.id,
           reason: error,
         });
+      }
+    },
+    async runGetFiles() {
+      try {
+        const response = await this.$apollo.query({
+          query: gql(FolderGQL),
+          variables: {
+            path: "",
+            limit: 1000,
+          },
+          result(response) {
+            console.log(response);
+          },
+        });
+
+      } catch (error) {
+        debugger;
       }
     },
   },
