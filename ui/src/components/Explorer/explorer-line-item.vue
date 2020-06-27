@@ -72,7 +72,7 @@ export default {
     "id",
     "locked",
     "lockType",
-    "selected"
+    "selected",
   ],
   components: {
     LineItemPopdown,

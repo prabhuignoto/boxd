@@ -11,6 +11,37 @@ import Tree from "./modules/tree";
 
 Vue.use(Vuex);
 
+export interface RootState {
+  explorer: {
+    path: string;
+  };
+  fileExplorer: {
+    activeFileNode: any;
+    refresh: {
+      status: boolean;
+      path: string;
+    };
+  };
+  modal: {
+    isActive: boolean;
+    componentToRender: string;
+    title: string;
+    disableHeader: boolean;
+    disableCloseBtn: boolean;
+    width: number;
+    status: boolean;
+  };
+  treeView: {
+    data: any[];
+  };
+  workFlowOrigin: string;
+  notification: {
+    messages: any[];
+    unRead: any[];
+    read: any[];
+  };
+}
+
 export default new Vuex.Store({
   modules: {
     mvCopy: MoveCopy,

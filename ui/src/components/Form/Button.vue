@@ -8,7 +8,7 @@
   </button>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: "Button",
   props: ["name", "onClick", "size", "buttonStyle", "marginLess"],

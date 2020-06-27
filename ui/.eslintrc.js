@@ -12,12 +12,11 @@ module.exports = {
   },
 
   parser: "vue-eslint-parser",
+
   parserOptions: {
-    parser: "babel-eslint",
+    parser: "@typescript-eslint/parser",
     ecmaVersion: 2020,
   },
-
-  extends: ["plugin:vue/essential", "eslint:recommended", "@vue/prettier"],
 
   overrides: [
     {
@@ -29,5 +28,12 @@ module.exports = {
         mocha: true,
       },
     },
+  ],
+
+  extends: [
+    "plugin:vue/essential",
+    "eslint:recommended",
+    "@vue/prettier",
+    "@vue/typescript",
   ],
 };

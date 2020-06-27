@@ -49,7 +49,7 @@ export default {};
 .logo {
   align-self: center;
   color: #fff;
-  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
   font-size: 2rem;
   font-weight: 700;
   justify-self: center;
@@ -68,7 +68,7 @@ export default {};
   align-self: center;
   color: #000;
   display: inline-block;
-  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
   justify-self: right;
   margin-right: 0.5rem;
   text-align: right;
