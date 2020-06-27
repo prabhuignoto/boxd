@@ -11,13 +11,13 @@ export default {
         const result: files.RelocationResult = await getDropboxClient(
           context.session.access_token,
           process.env.CLIENT_ID as string).filesCopyV2({
-          from_path: args.from_path,
-          to_path: args.to_path,
-          autorename: true
-        });
-        PubSub.publish('resx_copied', {
+            fromPath: args.fromPath,
+            toPath: args.toPath,
+            autorename: true
+          });
+        PubSub.publish('resxCopied', {
           resxCopied: {
-            name: args.from_path,
+            name: args.fromPath,
             success: true
           }
         });
@@ -27,7 +27,7 @@ export default {
           level: 'error',
           message: error.message
         });
-        PubSub.publish('resx_copied', {
+        PubSub.publish('resxCopied', {
           resxCopied: {
             message: 'Failed to copy the resource',
             success: false
@@ -45,12 +45,12 @@ export default {
           autorename: true,
           path: `${args.path}/${args.name}`
         });
-        PubSub.publish('folder_added', {
+        PubSub.publish('folderAdded', {
           folderAdded: {
             name: args.name,
             path: args.path,
             success: true,
-            ui_job_id: args.ui_job_id
+            uiJobId: args.uiJobId
           }
         });
         return result.metadata;
@@ -59,12 +59,12 @@ export default {
           level: 'error',
           message: error.message
         });
-        PubSub.publish('folder_added', {
+        PubSub.publish('folderAdded', {
           folderAdded: {
             name: args.name,
             message: 'Failed to add the folder',
             success: false,
-            ui_job_id: args.ui_job_id
+            uiJobId: args.uiJobId
           }
         });
         return {};
@@ -78,7 +78,7 @@ export default {
         }).filesDeleteV2({
           path: args.path
         });
-        PubSub.publish('resx_deleted', {
+        PubSub.publish('resxDeleted', {
           resxDeleted: {
             name: args.path,
             success: true
@@ -90,7 +90,7 @@ export default {
           level: 'error',
           message: error.message
         });
-        PubSub.publish('resx_deleted', {
+        PubSub.publish('resxDeleted', {
           resxDeleted: {
             message: 'Failed to delete the folder',
             success: false
@@ -105,19 +105,19 @@ export default {
           accessToken: context.session.access_token,
           clientId: process.env.CLIENT_ID
         }).filesMoveV2({
-          from_path: args.from_path,
-          to_path: args.to_path
+          fromPath: args.fromPath,
+          toPath: args.toPath
         });
-        PubSub.publish('resx_moved', {
+        PubSub.publish('resxMoved', {
           resxMoved: {
-            name: args.from_path,
+            name: args.fromPath,
             success: true
           }
         });
         return result.metadata;
       } catch (error) {
         ErrorLogger.log(error);
-        PubSub.publish('resx_moved', {
+        PubSub.publish('resxMoved', {
           resxCopied: {
             message: 'Failed to move the resource',
             success: false
@@ -170,16 +170,16 @@ export default {
   },
   Subscription: {
     folderAdded: {
-      subscribe: () => PubSub.asyncIterator('folder_added')
+      subscribe: () => PubSub.asyncIterator('folderAdded')
     },
     resxCopied: {
-      subscribe: () => PubSub.asyncIterator('resx_copied')
+      subscribe: () => PubSub.asyncIterator('resxCopied')
     },
     resxDeleted: {
-      subscribe: () => PubSub.asyncIterator('resx_deleted')
+      subscribe: () => PubSub.asyncIterator('resxDeleted')
     },
     resxMoved: {
-      subscribe: () => PubSub.asyncIterator('resx_moved')
+      subscribe: () => PubSub.asyncIterator('resxMoved')
     }
   }
 };

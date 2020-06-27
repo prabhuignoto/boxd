@@ -21,11 +21,12 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
 import { mapActions, mapGetters } from "vuex";
 import { XIcon } from "vue-feather-icons";
+import Vue from "vue";
 
-export default {
+export default Vue.extend({
   name: "Popup",
   props: ["content", "title", "disableHeader", "width"],
   mounted: function () {
@@ -51,7 +52,7 @@ export default {
       });
     },
   },
-};
+});
 </script>
 
 <style lang="scss" src="./popup.scss" scoped />

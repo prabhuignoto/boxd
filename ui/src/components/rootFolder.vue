@@ -7,7 +7,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { FolderIcon } from "vue-feather-icons";
 import Vue from "vue";
 

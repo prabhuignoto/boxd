@@ -1,15 +1,51 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import gql from "graphql-tag";
 import uniqid from "uniqid";
+import { Job, Notification, SocketDataResponse } from "./subModels";
+import {
+  VueApolloSubscriptionDefinition,
+  VueApolloSubscriptionProperty,
+} from "vue-apollo/types/options";
+
+type SubscriptionDefinition = VueApolloSubscriptionDefinition & {
+  result({ data: { T: SocketResponse } }: SocketDataResponse): void;
+  showNotification(n: Notification): void;
+  completeJob(j: Job): void;
+  failedJob(j: Job): void;
+};
+
+type SubscriptionProperty = VueApolloSubscriptionProperty & {
+  batchWorkComplete: SubscriptionDefinition & {
+    getExplorerPath: string;
+    refreshFileExplorer(n: { status: boolean; path: string }): void;
+    unLockItems(d: { jobId?: string; failed?: boolean }): void;
+  };
+  batchWorkRunning: SubscriptionDefinition;
+  batchWorkFailed: SubscriptionDefinition & {
+    unLockItems(d: { jobId?: string; failed: boolean }): void;
+  };
+  uploadCompleted: SubscriptionDefinition & {
+    refreshFileExplorer(n: { status: boolean; path: string }): void;
+    getExplorerPath: string;
+    refetchData(b: boolean): void;
+  };
+  folderAdded: SubscriptionDefinition & {
+    refreshFileExplorer(n: { status: boolean; path: string }): void;
+    getExplorerPath: string;
+    refetchData(b: boolean): void;
+    unLockItems(d: { jobId?: string; failed: boolean }): void;
+  };
+};
 
 export default {
-  dropbox_batch_work_complete: {
+  batchWorkComplete: {
     query: gql`
       subscription {
         batchWorkComplete {
           job_id
           status
           job_type
-          ui_job_id
+          uiJobId
           entries {
             metadata {
               id
@@ -23,7 +59,7 @@ export default {
     result({ data: { batchWorkComplete } }) {
       const jobType = batchWorkComplete.job_type;
       const status = batchWorkComplete.status;
-      const uiJobId = batchWorkComplete.ui_job_id;
+      const uiJobId = batchWorkComplete.uiJobId;
       this.unLockItems({ jobId: uiJobId });
 
       this.refreshFileExplorer({
@@ -48,14 +84,14 @@ export default {
       }
     },
   },
-  dropbox_batch_work_running: {
+  batchWorkRunning: {
     query: gql`
       subscription {
         batchWorkRunning {
           job_id
           status
           job_type
-          ui_job_id
+          uiJobId
           entries {
             metadata {
               id
@@ -70,14 +106,14 @@ export default {
       console.log(batchWorkRunning);
     },
   },
-  dropbox_batch_work_failed: {
+  batchWorkFailed: {
     query: gql`
       subscription {
         batchWorkFailed {
           job_id
           status
           job_type
-          ui_job_id
+          uiJobId
           entries {
             metadata {
               id
@@ -91,7 +127,7 @@ export default {
     result({ data: { batchWorkFailed } }) {
       const jobType = batchWorkFailed.job_type;
       // const status = batchWorkFailed.status;
-      const uiJobId = batchWorkFailed.ui_job_id;
+      const uiJobId = batchWorkFailed.uiJobId;
 
       this.unLockItems({ jobId: uiJobId, failed: true });
       this.failedJob({ id: uiJobId });
@@ -103,19 +139,19 @@ export default {
       });
     },
   },
-  folder_added: {
+  folderAdded: {
     query: gql`
       subscription {
         folderAdded {
           success
           name
-          ui_job_id
+          uiJobId
         }
       }
     `,
     result({ data: { folderAdded } }) {
       if (folderAdded.success) {
-        this.completeJob({ id: folderAdded.ui_job_id });
+        this.completeJob({ id: folderAdded.uiJobId });
         this.showNotification({
           type: "info",
           id: uniqid("notification-msg-"),
@@ -127,7 +163,7 @@ export default {
           path: this.getExplorerPath,
         });
       } else {
-        this.failedJob({ id: folderAdded.ui_job_id });
+        this.failedJob({ id: folderAdded.uiJobId });
         this.showNotification({
           type: "failure",
           id: uniqid("notification-msg-"),
@@ -136,19 +172,19 @@ export default {
       }
     },
   },
-  upload_completed: {
+  uploadCompleted: {
     query: gql`
       subscription {
         fileUploaded {
           success
           fileName
-          ui_job_id
+          uiJobId
         }
       }
     `,
     result({ data: { fileUploaded } }) {
       if (fileUploaded.success) {
-        this.completeJob({ id: fileUploaded.ui_job_id });
+        this.completeJob({ id: fileUploaded.uiJobId });
 
         this.showNotification({
           type: "info",
@@ -162,7 +198,7 @@ export default {
           path: this.getExplorerPath,
         });
       } else {
-        this.failedJob({ id: fileUploaded.ui_job_id });
+        this.failedJob({ id: fileUploaded.uiJobId });
 
         this.showNotification({
           type: "failure",
@@ -172,4 +208,4 @@ export default {
       }
     },
   },
-};
+} as SubscriptionProperty;

@@ -52,8 +52,8 @@ export default {
     return {
       account: {
         name: {
-          display_name: "",
-          abbreviated_name: "",
+          // display_name: "",
+          // abbreviated_name: "",
         },
       },
     };

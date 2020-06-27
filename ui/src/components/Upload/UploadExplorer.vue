@@ -2,7 +2,6 @@
   <section>
     <Treeview
       path=""
-      v-bind:onSelect="onSelect"
       v-bind:entries="files"
       childTree="UploadExplorer"
       hideFiles="true"
@@ -11,11 +10,10 @@
   </section>
 </template>
 
-<script>
-import Treeview from "../Treeview/Treeview";
+<script lang="ts">
+import Treeview from "../Treeview/Treeview.vue";
 import Vue from "vue";
-import gql from "graphql-tag";
-import FolderGQL from "../../graphql/folder.gql";
+import FolderGQL from "../../graphql/folder";
 import { mapActions, mapGetters } from "vuex";
 
 export default Vue.component("UploadExplorer", {
@@ -32,8 +30,7 @@ export default Vue.component("UploadExplorer", {
   props: ["path"],
   methods: {
     ...mapActions(["createFolderSelection", "uploadFile"]),
-    onSelect() {},
-    handleSubfolderSelection(path) {
+    handleSubfolderSelection(path): void {
       this.uploadFile(path);
     },
   },
@@ -42,7 +39,7 @@ export default Vue.component("UploadExplorer", {
   },
   apollo: {
     files: {
-      query: gql(FolderGQL),
+      query: FolderGQL,
       variables() {
         return {
           path: this.path,

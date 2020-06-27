@@ -56,12 +56,12 @@
   </section>
 </template>
 
-<script>
-import MoveExplorerDest from "./MoveExplorerDest";
-import CopyExplorerDest from "./CopyExplorerDest";
-import Button from "../Form/Button";
+<script lang="ts">
+import MoveExplorerDest from "./MoveExplorerDest.vue";
+import CopyExplorerDest from "./CopyExplorerDest.vue";
+import Button from "../Form/Button.vue";
 import { mapActions, mapGetters } from "vuex";
-import Loader from "../Loader";
+import Loader from "../Loader.vue";
 import { ArrowRightIcon, ChevronLeftIcon, CheckIcon } from "vue-feather-icons";
 
 export default {

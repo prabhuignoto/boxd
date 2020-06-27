@@ -1,8 +1,32 @@
 import gql from "graphql-tag";
 import uniqid from "uniqid";
+import { DocumentNode } from "graphql";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { SocketDataResponse, Notification, SocketResponse } from "./subModels";
+
+interface NotificationSub {
+  resxDeleted: {
+    query: DocumentNode;
+    result({ data: { resxDeleted: SocketResponse } }: SocketDataResponse): void;
+    showNotification(n: Notification): void;
+  };
+  resxCopied: {
+    query: DocumentNode;
+    result({ data: { resxCopied: SocketResponse } }: SocketDataResponse): void;
+    showNotification(n: Notification): void;
+  };
+  resxMoved: {
+    query: DocumentNode;
+    result({ data: { resxMoved: SocketResponse } }: SocketDataResponse): void;
+    showNotification(n: Notification): void;
+    refetchData(b: boolean): void;
+    refreshFileExplorer(n: { status: boolean; path: string }): void;
+    getExplorerPath: string;
+  };
+}
 
 export default {
-  resx_deleted: {
+  resxDeleted: {
     query: gql`
       subscription {
         resxDeleted {
@@ -31,7 +55,7 @@ export default {
       }
     },
   },
-  resx_copied: {
+  resxCopied: {
     query: gql`
       subscription {
         resxCopied {
@@ -58,7 +82,7 @@ export default {
       }
     },
   },
-  resx_moved: {
+  resxMoved: {
     query: gql`
       subscription {
         resxMoved {
@@ -90,4 +114,4 @@ export default {
       }
     },
   },
-};
+} as NotificationSub;

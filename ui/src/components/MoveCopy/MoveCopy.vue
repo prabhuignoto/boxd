@@ -20,15 +20,14 @@
   />
 </template>
 
-<script>
+<script lang="ts">
 import Vue from "vue";
-import StageOne from "./StageOne";
-import StageTwo from "./StageTwo";
-import StageThree from "./StageThree";
+import StageOne from "./StageOne.vue";
+import StageTwo from "./StageTwo.vue";
+import StageThree from "./StageThree.vue";
 import { mapActions, mapGetters } from "vuex";
-import gql from "graphql-tag";
-import CopyResxGQL from "../../graphql/copyResource.gql";
-import MoveResxGQL from "../../graphql/moveResource.gql";
+import CopyResxGQL from "../../graphql/copyResource";
+import MoveResxGQL from "../../graphql/moveResource";
 
 export default Vue.component("MoveCopy", {
   components: {
@@ -81,10 +80,10 @@ export default Vue.component("MoveCopy", {
             });
           } else {
             await this.$apollo.mutate({
-              mutation: gql(CopyResxGQL),
+              mutation: CopyResxGQL,
               variables: {
-                from_path: this.copyResxSrc,
-                to_path: `${this.copyResxDest}/${this.copyResxSrc
+                fromPath: this.copyResxSrc,
+                toPath: `${this.copyResxDest}/${this.copyResxSrc
                   .split("/")
                   .pop()}`,
               },
@@ -102,10 +101,10 @@ export default Vue.component("MoveCopy", {
             });
           } else {
             await this.$apollo.mutate({
-              mutation: gql(MoveResxGQL),
+              mutation: MoveResxGQL,
               variables: {
-                from_path: this.moveResxSrc,
-                to_path: `${this.moveResxDest}/${this.moveResxSrc
+                fromPath: this.moveResxSrc,
+                toPath: `${this.moveResxDest}/${this.moveResxSrc
                   .split("/")
                   .pop()}`,
               },

@@ -118,7 +118,7 @@ export default {
         responseType: "blob",
       })
         .then(response => {
-          var blob = new Blob([response.data], {
+          const blob = new Blob([response.data], {
             type: `${response.headers["content-type"]};charset=utf-8`,
           });
           FileSaver.saveAs(blob, path.replace("/", ""));

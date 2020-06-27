@@ -12,7 +12,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { LoaderIcon } from "vue-feather-icons";
 import Vue from "vue";
 

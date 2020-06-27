@@ -20,16 +20,17 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapActions } from "vuex";
+import Vue from "vue";
 
-export default {
+export default Vue.extend({
   name: "FolderPath",
   methods: {
     ...mapActions(["clearList", "updatePath", "clearAllBulk"]),
     handleNavigation(path, $evt) {
       $evt.preventDefault();
-      let pathArr = this.folderPath;
+      const pathArr = this.folderPath;
       const newPath = pathArr.slice(0, pathArr.indexOf(path) + 1).join("/");
       this.clearAllBulk();
       this.clearList();
@@ -49,7 +50,7 @@ export default {
   },
   computed: {
     folderPath() {
-      let path = this.$store.state.explorer.path;
+      const path = this.$store.state.explorer.path;
       if (path) {
         return path.split("/");
       } else {
@@ -57,7 +58,7 @@ export default {
       }
     },
   },
-};
+});
 </script>
 
 <style lang="scss" src="./folderpath.scss" scoped />

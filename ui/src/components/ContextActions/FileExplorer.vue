@@ -18,10 +18,10 @@
   </div>
 </template>
 
-<script>
-import Popdown from "../Popdown/index";
+<script lang="ts">
+import Popdown from "../Popdown/index.vue";
 import { BoxIcon } from "vue-feather-icons";
-import TreeviewWrapper from "../Explorer/TreeviewWrapper";
+import TreeviewWrapper from "../Explorer/TreeviewWrapper.vue";
 
 export default {
   components: {

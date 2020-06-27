@@ -16,7 +16,6 @@ export interface RootState {
     path: string;
   };
   fileExplorer: {
-    activeFileNode: any;
     refresh: {
       status: boolean;
       path: string;
@@ -31,15 +30,7 @@ export interface RootState {
     width: number;
     status: boolean;
   };
-  treeView: {
-    data: any[];
-  };
   workFlowOrigin: string;
-  notification: {
-    messages: any[];
-    unRead: any[];
-    read: any[];
-  };
 }
 
 export default new Vuex.Store({
@@ -58,7 +49,6 @@ export default new Vuex.Store({
       path: "",
     },
     fileExplorer: {
-      activeFileNode: {},
       refresh: {
         status: false,
         path: "",
@@ -77,18 +67,10 @@ export default new Vuex.Store({
       data: [],
     },
     workFlowOrigin: "",
-    notification: {
-      messages: [],
-      unRead: [],
-      read: [],
-    },
   },
   mutations: {
     updatePath(state, { path }) {
       state.explorer.path = path;
-    },
-    updateExplorerNode(state, { node }) {
-      state.fileExplorer.activeFileNode = node;
     },
     updateModalState(
       state,

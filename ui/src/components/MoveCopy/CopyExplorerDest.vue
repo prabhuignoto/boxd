@@ -9,11 +9,10 @@
   />
 </template>
 
-<script>
-import Treeview from "../Treeview/Treeview";
+<script lang="ts">
+import Treeview from "../Treeview/Treeview.vue";
 import Vue from "vue";
-import gql from "graphql-tag";
-import FolderGQL from "../../graphql/folder.gql";
+import FolderGQL from "../../graphql/folder";
 import { mapActions, mapGetters } from "vuex";
 
 export default Vue.component("CopyExplorerDest", {
@@ -42,7 +41,7 @@ export default Vue.component("CopyExplorerDest", {
       if (this.getBulkMode) {
         this.setCopyResxBulk(
           this.getBulkItems.map(item => ({
-            from_path: item.path_lower,
+            fromPath: item.path_lower,
             id: item.id,
           }))
         );
@@ -54,7 +53,7 @@ export default Vue.component("CopyExplorerDest", {
       if (this.getBulkMode) {
         this.setCopyResxBulk(
           this.getBulkItems.map(item => ({
-            from_path: item.path_lower,
+            fromPath: item.path_lower,
             id: item.id,
           }))
         );
@@ -64,7 +63,7 @@ export default Vue.component("CopyExplorerDest", {
   },
   apollo: {
     files: {
-      query: gql(FolderGQL),
+      query: FolderGQL,
       variables() {
         return {
           path: this.path,

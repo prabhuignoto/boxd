@@ -9,9 +9,9 @@
       </div>
     </div>
     <div class="selected-src">
-      <span class="value" v-if="selectedSource">{{
-        mode === "move" ? moveResxSrcFormatted : copyResxSrcFormatted
-      }}</span>
+      <span class="value" v-if="selectedSource">
+        {{ mode === "move" ? moveResxSrcFormatted : copyResxSrcFormatted }}
+      </span>
     </div>
     <div class="stage2-controls">
       <Button name="Back" :onClick="handlePrevious" :buttonStyle="getStyle">
@@ -33,10 +33,10 @@
   </section>
 </template>
 
-<script>
-import MoveExplorerSrc from "./MoveExplorerSrc";
-import CopyExplorerSrc from "./CopyExplorerSrc";
-import Button from "../Form/Button";
+<script lang="ts">
+import MoveExplorerSrc from "./MoveExplorerSrc.vue";
+import CopyExplorerSrc from "./CopyExplorerSrc.vue";
+import Button from "../Form/Button.vue";
 import { mapActions, mapGetters } from "vuex";
 import { ChevronRightIcon } from "vue-feather-icons";
 import { ChevronLeftIcon } from "vue-feather-icons";

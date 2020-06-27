@@ -9,7 +9,9 @@
 </template>
 
 <script lang="ts">
-export default {
+import Vue from "vue";
+
+export default Vue.extend({
   name: "Button",
   props: ["name", "onClick", "size", "buttonStyle", "marginLess"],
   computed: {
@@ -20,7 +22,7 @@ export default {
       };
     },
   },
-};
+});
 </script>
 
 <style lang="scss" src="./button.scss" scoped />

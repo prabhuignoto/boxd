@@ -1,5 +1,5 @@
-import { MutationTree, GetterTree, ActionTree, Module } from "vuex";
 import { RootState } from "@/store";
+import { ActionTree, Module, MutationTree } from "vuex";
 
 interface MoveCopyState {
   moveResource: {
@@ -154,7 +154,7 @@ const mutations: MutationTree<MoveCopyState> = {
   updateDestForMoveResxBulk(state, { path }) {
     state.moveResourceBulk = state.moveResourceBulk.map(item =>
       Object.assign({}, item, {
-        to_path: `${path}${item.from_path}`,
+        toPath: `${path}${item.fromPath}`,
       })
     );
   },
@@ -164,7 +164,7 @@ const mutations: MutationTree<MoveCopyState> = {
   updateDestForCopyResxBulk(state, { path }) {
     state.copyResourceBulk = state.copyResourceBulk.map(item =>
       Object.assign({}, item, {
-        to_path: `${path}${item.from_path}`,
+        toPath: `${path}${item.fromPath}`,
       })
     );
   },
@@ -253,7 +253,7 @@ export default {
 //     updateDestForMoveResxBulk(state, { path }) {
 //       state.moveResourceBulk = state.moveResourceBulk.map(item =>
 //         Object.assign({}, item, {
-//           to_path: `${path}${item.from_path}`,
+//           toPath: `${path}${item.fromPath}`,
 //         })
 //       );
 //     },
@@ -263,7 +263,7 @@ export default {
 //     updateDestForCopyResxBulk(state, { path }) {
 //       state.copyResourceBulk = state.copyResourceBulk.map(item =>
 //         Object.assign({}, item, {
-//           to_path: `${path}${item.from_path}`,
+//           toPath: `${path}${item.fromPath}`,
 //         })
 //       );
 //     },

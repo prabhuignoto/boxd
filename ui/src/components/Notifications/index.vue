@@ -34,10 +34,10 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from "vue";
 import { mapGetters, mapActions } from "vuex";
-import Notification from "./Notification";
+import Notification from "./Notification.vue";
 import { ThumbsUpIcon } from "vue-feather-icons";
 
 export default Vue.extend({

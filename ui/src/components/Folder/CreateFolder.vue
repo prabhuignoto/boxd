@@ -50,7 +50,7 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
 import Textbox from "../Form/TextBox.vue";
 import CreateFolderExplorer from "./CreateFolderExplorer.vue";
 import Button from "../Form/Button.vue";

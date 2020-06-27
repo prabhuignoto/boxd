@@ -60,8 +60,8 @@
   </div>
 </template>
 
-<script>
-import Popdown from "../Popdown/index";
+<script lang="ts">
+import Popdown from "../Popdown/index.vue";
 import { mapActions, mapGetters } from "vuex";
 import {
   BoxIcon,

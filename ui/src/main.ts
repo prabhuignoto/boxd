@@ -29,7 +29,8 @@ const wsLink = new WebSocketLink({
 
 const link = split(
   ({ query }) => {
-    const { kind, operation } = getMainDefinition(query);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { kind, operation }: any = getMainDefinition(query);
     return kind === "OperationDefinition" && operation === "subscription";
   },
   wsLink,
@@ -42,19 +43,19 @@ const apolloClient = new ApolloClient({
   typeDefs: gql`
     input deleteBulkOptions {
       paths: [String!]!
-      ui_job_id: String!
+      uiJobId: String!
     }
 
     input relocationEntry {
-      from_path: String!
-      to_path: String!
+      fromPath: String!
+      toPath: String!
       is: String!
     }
 
     input relocationOptions {
       entries: [relocationEntry!]!
       autorename: Boolean
-      ui_job_id: String!
+      uiJobId: String!
     }
   `,
   connectToDevTools: true,

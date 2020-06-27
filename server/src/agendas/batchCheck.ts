@@ -12,7 +12,7 @@ export interface Job {
   accessToken: string;
   asyncJobId: string;
   path: string;
-  ui_job_id: string;
+  uiJobId: string;
 }
 
 export interface entry {
@@ -52,7 +52,7 @@ interface JobResult {
   tag: string;
   entries?: entry[];
   status?: string;
-  ui_job_id?: string;
+  uiJobId?: string;
 }
 
 interface JobInterface {
@@ -65,7 +65,7 @@ interface JobInterface {
 type JobStatusResult = files.RelocationBatchV2JobStatus | files.DeleteBatchJobStatus;
 type resultEntry = files.RelocationBatchResultEntry | files.DeleteBatchResultEntry;
 
-function jobFactory<T extends JobInterface> (config: T) {
+function jobFactory<T extends JobInterface>(config: T) {
   const transformEntries: (e: resultEntry[], m: JobMode) => entry[] | entry_error[] = (entries, mode) => {
     return entries.map(item => {
       let data = null;
@@ -98,7 +98,7 @@ function jobFactory<T extends JobInterface> (config: T) {
   };
 
   return async function (job: Agenda.Job<Job>) {
-    const { accessToken, asyncJobId, ui_job_id } = job.attrs.data;
+    const { accessToken, asyncJobId, uiJobId } = job.attrs.data;
     try {
       const client = getClient(accessToken);
       const { onComplete, onProgress, onFailed, mode } = config;
@@ -115,14 +115,14 @@ function jobFactory<T extends JobInterface> (config: T) {
               job_id: asyncJobId,
               tag: result['.tag'],
               status: 'complete',
-              ui_job_id
+              uiJobId
             });
           } else {
             onFailed && onFailed({
               job_id: asyncJobId,
               tag: result['.tag'],
               status: 'failed',
-              ui_job_id
+              uiJobId
             });
           }
         } else if (result['.tag'] === 'in_progress') {
@@ -130,14 +130,14 @@ function jobFactory<T extends JobInterface> (config: T) {
             job_id: asyncJobId,
             tag: result['.tag'],
             status: 'running',
-            ui_job_id
+            uiJobId
           });
         } else if (result['.tag'] === 'failed') {
           onFailed && onFailed({
             job_id: asyncJobId,
             tag: result['.tag'],
             status: 'failed',
-            ui_job_id
+            uiJobId
           });
         }
       };
@@ -168,36 +168,36 @@ function jobFactory<T extends JobInterface> (config: T) {
 const loadJob = function (mode: JobMode) {
   return jobFactory({
     mode,
-    onComplete: ({ entries, status, job_id, tag, ui_job_id }) => {
-      PubSub.publish('dropbox_batch_work_complete', {
+    onComplete: ({ entries, status, job_id, tag, uiJobId }) => {
+      PubSub.publish('batchWorkComplete', {
         batchWorkComplete: {
           job_id,
           tag,
           entries,
           status,
           job_type: mode,
-          ui_job_id
+          uiJobId
         }
       });
       agenda.cancel({ name: job_id });
     },
-    onProgress: ({ status, job_id, tag, ui_job_id }) => {
-      PubSub.publish('dropbox_batch_work_running', {
+    onProgress: ({ status, job_id, tag, uiJobId }) => {
+      PubSub.publish('batchWorkRunning', {
         batchWorkRunning: {
           job_id,
           tag,
           status,
-          ui_job_id
+          uiJobId
         }
       });
     },
-    onFailed: ({ job_id, tag, ui_job_id }) => {
-      PubSub.publish('dropbox_batch_work_failed', {
+    onFailed: ({ job_id, tag, uiJobId }) => {
+      PubSub.publish('batchWorkFailed', {
         batchWorkFailed: {
           job_id,
           tag,
           status: 'failed',
-          ui_job_id,
+          uiJobId,
           job_type: mode
         }
       });
@@ -215,3 +215,4 @@ export {
   moveJob,
   deleteJob
 };
+

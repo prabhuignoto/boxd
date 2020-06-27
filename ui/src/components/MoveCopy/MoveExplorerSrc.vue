@@ -8,11 +8,10 @@
   />
 </template>
 
-<script>
-import Treeview from "../Treeview/Treeview";
+<script lang="ts">
+import Treeview from "../Treeview/Treeview.vue";
 import Vue from "vue";
-import gql from "graphql-tag";
-import FolderGQL from "../../graphql/folder.gql";
+import FolderGQL from "../../graphql/folder";
 import { mapActions } from "vuex";
 
 export default Vue.component("MoveExplorerSrc", {
@@ -38,7 +37,7 @@ export default Vue.component("MoveExplorerSrc", {
   },
   apollo: {
     files: {
-      query: gql(FolderGQL),
+      query: FolderGQL,
       fetchPolicy: "network-only",
       variables() {
         return {

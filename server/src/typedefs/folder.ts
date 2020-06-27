@@ -29,7 +29,7 @@ const folder = `
     success: Boolean!
     name: String!
     path: String!
-    ui_job_id: String
+    uiJobId: String
   }
 
   type batchWorkMessage {
@@ -38,19 +38,19 @@ const folder = `
     error: String
     entries: [entry!]
     job_type: String
-    ui_job_id: String
+    uiJobId: String
   }
   
   input relocationEntry {
-    from_path: String!
-    to_path: String!
+    fromPath: String!
+    toPath: String!
     id: String!
   }  
 
   input relocationOptions {
     entries: [relocationEntry!]!
     autorename: Boolean
-    ui_job_id: String
+    uiJobId: String
   }
 
 `;

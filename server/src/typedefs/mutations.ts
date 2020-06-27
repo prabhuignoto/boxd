@@ -1,14 +1,14 @@
 export default `
   input deleteBulkOptions {
     paths: [String!]!
-    ui_job_id: String!
+    uiJobId: String!
   }
 
   type Mutation {
-    createFolder(path: String!, name: String!, ui_job_id: String!): metadata!
+    createFolder(path: String!, name: String!, uiJobId: String!): metadata!
     deleteFolder(path: String!): metadata!
-    moveResource(from_path: String!, to_path: String!): metadata!
-    copyResource(from_path: String!, to_path: String!): metadata!
+    moveResource(fromPath: String!, toPath: String!): metadata!
+    copyResource(fromPath: String!, toPath: String!): metadata!
     deleteBulk(options: deleteBulkOptions): Boolean
     moveBulk(options: relocationOptions): Boolean
     copyBulk(options: relocationOptions): Boolean

@@ -27,16 +27,17 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from "vue";
-import Button from "../Form/Button";
+import Button from "../Form/Button.vue";
 import { mapActions, mapGetters } from "vuex";
-import Loader from "../Loader";
+import Loader from "../Loader.vue";
 import gql from "graphql-tag";
-import Textbox from "../Form/TextBox";
+import Textbox from "../Form/TextBox.vue";
 import { CheckIcon, XIcon } from "vue-feather-icons";
 
-export default Vue.component("DeleteFolder", {
+export default Vue.extend({
+  name: "DeleteFolder",
   props: ["name"],
   components: {
     Button,
@@ -106,12 +107,12 @@ export default Vue.component("DeleteFolder", {
             component: "",
             title: "",
           });
-          let newPathArr = this.getExplorerPath.split("/").slice(0);
+          const newPathArr = this.getExplorerPath.split("/").slice(0);
           newPathArr.pop();
           this.removeFromList(this.deletePath);
-          this.removeItemFromBulk({
-            path_lower: this.deletePath,
-          });
+          // this.removeItemFromBulk({
+          //   path_lower: this.deletePath,
+          // });
         })
         .catch(() => {
           this.isMutating = false;

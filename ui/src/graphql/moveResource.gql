@@ -1,5 +1,0 @@
-mutation moveResource($from_path: String!, $to_path: String!) {
-  result: moveResource(from_path: $from_path, to_path: $to_path) {
-    name
-  }
-}

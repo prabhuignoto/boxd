@@ -15,7 +15,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import RootFolder from "../rootFolder";
 import FileExplorer from "./FileExplorer";
 import { mapActions } from "vuex";

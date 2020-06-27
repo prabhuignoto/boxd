@@ -29,5 +29,5 @@
   "eslint.workingDirectories": [
     {"mode": "auto"}
   ],
-  "eslint.validate": [".ts", ".vue"]
+  "eslint.validate": [".ts", { "language": "vue", "autoFix": true }]
 }

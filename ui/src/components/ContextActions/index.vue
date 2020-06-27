@@ -31,11 +31,12 @@
   </section>
 </template>
 
-<script>
-import Button from "../Form/Button";
+<script lang="ts">
+import Button from "../Form/Button.vue";
 import { mapActions } from "vuex";
+import Vue from "vue";
 
-export default {
+export default Vue.extend({
   name: "ContextActions",
   components: {
     Button,
@@ -90,7 +91,7 @@ export default {
       });
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

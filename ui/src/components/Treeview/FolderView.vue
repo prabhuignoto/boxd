@@ -18,9 +18,11 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { FolderPlusIcon, FolderMinusIcon } from "vue-feather-icons";
-export default {
+import Vue from "vue";
+
+export default Vue.extend({
   name: "FolderView",
   props: ["name", "entry", "childTree", "handleSubfolderSelection"],
   data() {
@@ -35,7 +37,7 @@ export default {
     FolderMinusIcon,
   },
   methods: {
-    toggleTree(path) {
+    toggleTree(path: string) {
       this.showTree = !this.showTree;
       this.folderOpen = !this.folderOpen;
       this.handleSubfolderSelection(path);
@@ -48,7 +50,7 @@ export default {
       this.highlight = false;
     },
   },
-};
+});
 </script>
 
 <style lang="scss" src="./folderview.scss" scoped />

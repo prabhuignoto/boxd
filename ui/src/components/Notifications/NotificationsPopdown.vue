@@ -22,13 +22,13 @@
   </div>
 </template>
 
-<script>
-import Popdown from "../Popdown";
+<script lang="ts">
+import Popdown from "../Popdown.vue";
 import { MessageSquareIcon } from "vue-feather-icons";
 import Vue from "vue";
-import NotificationCenter from "./index";
+import NotificationCenter from "./index.vue";
 import { mapGetters } from "vuex";
-import Loader from "../Loader";
+import Loader from "../Loader.vue";
 
 export default Vue.extend({
   name: "NotificationsPopdown",

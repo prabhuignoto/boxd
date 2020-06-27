@@ -1,6 +1,6 @@
 <template>
   <Treeview
-    path=""
+    path
     v-bind:onSelect="onSelect"
     v-bind:entries="files.entries"
     childTree="MoveExplorerDest"
@@ -9,11 +9,10 @@
   />
 </template>
 
-<script>
-import Treeview from "../Treeview/Treeview";
+<script lang="ts">
+import Treeview from "../Treeview/Treeview.vue";
 import Vue from "vue";
-import gql from "graphql-tag";
-import FolderGQL from "../../graphql/folder.gql";
+import FolderGQL from "../../graphql/folder";
 import { mapActions, mapGetters } from "vuex";
 
 export default Vue.component("MoveExplorerDest", {
@@ -42,7 +41,7 @@ export default Vue.component("MoveExplorerDest", {
       if (this.getBulkMode) {
         this.setMoveResxBulk(
           this.getBulkItems.map(item => ({
-            from_path: item.path_lower,
+            fromPath: item.path_lower,
             id: item.id,
           }))
         );
@@ -54,7 +53,7 @@ export default Vue.component("MoveExplorerDest", {
       if (this.getBulkMode) {
         this.setMoveResxBulk(
           this.getBulkItems.map(item => ({
-            from_path: item.path_lower,
+            fromPath: item.path_lower,
             id: item.id,
           }))
         );
@@ -64,7 +63,7 @@ export default Vue.component("MoveExplorerDest", {
   },
   apollo: {
     files: {
-      query: gql(FolderGQL),
+      query: FolderGQL,
       fetchPolicy: "network-only",
       variables() {
         return {

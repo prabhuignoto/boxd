@@ -9,10 +9,10 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { DateTime } from "luxon";
 import Vue from "vue";
-import Loader from "../Loader";
+import Loader from "../Loader.vue";
 
 export default Vue.extend({
   name: "notification-container",

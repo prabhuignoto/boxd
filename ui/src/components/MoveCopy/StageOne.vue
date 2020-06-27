@@ -50,8 +50,8 @@
   </section>
 </template>
 
-<script>
-import Button from "../Form/Button";
+<script lang="ts">
+import Button from "../Form/Button.vue";
 import { mapActions } from "vuex";
 import {
   CheckIcon,

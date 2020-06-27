@@ -4,25 +4,38 @@ import Vue from "vue";
 import { MutationTree, ActionTree, GetterTree, Module } from "vuex";
 import { RootState } from "@/store";
 
-enum JobType {
+export enum JobType {
   CREATE_FOLDER = "CREATE_FOLDER",
   UPLOAD = "UPLOAD",
   MOVE = "MOVE",
   COPY = "COPY",
+  DELETE = "DELETE",
+}
+
+export interface JobData {
+  items?: {
+    id: string;
+    path_lower?: string;
+  }[];
+  formData?: FormData;
+  path?: string;
+  name?: string;
+}
+
+export interface Job {
+  id: string;
+  jobType: JobType;
+  running: boolean;
+  startTime: number;
+  endTime: number;
+  data: JobData;
+  status: string;
+  reason: string;
 }
 
 interface JobState {
   jobs: {
-    [key: string]: {
-      id: string;
-      jobType: JobType;
-      running: boolean;
-      startTime: number;
-      endTime: number;
-      data: any;
-      status: string;
-      reason: string;
-    };
+    [key: string]: Job;
   };
 }
 
@@ -59,7 +72,7 @@ const mutations: MutationTree<JobState> = {
       item.running = false;
       item.endTime = Date.now();
       item.status = "completed";
-      item.data = null;
+      item.data = {};
     }
   },
   failedJob(state, { id, reason }) {

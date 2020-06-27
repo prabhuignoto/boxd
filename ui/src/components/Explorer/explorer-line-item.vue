@@ -46,10 +46,10 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { DateTime } from "luxon";
 import { mapActions } from "vuex";
-import LineItemPopdown from "./line-item-popdown";
+import LineItemPopdown from "./line-item-popdown.vue";
 import PrettyBytes from "pretty-bytes";
 import {
   SquareIcon,
@@ -58,7 +58,7 @@ import {
   FolderIcon,
   FileIcon,
 } from "vue-feather-icons";
-import Loader from "../Loader";
+import Loader from "../Loader.vue";
 
 export default {
   name: "ExplorerLineItem",
@@ -153,15 +153,15 @@ export default {
       if (this.selected) {
         this.$emit("selected", {
           name: this.name,
-          content_hash: this.content_hash,
-          path_lower: this.path_lower,
+          contentHash: this.content_hash,
+          pathLower: this.path_lower,
           id: this.id,
         });
       } else {
         this.$emit("deselected", {
           name: this.name,
-          content_hash: this.content_hash,
-          path_lower: this.path_lower,
+          contentHash: this.content_hash,
+          pathLower: this.path_lower,
           id: this.id,
         });
       }

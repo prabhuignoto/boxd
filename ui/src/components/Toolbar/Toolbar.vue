@@ -49,18 +49,19 @@
   </div>
 </template>
 
-<script>
-import Button from "../Form/Button";
+<script lang="ts">
+import Button from "../Form/Button.vue";
 import { mapActions, mapGetters } from "vuex";
 
-import CreateFolder from "../Folder/CreateFolder";
-import MoveCopy from "../MoveCopy/MoveCopy";
-import UploadWindow from "../Upload/index";
+import CreateFolder from "../Folder/CreateFolder.vue";
+import MoveCopy from "../MoveCopy/MoveCopy.vue";
+import UploadWindow from "../Upload/index.vue";
 import { UploadIcon, PlusIcon, CopyIcon } from "vue-feather-icons";
-import About from "../About";
-import Logout from "../Logout";
+import About from "../About.vue";
+import Logout from "../Logout.vue";
+import Vue from "vue";
 
-export default {
+export default Vue.extend({
   name: "Toolbar",
   components: {
     Button,
@@ -123,7 +124,7 @@ export default {
       }
     },
   },
-};
+});
 </script>
 
 <style lang="scss" src="./toolbar.scss" scoped />

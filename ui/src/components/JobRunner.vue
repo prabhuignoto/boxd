@@ -1,16 +1,24 @@
-<script>
+<script lang="ts">
 import Vue from "vue";
 import { mapGetters, mapActions } from "vuex";
-import DeleteBulkGQL from "../graphql/deleteBulk.gql";
-import MoveBulkGQL from "../graphql/moveBulk.gql";
-import CopyBulkGQL from "../graphql/copyBulk.gql";
-import CreateFolderGQL from "../graphql/createFolder.gql";
-// import FolderGQL from "../graphql/folder.gql";
-import gql from "graphql-tag";
+import DeleteBulkGQL from "../graphql/deleteBulk";
+import MoveBulkGQL from "../graphql/moveBulk";
+import CopyBulkGQL from "../graphql/copyBulk";
+import CreateFolderGQL from "../graphql/createFolder";
 import BatchSub from "../batchSub";
 import Axios from "axios";
+import { Job, JobType } from "../modules/jobs";
 
-export default Vue.extend({
+interface Methods {
+  repopulateTree(): void;
+  runDeleteJob(j: Job): void;
+  runMoveJob(j: Job): void;
+  runCopyJob(j: Job): void;
+  runUploadJob(j: Job): void;
+  runCreateFolder(j: Job): void;
+}
+
+export default Vue.extend<{}, Methods, {}>({
   name: "JobRunner",
   mounted() {
     this.$store.watch(
@@ -18,15 +26,15 @@ export default Vue.extend({
       jobs => {
         jobs.forEach(job => {
           this.startJob(job.id);
-          if (job.jobType === "DELETE") {
+          if (job.jobType === JobType.DELETE) {
             this.runDeleteJob(job);
-          } else if (job.jobType === "MOVE") {
+          } else if (job.jobType === JobType.MOVE) {
             this.runMoveJob(job);
-          } else if (job.jobType === "COPY") {
+          } else if (job.jobType === JobType.COPY) {
             this.runCopyJob(job);
-          } else if (job.jobType === "CREATE_FOLDER") {
+          } else if (job.jobType === JobType.CREATE_FOLDER) {
             this.runCreateFolder(job);
-          } else if (job.jobType === "UPLOAD") {
+          } else if (job.jobType === JobType.UPLOAD) {
             this.runUploadJob(job);
           }
         });
@@ -65,11 +73,11 @@ export default Vue.extend({
             jobId: job.id,
           });
           await this.$apollo.mutate({
-            mutation: gql(DeleteBulkGQL),
+            mutation: DeleteBulkGQL,
             variables: {
               options: {
                 paths: items.map(item => item.path_lower),
-                ui_job_id: job.id,
+                uiJobId: job.id,
               },
             },
           });
@@ -93,12 +101,12 @@ export default Vue.extend({
             jobId: job.id,
           });
           await this.$apollo.mutate({
-            mutation: gql(MoveBulkGQL),
+            mutation: MoveBulkGQL,
             variables: {
               options: {
                 entries: items,
                 autorename: true,
-                ui_job_id: job.id,
+                uiJobId: job.id,
               },
             },
           });
@@ -122,12 +130,12 @@ export default Vue.extend({
             jobId: job.id,
           });
           await this.$apollo.mutate({
-            mutation: gql(CopyBulkGQL),
+            mutation: CopyBulkGQL,
             variables: {
               options: {
                 entries: items,
                 autorename: true,
-                ui_job_id: job.id,
+                uiJobId: job.id,
               },
             },
           });
@@ -145,11 +153,11 @@ export default Vue.extend({
       const { path, name } = job.data;
       try {
         await this.$apollo.mutate({
-          mutation: gql(CreateFolderGQL),
+          mutation: CreateFolderGQL,
           variables: {
             path: path,
             name: name,
-            ui_job_id: job.id,
+            uiJobId: job.id,
           },
         });
         this.repopulateTree(path);
@@ -162,7 +170,7 @@ export default Vue.extend({
     },
     async runUploadJob(job) {
       const { formData } = job.data;
-      formData.append("ui_job_id", job.id);
+      formData.append("uiJobId", job.id);
       try {
         await Axios.post(`${process.env.VUE_APP_API_SERVER}/upload`, formData, {
           withCredentials: true,
@@ -187,22 +195,6 @@ export default Vue.extend({
           id: job.id,
           reason: error,
         });
-      }
-    },
-    async runGetFiles() {
-      try {
-        // const response = await this.$apollo.query({
-        //   query: gql(FolderGQL),
-        //   variables: {
-        //     path: "",
-        //     limit: 1000,
-        //   },
-        //   result(response) {
-        //     console.log(response);
-        //   },
-        // });
-      } catch (error) {
-        debugger;
       }
     },
   },

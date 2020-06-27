@@ -7,7 +7,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: "Logo",
 };
@@ -18,73 +18,63 @@ export default {
   @media (min-width: 320px) and (max-width: 480px) {
     display: none;
   }
-  font-size: 1.5rem;
-  font-family: "Open Sans", Arial, Helvetica, sans-serif;
-  justify-self: flex-start;
+  align-items: center;
   align-self: flex-start;
-  font-weight: 600;
-  text-align: left;
   color: #fff;
+  display: flex;
+  font-family: Open Sans, Arial, Helvetica, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  height: 100%;
+  justify-content: center;
+  justify-self: flex-start;
+  min-width: 52px;
+  padding-bottom: 0.5rem;
   padding-left: 34px;
   position: relative;
-  text-shadow: 0px 1px #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  padding-bottom: 0.5rem;
-  min-width: 52px;
+  text-align: left;
+  text-shadow: 0 1px #000;
   transform: scale(0.8);
-  &:after {
+
+  &::after {
+    background: #2b2d42;
+    border-radius: 8px;
     content: "";
-    position: absolute;
+    height: 40px;
     left: 0;
+    left: 1.45rem;
+    position: absolute;
     right: 0;
     top: 50%;
     transform: translateY(-50%) rotate(45deg);
-    background: #2b2d42;
-    height: 40px;
     width: 40px;
-    left: 1.45rem;
-    border-radius: 8px;
   }
+
   .backdrop {
-    content: "";
     background: #646675;
-    position: absolute;
-    width: 56px;
+    border-radius: 10px;
+    content: "";
     height: 56px;
     left: 1rem;
+    position: absolute;
     top: 50%;
     transform: translateY(-50%) rotate(-45deg);
-    border-radius: 10px;
-    &:after {
-      content: "";
-      background: #8d99ae;
-      position: absolute;
-      width: 55px;
-      height: 30px;
-      right: 0;
-      border-radius: 0px 0px 10px 10px;
-      top: 28px;
-      left: 13px;
-      -webkit-transform: translateY(-50%) rotate(-90deg);
-      transform: translateY(-50%) rotate(-90deg);
-    }
+    width: 56px;
   }
+
   .app-logo-txt {
-    position: absolute;
+    align-items: center;
+    display: flex;
+    justify-content: center;
     left: 0;
-    right: 0;
     margin-left: auto;
     margin-right: auto;
+    position: absolute;
+    right: 0;
+    text-align: center;
     top: 50%;
     transform: translateY(-50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: 100%;
-    text-align: center;
     z-index: 1;
   }
 }

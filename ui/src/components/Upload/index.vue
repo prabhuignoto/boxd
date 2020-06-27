@@ -219,7 +219,7 @@ export default Vue.component("UploadWindow", {
     },
     handleUpload() {
       try {
-        let formData = new FormData();
+        const formData = new FormData();
         formData.append("file", this.file);
         formData.append(
           "uploadPath",

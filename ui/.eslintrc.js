@@ -28,6 +28,15 @@ module.exports = {
         mocha: true,
       },
     },
+    {
+      files: [
+        "**/__tests__/*.{j,t}s?(x)",
+        "**/tests/unit/**/*.spec.{j,t}s?(x)",
+      ],
+      env: {
+        mocha: true,
+      },
+    },
   ],
 
   extends: [
@@ -35,5 +44,6 @@ module.exports = {
     "eslint:recommended",
     "@vue/prettier",
     "@vue/typescript",
+    "@vue/typescript/recommended",
   ],
 };

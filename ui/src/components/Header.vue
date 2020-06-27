@@ -38,7 +38,7 @@ export default {
     return {
       account: {
         name: {
-          display_name: "",
+          // display_name: "",
         },
       },
     };

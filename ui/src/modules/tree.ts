@@ -4,8 +4,8 @@ import { RootState } from "@/store";
 interface TreeState {
   refetch: boolean;
   tree: {
-    created_at: number;
-    last_updated: number;
+    createdAt: number;
+    lastUpdated: number;
     data: any;
   };
 }
@@ -38,15 +38,15 @@ const actions: ActionTree<TreeState, RootState> = {
 const mutations: MutationTree<TreeState> = {
   createTree(state, { data }) {
     state.tree = {
-      created_at: Date.now(),
-      last_updated: 0,
+      createdAt: Date.now(),
+      lastUpdated: 0,
       data,
     };
   },
   deleteTree(state) {
     state.tree = {
-      created_at: 0,
-      last_updated: 0,
+      createdAt: 0,
+      lastUpdated: 0,
       data: {},
     };
   },
@@ -66,8 +66,8 @@ export default {
   state: {
     refetch: false,
     tree: {
-      created_at: 0,
-      last_updated: 0,
+      createdAt: 0,
+      lastUpdated: 0,
       data: {},
     },
   },
