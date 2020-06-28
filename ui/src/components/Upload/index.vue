@@ -100,14 +100,16 @@
 import Button from "../Form/Button";
 import UploadExplorer from "./UploadExplorer";
 import Vue from "vue";
-import { mapActions, mapGetters } from "vuex";
 // import ProgressBar from "../Progressbar";
 import PrettyBytes from "pretty-bytes";
 import RootFolder from "../rootFolder";
 import { UploadCloudIcon, ArrowUpIcon } from "vue-feather-icons";
 import Loader from "../Loader";
+import { Component } from "vue-property-decorator";
+import { Action, Getter } from "vuex-class";
 
-export default Vue.component("UploadWindow", {
+@Component({
+  name: "Upload",
   components: {
     Button,
     // ProgressBar,
@@ -117,204 +119,222 @@ export default Vue.component("UploadWindow", {
     UploadCloudIcon,
     Loader,
   },
-  computed: {
-    ...mapGetters([
-      "getUploadPath",
-      "getUploadExplorerStatus",
-      "getExplorerPath",
-      "canEnableClearBtn",
-      "getUploadPathFormatted",
-      "getJobDataById",
-    ]),
-    getUploadPathCustom() {
-      return this.getUploadPath === "/$root" ? "/home" : this.getUploadPath;
-    },
-    canDisableUpload() {
-      return !this.isDropped || this.uploadStarted;
-    },
-    setClass() {
-      return {
-        "drop-zone": true,
-        "drag-over": this.isDragOver,
-        dropped: this.isDropped,
-      };
-    },
-    getStyle() {
-      return this.canDisableUpload ? "disabled xl" : "xl";
-    },
-    getResultStyle() {
-      if (this.uploadSuccess === true) {
-        return {
-          color: "#fff",
-        };
-      } else if (this.uploadSuccess === false) {
-        return {
-          background: "#cb2431",
-          color: "#fff",
-        };
-      } else {
-        return null;
-      }
-    },
-    prettySize() {
-      return this.fileSize ? PrettyBytes(this.fileSize) : "";
-    },
-    canEnableClearBtn() {
-      return this.isDropped && !this.uploadStarted;
-    },
-    canShowUpladPathSelection() {
-      return this.fileName !== "" && !this.uploadSuccess;
-    },
-    canShowFileExplorer() {
-      return (
-        this.getUploadExplorerStatus && !this.uploadSuccess && this.isDropped
-      );
-    },
-    canDisableInput() {
-      // check if the upload is completed or just started and disable input controls
-      return this.uploadSuccess || this.uploadStarted;
-    },
-    canShowControls() {
-      return !this.uploadSuccess && this.isDropped;
-    },
-  },
-  data() {
+})
+export default class extends Vue {
+  @Getter("getUploadPath") getUploadPath;
+  @Getter("getUploadExplorerStatus") getUploadExplorerStatus;
+  @Getter("getExplorerPath") getExplorerPath;
+  @Getter("canEnableClearBtn") canEnableClearBtn;
+  @Getter("getUploadPathFormatted") getUploadPathFormatted;
+  @Getter("getJobDataById") getJobDataById;
+
+  @Action("updateModalState") updateModalState;
+  @Action("uploadFile") uploadFile;
+  @Action("updateUploadExplorerStatus") updateUploadExplorerStatus;
+  @Action("refreshFileExplorer") refreshFileExplorer;
+  @Action("refetchData") refetchData;
+  @Action("updateUploadExplorerStatus") updateUploadExplorerStatus;
+  @Action("closeModal") closeModal;
+  @Action("addJob") addJob;
+
+  isDragOver = false;
+  isDropped = false;
+  fileName = "";
+  fileSize = 0;
+  file = null;
+  progress = 0;
+  uploadStarted = false;
+  uploadSuccess = null;
+
+  get getUploadPathCustom() {
+    return this.getUploadPath === "/$root" ? "/home" : this.getUploadPath;
+  }
+
+  get canDisableUpload() {
+    return !this.isDropped || this.uploadStarted;
+  }
+
+  get setClass() {
     return {
-      isDragOver: false,
-      isDropped: false,
-      fileName: "",
-      fileSize: 0,
-      file: null,
-      progress: 0,
-      uploadStarted: false,
-      uploadSuccess: null,
+      "drop-zone": true,
+      "drag-over": this.isDragOver,
+      dropped: this.isDropped,
     };
-  },
-  beforeDestroy() {
+  }
+
+  get getStyle() {
+    return this.canDisableUpload ? "disabled xl" : "xl";
+  }
+
+  get getResultStyle() {
+    if (this.uploadSuccess === true) {
+      return {
+        color: "#fff",
+      };
+    } else if (this.uploadSuccess === false) {
+      return {
+        background: "#cb2431",
+        color: "#fff",
+      };
+    } else {
+      return null;
+    }
+  }
+
+  get prettySize() {
+    return this.fileSize ? PrettyBytes(this.fileSize) : "";
+  }
+
+  get canEnableClearBtn() {
+    return this.isDropped && !this.uploadStarted;
+  }
+
+  get canShowUpladPathSelection() {
+    return this.fileName !== "" && !this.uploadSuccess;
+  }
+
+  get canShowFileExplorer() {
+    return (
+      this.getUploadExplorerStatus && !this.uploadSuccess && this.isDropped
+    );
+  }
+
+  get canDisableInput() {
+    // check if the upload is completed or just started and disable input controls
+    return this.uploadSuccess || this.uploadStarted;
+  }
+
+  get canShowControls() {
+    return !this.uploadSuccess && this.isDropped;
+  }
+
+  reset() {
+    (this.isDragOver = false),
+      (this.isDropped = false),
+      (this.fileName = ""),
+      (this.fileSize = 0),
+      (this.file = null),
+      (this.progress = 0),
+      (this.uploadStarted = false);
+  }
+
+  handleRootFolder() {
+    this.uploadFile("/$root");
+  }
+
+  handleUpload() {
+    try {
+      const formData = new FormData();
+      formData.append("file", this.file);
+      formData.append(
+        "uploadPath",
+        this.getUploadPath === "/$root" ? "" : this.getUploadPath
+      );
+      this.uploadStarted = true;
+      this.addJob({
+        jobType: "UPLOAD",
+        data: {
+          formData,
+        },
+      });
+      this.uploadSuccess = true;
+      this.closeModal();
+    } catch (error) {
+      this.uploadSuccess = false;
+      this.uploadStarted = false;
+    }
+  }
+
+  // * close the form
+  handleCancel() {
     this.uploadFile("");
     this.updateUploadExplorerStatus(true);
-  },
-  methods: {
-    ...mapActions([
-      "updateModalState",
-      "uploadFile",
-      "updateUploadExplorerStatus",
-      "refreshFileExplorer",
-      "refetchData",
-      "updateUploadExplorerStatus",
-      "closeModal",
-      "addJob",
-    ]),
-    reset() {
-      (this.isDragOver = false),
-        (this.isDropped = false),
-        (this.fileName = ""),
-        (this.fileSize = 0),
-        (this.file = null),
-        (this.progress = 0),
-        (this.uploadStarted = false);
-    },
-    handleRootFolder() {
-      this.uploadFile("/$root");
-    },
-    handleUpload() {
-      try {
-        const formData = new FormData();
-        formData.append("file", this.file);
-        formData.append(
-          "uploadPath",
-          this.getUploadPath === "/$root" ? "" : this.getUploadPath
-        );
-        this.uploadStarted = true;
-        this.addJob({
-          jobType: "UPLOAD",
-          data: {
-            formData,
-          },
-        });
-        this.uploadSuccess = true;
-        this.closeModal();
-      } catch (error) {
-        this.uploadSuccess = false;
-        this.uploadStarted = false;
-      }
-    },
-    // * close the form
-    handleCancel() {
-      this.uploadFile("");
-      this.updateUploadExplorerStatus(true);
-      this.updateModalState({
-        status: false,
-        title: "",
-        componentToRender: "",
-      });
-    },
-    // * clear dropzone
-    handleClear(ev) {
-      ev.stopPropagation();
-      ev.preventDefault();
-      this.isDragOver = false;
-      this.isDropped = false;
-      this.fileName = "";
-      this.fileSize = 0;
-      this.progress = 0;
-      this.uploadStarted = false;
-    },
-    openInputFile() {
-      this.$el.querySelector("input[type=file]").click();
-    },
-    // * all drag and drop events
-    handleInputFile(ev) {
-      const file = ev.target.files[0];
-      if (file) {
-        this.fileName = file.name;
-        this.fileSize = file.size;
-        this.isDropped = true;
-        this.file = file;
-      }
-    },
-    handleDrop(ev) {
-      ev.preventDefault();
-      ev.stopPropagation();
-      this.isDragOver = false;
-      const {
-        dataTransfer: { files },
-      } = ev;
-      const file = files[0];
+    this.updateModalState({
+      status: false,
+      title: "",
+      componentToRender: "",
+    });
+  }
+
+  // * clear dropzone
+  handleClear(ev) {
+    ev.stopPropagation();
+    ev.preventDefault();
+    this.isDragOver = false;
+    this.isDropped = false;
+    this.fileName = "";
+    this.fileSize = 0;
+    this.progress = 0;
+    this.uploadStarted = false;
+  }
+
+  openInputFile() {
+    this.$el.querySelector("input[type=file]").click();
+  }
+
+  // * all drag and drop events
+  handleInputFile(ev) {
+    const file = ev.target.files[0];
+    if (file) {
       this.fileName = file.name;
       this.fileSize = file.size;
       this.isDropped = true;
       this.file = file;
-    },
-    handleDragOver(ev) {
-      this.isDragOver = true;
-      ev.preventDefault();
-      ev.stopPropagation();
-    },
-    handleDrag(ev) {
-      ev.preventDefault();
-      ev.stopPropagation();
-    },
-    handleDragStart(ev) {
-      ev.preventDefault();
-      ev.stopPropagation();
-    },
-    handleDragEnd(ev) {
-      ev.preventDefault();
-      ev.stopPropagation();
-    },
-    handleDragEnter(ev) {
-      this.isDragOver = true;
-      ev.preventDefault();
-      ev.stopPropagation();
-    },
-    handleDragLeave(ev) {
-      this.isDragOver = false;
-      ev.preventDefault();
-      ev.stopPropagation();
-    },
-  },
-});
+    }
+  }
+
+  handleDrop(ev) {
+    ev.preventDefault();
+    ev.stopPropagation();
+    this.isDragOver = false;
+    const {
+      dataTransfer: { files },
+    } = ev;
+    const file = files[0];
+    this.fileName = file.name;
+    this.fileSize = file.size;
+    this.isDropped = true;
+    this.file = file;
+  }
+
+  handleDragOver(ev) {
+    this.isDragOver = true;
+    ev.preventDefault();
+    ev.stopPropagation();
+  }
+
+  handleDrag(ev) {
+    ev.preventDefault();
+    ev.stopPropagation();
+  }
+
+  handleDragStart(ev) {
+    ev.preventDefault();
+    ev.stopPropagation();
+  }
+
+  handleDragEnd(ev) {
+    ev.preventDefault();
+    ev.stopPropagation();
+  }
+
+  handleDragEnter(ev) {
+    this.isDragOver = true;
+    ev.preventDefault();
+    ev.stopPropagation();
+  }
+
+  handleDragLeave(ev) {
+    this.isDragOver = false;
+    ev.preventDefault();
+    ev.stopPropagation();
+  }
+
+  beforeDestroy() {
+    this.uploadFile("");
+    this.updateUploadExplorerStatus(true);
+  }
+}
 </script>
 
 <style lang="scss" src="./upload.scss" scoped></style>

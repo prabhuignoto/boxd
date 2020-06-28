@@ -14,23 +14,28 @@
 
 <script lang="ts">
 import uniqid from "uniqid";
+import { Component, Prop } from "vue-property-decorator";
+import Vue from "vue";
 
-export default {
+@Component({
   name: "Textbox",
-  props: ["name", "label", "onInput", "placeholder", "onEnter"],
-  computed: {
-    id() {
-      return uniqid(name);
-    },
-  },
-  methods: {
-    handlKeyPress(ev) {
-      if (ev.keyCode === 13) {
-        this.onEnter && this.onEnter();
-      }
-    },
-  },
-};
+})
+export default class extends Vue {
+  @Prop() name;
+  @Prop() label;
+  @Prop() onInput;
+  @Prop() placeholder;
+  @Prop() onEnter;
+
+  get id() {
+    return uniqid(name);
+  }
+  handlKeyPress(ev) {
+    if (ev.keyCode === 13) {
+      this.onEnter && this.onEnter();
+    }
+  }
+}
 </script>
 
 <style lang="scss" src="./textbox.scss" scoped />

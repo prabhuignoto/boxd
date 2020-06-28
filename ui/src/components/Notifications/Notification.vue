@@ -14,46 +14,52 @@ import { DateTime } from "luxon";
 import Vue from "vue";
 import Loader from "../Loader.vue";
 
-export default Vue.extend({
+import { Component, Prop } from "vue-property-decorator";
+
+@Component({
   name: "notification-container",
-  props: ["status", "startTime", "endTime", "jobType"],
   components: {
     Loader,
   },
-  computed: {
-    getStartTime() {
-      return (
-        this.startTime &&
-        DateTime.fromMillis(this.startTime).toLocaleString(
-          DateTime.DATETIME_SHORT
-        )
-      );
-    },
-    getEndTime() {
-      return (
-        this.endTime &&
-        DateTime.fromMillis(this.endTime).toLocaleString(
-          DateTime.DATETIME_SHORT
-        )
-      );
-    },
-    getMessage() {
-      if (this.jobType === "DELETE") {
-        return this.status === "running" ? `Deleting...` : `Deleted`;
-      } else if (this.jobType === "UPLOAD") {
-        return this.status === "running" ? `Uploading...` : `Uploaded`;
-      } else if (this.jobType === "CREATE_FOLDER") {
-        return this.status === "running" ? `Creating Folder...` : `Created`;
-      } else if (this.jobType === "COPY") {
-        return this.status === "running" ? `Copying...` : `Copied`;
-      } else if (this.jobType === "MOVE") {
-        return this.status === "running" ? `Moving...` : `Moved`;
-      } else {
-        return "";
-      }
-    },
-  },
-});
+})
+export default class extends Vue {
+  @Prop() status;
+  @Prop() startTime;
+  @Prop() endTime;
+  @Prop() jobType;
+
+  get getStartTime() {
+    return (
+      this.startTime &&
+      DateTime.fromMillis(this.startTime).toLocaleString(
+        DateTime.DATETIME_SHORT
+      )
+    );
+  }
+
+  get getEndTime() {
+    return (
+      this.endTime &&
+      DateTime.fromMillis(this.endTime).toLocaleString(DateTime.DATETIME_SHORT)
+    );
+  }
+
+  get getMessage() {
+    if (this.jobType === "DELETE") {
+      return this.status === "running" ? `Deleting...` : `Deleted`;
+    } else if (this.jobType === "UPLOAD") {
+      return this.status === "running" ? `Uploading...` : `Uploaded`;
+    } else if (this.jobType === "CREATE_FOLDER") {
+      return this.status === "running" ? `Creating Folder...` : `Created`;
+    } else if (this.jobType === "COPY") {
+      return this.status === "running" ? `Copying...` : `Copied`;
+    } else if (this.jobType === "MOVE") {
+      return this.status === "running" ? `Moving...` : `Moved`;
+    } else {
+      return "";
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

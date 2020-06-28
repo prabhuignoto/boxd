@@ -52,7 +52,6 @@
 
 <script lang="ts">
 import Button from "../Form/Button.vue";
-import { mapActions } from "vuex";
 import {
   CheckIcon,
   ChevronRightIcon,
@@ -60,7 +59,11 @@ import {
   CopyIcon,
 } from "vue-feather-icons";
 
-export default {
+import { Component, Prop } from "vue-property-decorator";
+import { Action } from "vuex-class";
+import Vue from "vue";
+
+@Component({
   name: "StageOne",
   components: {
     Button,
@@ -69,51 +72,53 @@ export default {
     MoveIcon,
     CopyIcon,
   },
-  props: ["handleNext"],
-  data() {
-    return {
-      mode: "",
-    };
-  },
-  computed: {
-    moveSelected() {
-      return this.mode === "move";
-    },
-    copySelected() {
-      return this.mode === "copy";
-    },
-    isModeSelected() {
-      return this.mode !== "";
-    },
-    getStyle() {
-      if (!this.isModeSelected) {
-        return "disabled xl";
-      } else {
-        return "xl";
-      }
-    },
-  },
-  methods: {
-    ...mapActions(["updateModalState", "updateMoveCopyMode", "clearMoveResx"]),
-    handleSelection(mode) {
-      this.mode = mode;
-      this.updateMoveCopyMode(mode);
-    },
-    dismissPopup() {
-      this.updateModalState({
-        status: false,
-        componentToRender: "",
-        title: "",
-      });
-      if (this.mode === "move") {
-        this.clearMoveResx();
-      }
-    },
-    handleStepOne() {
-      this.handleNext();
-    },
-  },
-};
+})
+export default class extends Vue {
+  @Prop() handleNext;
+
+  @Action("updateModalState") updateModalState;
+  @Action("updateMoveCopyMode") updateMoveCopyMode;
+  @Action("clearMoveResx") clearMoveResx;
+
+  mode = "";
+
+  get moveSelected() {
+    return this.mode === "move";
+  }
+  get copySelected() {
+    return this.mode === "copy";
+  }
+  get isModeSelected() {
+    return this.mode !== "";
+  }
+  get getStyle() {
+    if (!this.isModeSelected) {
+      return "disabled xl";
+    } else {
+      return "xl";
+    }
+  }
+
+  handleSelection(mode) {
+    this.mode = mode;
+    this.updateMoveCopyMode(mode);
+  }
+
+  dismissPopup() {
+    this.updateModalState({
+      status: false,
+      componentToRender: "",
+      title: "",
+    });
+    if (this.mode === "move") {
+      this.clearMoveResx();
+    }
+  }
+
+  handleStepOne() {
+    this.handleNext();
+  }
+}
 </script>
 
 <style lang="scss" src="./stage-one.scss" scoped />

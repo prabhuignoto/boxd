@@ -12,28 +12,13 @@
 import Treeview from "../Treeview/Treeview.vue";
 import Vue from "vue";
 import FolderGQL from "../../graphql/folder";
-import { mapActions } from "vuex";
 
-export default Vue.component("MoveExplorerSrc", {
+import { Component, Prop } from "vue-property-decorator";
+import { Action } from "vuex-class";
+
+@Component({
   components: {
     Treeview,
-  },
-  data() {
-    return {
-      files: {
-        entries: [],
-      },
-    };
-  },
-  props: ["path", "actionName"],
-  methods: {
-    ...mapActions(["moveResxSource"]),
-    onSelect(node) {
-      this.moveResxSource(node.path);
-    },
-    handleSubfolderSelection(path) {
-      this.moveResxSource(path);
-    },
   },
   apollo: {
     files: {
@@ -52,5 +37,22 @@ export default Vue.component("MoveExplorerSrc", {
       },
     },
   },
-});
+})
+export default class extends Vue {
+  files = {
+    entries: [],
+  };
+
+  @Prop() path;
+  @Prop() actionName;
+
+  @Action("moveResxSource") moveResxSource;
+
+  onSelect(node) {
+    this.moveResxSource(node.path);
+  }
+  handleSubfolderSelection(path) {
+    this.moveResxSource(path);
+  }
+}
 </script>

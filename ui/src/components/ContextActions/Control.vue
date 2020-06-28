@@ -62,7 +62,6 @@
 
 <script lang="ts">
 import Popdown from "../Popdown/index.vue";
-import { mapActions, mapGetters } from "vuex";
 import {
   BoxIcon,
   ArrowRightIcon,
@@ -72,8 +71,11 @@ import {
   PlusIcon,
 } from "vue-feather-icons";
 import { getFileName } from "../../utils";
+import Vue from "vue";
+import { Component, Prop } from "vue-property-decorator";
+import { Action, Getter } from "vuex-class";
 
-export default {
+@Component({
   name: "ContextControl",
   components: {
     Popdown,
@@ -84,86 +86,81 @@ export default {
     CopyIcon,
     UploadIcon,
   },
-  props: {
-    path: {
-      type: String,
-      required: true,
-    },
-  },
-  computed: {
-    ...mapGetters(["getExplorerPath"]),
-    canShowAction() {
-      return !!this.getExplorerPath;
-    },
-  },
-  methods: {
-    ...mapActions([
-      "updateMoveCopyMode",
-      "moveResxSource",
-      "copyResxSource",
-      "updateModalState",
-      "skipToFinal",
-      "deleteFolder",
-      "createFolderSelection",
-      "hideCreateFolderExplorer",
-      "updateWorkflowOrigin",
-      "uploadFile",
-      "updateUploadExplorerStatus",
-    ]),
-    handleAddFolder() {
-      this.updateWorkflowOrigin("context-control");
-      this.createFolderSelection(this.path);
-      this.hideCreateFolderExplorer(true);
-      this.updateModalState({
-        status: true,
-        componentToRender: "CreateFolder",
-        title: "New Folder",
-        width: 480,
-      });
-    },
-    handleCopyFolder() {
-      this.updateMoveCopyMode("copy");
-      this.copyResxSource(this.path);
-      this.skipToFinal(true);
-      this.updateModalState({
-        status: true,
-        componentToRender: "MoveCopy",
-        title: `Copy ${getFileName(this.path)}`,
-        width: 480,
-      });
-    },
-    handleMoveFolder() {
-      this.updateMoveCopyMode("move");
-      this.moveResxSource(this.path);
-      this.skipToFinal(true);
-      this.updateModalState({
-        status: true,
-        componentToRender: "MoveCopy",
-        title: `Move ${getFileName(this.path)}`,
-        width: 480,
-      });
-    },
-    handleDeleteFolder() {
-      this.deleteFolder(this.path);
-      this.updateModalState({
-        status: true,
-        componentToRender: "DeleteFolder",
-        title: `Delete ${getFileName(this.path)}`,
-        width: 480,
-      });
-    },
-    handleUpload() {
-      this.uploadFile(this.path);
-      this.updateUploadExplorerStatus(false);
-      this.updateModalState({
-        status: true,
-        componentToRender: "UploadWindow",
-        title: "Upload",
-        width: 550,
-      });
-    },
-  },
-};
+})
+export default class ContextControl extends Vue {
+  @Action("updateMoveCopyMode") updateMoveCopyMode;
+  @Action("moveResxSource") moveResxSource;
+  @Action("copyResxSource") copyResxSource;
+  @Action("updateModalState") updateModalState;
+  @Action("skipToFinal") skipToFinal;
+  @Action("deleteFolder") deleteFolder;
+  @Action("createFolderSelection") createFolderSelection;
+  @Action("hideCreateFolderExplorer") hideCreateFolderExplorer;
+  @Action("updateWorkflowOrigin") updateWorkflowOrigin;
+  @Action("uploadFile") uploadFile;
+  @Action("updateUploadExplorerStatus") updateUploadExplorerStatus;
+
+  @Getter("getExplorerPath") getExplorerPath;
+
+  @Prop({ required: true, default: "" }) path: string;
+
+  get canShowAction() {
+    return !!this.getExplorerPath;
+  }
+
+  handleAddFolder() {
+    this.updateWorkflowOrigin("context-control");
+    this.createFolderSelection(this.path);
+    this.hideCreateFolderExplorer(true);
+    this.updateModalState({
+      status: true,
+      componentToRender: "CreateFolder",
+      title: "New Folder",
+      width: 480,
+    });
+  }
+  handleCopyFolder() {
+    this.updateMoveCopyMode("copy");
+    this.copyResxSource(this.path);
+    this.skipToFinal(true);
+    this.updateModalState({
+      status: true,
+      componentToRender: "MoveCopy",
+      title: `Copy ${getFileName(this.path)}`,
+      width: 480,
+    });
+  }
+  handleMoveFolder() {
+    this.updateMoveCopyMode("move");
+    this.moveResxSource(this.path);
+    this.skipToFinal(true);
+    this.updateModalState({
+      status: true,
+      componentToRender: "MoveCopy",
+      title: `Move ${getFileName(this.path)}`,
+      width: 480,
+    });
+  }
+  handleDeleteFolder() {
+    this.deleteFolder(this.path);
+    this.updateModalState({
+      status: true,
+      componentToRender: "DeleteFolder",
+      title: `Delete ${getFileName(this.path)}`,
+      width: 480,
+    });
+  }
+  handleUpload() {
+    this.uploadFile(this.path);
+    this.updateUploadExplorerStatus(false);
+    this.updateModalState({
+      status: true,
+      componentToRender: "UploadWindow",
+      title: "Upload",
+      width: 550,
+    });
+  }
+}
 </script>
 
 <style lang="scss" src="./control.scss" scoped />

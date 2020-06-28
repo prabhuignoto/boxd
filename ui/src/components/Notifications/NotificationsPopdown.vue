@@ -23,14 +23,16 @@
 </template>
 
 <script lang="ts">
-import Popdown from "../Popdown.vue";
+import Popdown from "../Popdown/index.vue";
 import { MessageSquareIcon } from "vue-feather-icons";
 import Vue from "vue";
 import NotificationCenter from "./index.vue";
-import { mapGetters } from "vuex";
 import Loader from "../Loader.vue";
 
-export default Vue.extend({
+import { Getter } from "vuex-class";
+import { Component } from "vue-property-decorator";
+
+@Component({
   name: "NotificationsPopdown",
   components: {
     Popdown,
@@ -38,10 +40,10 @@ export default Vue.extend({
     NotificationCenter,
     Loader,
   },
-  computed: {
-    ...mapGetters(["getJobsActive"]),
-  },
-});
+})
+export default class extends Vue {
+  @Getter("getJobsActive") getJobsActive;
+}
 </script>
 
 <style lang="scss" scoped>

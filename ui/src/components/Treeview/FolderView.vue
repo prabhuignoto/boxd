@@ -21,36 +21,40 @@
 <script lang="ts">
 import { FolderPlusIcon, FolderMinusIcon } from "vue-feather-icons";
 import Vue from "vue";
+import { Component, Prop } from "vue-property-decorator";
 
-export default Vue.extend({
+@Component({
   name: "FolderView",
-  props: ["name", "entry", "childTree", "handleSubfolderSelection"],
-  data() {
-    return {
-      showTree: false,
-      folderOpen: false,
-      highlight: false,
-    };
-  },
   components: {
     FolderPlusIcon,
     FolderMinusIcon,
   },
-  methods: {
-    toggleTree(path: string) {
-      this.showTree = !this.showTree;
-      this.folderOpen = !this.folderOpen;
-      this.handleSubfolderSelection(path);
-      this.highlight = !this.highlight;
-    },
-    showHighlight() {
-      this.highlight = true;
-    },
-    hideHighlight() {
-      this.highlight = false;
-    },
-  },
-});
+})
+export default class extends Vue {
+  @Prop() name;
+  @Prop() entry;
+  @Prop() childTree;
+  @Prop() handleSubfolderSelection;
+
+  showTree = false;
+  folderOpen = false;
+  highlight = false;
+
+  toggleTree(path: string) {
+    this.showTree = !this.showTree;
+    this.folderOpen = !this.folderOpen;
+    this.handleSubfolderSelection(path);
+    this.highlight = !this.highlight;
+  }
+
+  showHighlight() {
+    this.highlight = true;
+  }
+
+  hideHighlight() {
+    this.highlight = false;
+  }
+}
 </script>
 
 <style lang="scss" src="./folderview.scss" scoped />

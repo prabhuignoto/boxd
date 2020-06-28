@@ -10,19 +10,26 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { Component, Prop } from "vue-property-decorator";
 
-export default Vue.extend({
+@Component({
   name: "Button",
-  props: ["name", "onClick", "size", "buttonStyle", "marginLess"],
-  computed: {
-    getDefaultStyle() {
-      return {
-        [this.size]: true,
-        [this.buttonStyle ? this.buttonStyle : "default"]: true,
-      };
-    },
-  },
-});
+})
+export default class extends Vue {
+  // @Prop()
+  @Prop() name;
+  @Prop() onClick;
+  @Prop() size;
+  @Prop() buttonStyle;
+  @Prop() marginLess;
+
+  get getDefaultStyle() {
+    return {
+      [this.size]: true,
+      [this.buttonStyle ? this.buttonStyle : "default"]: true,
+    };
+  }
+}
 </script>
 
 <style lang="scss" src="./button.scss" scoped />

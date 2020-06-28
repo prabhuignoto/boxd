@@ -48,7 +48,6 @@
 
 <script lang="ts">
 import { DateTime } from "luxon";
-import { mapActions } from "vuex";
 import LineItemPopdown from "./line-item-popdown.vue";
 import PrettyBytes from "pretty-bytes";
 import {
@@ -59,21 +58,12 @@ import {
   FileIcon,
 } from "vue-feather-icons";
 import Loader from "../Loader.vue";
+import { Component, Prop } from "vue-property-decorator";
+import { Action } from "vuex-class";
+import Vue from "vue";
 
-export default {
+@Component({
   name: "ExplorerLineItem",
-  props: [
-    "name",
-    "size",
-    "contentHash",
-    "tag",
-    "server_modified",
-    "path_lower",
-    "id",
-    "locked",
-    "lockType",
-    "selected",
-  ],
   components: {
     LineItemPopdown,
     SquareIcon,
@@ -83,91 +73,103 @@ export default {
     FileIcon,
     Loader,
   },
-  computed: {
-    getStatusLabel() {
-      if (this.lockType === "MOVE") {
-        return "moving...";
-      } else if (this.lockType === "COPY") {
-        return "copying ...";
-      } else if (this.lockType === "DELETE") {
-        return "deleting ...";
-      }
-      return "";
-    },
-    isFolder() {
-      return this.tag === "folder";
-    },
-    isFile() {
-      return this.tag === "file";
-    },
-    prettySize() {
-      return this.size ? PrettyBytes(this.size) : "";
-    },
-    serverModifiedFormatted() {
-      return this.server_modified
-        ? DateTime.fromISO(this.server_modified).toLocaleString(
-            DateTime.DATETIME_MED
-          )
-        : "";
-    },
-  },
-  data() {
-    return {
-      hideButtonImage: false,
-      isDownloadingFile: false,
-      // selected: false,
-    };
-  },
-  methods: {
-    ...mapActions([
-      "updatePath",
-      "updateFilePath",
-      "updateFileStatus",
-      "updateFileName",
-      "updateFileSize",
-      "updateFileModified",
-      "clearList",
-      "clearAllBulk",
-    ]),
-    toggleImage() {
-      this.hideButtonImage = !this.hideButtonImage;
-    },
-    handleNavigation(path, $evt) {
-      $evt.preventDefault();
-      this.clearAllBulk();
-      this.clearList();
-      this.updatePath(path);
-    },
-    handleFile(path) {
-      const files = path.split("/");
-      const fileName = files[files.length - 1];
-      this.updateFileName(fileName);
-      this.updateFilePath(path);
-      this.updateFileSize(this.sizeInMB);
-      this.updateFileModified(this.serverModifiedFormatted);
-      this.updateFileStatus("open");
-    },
-    handleCheck() {
-      this.selected = !this.selected;
+})
+export default class extends Vue {
+  hideButtonImage = false;
+  isDownloadingFile = false;
 
-      if (this.selected) {
-        this.$emit("selected", {
-          name: this.name,
-          contentHash: this.content_hash,
-          pathLower: this.path_lower,
-          id: this.id,
-        });
-      } else {
-        this.$emit("deselected", {
-          name: this.name,
-          contentHash: this.content_hash,
-          pathLower: this.path_lower,
-          id: this.id,
-        });
-      }
-    },
-  },
-};
+  @Prop() name;
+  @Prop() size;
+  @Prop() contentHash;
+  @Prop() tag;
+  @Prop() server_modified;
+  @Prop() path_lower;
+  @Prop() id;
+  @Prop() locked;
+  @Prop() lockType;
+  @Prop() selected;
+
+  @Action("updatePath") updatePath;
+  @Action("updateFilePath") updateFilePath;
+  @Action("updateFileStatus") updateFileStatus;
+  @Action("updateFileName") updateFileName;
+  @Action("updateFileSize") updateFileSize;
+  @Action("updateFileModified") updateFileModified;
+  @Action("clearList") clearList;
+  @Action("clearAllBulk") clearAllBulk;
+
+  get getStatusLabel() {
+    if (this.lockType === "MOVE") {
+      return "moving...";
+    } else if (this.lockType === "COPY") {
+      return "copying ...";
+    } else if (this.lockType === "DELETE") {
+      return "deleting ...";
+    }
+    return "";
+  }
+
+  get isFolder() {
+    return this.tag === "folder";
+  }
+
+  get isFile() {
+    return this.tag === "file";
+  }
+
+  get prettySize() {
+    return this.size ? PrettyBytes(this.size) : "";
+  }
+
+  get serverModifiedFormatted() {
+    return this.server_modified
+      ? DateTime.fromISO(this.server_modified).toLocaleString(
+          DateTime.DATETIME_MED
+        )
+      : "";
+  }
+
+  toggleImage() {
+    this.hideButtonImage = !this.hideButtonImage;
+  }
+
+  handleNavigation(path, $evt) {
+    $evt.preventDefault();
+    this.clearAllBulk();
+    this.clearList();
+    this.updatePath(path);
+  }
+
+  handleFile(path) {
+    const files = path.split("/");
+    const fileName = files[files.length - 1];
+    this.updateFileName(fileName);
+    this.updateFilePath(path);
+    this.updateFileSize(this.size);
+    this.updateFileModified(this.serverModifiedFormatted);
+    this.updateFileStatus("open");
+  }
+
+  handleCheck() {
+    this.selected = !this.selected;
+
+    if (this.selected) {
+      this.$emit("selected", {
+        name: this.name,
+        contentHash: this.contentHash,
+        pathLower: this.path_lower,
+        id: this.id,
+      });
+    } else {
+      this.$emit("deselected", {
+        name: this.name,
+        contentHash: this.contentHash,
+        pathLower: this.path_lower,
+        id: this.id,
+      });
+    }
+  }
+}
 </script>
 
 <style lang="scss" src="./explorer-line-item.scss" scoped />

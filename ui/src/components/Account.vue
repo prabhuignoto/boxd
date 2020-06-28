@@ -36,47 +36,19 @@
 <script>
 import gql from "graphql-tag";
 import Popdown from "./Popdown/index";
-import { mapActions } from "vuex";
 import { UserIcon } from "vue-feather-icons";
 import { LogOutIcon, HelpCircleIcon } from "vue-feather-icons";
+import { Component } from "vue-property-decorator";
+import { Action } from "vuex-class";
+import Vue from "vue";
 
-export default {
+@Component({
   name: "Account",
   components: {
     Popdown,
     UserIcon,
     LogOutIcon,
     HelpCircleIcon,
-  },
-  data() {
-    return {
-      account: {
-        name: {
-          // display_name: "",
-          // abbreviated_name: "",
-        },
-      },
-    };
-  },
-  methods: {
-    ...mapActions(["updateModalState"]),
-    handleSignout() {
-      this.updateModalState({
-        title: "",
-        componentToRender: "Logout",
-        status: true,
-        disableHeader: true,
-        disableCloseBtn: true,
-      });
-    },
-    handleAbout() {
-      this.updateModalState({
-        title: "",
-        componentToRender: "About",
-        status: true,
-        disableHeader: true,
-      });
-    },
   },
   apollo: {
     account: gql`
@@ -90,7 +62,34 @@ export default {
       }
     `,
   },
-};
+})
+export default class extends Vue {
+  account = {
+    name: {
+      // display_name: "",
+      // abbreviated_name: "",
+    },
+  };
+  @Action("updateModalState") updateModalState;
+  handleSignout() {
+    this.updateModalState({
+      title: "",
+      componentToRender: "Logout",
+      status: true,
+      disableHeader: true,
+      disableCloseBtn: true,
+    });
+  }
+
+  handleAbout() {
+    this.updateModalState({
+      title: "",
+      componentToRender: "About",
+      status: true,
+      disableHeader: true,
+    });
+  }
+}
 </script>
 
 <style lang="scss" scoped>

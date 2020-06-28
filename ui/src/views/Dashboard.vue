@@ -23,13 +23,17 @@
 <script>
 import Explorer from "../components/Explorer/Explorer.vue";
 import Popup from "../components/Popup/Popup";
-import { mapGetters, mapActions } from "vuex";
 import Notification from "../components/Notification";
 import JobRunner from "../components/JobRunner";
-import NotificationSub from "../notificationSub.js";
+import NotificationSub from "../notificationSub";
 import DeleteFolder from "../components/Folder/DeleteFolder";
 
-export default {
+import { Component } from "vue-property-decorator";
+import Vue from "vue";
+import { Action, Getter } from "vuex-class";
+
+@Component({
+  name: "Dashboard",
   components: {
     Explorer,
     Popup,
@@ -38,33 +42,29 @@ export default {
     DeleteFolder,
     JobRunner,
   },
-  data() {
-    return {
-      files: {
-        entries: [],
-      },
-      prabhu: "murthy",
-    };
-  },
-  computed: {
-    ...mapGetters([
-      "isModalActive",
-      "getPopupComponent",
-      "getPopupTitle",
-      "getIsDisableHeader",
-      "getNotificationStatus",
-      "getNewMessage",
-      "getModalWidth",
-      "getExplorerPath",
-    ]),
-  },
-  methods: {
-    ...mapActions(["showNotification", "refreshFileExplorer", "refetchData"]),
-  },
   apollo: {
     $subscribe: NotificationSub,
   },
-};
+})
+export default class extends Vue {
+  files = {
+    entries: [],
+  };
+  prabhu = "murthy";
+
+  @Getter("isModalActive") isModalActive;
+  @Getter("getPopupComponent") getPopupComponent;
+  @Getter("getPopupTitle") getPopupTitle;
+  @Getter("getIsDisableHeader") getIsDisableHeader;
+  @Getter("getNotificationStatus") getNotificationStatus;
+  @Getter("getNewMessage") getNewMessage;
+  @Getter("getModalWidth") getModalWidth;
+  @Getter("getExplorerPath") getExplorerPath;
+
+  @Action("showNotification") showNotification;
+  @Action("refreshFileExplorer") refreshFileExplorer;
+  @Action("refetchData") refetchData;
+}
 </script>
 
 <style lang="scss" src="./dashboard.scss" />

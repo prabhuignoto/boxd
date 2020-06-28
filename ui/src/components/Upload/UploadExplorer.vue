@@ -14,28 +14,13 @@
 import Treeview from "../Treeview/Treeview.vue";
 import Vue from "vue";
 import FolderGQL from "../../graphql/folder";
-import { mapActions, mapGetters } from "vuex";
 
-export default Vue.component("UploadExplorer", {
+import { Component, Prop } from "vue-property-decorator";
+import { Action, Getter } from "vuex-class";
+
+@Component({
   components: {
     Treeview,
-  },
-  data() {
-    return {
-      files: {
-        entries: [],
-      },
-    };
-  },
-  props: ["path"],
-  methods: {
-    ...mapActions(["createFolderSelection", "uploadFile"]),
-    handleSubfolderSelection(path): void {
-      this.uploadFile(path);
-    },
-  },
-  computed: {
-    ...mapGetters(["getUploadPath"]),
   },
   apollo: {
     files: {
@@ -52,5 +37,19 @@ export default Vue.component("UploadExplorer", {
       },
     },
   },
-});
+})
+export default class extends Vue {
+  files = {
+    entries: [],
+  };
+
+  @Prop() path: string;
+  @Action("createFolderSelection") createFolderSelection;
+  @Action("uploadFile") uploadFile;
+  @Getter("getUploadPath") getUploadPath;
+
+  handleSubfolderSelection(path): void {
+    this.uploadFile(path);
+  }
+}
 </script>

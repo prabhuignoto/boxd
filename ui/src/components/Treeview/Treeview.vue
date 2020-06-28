@@ -28,63 +28,64 @@
 <script>
 import Vue from "vue";
 
-export default Vue.extend({
+import { Component, Prop } from "vue-property-decorator";
+
+@Component({
   name: "Treeview",
-  props: [
-    "path",
-    "onSelect",
-    "entries",
-    "childTree",
-    "handleSubfolderSelection",
-    "hideFiles",
-  ],
   components: {
     FolderView: () => import("./FolderView"),
   },
-  data() {
-    return {
-      showSubTree: false,
-    };
-  },
-  methods: {
-    handleOpenFolder() {
-      this.showSubTree = !this.showSubTree;
-    },
-    selectFile(node, $evt) {
-      $evt.target.classList.add("selected");
-      this.onSelect(node);
-    },
-    deselectFile(evt) {
-      evt.target.classList.remove("selected");
-    },
-    getFileIcon(path) {
-      const parts = path.split("/");
-      const fileName = parts[parts.length - 1];
-      const fileNameParts = fileName.split(".");
-      const ext = fileNameParts[fileNameParts.length - 1];
-      const images = require.context("../../assets", false, /\.svg$/);
+})
+export default class extends Vue {
+  @Prop() path;
+  @Prop() onSelect;
+  @Prop() entries;
+  @Prop() childTree;
+  @Prop() handleSubfolderSelection;
+  @Prop() hideFiles;
 
-      switch (ext) {
-        case "pdf":
-          return images("./pdf.svg");
-        case "ppt":
-          return images("./ppt.svg");
-        case "jpg":
-          return images("./jpg.svg");
-        case "png":
-          return images("./png.svg");
-        case "xls":
-          return images("./xls.svg");
-        case "doc":
-          return images("./doc.svg");
-        case "txt":
-          return images("./txt.svg");
-        default:
-          return images("./file.svg");
-      }
-    },
-  },
-});
+  showSubTree = false;
+
+  handleOpenFolder() {
+    this.showSubTree = !this.showSubTree;
+  }
+
+  selectFile(node, $evt) {
+    $evt.target.classList.add("selected");
+    this.onSelect(node);
+  }
+
+  deselectFile(evt) {
+    evt.target.classList.remove("selected");
+  }
+
+  getFileIcon(path) {
+    const parts = path.split("/");
+    const fileName = parts[parts.length - 1];
+    const fileNameParts = fileName.split(".");
+    const ext = fileNameParts[fileNameParts.length - 1];
+    const images = require.context("../../assets", false, /\.svg$/);
+
+    switch (ext) {
+      case "pdf":
+        return images("./pdf.svg");
+      case "ppt":
+        return images("./ppt.svg");
+      case "jpg":
+        return images("./jpg.svg");
+      case "png":
+        return images("./png.svg");
+      case "xls":
+        return images("./xls.svg");
+      case "doc":
+        return images("./doc.svg");
+      case "txt":
+        return images("./txt.svg");
+      default:
+        return images("./file.svg");
+    }
+  }
+}
 </script>
 
 <style lang="scss" src="./treeview.scss" scoped />

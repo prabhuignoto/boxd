@@ -14,35 +14,40 @@
 </template>
 
 <script lang="ts">
-import { mapActions } from "vuex";
 import { XIcon, CircleIcon } from "vue-feather-icons";
 import Vue from "vue";
+import { Component, Prop } from "vue-property-decorator";
+import { Action } from "vuex-class";
 
-export default Vue.extend({
+@Component({
   name: "Notification",
-  props: ["message"],
   components: {
     XIcon,
     CircleIcon,
   },
+})
+export default class extends Vue {
+  @Prop() message;
+  @Action("updateNotificationStatus") updateNotificationStatus;
+  @Action("closeNotification") closeNotification;
+
   mounted() {
     // * autoclose the notification if its info
     setTimeout(() => {
       this.handleClose();
     }, 1500);
-  },
+  }
+
   updated() {
     setTimeout(() => {
       this.handleClose();
     }, 1500);
-  },
-  methods: {
-    ...mapActions(["updateNotificationStatus", "closeNotification"]),
-    handleClose() {
-      this.closeNotification(this.message);
-    },
-  },
-});
+  }
+
+  handleClose() {
+    this.closeNotification(this.message);
+  }
+}
 </script>
 
 <style lang="scss" scoped src="./notification.scss"></style>

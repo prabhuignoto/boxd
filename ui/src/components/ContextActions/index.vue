@@ -33,65 +33,65 @@
 
 <script lang="ts">
 import Button from "../Form/Button.vue";
-import { mapActions } from "vuex";
 import Vue from "vue";
+import { Component, Prop } from "vue-property-decorator";
+import { Action } from "vuex-class";
 
-export default Vue.extend({
+@Component({
   name: "ContextActions",
   components: {
     Button,
   },
-  props: ["path"],
-  methods: {
-    ...mapActions([
-      "updateMoveCopyMode",
-      "moveResxSource",
-      "copyResxSource",
-      "updateModalState",
-      "skipToFinal",
-      "deleteFolder",
-      "createFolderSelection",
-      "hideCreateFolderExplorer",
-    ]),
-    handleCopy() {
-      this.updateMoveCopyMode("copy");
-      this.copyResxSource(this.path);
-      this.skipToFinal(true);
-      this.updateModalState({
-        status: true,
-        componentToRender: "MoveCopy",
-        title: `Copy folder`,
-      });
-    },
-    handleMove() {
-      this.updateMoveCopyMode("move");
-      this.moveResxSource(this.path);
-      this.skipToFinal(true);
-      this.updateModalState({
-        status: true,
-        componentToRender: "MoveCopy",
-        title: `Move folder`,
-      });
-    },
-    handleDelete() {
-      this.deleteFolder(this.path);
-      this.updateModalState({
-        status: true,
-        componentToRender: "DeleteFolder",
-        title: `Delete`,
-      });
-    },
-    handleAddFolder() {
-      this.createFolderSelection(this.path);
-      this.hideCreateFolderExplorer(true);
-      this.updateModalState({
-        status: true,
-        componentToRender: "CreateFolder",
-        title: "New Folder",
-      });
-    },
-  },
-});
+})
+export default class extends Vue {
+  @Prop() path: string;
+  @Action("updateMoveCopyMode") updateMoveCopyMode;
+  @Action("moveResxSource") moveResxSource;
+  @Action("copyResxSource") copyResxSource;
+  @Action("updateModalState") updateModalState;
+  @Action("skipToFinal") skipToFinal;
+  @Action("deleteFolder") deleteFolder;
+  @Action("createFolderSelection") createFolderSelection;
+  @Action("hideCreateFolderExplorer") hideCreateFolderExplorer;
+
+  handleCopy() {
+    this.updateMoveCopyMode("copy");
+    this.copyResxSource(this.path);
+    this.skipToFinal(true);
+    this.updateModalState({
+      status: true,
+      componentToRender: "MoveCopy",
+      title: `Copy folder`,
+    });
+  }
+  handleMove() {
+    this.updateMoveCopyMode("move");
+    this.moveResxSource(this.path);
+    this.skipToFinal(true);
+    this.updateModalState({
+      status: true,
+      componentToRender: "MoveCopy",
+      title: `Move folder`,
+    });
+  }
+  handleDelete() {
+    this.deleteFolder(this.path);
+    this.updateModalState({
+      status: true,
+      componentToRender: "DeleteFolder",
+      title: `Delete`,
+    });
+  }
+  handleAddFolder() {
+    this.createFolderSelection(this.path);
+    this.hideCreateFolderExplorer(true);
+    this.updateModalState({
+      status: true,
+      componentToRender: "CreateFolder",
+      title: "New Folder",
+    });
+  }
+}
 </script>
 
 <style lang="scss" scoped>

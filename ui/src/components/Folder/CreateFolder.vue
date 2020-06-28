@@ -56,11 +56,13 @@ import CreateFolderExplorer from "./CreateFolderExplorer.vue";
 import Button from "../Form/Button.vue";
 import Loader from "../Loader.vue";
 import Vue from "vue";
-import { mapActions, mapGetters } from "vuex";
 import RootFolder from "../rootFolder.vue";
 import { CheckIcon } from "vue-feather-icons";
 
-export default Vue.component("CreateFolder", {
+import { Component } from "vue-property-decorator";
+import { Action, Getter } from "vuex-class";
+
+@Component({
   components: {
     Textbox,
     CreateFolderExplorer,
@@ -69,91 +71,94 @@ export default Vue.component("CreateFolder", {
     RootFolder,
     CheckIcon,
   },
-  data() {
-    return {
-      folderName: "",
-      createHandledOnce: 0,
-      disableSave: false,
-      isMutating: false,
-    };
-  },
+})
+export default class extends Vue {
+  @Getter("isCreateFolderExpHidden") isCreateFolderExpHidden;
+  @Getter("getWorkflowOrigin") getWorkflowOrigin;
+  @Getter("getExplorerPath") getExplorerPath;
+  @Getter("getFolderSelectionFormatted") getFolderSelectionFormatted;
+  @Getter("getFolderSelection") getFolderSelection;
+
+  @Action("createFolderSelection") createFolderSelection;
+  @Action("hideCreateFolderExplorer") hideCreateFolderExplorer;
+  @Action("updatePath") updatePath;
+  @Action("refetchData") refetchData;
+  @Action("clearList") clearList;
+  @Action("refreshFileExplorer") refreshFileExplorer;
+  @Action("addJob") addJob;
+  @Action("closeModal") closeModal;
+
+  folderName = "";
+  createHandledOnce = 0;
+  disableSave = false;
+  isMutating = false;
+
   beforeDestroy() {
     this.hideCreateFolderExplorer(false);
     this.createFolderSelection(null);
-  },
-  computed: {
-    isNameEmpty() {
-      return this.folderName === "";
-    },
-    isPathSelected() {
-      return this.getFolderSelection !== null;
-    },
-    showFolderValidError() {
-      return this.createHandledOnce > 0 && !this.isPathSelected;
-    },
-    hasErrors() {
-      return (
-        (!this.isPathSelected || this.isNameEmpty) && this.createHandledOnce > 0
-      );
-    },
-    getStyle() {
-      return !this.isPathSelected || this.isNameEmpty || this.isMutating
-        ? "disabled xl"
-        : "xl";
-    },
-    ...mapGetters([
-      "isCreateFolderExpHidden",
-      "getWorkflowOrigin",
-      "getExplorerPath",
-      "getFolderSelectionFormatted",
-      "getFolderSelection",
-    ]),
-  },
-  methods: {
-    ...mapActions([
-      "createFolderSelection",
-      "hideCreateFolderExplorer",
-      "updatePath",
-      "refetchData",
-      "clearList",
-      "refreshFileExplorer",
-      "addJob",
-      "closeModal",
-    ]),
-    handleEnter() {
-      this.handleCreate();
-    },
-    async handleCreate() {
-      if (this.createHandledOnce < 1) {
-        this.createHandledOnce += 1;
-      }
-      if (!this.hasErrors) {
-        this.disableSave = true;
-        this.isMutating = true;
-        this.addJob({
-          jobType: "CREATE_FOLDER",
-          data: {
-            path: JSON.parse(JSON.stringify(this.getFolderSelection)),
-            name: this.folderName,
-          },
-        });
-        this.closeModal();
-      }
-    },
-    handleCancel() {
-      this.$store.dispatch("updateModalState", {
-        status: false,
-        componentToRender: "",
+  }
+
+  get isNameEmpty() {
+    return this.folderName === "";
+  }
+
+  get isPathSelected() {
+    return this.getFolderSelection !== null;
+  }
+
+  get showFolderValidError() {
+    return this.createHandledOnce > 0 && !this.isPathSelected;
+  }
+
+  get hasErrors() {
+    return (
+      (!this.isPathSelected || this.isNameEmpty) && this.createHandledOnce > 0
+    );
+  }
+
+  get getStyle() {
+    return !this.isPathSelected || this.isNameEmpty || this.isMutating
+      ? "disabled xl"
+      : "xl";
+  }
+
+  handleEnter() {
+    this.handleCreate();
+  }
+
+  async handleCreate() {
+    if (this.createHandledOnce < 1) {
+      this.createHandledOnce += 1;
+    }
+    if (!this.hasErrors) {
+      this.disableSave = true;
+      this.isMutating = true;
+      this.addJob({
+        jobType: "CREATE_FOLDER",
+        data: {
+          path: JSON.parse(JSON.stringify(this.getFolderSelection)),
+          name: this.folderName,
+        },
       });
-    },
-    onFolderInput($evt) {
-      this.folderName = $evt.target.value.trim();
-    },
-    handleRootFolder() {
-      this.createFolderSelection("");
-    },
-  },
-});
+      this.closeModal();
+    }
+  }
+
+  handleCancel() {
+    this.$store.dispatch("updateModalState", {
+      status: false,
+      componentToRender: "",
+    });
+  }
+
+  onFolderInput($evt) {
+    this.folderName = $evt.target.value.trim();
+  }
+
+  handleRootFolder() {
+    this.createFolderSelection("");
+  }
+}
 </script>
 
 <style lang="scss" src="./create-folder.scss" scoped></style>

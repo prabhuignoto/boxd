@@ -11,51 +11,28 @@
   </section>
 </template>
 
-<script>
-import Treeview from "../Treeview/Treeview";
+<script lang="ts">
+import Treeview from "../Treeview/Treeview.vue";
 import Vue from "vue";
-import gql from "graphql-tag";
-import FolderGQL from "../../graphql/folder.gql";
-import { mapActions, mapGetters } from "vuex";
+import FolderGQL from "../../graphql/folder";
 
-export default Vue.component("FileExplorer", {
+import { Component, Prop } from "vue-property-decorator";
+import { Action, Getter } from "vuex-class";
+
+@Component({
   components: {
     Treeview,
   },
-  data() {
-    return {
-      files: {
-        entries: [],
-      },
-    };
-  },
-  props: ["path"],
-  computed: {
-    ...mapGetters(["getExplorerPath", "getRefreshFileExplorer"]),
-  },
-  watch: {
-    getRefreshFileExplorer({ path }) {
-      if (path === this.path) {
-        this.$apollo.queries.files.refresh();
-      }
-    },
-  },
-  methods: {
-    ...mapActions(["clearList"]),
-    onSelect(node) {
-      this.$store.dispatch("updateExplorerNode", node);
-    },
-    handleSubfolderSelection(path) {
-      if (path !== this.getExplorerPath) {
-        this.clearList();
-        this.$store.dispatch("updatePath", path);
-      }
-    },
-    ...mapActions(["updateTreeViewData"]),
-  },
+  // watch: {
+  //   getRefreshFileExplorer({ path }) {
+  //     if (path === this.path) {
+  //       this.$apollo.queries.files.refresh();
+  //     }
+  //   },
+  // },
   apollo: {
     files: {
-      query: gql(FolderGQL),
+      query: FolderGQL,
       debounce: 1000,
       variables() {
         return {
@@ -71,7 +48,30 @@ export default Vue.component("FileExplorer", {
       // },
     },
   },
-});
+})
+export default class extends Vue {
+  files = {
+    entries: [],
+  };
+  @Prop() path;
+
+  @Getter("getExplorerPath") getExplorerPath;
+  @Getter("getRefreshFileExplorer") getRefreshFileExplorer;
+
+  @Action("clearList") clearList;
+  @Action("updateTreeViewData") updateTreeViewData;
+
+  onSelect(node) {
+    this.$store.dispatch("updateExplorerNode", node);
+  }
+
+  handleSubfolderSelection(path) {
+    if (path !== this.getExplorerPath) {
+      this.clearList();
+      this.$store.dispatch("updatePath", path);
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

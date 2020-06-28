@@ -13,53 +13,13 @@
 import Treeview from "../Treeview/Treeview.vue";
 import Vue from "vue";
 import FolderGQL from "../../graphql/folder";
-import { mapActions, mapGetters } from "vuex";
 
-export default Vue.component("MoveExplorerDest", {
+import { Component, Prop } from "vue-property-decorator";
+import { Action, Getter } from "vuex-class";
+
+@Component({
   components: {
     Treeview,
-  },
-  data() {
-    return {
-      files: {
-        entries: [],
-      },
-    };
-  },
-  computed: {
-    ...mapGetters(["getBulkMode", "getBulkItems"]),
-  },
-  props: ["path", "actionName"],
-  methods: {
-    ...mapActions([
-      "moveResxDest",
-      "updateDestForMoveResxBulk",
-      "setMoveResxBulk",
-    ]),
-    onSelect(node) {
-      this.moveResxDest(node.path);
-      if (this.getBulkMode) {
-        this.setMoveResxBulk(
-          this.getBulkItems.map(item => ({
-            fromPath: item.path_lower,
-            id: item.id,
-          }))
-        );
-        this.updateDestForMoveResxBulk(node.path);
-      }
-    },
-    handleSubfolderSelection(path) {
-      this.moveResxDest(path);
-      if (this.getBulkMode) {
-        this.setMoveResxBulk(
-          this.getBulkItems.map(item => ({
-            fromPath: item.path_lower,
-            id: item.id,
-          }))
-        );
-        this.updateDestForMoveResxBulk(path);
-      }
-    },
   },
   apollo: {
     files: {
@@ -74,5 +34,46 @@ export default Vue.component("MoveExplorerDest", {
       },
     },
   },
-});
+})
+export default class extends Vue {
+  files = {
+    entries: [],
+  };
+
+  @Prop() path;
+  @Prop() actionName;
+
+  @Getter("getBulkMode") getBulkMode;
+  @Getter("getBulkItems") getBulkItems;
+
+  @Action("moveResxDest") moveResxDest;
+  @Action("updateDestForMoveResxBulk") updateDestForMoveResxBulk;
+  @Action("setMoveResxBulk") setMoveResxBulk;
+
+  onSelect(node) {
+    this.moveResxDest(node.path);
+    if (this.getBulkMode) {
+      this.setMoveResxBulk(
+        this.getBulkItems.map(item => ({
+          fromPath: item.path_lower,
+          id: item.id,
+        }))
+      );
+      this.updateDestForMoveResxBulk(node.path);
+    }
+  }
+
+  handleSubfolderSelection(path) {
+    this.moveResxDest(path);
+    if (this.getBulkMode) {
+      this.setMoveResxBulk(
+        this.getBulkItems.map(item => ({
+          fromPath: item.path_lower,
+          id: item.id,
+        }))
+      );
+      this.updateDestForMoveResxBulk(path);
+    }
+  }
+}
 </script>

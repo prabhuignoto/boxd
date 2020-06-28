@@ -15,25 +15,33 @@
 <script lang="ts">
 import { LoaderIcon } from "vue-feather-icons";
 import Vue from "vue";
+import { Component, Prop } from "vue-property-decorator";
 
-export default Vue.extend({
+@Component({
   name: "Loader",
-  props: {
-    size: {
-      default: "1.5x",
-      type: String,
-    },
-    type: {
-      default: "spinner",
-    },
-    message: {
-      default: "",
-    },
-  },
   components: {
     LoaderIcon,
   },
-});
+})
+export default class extends Vue {
+  @Prop({
+    default: {
+      default: "1.5x",
+      type: String,
+    },
+  })
+  size;
+
+  @Prop({
+    default: "spinner",
+  })
+  type;
+
+  @Prop({
+    default: "",
+  })
+  message;
+}
 </script>
 
 <style lang="scss" src="./loader.scss" scoped />

@@ -44,6 +44,7 @@ export default {
   },
   mutations,
   actions,
+  getters,
 } as Module<UploadState, RootState>;
 
 // export default {

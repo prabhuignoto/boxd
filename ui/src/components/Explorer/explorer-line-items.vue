@@ -35,49 +35,46 @@
 <script>
 import Vue from "vue";
 import LineItem from "./explorer-line-item";
-import { mapActions, mapGetters } from "vuex";
 import { CheckSquareIcon, SquareIcon } from "vue-feather-icons";
+import { Component, Prop } from "vue-property-decorator";
+import { Action, Getter } from "vuex-class";
 
-export default Vue.extend({
+@Component({
   name: "explorer-line-items",
-  props: ["items"],
   components: {
     LineItem,
     SquareIcon,
     CheckSquareIcon,
   },
-  data() {
-    return {
-      bulkSelected: false,
-    };
-  },
-  computed: {
-    ...mapGetters(["getJobsActive"]),
-  },
-  methods: {
-    ...mapActions([
-      "addItemForBulk",
-      "removeItemFromBulk",
-      "addItemsForBulk",
-      "removeItemsFromBulk",
-    ]),
-    handleLineItemSelection(data) {
-      this.addItemForBulk(data);
-    },
-    handleLineItemDeselection(data) {
-      this.removeItemFromBulk(data);
-    },
-    handleBulkSelection() {
-      this.bulkSelected = !this.bulkSelected;
+})
+export default class extends Vue {
+  bulkSelected = false;
+  @Prop() items;
+  @Getter("getJobsActive") getJobsActive;
 
-      if (this.bulkSelected) {
-        this.addItemsForBulk(this.items);
-      } else {
-        this.removeItemsFromBulk();
-      }
-    },
-  },
-});
+  @Action("addItemForBulk") addItemForBulk;
+  @Action("removeItemFromBulk") removeItemFromBulk;
+  @Action("addItemsForBulk") addItemsForBulk;
+  @Action("removeItemsFromBulk") removeItemsFromBulk;
+
+  handleLineItemSelection(data) {
+    this.addItemForBulk(data);
+  }
+
+  handleLineItemDeselection(data) {
+    this.removeItemFromBulk(data);
+  }
+
+  handleBulkSelection() {
+    this.bulkSelected = !this.bulkSelected;
+
+    if (this.bulkSelected) {
+      this.addItemsForBulk(this.items);
+    } else {
+      this.removeItemsFromBulk();
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

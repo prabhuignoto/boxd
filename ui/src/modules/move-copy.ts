@@ -1,5 +1,5 @@
 import { RootState } from "@/store";
-import { ActionTree, Module, MutationTree } from "vuex";
+import { ActionTree, Module, MutationTree, GetterTree } from "vuex";
 
 interface MoveCopyState {
   moveResource: {
@@ -173,6 +173,36 @@ const mutations: MutationTree<MoveCopyState> = {
   },
 };
 
+const getters: GetterTree<MoveCopyState, RootState> = {
+  moveResxSrc: state => {
+    return state.moveResource && state.moveResource.src;
+  },
+  moveResxDest: state => state.moveResource && state.moveResource.dest,
+  copyResxSrc: state => state.copyResource && state.copyResource.src,
+  copyResxDest: state => state.copyResource && state.copyResource.dest,
+  getMoveCopyMode: state => state.mode,
+  getSkipToFinal: state => state.skipToFinal,
+  getBulkMode: state => state.bulkModeEnabled,
+  moveResxSrcFormatted: state =>
+    state.moveResource &&
+    state.moveResource.src &&
+    state.moveResource.src.split("/").join(" / "),
+  copyResxSrcFormatted: state =>
+    state.copyResource &&
+    state.copyResource.src &&
+    state.copyResource.src.split("/").join(" / "),
+  moveResxDestFormatted: state =>
+    state.moveResource &&
+    state.moveResource.dest &&
+    state.moveResource.dest.split("/").join(" / "),
+  copyResxDestFormatted: state =>
+    state.copyResource &&
+    state.copyResource.dest &&
+    state.copyResource.dest.split("/").join(" / "),
+  getMoveResourceBulk: state => state.moveResourceBulk,
+  getCopyResourceBulk: state => state.copyResourceBulk,
+};
+
 export default {
   state: {
     moveResource: {
@@ -191,6 +221,7 @@ export default {
   },
   actions,
   mutations,
+  getters,
 } as Module<MoveCopyState, RootState>;
 
 // export default {

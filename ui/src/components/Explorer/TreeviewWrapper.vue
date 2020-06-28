@@ -16,23 +16,25 @@
 </template>
 
 <script lang="ts">
-import RootFolder from "../rootFolder";
-import FileExplorer from "./FileExplorer";
-import { mapActions } from "vuex";
+import RootFolder from "../rootFolder.vue";
+import FileExplorer from "./FileExplorer.vue";
+import { Component } from "vue-property-decorator";
+import { Action } from "vuex-class";
+import Vue from "vue";
 
-export default {
+@Component({
   components: {
     RootFolder,
     FileExplorer,
   },
   name: "TreeviewWrapper",
-  methods: {
-    ...mapActions(["updatePath"]),
-    handleRootFolder() {
-      this.updatePath("");
-    },
-  },
-};
+})
+export default class extends Vue {
+  @Action("updatePath") updatePath;
+  handleRootFolder() {
+    this.updatePath("");
+  }
+}
 </script>
 
 <style lang="scss" scoped>

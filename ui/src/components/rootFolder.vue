@@ -10,14 +10,17 @@
 <script lang="ts">
 import { FolderIcon } from "vue-feather-icons";
 import Vue from "vue";
+import { Component, Prop } from "vue-property-decorator";
 
-export default Vue.extend({
+@Component({
   name: "RootFolder",
-  props: ["onClick"],
   components: {
     FolderIcon,
   },
-});
+})
+export default class extends Vue {
+  @Prop() onClick;
+}
 </script>
 
 <style lang="scss" scoped>

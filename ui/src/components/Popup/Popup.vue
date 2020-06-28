@@ -22,37 +22,55 @@
 </template>
 
 <script lang="ts">
-import { mapActions, mapGetters } from "vuex";
 import { XIcon } from "vue-feather-icons";
 import Vue from "vue";
 
-export default Vue.extend({
-  name: "Popup",
-  props: ["content", "title", "disableHeader", "width"],
-  mounted: function () {
-    this.$nextTick(function () {
-      this.$el.focus();
-    });
-  },
+import { Component, Prop } from "vue-property-decorator";
+import { Action, Getter } from "vuex-class";
+import MoveCopy from "../MoveCopy/MoveCopy.vue";
+import UploadWindow from "../Upload/index.vue";
+import CreateFolder from "../Folder/CreateFolder.vue";
+import About from "../About.vue";
+import Logout from "../Logout.vue";
+
+@Component({
   components: {
     XIcon,
+    MoveCopy,
+    UploadWindow,
+    CreateFolder,
+    About,
+    Logout,
   },
-  computed: {
-    ...mapGetters(["getDisableCloseBtn", "getPopupTitle"]),
-  },
-  methods: {
-    ...mapActions(["updateModalState"]),
-    handleClose() {
-      this.updateModalState({
-        status: false,
-        title: "",
-        componentToRender: "",
-        disableHeader: false,
-        disableCloseBtn: false,
-      });
-    },
-  },
-});
+  name: "Popup",
+})
+export default class extends Vue {
+  @Prop() content;
+  @Prop() title;
+  @Prop() disableHeader;
+  @Prop() width;
+
+  @Getter("getDisableCloseBtn") getDisableCloseBtn;
+  @Getter("getPopupTitle") getPopupTitle;
+
+  @Action("updateModalState") updateModalState;
+
+  mounted() {
+    this.$nextTick(function () {
+      // this.$el.focus();
+    });
+  }
+
+  handleClose() {
+    this.updateModalState({
+      status: false,
+      title: "",
+      componentToRender: "",
+      disableHeader: false,
+      disableCloseBtn: false,
+    });
+  }
+}
 </script>
 
 <style lang="scss" src="./popup.scss" scoped />

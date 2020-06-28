@@ -21,44 +21,51 @@
 </template>
 
 <script lang="ts">
-import { mapActions } from "vuex";
 import Vue from "vue";
 
-export default Vue.extend({
+import { Action } from "vuex-class";
+import { Component } from "vue-property-decorator";
+
+@Component({
   name: "FolderPath",
-  methods: {
-    ...mapActions(["clearList", "updatePath", "clearAllBulk"]),
-    handleNavigation(path, $evt) {
-      $evt.preventDefault();
-      const pathArr = this.folderPath;
-      const newPath = pathArr.slice(0, pathArr.indexOf(path) + 1).join("/");
-      this.clearAllBulk();
-      this.clearList();
-      this.updatePath(newPath);
-    },
-    navToHome($evt) {
-      $evt.preventDefault();
-      this.clearList();
-      this.$store.dispatch("updatePath", "");
-    },
-    isCurrentDir(path) {
-      return this.folderPath[this.folderPath.length - 1] === path;
-    },
-    isHome() {
-      return this.$store.state.explorer.path === "";
-    },
-  },
-  computed: {
-    folderPath() {
-      const path = this.$store.state.explorer.path;
-      if (path) {
-        return path.split("/");
-      } else {
-        return "";
-      }
-    },
-  },
-});
+})
+export default class extends Vue {
+  @Action("clearList") clearList;
+  @Action("updatePath") updatePath;
+  @Action("clearAllBulk") clearAllBulk;
+
+  handleNavigation(path, $evt) {
+    $evt.preventDefault();
+    const pathArr = this.folderPath;
+    const newPath = pathArr.slice(0, pathArr.indexOf(path) + 1).join("/");
+    this.clearAllBulk();
+    this.clearList();
+    this.updatePath(newPath);
+  }
+
+  navToHome($evt) {
+    $evt.preventDefault();
+    this.clearList();
+    this.$store.dispatch("updatePath", "");
+  }
+
+  isCurrentDir(path) {
+    return this.folderPath[this.folderPath.length - 1] === path;
+  }
+
+  isHome() {
+    return this.$store.state.explorer.path === "";
+  }
+
+  get folderPath() {
+    const path = this.$store.state.explorer.path;
+    if (path) {
+      return path.split("/");
+    } else {
+      return "";
+    }
+  }
+}
 </script>
 
 <style lang="scss" src="./folderpath.scss" scoped />

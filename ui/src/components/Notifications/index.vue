@@ -36,31 +36,31 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { mapGetters, mapActions } from "vuex";
 import Notification from "./Notification.vue";
 import { ThumbsUpIcon } from "vue-feather-icons";
 
-export default Vue.extend({
+import { Action, Getter } from "vuex-class";
+import { Component } from "vue-property-decorator";
+
+@Component({
   name: "notifications",
-  methods: {
-    ...mapActions(["clearAllJobs"]),
-    handleClear() {
-      this.clearAllJobs();
-    },
-  },
   components: {
     Notification,
     ThumbsUpIcon,
   },
-  computed: {
-    ...mapGetters([
-      "getAllJobs",
-      "getAllRunningJobs",
-      "getAllCompletedJobs",
-      "getJobsEmpty",
-    ]),
-  },
-});
+})
+export default class extends Vue {
+  @Getter("getAllJobs") getAllJobs;
+  @Getter("getAllRunningJobs") getAllRunningJobs;
+  @Getter("getAllCompletedJobs") getAllCompletedJobs;
+  @Getter("getJobsEmpty") getJobsEmpty;
+
+  @Action("clearAllJobs") clearAllJobs;
+
+  handleClear() {
+    this.clearAllJobs();
+  }
+}
 </script>
 
 <style lang="scss" src="./notifications.scss" scoped />

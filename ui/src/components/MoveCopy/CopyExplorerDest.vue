@@ -13,53 +13,13 @@
 import Treeview from "../Treeview/Treeview.vue";
 import Vue from "vue";
 import FolderGQL from "../../graphql/folder";
-import { mapActions, mapGetters } from "vuex";
 
-export default Vue.component("CopyExplorerDest", {
+import { Component, Prop } from "vue-property-decorator";
+import { Action, Getter } from "vuex-class";
+
+@Component({
   components: {
     Treeview,
-  },
-  data() {
-    return {
-      files: {
-        entries: [],
-      },
-    };
-  },
-  props: ["path", "actionName"],
-  computed: {
-    ...mapGetters(["getBulkMode", "getBulkItems"]),
-  },
-  methods: {
-    ...mapActions([
-      "copyResxDest",
-      "setCopyResxBulk",
-      "updateDestForCopyResxBulk",
-    ]),
-    onSelect(node) {
-      this.copyResxDest(node.path);
-      if (this.getBulkMode) {
-        this.setCopyResxBulk(
-          this.getBulkItems.map(item => ({
-            fromPath: item.path_lower,
-            id: item.id,
-          }))
-        );
-        this.updateDestForCopyResxBulk(node.path);
-      }
-    },
-    handleSubfolderSelection(path) {
-      this.copyResxDest(path);
-      if (this.getBulkMode) {
-        this.setCopyResxBulk(
-          this.getBulkItems.map(item => ({
-            fromPath: item.path_lower,
-            id: item.id,
-          }))
-        );
-        this.updateDestForCopyResxBulk(path);
-      }
-    },
   },
   apollo: {
     files: {
@@ -73,5 +33,46 @@ export default Vue.component("CopyExplorerDest", {
       },
     },
   },
-});
+})
+export default class extends Vue {
+  files = {
+    entries: [],
+  };
+
+  @Prop() path;
+  @Prop() actionName;
+
+  @Getter("getBulkMode") getBulkMode;
+  @Getter("getBulkItems") getBulkItems;
+
+  @Action("copyResxDest") copyResxDest;
+  @Action("setCopyResxBulk") setCopyResxBulk;
+  @Action("updateDestForCopyResxBulk") updateDestForCopyResxBulk;
+
+  onSelect(node) {
+    this.copyResxDest(node.path);
+    if (this.getBulkMode) {
+      this.setCopyResxBulk(
+        this.getBulkItems.map(item => ({
+          fromPath: item.path_lower,
+          id: item.id,
+        }))
+      );
+      this.updateDestForCopyResxBulk(node.path);
+    }
+  }
+
+  handleSubfolderSelection(path) {
+    this.copyResxDest(path);
+    if (this.getBulkMode) {
+      this.setCopyResxBulk(
+        this.getBulkItems.map(item => ({
+          fromPath: item.path_lower,
+          id: item.id,
+        }))
+      );
+      this.updateDestForCopyResxBulk(path);
+    }
+  }
+}
 </script>

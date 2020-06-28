@@ -25,131 +25,133 @@ import Vue from "vue";
 import StageOne from "./StageOne.vue";
 import StageTwo from "./StageTwo.vue";
 import StageThree from "./StageThree.vue";
-import { mapActions, mapGetters } from "vuex";
 import CopyResxGQL from "../../graphql/copyResource";
 import MoveResxGQL from "../../graphql/moveResource";
 
-export default Vue.component("MoveCopy", {
+import { Component } from "vue-property-decorator";
+import { Action, Getter } from "vuex-class";
+
+@Component({
+  name: "MoveCopy",
   components: {
     StageOne,
     StageTwo,
     StageThree,
   },
-  data() {
-    return {
-      stage: "one",
-      saving: false,
-      errored: false,
-    };
-  },
+})
+export default class extends Vue {
+  stage = "one";
+  saving = false;
+  errored = false;
+
+  @Action("clearMoveResx") clearMoveResx;
+  @Action("clearCopyResx") clearCopyResx;
+  @Action("updateModalState") updateModalState;
+  @Action("refetchData") refetchData;
+  @Action("refreshFileExplorer") refreshFileExplorer;
+  @Action("updateModalTitle") updateModalTitle;
+  @Action("clearMoveCopyState") clearMoveCopyState;
+  @Action("closeModal") closeModal;
+  @Action("addJob") addJob;
+
+  @Getter("moveResxSrc") moveResxSrc;
+  @Getter("moveResxDest") moveResxDest;
+  @Getter("copyResxSrc") copyResxSrc;
+  @Getter("copyResxDest") copyResxDest;
+  @Getter("getSkipToFinal") getSkipToFinal;
+  @Getter("getMoveCopyMode") getMoveCopyMode;
+  @Getter("getBulkMode") getBulkMode;
+  @Getter("getMoveResourceBulk") getMoveResourceBulk;
+  @Getter("getCopyResourceBulk") getCopyResourceBulk;
+  @Getter("getBulkItems") getBulkItems;
+
   beforeDestroy() {
     this.clearMoveCopyState();
-  },
-  methods: {
-    ...mapActions([
-      "clearMoveResx",
-      "clearCopyResx",
-      "updateModalState",
-      "refetchData",
-      "refreshFileExplorer",
-      "updateModalTitle",
-      "clearMoveCopyState",
-      "closeModal",
-      "addJob",
-    ]),
-    handleStepOne() {
-      this.stage = "two";
-      this.updateModalTitle(`${this.getMoveCopyMode} - select source`);
-    },
-    handleStepTwo() {
-      this.stage = "three";
-      this.updateModalTitle(`${this.getMoveCopyMode} - select destination`);
-    },
-    async handleCompletion() {
-      this.saving = true;
-      this.errored = false;
+  }
 
-      try {
-        if (this.getMoveCopyMode === "copy") {
-          if (this.getBulkMode) {
-            this.addJob({
-              jobType: "COPY",
-              data: {
-                items: JSON.parse(JSON.stringify(this.getCopyResourceBulk)),
-              },
-            });
-          } else {
-            await this.$apollo.mutate({
-              mutation: CopyResxGQL,
-              variables: {
-                fromPath: this.copyResxSrc,
-                toPath: `${this.copyResxDest}/${this.copyResxSrc
-                  .split("/")
-                  .pop()}`,
-              },
-            });
-          }
-          this.closeModal();
-          this.saving = false;
-        } else if (this.getMoveCopyMode === "move") {
-          if (this.getBulkMode) {
-            this.addJob({
-              jobType: "MOVE",
-              data: {
-                items: JSON.parse(JSON.stringify(this.getMoveResourceBulk)),
-              },
-            });
-          } else {
-            await this.$apollo.mutate({
-              mutation: MoveResxGQL,
-              variables: {
-                fromPath: this.moveResxSrc,
-                toPath: `${this.moveResxDest}/${this.moveResxSrc
-                  .split("/")
-                  .pop()}`,
-              },
-            });
-          }
-          this.saving = false;
-          this.closeModal();
+  handleStepOne() {
+    this.stage = "two";
+    this.updateModalTitle(`${this.getMoveCopyMode} - select source`);
+  }
+
+  handleStepTwo() {
+    this.stage = "three";
+    this.updateModalTitle(`${this.getMoveCopyMode} - select destination`);
+  }
+
+  async handleCompletion() {
+    this.saving = true;
+    this.errored = false;
+
+    try {
+      if (this.getMoveCopyMode === "copy") {
+        if (this.getBulkMode) {
+          this.addJob({
+            jobType: "COPY",
+            data: {
+              items: JSON.parse(JSON.stringify(this.getCopyResourceBulk)),
+            },
+          });
+        } else {
+          await this.$apollo.mutate({
+            mutation: CopyResxGQL,
+            variables: {
+              fromPath: this.copyResxSrc,
+              toPath: `${this.copyResxDest}/${this.copyResxSrc
+                .split("/")
+                .pop()}`,
+            },
+          });
         }
-      } catch (error) {
-        console.log(error);
+        this.closeModal();
+        this.saving = false;
+      } else if (this.getMoveCopyMode === "move") {
+        if (this.getBulkMode) {
+          this.addJob({
+            jobType: "MOVE",
+            data: {
+              items: JSON.parse(JSON.stringify(this.getMoveResourceBulk)),
+            },
+          });
+        } else {
+          await this.$apollo.mutate({
+            mutation: MoveResxGQL,
+            variables: {
+              fromPath: this.moveResxSrc,
+              toPath: `${this.moveResxDest}/${this.moveResxSrc
+                .split("/")
+                .pop()}`,
+            },
+          });
+        }
+        this.saving = false;
+        this.closeModal();
       }
-    },
-    navToStepOne() {
-      this.stage = "one";
-      if (this.getMoveCopyMode === "move") {
-        this.clearMoveResx();
-      } else {
-        this.clearCopyResx();
-      }
-    },
-    navToStepTwo() {
-      this.stage = "two";
-      if (this.getMoveCopyMode === "move") {
-        this.clearMoveResx();
-      } else {
-        this.clearCopyResx();
-      }
-    },
-  },
-  computed: {
-    mode() {
-      return this.$store.getters.mvCopyMode;
-    },
-    ...mapGetters([
-      "moveResxSrc",
-      "moveResxDest",
-      "copyResxSrc",
-      "copyResxDest",
-      "getSkipToFinal",
-      "getMoveCopyMode",
-      "getBulkMode",
-      "getMoveResourceBulk",
-      "getCopyResourceBulk",
-      "getBulkItems",
-    ]),
-  },
-});
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  navToStepOne() {
+    this.stage = "one";
+    if (this.getMoveCopyMode === "move") {
+      this.clearMoveResx();
+    } else {
+      this.clearCopyResx();
+    }
+  }
+
+  navToStepTwo() {
+    this.stage = "two";
+    if (this.getMoveCopyMode === "move") {
+      this.clearMoveResx();
+    } else {
+      this.clearCopyResx();
+    }
+  }
+
+  get mode() {
+    return this.$store.getters.mvCopyMode;
+  }
+}
 </script>

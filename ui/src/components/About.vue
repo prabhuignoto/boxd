@@ -15,18 +15,19 @@
 
 <script>
 import Vue from "vue";
-import { mapActions } from "vuex";
 import { XIcon } from "vue-feather-icons";
+import Component from "vue-class-component";
+import { Action } from "vuex-class";
 
-export default Vue.component("About", {
+@Component({
   name: "About",
-  methods: {
-    ...mapActions(["closeModal"]),
-  },
   components: {
     XIcon,
   },
-});
+})
+export default class About extends Vue {
+  @Action("closeModal") closeModal;
+}
 </script>
 
 <style lang="scss" scoped>

@@ -29,19 +29,12 @@
 <script>
 import Popdown from "@/components/Popdown/index.vue";
 import gql from "graphql-tag";
+import { Component } from "vue-property-decorator";
+import Vue from "vue";
 
-export default {
+@Component({
   components: {
     Popdown,
-  },
-  data() {
-    return {
-      account: {
-        name: {
-          // display_name: "",
-        },
-      },
-    };
   },
   apollo: {
     account: gql`
@@ -54,7 +47,14 @@ export default {
       }
     `,
   },
-};
+})
+export default class extends Vue {
+  account = {
+    name: {
+      // display_name: "",
+    },
+  };
+}
 </script>
 
 <style lang="scss" src="./header.scss" scoped />

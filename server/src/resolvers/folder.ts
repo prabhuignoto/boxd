@@ -11,10 +11,10 @@ export default {
         const result: files.RelocationResult = await getDropboxClient(
           context.session.access_token,
           process.env.CLIENT_ID as string).filesCopyV2({
-            fromPath: args.fromPath,
-            toPath: args.toPath,
-            autorename: true
-          });
+          from_path: args.fromPath,
+          to_path: args.toPath,
+          autorename: true
+        });
         PubSub.publish('resxCopied', {
           resxCopied: {
             name: args.fromPath,
@@ -105,8 +105,8 @@ export default {
           accessToken: context.session.access_token,
           clientId: process.env.CLIENT_ID
         }).filesMoveV2({
-          fromPath: args.fromPath,
-          toPath: args.toPath
+          from_path: args.fromPath,
+          to_path: args.toPath
         });
         PubSub.publish('resxMoved', {
           resxMoved: {

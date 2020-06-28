@@ -49,14 +49,21 @@ const getters: GetterTree<NotificationState, RootState> = {
   getNewMessage: state => {
     if (state.unRead.length > 0) {
       return state.unRead[state.unRead.length - 1];
+    } else {
+      return [];
     }
   },
 };
 
 export default {
-  state: {},
+  state: {
+    read: [],
+    unRead: [],
+    enabled: false,
+  },
   actions,
   mutations,
+  getters,
 } as Module<NotificationState, RootState>;
 
 // export default {

@@ -41,11 +41,12 @@
 <script>
 import Vue from "vue";
 import { TrashIcon, ArrowRightIcon, CopyIcon } from "vue-feather-icons";
-import { mapGetters, mapActions } from "vuex";
 
 import ContextControl from "../ContextActions/Control.vue";
+import { Component } from "vue-property-decorator";
+import { Action, Getter } from "vuex-class";
 
-export default Vue.extend({
+@Component({
   name: "ExplorerToolbar",
   components: {
     TrashIcon,
@@ -53,52 +54,53 @@ export default Vue.extend({
     CopyIcon,
     ContextControl,
   },
-  computed: {
-    ...mapGetters(["getBulkItems", "getBulkItems", "getExplorerPath"]),
-  },
-  methods: {
-    ...mapActions([
-      "enableBulkMode",
-      "skipToFinal",
-      "updateModalState",
-      "setMoveResxBulk",
-      "updateMoveCopyMode",
-      "addJob",
-    ]),
-    handleBulkDelete() {
-      this.addJob({
-        jobType: "DELETE",
-        data: {
-          items: JSON.parse(JSON.stringify(this.getBulkItems)),
-        },
-      });
-    },
-    handleBulkCopy() {
-      this.updateMoveCopyMode("copy");
-      this.enableBulkMode(true);
+})
+export default class extends Vue {
+  @Action("enableBulkMode") enableBulkMode;
+  @Action("skipToFinal") skipToFinal;
+  @Action("updateModalState") updateModalState;
+  @Action("setMoveResxBulk") setMoveResxBulk;
+  @Action("updateMoveCopyMode") updateMoveCopyMode;
+  @Action("addJob") addJob;
 
-      this.skipToFinal(true);
-      this.updateModalState({
-        status: true,
-        componentToRender: "MoveCopy",
-        title: `Copying files`,
-        width: 480,
-      });
-    },
-    handleBulkMove() {
-      this.updateMoveCopyMode("move");
-      this.enableBulkMode(true);
+  @Getter("getBulkItems") getBulkItems;
+  @Getter("getBulkItems") getBulkItems;
+  @Getter("getExplorerPath") getExplorerPath;
+  handleBulkDelete() {
+    this.addJob({
+      jobType: "DELETE",
+      data: {
+        items: JSON.parse(JSON.stringify(this.getBulkItems)),
+      },
+    });
+  }
 
-      this.skipToFinal(true);
-      this.updateModalState({
-        status: true,
-        componentToRender: "MoveCopy",
-        title: `Moving files`,
-        width: 480,
-      });
-    },
-  },
-});
+  handleBulkCopy() {
+    this.updateMoveCopyMode("copy");
+    this.enableBulkMode(true);
+
+    this.skipToFinal(true);
+    this.updateModalState({
+      status: true,
+      componentToRender: "MoveCopy",
+      title: `Copying files`,
+      width: 480,
+    });
+  }
+
+  handleBulkMove() {
+    this.updateMoveCopyMode("move");
+    this.enableBulkMode(true);
+
+    this.skipToFinal(true);
+    this.updateModalState({
+      status: true,
+      componentToRender: "MoveCopy",
+      title: `Moving files`,
+      width: 480,
+    });
+  }
+}
 </script>
 
 <style lang="scss" src="./explorer-toolbar.scss" scoped />

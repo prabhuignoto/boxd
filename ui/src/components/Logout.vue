@@ -10,15 +10,18 @@
 import Loader from "./Loader";
 import Vue from "vue";
 import Axios from "axios";
-import { mapActions } from "vuex";
+import { Component } from "vue-property-decorator";
+import { Action } from "vuex-class";
 
-export default Vue.component("Logout", {
+@Component({
   components: {
     Loader,
   },
-  methods: {
-    ...mapActions(["updateModalState"]),
-  },
+  name: "Logout",
+})
+export default class extends Vue {
+  @Action("updateModalState") updateModalState;
+
   mounted() {
     setTimeout(async () => {
       try {
@@ -38,8 +41,8 @@ export default Vue.component("Logout", {
         console.error("Failed to logout.");
       }
     }, 100000);
-  },
-});
+  }
+}
 </script>
 
 <style lang="scss" scoped>

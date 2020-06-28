@@ -11,23 +11,27 @@
 </template>
 
 <script>
-export default {
+import { Component, Prop } from "vue-property-decorator";
+import Vue from "vue";
+
+@Component({
   name: "ProgressBar",
-  props: ["value"],
-  computed: {
-    getStyle() {
-      return {
-        position: "absolute",
-        left: 0,
-        top: 0,
-        height: "100%",
-        width: `${this.value}%`,
-        borderRadius: ".1rem",
-        background: "#4BB543",
-      };
-    },
-  },
-};
+})
+export default class extends Vue {
+  @Prop() value;
+
+  get getStyle() {
+    return {
+      position: "absolute",
+      left: 0,
+      top: 0,
+      height: "100%",
+      width: `${this.value}%`,
+      borderRadius: ".1rem",
+      background: "#4BB543",
+    };
+  }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -27,21 +27,25 @@
 </template>
 
 <script>
-export default {
+import { Component, Prop } from "vue-property-decorator";
+import Vue from "vue";
+
+@Component({
   components: {
     // Logo
   },
   name: "Login",
-  props: ["title"],
-  methods: {
-    handleLogin() {
-      window.location = `${process.env.VUE_APP_API_SERVER}/auth/login`;
-    },
-    handleAccountCreation() {
-      window.location = "https://www.dropbox.com/login";
-    },
-  },
-};
+})
+export default class extends Vue {
+  @Prop() title;
+  handleLogin() {
+    window.location = `${process.env.VUE_APP_API_SERVER}/auth/login`;
+  }
+
+  handleAccountCreation() {
+    window.location = "https://www.dropbox.com/login";
+  }
+}
 </script>
 
 <style lang="scss" src="./login.scss" scoped />

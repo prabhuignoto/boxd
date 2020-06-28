@@ -37,11 +37,14 @@
 import MoveExplorerSrc from "./MoveExplorerSrc.vue";
 import CopyExplorerSrc from "./CopyExplorerSrc.vue";
 import Button from "../Form/Button.vue";
-import { mapActions, mapGetters } from "vuex";
 import { ChevronRightIcon } from "vue-feather-icons";
 import { ChevronLeftIcon } from "vue-feather-icons";
 
-export default {
+import { Component, Prop } from "vue-property-decorator";
+import { Action, Getter } from "vuex-class";
+import Vue from "vue";
+
+@Component({
   components: {
     MoveExplorerSrc,
     CopyExplorerSrc,
@@ -49,59 +52,61 @@ export default {
     ChevronRightIcon,
     ChevronLeftIcon,
   },
-  props: ["handleNext", "handlePrevious", "mode"],
-  computed: {
-    ...mapGetters([
-      "moveResxSrcFormatted",
-      "copyResxSrcFormatted",
-      "moveResxSrc",
-      "copyResxSrc",
-      "moveResxDest",
-      "getMoveCopyMode",
-    ]),
-    selectedSource() {
-      if (this.getMoveCopyMode === "move") {
-        return this.moveResxSrc;
-      } else {
-        return this.copyResxSrc;
-      }
-    },
-    isSourceSelected() {
-      if (this.getMoveCopyMode === "move") {
-        return this.moveResxSrc;
-      } else {
-        return this.copyResxSrc;
-      }
-    },
-    getStyle() {
-      if (!this.isSourceSelected) {
-        return "disabled xl";
-      } else {
-        return "xl";
-      }
-    },
-  },
-  methods: {
-    handleNextStep() {
-      this.handleNext();
-    },
-    handleCancel() {
-      this.updateModalState({
-        state: false,
-        componentToRender: "",
-        title: "",
-      });
-      this.clearMoveResx();
-    },
-    ...mapActions([
-      "updateModalState",
-      "moveResxSource",
-      "clearMoveResx",
-      "moveResxSource",
-      "copyResxSource",
-    ]),
-  },
-};
+})
+export default class extends Vue {
+  @Prop() handleNext;
+  @Prop() handlePrevious;
+  @Prop() mode;
+
+  @Getter("moveResxSrcFormatted") moveResxSrcFormatted;
+  @Getter("copyResxSrcFormatted") copyResxSrcFormatted;
+  @Getter("moveResxSrc") moveResxSrc;
+  @Getter("copyResxSrc") copyResxSrc;
+  @Getter("moveResxDest") moveResxDest;
+  @Getter("getMoveCopyMode") getMoveCopyMode;
+
+  @Action("updateModalState") updateModalState;
+  @Action("moveResxSource") moveResxSource;
+  @Action("clearMoveResx") clearMoveResx;
+  @Action("copyResxSource") copyResxSource;
+
+  get selectedSource() {
+    if (this.getMoveCopyMode === "move") {
+      return this.moveResxSrc;
+    } else {
+      return this.copyResxSrc;
+    }
+  }
+
+  get isSourceSelected() {
+    if (this.getMoveCopyMode === "move") {
+      return this.moveResxSrc;
+    } else {
+      return this.copyResxSrc;
+    }
+  }
+
+  get getStyle() {
+    if (!this.isSourceSelected) {
+      return "disabled xl";
+    } else {
+      return "xl";
+    }
+  }
+
+  handleNextStep() {
+    this.handleNext();
+  }
+
+  handleCancel() {
+    this.updateModalState({
+      state: false,
+      componentToRender: "",
+      title: "",
+    });
+    this.clearMoveResx();
+  }
+}
 </script>
 
 <style lang="scss" src="./stage-two.scss" scoped />

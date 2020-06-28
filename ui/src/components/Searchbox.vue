@@ -22,42 +22,20 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
 import gql from "graphql-tag";
 import SearchGQL from "../graphql/search.gql";
 import Loader from "./Loader";
 import Button from "./Form/Button";
 
-export default {
+import { Component } from "vue-property-decorator";
+import { Action } from "vuex-class";
+import Vue from "vue";
+
+@Component({
   name: "SearchBox",
   components: {
     Loader,
     Button,
-  },
-  data() {
-    return {
-      skipQuery: true,
-      term: "",
-    };
-  },
-  methods: {
-    ...mapActions(["updateSearch", "clearSearch", "clearList", "refetchData"]),
-    handleSearch({ keyCode, target }) {
-      if (keyCode === 13 && target.value !== "") {
-        this.term = target.value;
-        this.skipQuery = false;
-        this.clearList();
-        this.$nextTick(() => {
-          this.updateSearch(target.value);
-        });
-      }
-    },
-    handleClear() {
-      this.skipQuery = true;
-      this.term = "";
-      this.clearSearch();
-      this.refetchData(true);
-    },
   },
   apollo: {
     search: {
@@ -77,7 +55,34 @@ export default {
       },
     },
   },
-};
+})
+export default class extends Vue {
+  skipQuery = true;
+  term = "";
+
+  @Action("updateSearch") updateSearch;
+  @Action("clearSearch") clearSearch;
+  @Action("clearList") clearList;
+  @Action("refetchData") refetchData;
+
+  handleSearch({ keyCode, target }) {
+    if (keyCode === 13 && target.value !== "") {
+      this.term = target.value;
+      this.skipQuery = false;
+      this.clearList();
+      this.$nextTick(() => {
+        this.updateSearch(target.value);
+      });
+    }
+  }
+
+  handleClear() {
+    this.skipQuery = true;
+    this.term = "";
+    this.clearSearch();
+    this.refetchData(true);
+  }
+}
 </script>
 
 <style lang="scss" scoped>
