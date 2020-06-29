@@ -19,6 +19,7 @@
           v-bind:entry="entry"
           v-bind:childTree="childTree"
           v-bind:handleSubfolderSelection="handleSubfolderSelection"
+          :skipQuery="skipQuery"
         />
       </span>
     </div>
@@ -33,7 +34,7 @@ import { Component, Prop } from "vue-property-decorator";
 @Component({
   name: "Treeview",
   components: {
-    FolderView: () => import("./FolderView"),
+    FolderView: () => import("./FolderView.vue"),
   },
 })
 export default class extends Vue {
@@ -43,6 +44,7 @@ export default class extends Vue {
   @Prop() childTree;
   @Prop() handleSubfolderSelection;
   @Prop() hideFiles;
+  @Prop() skipQuery;
 
   showSubTree = false;
 
@@ -60,8 +62,8 @@ export default class extends Vue {
   }
 
   getFileIcon(path) {
-    const parts = path.split("/");
-    const fileName = parts[parts.length - 1];
+    // const parts = path.split("/");
+    const fileName = path.split("/").pop();
     const fileNameParts = fileName.split(".");
     const ext = fileNameParts[fileNameParts.length - 1];
     const images = require.context("../../assets", false, /\.svg$/);

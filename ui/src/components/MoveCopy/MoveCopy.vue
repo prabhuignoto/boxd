@@ -54,12 +54,12 @@ export default class extends Vue {
   @Action("closeModal") closeModal;
   @Action("addJob") addJob;
 
-  @Getter("moveResxSrc") moveResxSrc;
-  @Getter("moveResxDest") moveResxDest;
-  @Getter("copyResxSrc") copyResxSrc;
-  @Getter("copyResxDest") copyResxDest;
-  @Getter("getSkipToFinal") getSkipToFinal;
-  @Getter("getMoveCopyMode") getMoveCopyMode;
+  @Getter("moveResxSrc") moveResxSrc: string;
+  @Getter("moveResxDest") moveResxDest: string;
+  @Getter("copyResxSrc") copyResxSrc: string;
+  @Getter("copyResxDest") copyResxDest: string;
+  @Getter("getSkipToFinal") getSkipToFinal: boolean;
+  @Getter("getMoveCopyMode") getMoveCopyMode: string;
   @Getter("getBulkMode") getBulkMode;
   @Getter("getMoveResourceBulk") getMoveResourceBulk;
   @Getter("getCopyResourceBulk") getCopyResourceBulk;

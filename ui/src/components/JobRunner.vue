@@ -61,14 +61,6 @@ export default class extends Vue {
         });
       }
     );
-    this.$store.watch(
-      (state, getters) => getters.getRefetchTreeStatus,
-      status => {
-        if (status) {
-          // this.runGetFiles();
-        }
-      }
-    );
   }
 
   render(h: CreateElement): VNode {
@@ -88,12 +80,11 @@ export default class extends Vue {
           mutation: DeleteBulkGQL,
           variables: {
             options: {
-              paths: items.map(item => item.path_lower),
+              paths: items.map(item => item.pathLower),
               uiJobId: job.id,
             },
           },
         });
-        this.repopulateTree();
       }
     } catch (error) {
       items && this.unLockItems({ items: items.map(item => item.id) });
@@ -123,7 +114,6 @@ export default class extends Vue {
             },
           },
         });
-        this.repopulateTree();
       }
     } catch (error) {
       items && this.unLockItems({ jobId: job.id });
@@ -153,7 +143,6 @@ export default class extends Vue {
             },
           },
         });
-        this.repopulateTree();
       }
     } catch (error) {
       items && this.unLockItems({ items: items.map(item => item.id) });
@@ -175,7 +164,6 @@ export default class extends Vue {
           uiJobId: job.id,
         },
       });
-      this.repopulateTree(path);
     } catch (error) {
       this.failedJob({
         id: job.id,
@@ -205,7 +193,6 @@ export default class extends Vue {
           });
         },
       });
-      this.repopulateTree();
     } catch (error) {
       this.failedJob({
         id: job.id,

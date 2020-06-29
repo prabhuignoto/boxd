@@ -1,17 +1,6 @@
 <template>
   <div class="toolbar-wrapper">
     <div class="toolbar-buttons">
-      <!-- <Button
-        :onClick="openHome"
-        buttonStyle="icon"
-        size="large"
-        title="Home"
-        name="Home"
-      >
-        <template slot="btn-icon">
-          <HomeIcon />
-        </template>
-      </Button> -->
       <Button
         :onClick="openUploadWindow"
         buttonStyle="icon"
@@ -67,20 +56,14 @@ import { Action, Getter } from "vuex-class";
   name: "Toolbar",
   components: {
     Button,
-    // eslint-disable-next-line vue/no-unused-components
     CreateFolder,
-    // eslint-disable-next-line vue/no-unused-components
     MoveCopy,
-    // eslint-disable-next-line vue/no-unused-components
     UploadWindow,
-    // eslint-disable-next-line vue/no-unused-components
     About,
-    // eslint-disable-next-line vue/no-unused-components
     Logout,
     UploadIcon,
     PlusIcon,
     CopyIcon,
-    // HomeIcon,
   },
 })
 export default class extends Vue {
@@ -89,7 +72,7 @@ export default class extends Vue {
   @Action("updatePath") updatePath;
   @Action("clearList") clearList;
 
-  @Getter("getExplorerPath") getExplorerPath;
+  @Getter("getExplorerPath") getExplorerPath: string;
 
   openCreateFolder() {
     this.updateWorkflowOrigin("toolbar");
@@ -105,7 +88,7 @@ export default class extends Vue {
     this.updateModalState({
       status: true,
       componentToRender: "MoveCopy",
-      title: "Choose an Option",
+      title: "Move or Copy",
       width: 500,
     });
   }

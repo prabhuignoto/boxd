@@ -38,7 +38,6 @@ import { Action, Getter } from "vuex-class";
     Explorer,
     Popup,
     Notification,
-    // eslint-disable-next-line vue/no-unused-components
     DeleteFolder,
     JobRunner,
   },
@@ -50,7 +49,6 @@ export default class extends Vue {
   files = {
     entries: [],
   };
-  prabhu = "murthy";
 
   @Getter("isModalActive") isModalActive;
   @Getter("getPopupComponent") getPopupComponent;
@@ -60,6 +58,7 @@ export default class extends Vue {
   @Getter("getNewMessage") getNewMessage;
   @Getter("getModalWidth") getModalWidth;
   @Getter("getExplorerPath") getExplorerPath;
+  @Getter("getJobsActive") getJobsActive;
 
   @Action("showNotification") showNotification;
   @Action("refreshFileExplorer") refreshFileExplorer;

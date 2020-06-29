@@ -25,10 +25,8 @@ import { Component, Prop } from "vue-property-decorator";
 })
 export default class extends Vue {
   @Prop({
-    default: {
-      default: "1.5x",
-      type: String,
-    },
+    default: () => "1.5x",
+    type: String,
   })
   size;
 

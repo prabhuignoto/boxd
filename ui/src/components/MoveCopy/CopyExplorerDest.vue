@@ -1,6 +1,6 @@
 <template>
   <Treeview
-    path=""
+    path
     v-bind:onSelect="onSelect"
     v-bind:entries="files.entries"
     childTree="CopyExplorerDest"
@@ -18,6 +18,7 @@ import { Component, Prop } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 
 @Component({
+  name: "CopyExplorerDest",
   components: {
     Treeview,
   },
@@ -54,7 +55,7 @@ export default class extends Vue {
     if (this.getBulkMode) {
       this.setCopyResxBulk(
         this.getBulkItems.map(item => ({
-          fromPath: item.path_lower,
+          fromPath: item.pathLower,
           id: item.id,
         }))
       );
@@ -67,7 +68,7 @@ export default class extends Vue {
     if (this.getBulkMode) {
       this.setCopyResxBulk(
         this.getBulkItems.map(item => ({
-          fromPath: item.path_lower,
+          fromPath: item.pathLower,
           id: item.id,
         }))
       );

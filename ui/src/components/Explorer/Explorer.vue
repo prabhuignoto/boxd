@@ -62,6 +62,7 @@ import { UploadIcon } from "vue-feather-icons";
 
 import { Component } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
+import { TreeNode } from "../../modules/tree";
 
 @Component({
   name: "Explorer",
@@ -98,6 +99,20 @@ import { Action, Getter } from "vuex-class";
           } = data;
           this.clearList();
           this.updateListData({ listData, cursor, hasMore });
+          debugger;
+          this.addNodes({
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            nodes: (listData as any[]).map<TreeNode>(entry => ({
+              name: entry.name,
+              id: entry.id,
+              path: entry.path_lower,
+              type: entry.tag,
+              serverModified: entry.server_modified,
+              size: entry.size,
+              hash: entry.content_hash,
+              children: [],
+            })),
+          });
         }
       },
       fetchPolicy: "cache-and-network",
@@ -128,6 +143,7 @@ export default class extends Vue {
   @Action("refetchData") refetchData;
   @Action("removeItemsFromList") removeItemsFromList;
   @Action("addJob") addJob;
+  @Action("addNodes") addNodes;
 
   get refetchStatus() {
     return this.$store.state.list.refetchStatus;

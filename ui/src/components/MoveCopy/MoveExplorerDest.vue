@@ -18,6 +18,7 @@ import { Component, Prop } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 
 @Component({
+  name: "MoveExplorerDest",
   components: {
     Treeview,
   },
@@ -55,7 +56,7 @@ export default class extends Vue {
     if (this.getBulkMode) {
       this.setMoveResxBulk(
         this.getBulkItems.map(item => ({
-          fromPath: item.path_lower,
+          fromPath: item.pathLower,
           id: item.id,
         }))
       );
@@ -68,7 +69,7 @@ export default class extends Vue {
     if (this.getBulkMode) {
       this.setMoveResxBulk(
         this.getBulkItems.map(item => ({
-          fromPath: item.path_lower,
+          fromPath: item.pathLower,
           id: item.id,
         }))
       );

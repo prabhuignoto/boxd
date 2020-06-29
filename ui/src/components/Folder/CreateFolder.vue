@@ -63,6 +63,7 @@ import { Component } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 
 @Component({
+  name: "CreateFolder",
   components: {
     Textbox,
     CreateFolderExplorer,
@@ -73,11 +74,11 @@ import { Action, Getter } from "vuex-class";
   },
 })
 export default class extends Vue {
-  @Getter("isCreateFolderExpHidden") isCreateFolderExpHidden;
-  @Getter("getWorkflowOrigin") getWorkflowOrigin;
-  @Getter("getExplorerPath") getExplorerPath;
-  @Getter("getFolderSelectionFormatted") getFolderSelectionFormatted;
-  @Getter("getFolderSelection") getFolderSelection;
+  @Getter("isCreateFolderExpHidden") isCreateFolderExpHidden: boolean;
+  @Getter("getWorkflowOrigin") getWorkflowOrigin: string;
+  @Getter("getExplorerPath") getExplorerPath: string;
+  @Getter("getFolderSelectionFormatted") getFolderSelectionFormatted: string;
+  @Getter("getFolderSelection") getFolderSelection: string;
 
   @Action("createFolderSelection") createFolderSelection;
   @Action("hideCreateFolderExplorer") hideCreateFolderExplorer;

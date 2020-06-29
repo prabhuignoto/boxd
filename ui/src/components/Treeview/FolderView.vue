@@ -13,6 +13,7 @@
         v-bind:path="entry.path_lower"
         v-show="showTree"
         v-bind:handleSubfolderSelection="handleSubfolderSelection"
+        :skipQuery="skipQuery"
       ></component>
     </div>
   </div>
@@ -22,12 +23,20 @@
 import { FolderPlusIcon, FolderMinusIcon } from "vue-feather-icons";
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
+import CopyExplorerDest from "../MoveCopy/CopyExplorerDest.vue";
+import CopyExplorerSrc from "../MoveCopy/CopyExplorerSrc.vue";
+import MoveExplorerSrc from "../MoveCopy/MoveExplorerSrc.vue";
+import MoveExplorerDest from "../MoveCopy/MoveExplorerSrc.vue";
 
 @Component({
   name: "FolderView",
   components: {
     FolderPlusIcon,
     FolderMinusIcon,
+    CopyExplorerDest,
+    CopyExplorerSrc,
+    MoveExplorerSrc,
+    MoveExplorerDest,
   },
 })
 export default class extends Vue {
@@ -35,6 +44,7 @@ export default class extends Vue {
   @Prop() entry;
   @Prop() childTree;
   @Prop() handleSubfolderSelection;
+  @Prop() skipQuery;
 
   showTree = false;
   folderOpen = false;

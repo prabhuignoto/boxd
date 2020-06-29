@@ -18,6 +18,7 @@ import { Component, Prop } from "vue-property-decorator";
 import { Action } from "vuex-class";
 
 @Component({
+  name: "CreateFolderExplorer",
   components: {
     Treeview,
   },

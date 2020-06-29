@@ -55,8 +55,8 @@ export default {
           clientId: process.env.CLIENT_ID
         }).filesMoveBatchV2({
           entries: args.options.entries.map((item: any) => ({
-            fromPath: item.fromPath,
-            toPath: item.toPath
+            from_path: item.fromPath,
+            to_path: item.toPath
           })),
           autorename: args.options.autorename
         });
@@ -98,8 +98,8 @@ export default {
           clientId: process.env.CLIENT_ID
         }).filesCopyBatchV2({
           entries: args.options.entries.map((item: any) => ({
-            fromPath: item.fromPath,
-            toPath: item.toPath
+            from_path: item.fromPath,
+            to_path: item.toPath
           })),
           autorename: args.options.autorename
         });

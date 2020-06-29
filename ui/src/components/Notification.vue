@@ -3,7 +3,6 @@
     <div class="status-icon" :class="message.type">
       <CircleIcon />
     </div>
-    <!-- header section -->
     <div class="notification-content">
       <span>{{ message.message }}</span>
       <div @click="handleClose" class="close">
@@ -32,7 +31,6 @@ export default class extends Vue {
   @Action("closeNotification") closeNotification;
 
   mounted() {
-    // * autoclose the notification if its info
     setTimeout(() => {
       this.handleClose();
     }, 1500);

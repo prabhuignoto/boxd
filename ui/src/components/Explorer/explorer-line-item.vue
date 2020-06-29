@@ -73,11 +73,13 @@ import Vue from "vue";
     FileIcon,
     Loader,
   },
+  watch: {
+    showSelected(newVal) {
+      this.selected = newVal;
+    },
+  },
 })
 export default class extends Vue {
-  hideButtonImage = false;
-  isDownloadingFile = false;
-
   @Prop() name;
   @Prop() size;
   @Prop() contentHash;
@@ -87,7 +89,11 @@ export default class extends Vue {
   @Prop() id;
   @Prop() locked;
   @Prop() lockType;
-  @Prop() selected;
+  @Prop() showSelected;
+
+  hideButtonImage = false;
+  isDownloadingFile = false;
+  selected = this.showSelected;
 
   @Action("updatePath") updatePath;
   @Action("updateFilePath") updateFilePath;

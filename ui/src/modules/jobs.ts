@@ -98,7 +98,6 @@ const mutations: MutationTree<JobState> = {
 const actions: ActionTree<JobState, RootState> = {
   addJob({ commit, rootState }, { jobType, data }) {
     console.log(rootState);
-    debugger;
     commit({
       type: "addJob",
       jobType,

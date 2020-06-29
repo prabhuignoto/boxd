@@ -15,7 +15,6 @@ interface ListState {
 
 const mutations: MutationTree<ListState> = {
   updateListData(state, { listData, cursor, hasMore }) {
-    debugger;
     state.data = state.data.slice(0).concat(
       listData.map((x: any) =>
         Object.assign({}, x, {

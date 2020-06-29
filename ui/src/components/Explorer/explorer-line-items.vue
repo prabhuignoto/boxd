@@ -25,7 +25,7 @@
           v-on:selected="handleLineItemSelection"
           v-on:deselected="handleLineItemDeselection"
           v-if="!file.hidden"
-          :selected="bulkSelected"
+          :showSelected="bulkSelected"
         />
       </div>
     </div>
@@ -69,7 +69,13 @@ export default class extends Vue {
     this.bulkSelected = !this.bulkSelected;
 
     if (this.bulkSelected) {
-      this.addItemsForBulk(this.items);
+      this.addItemsForBulk(
+        this.items.map(item =>
+          Object.assign({}, item, {
+            pathLower: item.path_lower,
+          })
+        )
+      );
     } else {
       this.removeItemsFromBulk();
     }

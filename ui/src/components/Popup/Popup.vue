@@ -32,6 +32,8 @@ import UploadWindow from "../Upload/index.vue";
 import CreateFolder from "../Folder/CreateFolder.vue";
 import About from "../About.vue";
 import Logout from "../Logout.vue";
+import MoveExplorerDest from "../MoveCopy/MoveExplorerDest.vue";
+import DeleteFolder from "../Folder/DeleteFolder.vue";
 
 @Component({
   components: {
@@ -41,14 +43,16 @@ import Logout from "../Logout.vue";
     CreateFolder,
     About,
     Logout,
+    MoveExplorerDest,
+    DeleteFolder,
   },
   name: "Popup",
 })
 export default class extends Vue {
   @Prop() content;
-  @Prop() title;
+  @Prop() title: string;
   @Prop() disableHeader;
-  @Prop() width;
+  @Prop() width: number;
 
   @Getter("getDisableCloseBtn") getDisableCloseBtn;
   @Getter("getPopupTitle") getPopupTitle;
@@ -57,7 +61,7 @@ export default class extends Vue {
 
   mounted() {
     this.$nextTick(function () {
-      // this.$el.focus();
+      (this.$el as HTMLElement).focus();
     });
   }
 

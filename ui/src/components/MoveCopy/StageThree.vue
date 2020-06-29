@@ -68,6 +68,7 @@ import { Action, Getter } from "vuex-class";
 import Vue from "vue";
 
 @Component({
+  name: "StageThree",
   components: {
     MoveExplorerDest,
     CopyExplorerDest,

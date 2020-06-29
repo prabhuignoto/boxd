@@ -150,6 +150,7 @@ export default {
       }
     `,
     result({ data: { folderAdded } }) {
+      debugger;
       if (folderAdded.success) {
         this.completeJob({ id: folderAdded.uiJobId });
         this.showNotification({
