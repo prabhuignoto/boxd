@@ -75,12 +75,15 @@ const mutations: MutationTree<TreeState> = {
     state.refetch = false;
   },
   addNodes(state, { nodes, toPath }: { nodes: TreeNode[]; toPath: string }) {
+    // merge all nodes into one single object
     const newNodes = nodes.reduce(
       (a, b) => Object.assign(a, { [b.id]: b }),
       {}
     );
     let newData: TreeData = {};
-    if (!toPath) {
+
+    // if path is root (blank) create a root entry
+    if (!toPath && !Object.prototype.hasOwnProperty.call(state.data, "$root")) {
       newData = Object.assign({}, newNodes, {
         ["$root"]: {
           id: "$root",
@@ -93,19 +96,24 @@ const mutations: MutationTree<TreeState> = {
         },
       });
     } else {
+      // for other paths just directly merge the new nodes
       newData = Object.assign({}, state.data, newNodes);
     }
-    Vue.set(state, "data", newData);
-    const ParentNode = _.find(state.data, item => item.path === toPath);
 
+    // update the reactive data
+    Vue.set(state, "data", newData);
+
+    // update the parent node and append the new children
+    const ParentNode = _.find(state.data, item => item.path === toPath);
     if (ParentNode) {
-      Vue.set(
-        state.data,
-        ParentNode.id,
-        Object.assign({}, ParentNode, {
-          children: ParentNode.children.concat(nodes.map(n => n.id)),
-        })
-      );
+      const newNodes = nodes.map(n => n.id);
+      const parentNodeData = Object.assign({}, ParentNode, {
+        children: _.reject(
+          ParentNode.children,
+          item => newNodes.indexOf(item) >= 0
+        ).concat(newNodes),
+      });
+      Vue.set(state.data, ParentNode.id, parentNodeData);
     }
   },
   addNode(state, { id, path, name, toPath }) {
@@ -179,8 +187,18 @@ const getters: GetterTree<TreeState, RootState> = {
       .value();
     return cNodes.map(cNode => state.data[cNode]);
   },
-  getNodesById: state => (id: string) =>
-    _.filter(state.data, item => item.id === id),
+  getChildNodesById: state => (id: string) => {
+    const parentNode = _.find(state.data, item => item.id === id);
+    if (parentNode && parentNode.children.length) {
+      return parentNode.children.map(child =>
+        Object.assign({}, state.data[child], {
+          children: state.data[child].children.map(c => state.data[c]),
+        })
+      );
+    } else {
+      return null;
+    }
+  },
 };
 
 export default {

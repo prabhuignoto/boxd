@@ -19,6 +19,7 @@ export interface RootState {
     refresh: {
       status: boolean;
       path: string;
+      lastRefreshed: number;
     };
   };
   modal: {
@@ -52,6 +53,7 @@ export default new Vuex.Store({
       refresh: {
         status: false,
         path: "",
+        lastRefreshed: 0,
       },
     },
     modal: {
@@ -104,10 +106,11 @@ export default new Vuex.Store({
       state.workFlowOrigin = origin;
     },
     refreshFileExplorer(state, { status, path }) {
-      state.fileExplorer.refresh = {
+      Vue.set(state.fileExplorer, "refresh", {
         status,
         path,
-      };
+        lastRefreshed: Date.now(),
+      });
     },
     closeModal(state) {
       state.modal = {
@@ -194,7 +197,10 @@ export default new Vuex.Store({
     getExplorerPath: state => state.explorer.path,
     getDisableCloseBtn: state => state.modal.disableCloseBtn,
     getWorkflowOrigin: state => state.workFlowOrigin,
-    getRefreshFileExplorer: state => state.fileExplorer.refresh,
+    getRefreshFileExplorer: state => {
+      debugger;
+      return state.fileExplorer.refresh;
+    },
     getModalWidth: state => state.modal.width,
   },
 });

@@ -51,7 +51,6 @@
       >
         <!-- <span class="upload-explorer-header">Choose destination</span> -->
         <div class="upload-explorer-wrapper">
-          <RootFolder :onClick="handleRootFolder" />
           <UploadExplorer path />
         </div>
       </div>
@@ -96,15 +95,15 @@
   </section>
 </template>
 
-<script>
-import Button from "../Form/Button";
-import UploadExplorer from "./UploadExplorer";
+<script lang="ts">
+import Button from "../Form/Button.vue";
+import UploadExplorer from "./UploadExplorer.vue";
 import Vue from "vue";
 // import ProgressBar from "../Progressbar";
 import PrettyBytes from "pretty-bytes";
-import RootFolder from "../rootFolder";
+import RootFolder from "../rootFolder.vue";
 import { UploadCloudIcon, ArrowUpIcon } from "vue-feather-icons";
-import Loader from "../Loader";
+import Loader from "../Loader.vue";
 import { Component } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 
@@ -124,7 +123,7 @@ export default class extends Vue {
   @Getter("getUploadPath") getUploadPath;
   @Getter("getUploadExplorerStatus") getUploadExplorerStatus;
   @Getter("getExplorerPath") getExplorerPath;
-  @Getter("canEnableClearBtn") canEnableClearBtn;
+  // @Getter("canEnableClearBtn") canEnableClearBtn;
   @Getter("getUploadPathFormatted") getUploadPathFormatted;
   @Getter("getJobDataById") getJobDataById;
 
@@ -133,7 +132,6 @@ export default class extends Vue {
   @Action("updateUploadExplorerStatus") updateUploadExplorerStatus;
   @Action("refreshFileExplorer") refreshFileExplorer;
   @Action("refetchData") refetchData;
-  @Action("updateUploadExplorerStatus") updateUploadExplorerStatus;
   @Action("closeModal") closeModal;
   @Action("addJob") addJob;
 

@@ -73,11 +73,6 @@ import Vue from "vue";
     FileIcon,
     Loader,
   },
-  watch: {
-    showSelected(newVal) {
-      this.selected = newVal;
-    },
-  },
 })
 export default class extends Vue {
   @Prop() name;
@@ -174,6 +169,12 @@ export default class extends Vue {
         id: this.id,
       });
     }
+  }
+
+  mounted() {
+    this.$watch("showSelected", function (newVal) {
+      this.selected = newVal;
+    });
   }
 }
 </script>

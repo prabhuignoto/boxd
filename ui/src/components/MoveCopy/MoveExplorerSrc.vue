@@ -1,17 +1,14 @@
 <template>
-  <!-- <Treeview
-    path
-    v-bind:onSelect="onSelect"
-    v-bind:entries="files.entries"
-    v-bind:handleSubfolderSelection="handleSubfolderSelection"
-    childTree="MoveExplorerDest"
-    skipQuery="true"
-  /> -->
-  <Tree />
+  <div class="tree-wrapper">
+    <Tree
+      v-on:selected="handleSelected"
+      id="$root"
+      v-on:fileSelected="handleFileSelected"
+    />
+  </div>
 </template>
 
 <script lang="ts">
-import Treeview from "../Treeview/Treeview.vue";
 import Tree from "../Tree/index.vue";
 import Vue from "vue";
 import FolderGQL from "../../graphql/folder";
@@ -19,43 +16,35 @@ import FolderGQL from "../../graphql/folder";
 import { Component, Prop } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 import { TreeNode } from "../../modules/tree";
-import { Dispatch } from "vuex";
 
 @Component({
   name: "MoveExplorerSrc",
   components: {
-    Treeview,
     Tree,
-  },
-  watch: {
-    getNodesByPath(newVal) {
-      console.log(newVal);
-    },
   },
   apollo: {
     files: {
       query: FolderGQL,
       fetchPolicy: "network-only",
-      skip() {
-        debugger;
-        return !!this.skipQuery;
-      },
       variables() {
         return {
-          path: this.path,
-          limit: 1000,
+          path: this.selectedPath,
+          limit: 100,
           cursor: "",
         };
       },
-      result({ loading, data: { files } }) {
-        if (!loading) {
-          debugger;
+      result({ loading, data }) {
+        if (!loading && data && !this.isLoadingMore) {
+          const {
+            files: { entries: listData },
+          } = data;
           this.addNodes({
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            nodes: (files.entries as any[]).map<TreeNode>(entry => ({
+            nodes: (listData as any[]).map<TreeNode>(entry => ({
               name: entry.name,
               id: entry.id,
               path: entry.path_lower,
+              type: entry.tag,
               serverModified: entry.server_modified,
               size: entry.size,
               hash: entry.content_hash,
@@ -77,7 +66,7 @@ export default class extends Vue {
   @Prop() actionName;
   @Prop() skipQuery;
 
-  @Getter("getNodesByPath") getNodesByPath: (path: string) => Dispatch;
+  @Getter("getNodesByPath") getNodesByPath: (path: string) => TreeNode[];
 
   selectedPath = this.path;
 
@@ -88,14 +77,20 @@ export default class extends Vue {
     this.moveResxSource(node.path);
   }
 
-  handleSubfolderSelection(path) {
+  handleSelected(event: Event, path: string) {
     this.selectedPath = path;
-    this.$apollo.queries.files.refresh();
     this.moveResxSource(path);
   }
 
-  mounted() {
-    this.getNodesByPath("/");
+  handleFileSelected(event: Event, path: string) {
+    this.moveResxSource(path);
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.tree-wrapper {
+  padding: 0 0.5rem;
+  width: 90%;
+}
+</style>

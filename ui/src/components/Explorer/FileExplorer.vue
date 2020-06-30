@@ -20,16 +20,10 @@ import { Component, Prop } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 
 @Component({
+  name: "FileExplorer",
   components: {
     Treeview,
   },
-  // watch: {
-  //   getRefreshFileExplorer({ path }) {
-  //     if (path === this.path) {
-  //       this.$apollo.queries.files.refresh();
-  //     }
-  //   },
-  // },
   apollo: {
     files: {
       query: FolderGQL,
@@ -42,10 +36,6 @@ import { Action, Getter } from "vuex-class";
         };
       },
       fetchPolicy: "network-only",
-      // result({ loading, data }) {
-      //   if (!loading && data.files && data.files.entries) {
-      //   }
-      // },
     },
   },
 })
@@ -56,7 +46,7 @@ export default class extends Vue {
   @Prop() path;
 
   @Getter("getExplorerPath") getExplorerPath;
-  @Getter("getRefreshFileExplorer") getRefreshFileExplorer;
+  // @Getter("getRefreshFileExplorer") getRefreshFileExplorer;
 
   @Action("clearList") clearList;
   @Action("updateTreeViewData") updateTreeViewData;

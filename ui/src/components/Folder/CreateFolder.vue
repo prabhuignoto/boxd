@@ -9,7 +9,6 @@
       />
     </div>
     <div class="create-folder-explorer-wrapper" v-if="!isCreateFolderExpHidden">
-      <RootFolder :onClick="handleRootFolder" />
       <CreateFolderExplorer path />
     </div>
     <div class="selected-path-wrapper">

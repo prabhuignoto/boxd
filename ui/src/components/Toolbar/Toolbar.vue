@@ -28,7 +28,7 @@
         buttonStyle="icon"
         size="large"
         title="Move/Copy"
-        name="Move or Copy"
+        name="Move / Copy"
       >
         <template slot="btn-icon">
           <CopyIcon />

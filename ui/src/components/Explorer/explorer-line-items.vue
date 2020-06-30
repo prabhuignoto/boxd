@@ -1,4 +1,4 @@
-<template>
+ <template>
   <div class="line-items-wrapper" v-if="items.length">
     <header class="line-items-header-wrapper">
       <ul class="line-items-header">

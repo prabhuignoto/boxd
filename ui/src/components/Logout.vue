@@ -40,7 +40,7 @@ export default class extends Vue {
       } catch (error) {
         console.error("Failed to logout.");
       }
-    }, 100000);
+    }, 1000);
   }
 }
 </script>
@@ -60,19 +60,11 @@ export default class extends Vue {
   display: flex;
   height: 2rem;
   justify-content: center;
-  width: 200px;
+  width: 250px;
 
   svg {
     height: 100%;
     width: 100%;
   }
-}
-
-.message {
-  background: #fff;
-  display: block;
-  font-family: Nunito, Open Sans, Arial, Helvetica, sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
 }
 </style>

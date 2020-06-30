@@ -75,13 +75,13 @@ import { TreeNode } from "../../modules/tree";
     NotificationsPopdown,
     UploadIcon,
   },
-  // watch: {
-  //   refetchStatus: function ({ status }) {
-  //     if (status) {
-  //       this.$apollo.queries.files.refresh();
-  //     }
-  //   },
-  // },
+  watch: {
+    refetchStatus: function ({ status }) {
+      if (status) {
+        this.$apollo.queries.files.refresh();
+      }
+    },
+  },
   apollo: {
     files: {
       query: FolderGQL,
@@ -99,7 +99,6 @@ import { TreeNode } from "../../modules/tree";
           } = data;
           this.clearList();
           this.updateListData({ listData, cursor, hasMore });
-          debugger;
           this.addNodes({
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             nodes: (listData as any[]).map<TreeNode>(entry => ({
