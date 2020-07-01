@@ -64,13 +64,14 @@ export default class extends Vue {
   @Action("addJob") addJob;
 
   @Getter("getBulkItems") getBulkItems;
-  @Getter("getBulkItems") getBulkItems;
   @Getter("getExplorerPath") getExplorerPath;
+
   handleBulkDelete() {
     this.addJob({
       jobType: "DELETE",
       data: {
         items: JSON.parse(JSON.stringify(this.getBulkItems)),
+        treeId: "explorer-main",
       },
     });
   }

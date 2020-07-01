@@ -1,7 +1,7 @@
 import { MutationTree, ActionTree, GetterTree, Module } from "vuex";
 import { RootState } from "@/store";
 
-interface ListState {
+export interface ListState {
   data: any[];
   cursor: string;
   hasMore: boolean;
@@ -58,6 +58,14 @@ const mutations: MutationTree<ListState> = {
   clearAllBulk(state) {
     state.bulkOps = [];
   },
+  updateBulkOpsType(state, { lockType }) {
+    state.bulkOps = state.bulkOps.map(x =>
+      Object.assign({}, x, {
+        lockType,
+      })
+    );
+  },
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   lockItems(state, { items, lockType, jobId }) {
     state.bulkOps = state.bulkOps.map(i => {
       if (items.indexOf(i.id) > -1) {
@@ -69,31 +77,32 @@ const mutations: MutationTree<ListState> = {
         return i;
       }
     });
-    state.data = state.data.map(item => {
-      if (items.indexOf(item.id) >= 0) {
-        return Object.assign({}, item, {
-          locked: true,
-          lockType,
-          jobId,
-        });
-      }
-      return item;
-    });
+    // state.data = state.data.map(item => {
+    //   if (items.indexOf(item.id) >= 0) {
+    //     return Object.assign({}, item, {
+    //       locked: true,
+    //       lockType,
+    //       jobId,
+    //     });
+    //   }
+    //   return item;
+    // });
   },
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   unLockItems(state, { jobId, failed }) {
     state.bulkOps = state.bulkOps.filter(f => f.jobId !== jobId);
-    state.data = state.data.map(item => {
-      const canHide = item.lockType === "MOVE" || item.lockType === "DELETE";
-      if (item.jobId && item.jobId === jobId) {
-        return Object.assign({}, item, {
-          locked: false,
-          lockType: null,
-          jobId: null,
-          hidden: !failed && canHide,
-        });
-      }
-      return item;
-    });
+    // state.data = state.data.map(item => {
+    //   const canHide = item.lockType === "MOVE" || item.lockType === "DELETE";
+    //   if (item.jobId && item.jobId === jobId) {
+    //     return Object.assign({}, item, {
+    //       locked: false,
+    //       lockType: null,
+    //       jobId: null,
+    //       hidden: !failed && canHide,
+    //     });
+    //   }
+    //   return item;
+    // });
   },
 };
 
@@ -172,16 +181,15 @@ const actions: ActionTree<ListState, RootState> = {
       failed,
     });
   },
+  updateBulkOpsType({ commit }, { lockType }) {
+    commit({
+      type: "updateBulkOpsType",
+      lockType,
+    });
+  },
 };
 
 const getters: GetterTree<ListState, RootState> = {
-  getDataList: state => {
-    if (state.searchResults.data.length > 0) {
-      return state.searchResults.data;
-    } else {
-      return state.data.filter(item => !item.hidden);
-    }
-  },
   getCursor: state => state.cursor,
   hasMoreData: state => state.hasMore,
   isUserSearching: state => state.search && state.searchResults.data.length > 0,

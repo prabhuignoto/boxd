@@ -19,7 +19,7 @@
       </ul>
     </header>
     <div class="line-items-container">
-      <div class="line-item-wrapper" v-for="file in items" :key="file.name">
+      <div class="line-item-wrapper" v-for="file in items" :key="file.id">
         <LineItem
           v-bind="file"
           v-on:selected="handleLineItemSelection"

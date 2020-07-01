@@ -51,8 +51,6 @@ import { Component } from "vue-property-decorator";
 })
 export default class extends Vue {
   @Getter("getAllJobs") getAllJobs;
-  @Getter("getAllRunningJobs") getAllRunningJobs;
-  @Getter("getAllCompletedJobs") getAllCompletedJobs;
   @Getter("getJobsEmpty") getJobsEmpty;
 
   @Action("clearAllJobs") clearAllJobs;

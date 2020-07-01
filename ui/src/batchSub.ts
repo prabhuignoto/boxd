@@ -1,24 +1,45 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import gql from "graphql-tag";
+import _ from "lodash";
 import uniqid from "uniqid";
-import { Job, Notification, SocketDataResponse } from "./subModels";
 import {
   VueApolloSubscriptionDefinition,
   VueApolloSubscriptionProperty,
 } from "vue-apollo/types/options";
+import { Dispatch } from "vuex";
+import { JobData, JobType } from "./modules/jobs";
+import { Notification, SocketDataResponse } from "./subModels";
 
 type SubscriptionDefinition = VueApolloSubscriptionDefinition & {
   result({ data: { T: SocketResponse } }: SocketDataResponse): void;
   showNotification(n: Notification): void;
-  completeJob(j: Job): void;
-  failedJob(j: Job): void;
+  completeJob(j: { id: string }): void;
+  failedJob(j: { id: string; reason?: string }): void;
 };
+
+interface Item {
+  id: string;
+  fromPath: string;
+  toPath: string;
+  pathLower: string;
+}
 
 type SubscriptionProperty = VueApolloSubscriptionProperty & {
   batchWorkComplete: SubscriptionDefinition & {
     getExplorerPath: string;
     refreshFileExplorer(n: { status: boolean; path: string }): void;
-    unLockItems(d: { jobId?: string; failed?: boolean }): void;
+    unLockItems(d: { jobId?: string; failed?: boolean }): Dispatch;
+    getJobDataById: (id?: string) => JobData;
+    addJob: (j: { jobType: JobType; data: unknown }) => Dispatch;
+    removeChildrenNodes: ({
+      treeId,
+      nodes,
+      fromPath,
+    }: {
+      treeId: string;
+      nodes: string[];
+      fromPath: string;
+    }) => Dispatch;
   };
   batchWorkRunning: SubscriptionDefinition;
   batchWorkFailed: SubscriptionDefinition & {
@@ -32,8 +53,10 @@ type SubscriptionProperty = VueApolloSubscriptionProperty & {
   folderAdded: SubscriptionDefinition & {
     refreshFileExplorer(n: { status: boolean; path: string }): void;
     getExplorerPath: string;
+    getJobDataById: (id?: string) => JobData;
     refetchData(b: boolean): void;
     unLockItems(d: { jobId?: string; failed: boolean }): void;
+    addJob: (j: { jobType: JobType; data: unknown }) => Dispatch;
   };
 };
 
@@ -62,10 +85,36 @@ export default {
       const uiJobId = batchWorkComplete.uiJobId;
       this.unLockItems({ jobId: uiJobId });
 
-      this.refreshFileExplorer({
-        status: true,
-        path: this.getExplorerPath,
-      });
+      const getPath = (path: string) => path.split("/").slice(0, -1).join("/");
+
+      const data: JobData = this.getJobDataById(uiJobId);
+      const items = data.items as Item[];
+      const item = _.first(items);
+
+      if (item && jobType === "move") {
+        const src = getPath(item.fromPath);
+        // const dest = getPath(item.toPath);
+
+        this.addJob({
+          jobType: JobType.LIST_FILES,
+          data: {
+            path: src,
+            treeId: "explorer-main",
+          },
+        });
+      } else if (item && jobType === "delete") {
+        const fromPath = getPath(item.pathLower ? item.pathLower : "/");
+        this.removeChildrenNodes({
+          treeId: data.treeId,
+          fromPath: fromPath ? fromPath : "/",
+          nodes: items.map(i => i.id),
+        });
+      }
+
+      // this.refreshFileExplorer({
+      //   status: true,
+      //   path: this.getExplorerPath,
+      // });
 
       if (status === "complete") {
         this.completeJob({ id: uiJobId });
@@ -150,14 +199,29 @@ export default {
       }
     `,
     result({ data: { folderAdded } }) {
-      debugger;
       if (folderAdded.success) {
-        this.completeJob({ id: folderAdded.uiJobId });
+        const jobId = folderAdded.uiJobId;
+        const jobData = this.getJobDataById(jobId);
+
+        // mark job as completed
+        this.completeJob({ id: jobId });
+
+        // show the notification
         this.showNotification({
           type: "info",
           id: uniqid("notification-msg-"),
           message: `Created ${folderAdded.name} successfully.`,
         });
+
+        this.addJob({
+          jobType: JobType.LIST_FILES,
+          data: {
+            path: jobData.path,
+            treeId: "explorer-main",
+          },
+        });
+
+        // refresh the explorer
         this.refetchData(true);
         this.refreshFileExplorer({
           status: true,

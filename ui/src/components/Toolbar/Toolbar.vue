@@ -80,7 +80,7 @@ export default class extends Vue {
       status: true,
       componentToRender: "CreateFolder",
       title: "Add folder",
-      width: 500,
+      width: 550,
     });
   }
   openMoveCopy() {
@@ -89,7 +89,7 @@ export default class extends Vue {
       status: true,
       componentToRender: "MoveCopy",
       title: "Move or Copy",
-      width: 500,
+      width: 550,
     });
   }
   openUploadWindow() {

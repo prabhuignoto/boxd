@@ -139,10 +139,10 @@ export default class extends Vue {
   isDropped = false;
   fileName = "";
   fileSize = 0;
-  file = null;
+  file;
   progress = 0;
   uploadStarted = false;
-  uploadSuccess = null;
+  uploadSuccess = false;
 
   get getUploadPathCustom() {
     return this.getUploadPath === "/$root" ? "/home" : this.getUploadPath;
@@ -222,21 +222,23 @@ export default class extends Vue {
 
   handleUpload() {
     try {
-      const formData = new FormData();
-      formData.append("file", this.file);
-      formData.append(
-        "uploadPath",
-        this.getUploadPath === "/$root" ? "" : this.getUploadPath
-      );
-      this.uploadStarted = true;
-      this.addJob({
-        jobType: "UPLOAD",
-        data: {
-          formData,
-        },
-      });
-      this.uploadSuccess = true;
-      this.closeModal();
+      if (this.file) {
+        const formData = new FormData();
+        formData.append("file", this.file);
+        formData.append(
+          "uploadPath",
+          this.getUploadPath === "/$root" ? "" : this.getUploadPath
+        );
+        this.uploadStarted = true;
+        this.addJob({
+          jobType: "UPLOAD",
+          data: {
+            formData,
+          },
+        });
+        this.uploadSuccess = true;
+        this.closeModal();
+      }
     } catch (error) {
       this.uploadSuccess = false;
       this.uploadStarted = false;
@@ -267,7 +269,7 @@ export default class extends Vue {
   }
 
   openInputFile() {
-    this.$el.querySelector("input[type=file]").click();
+    (this.$el.querySelector("input[type=file]") as HTMLElement).click();
   }
 
   // * all drag and drop events

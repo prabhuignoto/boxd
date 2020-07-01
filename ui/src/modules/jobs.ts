@@ -10,16 +10,18 @@ export enum JobType {
   MOVE = "MOVE",
   COPY = "COPY",
   DELETE = "DELETE",
+  LIST_FILES = "LIST_FILES",
 }
 
 export interface JobData {
   items?: {
     id: string;
-    path_lower?: string;
+    pathLower?: string;
   }[];
   formData?: FormData;
   path?: string;
   name?: string;
+  treeId: string;
 }
 
 export interface Job {
@@ -49,7 +51,7 @@ const mutations: MutationTree<JobState> = {
       startTime: null,
       endTime: null,
       data,
-      status: "not started",
+      status: "not_started",
       reason: "",
     });
   },
@@ -60,28 +62,43 @@ const mutations: MutationTree<JobState> = {
   },
   startJob(state, { id }) {
     if (id in state.jobs) {
-      const item = state.jobs[id];
-      item.running = true;
-      item.startTime = Date.now();
-      item.status = "running";
+      Vue.set(
+        state.jobs,
+        id,
+        Object.assign({}, state.jobs[id], {
+          running: true,
+          startTime: Date.now(),
+          status: "running",
+        })
+      );
     }
   },
   completeJob(state, { id }) {
     if (id in state.jobs) {
-      const item = state.jobs[id];
-      item.running = false;
-      item.endTime = Date.now();
-      item.status = "completed";
-      item.data = {};
+      Vue.set(
+        state.jobs,
+        id,
+        Object.assign({}, state.jobs[id], {
+          running: false,
+          endTime: Date.now(),
+          status: "completed",
+          data: {},
+        })
+      );
     }
   },
   failedJob(state, { id, reason }) {
     if (id in state.jobs) {
-      const item = state.jobs[id];
-      item.running = false;
-      item.endTime = Date.now();
-      item.status = "failed";
-      item.reason = reason;
+      Vue.set(
+        state.jobs,
+        id,
+        Object.assign({}, state.jobs[id], {
+          running: false,
+          endTime: Date.now(),
+          status: "failed",
+          reason,
+        })
+      );
     }
   },
   updateJob(state, { id, data }) {
@@ -148,7 +165,8 @@ const getters: GetterTree<JobState, RootState> = {
   getJobDataById: state => (id: string) => {
     return state.jobs[id].data;
   },
-  getAllJobs: state => state.jobs,
+  getAllJobs: state =>
+    _.filter(state.jobs, item => item.jobType !== JobType.LIST_FILES),
   getAllRunningJobs: state => _.filter(state.jobs, item => item.running),
   getAllCompletedJobs: state =>
     _.filter(state.jobs, item => item.status === "completed"),
@@ -156,7 +174,7 @@ const getters: GetterTree<JobState, RootState> = {
     return Object.keys(state.jobs)
       .filter(key => {
         const item = state.jobs[key];
-        return !item.running && !item.startTime;
+        return item.status === "not_started";
       })
       .map(id => state.jobs[id]);
   },

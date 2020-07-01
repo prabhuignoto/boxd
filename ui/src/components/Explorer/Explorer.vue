@@ -30,12 +30,7 @@
             <FolderPath />
           </div>
         </div>
-        <ExplorerLineItems :items="getDataList" />
-        <!-- <section class="load-more" v-if="hasMoreData && !isLoadingMore">
-          <a href="javascript:void(0);" @click="handleLoadMore"
-            >Show More ...</a
-          >
-        </section>-->
+        <ExplorerLineItems :items="items" />
         <div class="info-message" v-if="canShowWelcomeMessage">
           <span>You have no folders or files here.</span>
         </div>
@@ -50,7 +45,6 @@
 </template>
 
 <script lang="ts">
-import FolderGQL from "../../graphql/folder";
 import Toolbar from "../Toolbar/Toolbar.vue";
 import Account from "../Account.vue";
 import FolderPath from "../Path/FolderPath.vue";
@@ -62,7 +56,7 @@ import { UploadIcon } from "vue-feather-icons";
 
 import { Component } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
-import { TreeNode } from "../../modules/tree";
+import { JobType } from "../../modules/jobs";
 
 @Component({
   name: "Explorer",
@@ -75,48 +69,6 @@ import { TreeNode } from "../../modules/tree";
     NotificationsPopdown,
     UploadIcon,
   },
-  watch: {
-    refetchStatus: function ({ status }) {
-      if (status) {
-        this.$apollo.queries.files.refresh();
-      }
-    },
-  },
-  apollo: {
-    files: {
-      query: FolderGQL,
-      variables() {
-        return {
-          path: this.path,
-          limit: 50,
-          cursor: "",
-        };
-      },
-      result({ loading, data }) {
-        if (!loading && data && !this.isLoadingMore) {
-          const {
-            files: { cursor, entries: listData, hasMore },
-          } = data;
-          this.clearList();
-          this.updateListData({ listData, cursor, hasMore });
-          this.addNodes({
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            nodes: (listData as any[]).map<TreeNode>(entry => ({
-              name: entry.name,
-              id: entry.id,
-              path: entry.path_lower,
-              type: entry.tag,
-              serverModified: entry.server_modified,
-              size: entry.size,
-              hash: entry.content_hash,
-              children: [],
-            })),
-          });
-        }
-      },
-      fetchPolicy: "cache-and-network",
-    },
-  },
 })
 export default class extends Vue {
   files = [];
@@ -125,9 +77,9 @@ export default class extends Vue {
   notificationType = "";
   explorerClass = "";
   dragStart = false;
+  items = [];
 
   @Getter("getFileStatus") getFileStatus;
-  @Getter("getDataList") getDataList;
   @Getter("getCursor") getCursor;
   @Getter("hasMoreData") hasMoreData;
   @Getter("hasSearchResultsArrived") hasSearchResultsArrived;
@@ -157,9 +109,7 @@ export default class extends Vue {
   }
 
   get canShowWelcomeMessage() {
-    return (
-      this.getDataList.length < 1 && !this.$apollo.loading && !this.dragStart
-    );
+    return !this.$apollo.loading && !this.dragStart;
   }
 
   handleLoadMore() {
@@ -224,6 +174,28 @@ export default class extends Vue {
     if (classes.some(x => x === "drag-overlay")) {
       this.dragStart = false;
     }
+  }
+
+  mounted() {
+    this.$store.watch(
+      (state, getters) =>
+        getters.getNodesByPath("explorer-main", this.path ? this.path : "/"),
+      nodes => {
+        this.items = nodes;
+      }
+    );
+    this.$store.watch(
+      (state, getters) => getters.getExplorerPath,
+      path => {
+        this.addJob({
+          jobType: JobType.LIST_FILES,
+          data: {
+            path,
+            treeId: "explorer-main",
+          },
+        });
+      }
+    );
   }
 }
 </script>

@@ -20,6 +20,7 @@
           v-on:selected="handleNodeSelection"
           v-on:fileSelected="handleFileNode"
           isChild="true"
+          :treeId="treeId"
         />
       </div>
     </div>
@@ -65,6 +66,7 @@ export default class extends Vue {
   @Prop() node: TreeNode;
   @Prop() handleFolderSelection;
   @Prop() handleFileSelection;
+  @Prop() treeId;
 
   expanded = false;
   childrendRendered = false;
@@ -112,7 +114,7 @@ export default class extends Vue {
   }
 
   get canDisable() {
-    return this.loading;
+    return this.loading || this.node.locked;
   }
 }
 </script>
@@ -130,6 +132,7 @@ export default class extends Vue {
   justify-content: flex-start;
 
   &.disabled {
+    opacity: 0.75;
     pointer-events: none;
   }
 }
@@ -145,9 +148,9 @@ export default class extends Vue {
   align-items: center;
   color: #007ee5;
   display: flex;
-  height: 1.45rem;
+  height: 1.5rem;
   margin-right: 0.2rem;
-  width: 1.45rem;
+  width: 1.5rem;
 
   svg {
     height: 100%;
@@ -160,12 +163,12 @@ export default class extends Vue {
 }
 
 .folder-node {
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 400;
 }
 
 .file-node {
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 400;
 }
 

@@ -31,6 +31,7 @@ import DeleteFolder from "../components/Folder/DeleteFolder";
 import { Component } from "vue-property-decorator";
 import Vue from "vue";
 import { Action, Getter } from "vuex-class";
+import { JobType } from "../modules/jobs";
 
 @Component({
   name: "Dashboard",
@@ -63,6 +64,17 @@ export default class extends Vue {
   @Action("showNotification") showNotification;
   @Action("refreshFileExplorer") refreshFileExplorer;
   @Action("refetchData") refetchData;
+  @Action("addJob") addJob;
+
+  mounted() {
+    this.addJob({
+      jobType: JobType.LIST_FILES,
+      data: {
+        path: "",
+        treeId: "explorer-main",
+      },
+    });
+  }
 }
 </script>
 

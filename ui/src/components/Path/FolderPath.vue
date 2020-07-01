@@ -25,6 +25,7 @@ import Vue from "vue";
 
 import { Action } from "vuex-class";
 import { Component } from "vue-property-decorator";
+import { JobType } from "../../modules/jobs";
 
 @Component({
   name: "FolderPath",
@@ -33,6 +34,7 @@ export default class extends Vue {
   @Action("clearList") clearList;
   @Action("updatePath") updatePath;
   @Action("clearAllBulk") clearAllBulk;
+  @Action("addJob") addJob;
 
   handleNavigation(path, $evt) {
     $evt.preventDefault();
@@ -41,6 +43,13 @@ export default class extends Vue {
     this.clearAllBulk();
     this.clearList();
     this.updatePath(newPath);
+
+    this.addJob({
+      jobType: JobType.LIST_FILES,
+      data: {
+        path: newPath,
+      },
+    });
   }
 
   navToHome($evt) {

@@ -5,6 +5,7 @@
         :node="tNode"
         :handleFolderSelection="handleFolderSelection"
         :handleFileSelection="handleFileSelection"
+        :treeId="treeId"
       />
     </div>
   </div>
@@ -28,6 +29,7 @@ export default class extends Vue {
 
   @Prop() id: string;
   @Prop() isChild: boolean;
+  @Prop() treeId: string;
 
   handleFolderSelection(path: string) {
     this.$emit("selected", null, path);
@@ -39,7 +41,7 @@ export default class extends Vue {
 
   mounted() {
     this.$store.watch(
-      (state, getters) => getters.getChildNodesById(this.id),
+      (state, getters) => getters.getChildNodesById(this.treeId, this.id),
       nodes => {
         if (nodes && nodes.length) {
           this.nodes = nodes;

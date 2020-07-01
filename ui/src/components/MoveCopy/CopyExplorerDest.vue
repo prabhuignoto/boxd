@@ -1,63 +1,25 @@
 <template>
-  <!-- <Treeview
-    path
-    v-bind:onSelect="onSelect"
-    v-bind:entries="files.entries"
-    childTree="CopyExplorerDest"
-    hideFiles="true"
-    v-bind:handleSubfolderSelection="handleSubfolderSelection"
-  /> -->
   <div class="tree-wrapper">
-    <Tree v-on:selected="handleSelected" id="$root" />
+    <Tree
+      v-on:selected="handleSelected"
+      id="$root"
+      treeId="copy-explorer-dest"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import Tree from "../Tree/index.vue";
 import Vue from "vue";
-import FolderGQL from "../../graphql/folder";
 
 import { Component, Prop } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
-import { TreeNode } from "../../modules/tree";
+import { JobType } from "../../modules/jobs";
 
 @Component({
   name: "CopyExplorerDest",
   components: {
     Tree,
-  },
-  apollo: {
-    files: {
-      query: FolderGQL,
-      variables() {
-        return {
-          path: this.selectedPath,
-          cursor: "",
-          limit: 1000,
-        };
-      },
-      result({ loading, data }) {
-        if (!loading && data && !this.isLoadingMore) {
-          const {
-            files: { entries: listData },
-          } = data;
-          this.addNodes({
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            nodes: (listData as any[]).map<TreeNode>(entry => ({
-              name: entry.name,
-              id: entry.id,
-              path: entry.path_lower,
-              type: entry.tag,
-              serverModified: entry.server_modified,
-              size: entry.size,
-              hash: entry.content_hash,
-              children: [],
-            })),
-            toPath: this.selectedPath,
-          });
-        }
-      },
-    },
   },
 })
 export default class extends Vue {
@@ -67,7 +29,6 @@ export default class extends Vue {
 
   @Prop() path;
   @Prop() actionName;
-  selectedPath = this.path;
 
   @Getter("getBulkMode") getBulkMode;
   @Getter("getBulkItems") getBulkItems;
@@ -76,6 +37,7 @@ export default class extends Vue {
   @Action("setCopyResxBulk") setCopyResxBulk;
   @Action("updateDestForCopyResxBulk") updateDestForCopyResxBulk;
   @Action("addNodes") addNodes;
+  @Action("addJob") addJob;
 
   onSelect(node) {
     this.copyResxDest(node.path);
@@ -104,8 +66,16 @@ export default class extends Vue {
   }
 
   handleSelected(event: Event, path: string) {
-    this.selectedPath = path;
     this.copyResxDest(path);
+
+    this.addJob({
+      jobType: JobType.LIST_FILES,
+      data: {
+        path,
+        treeId: "copy-explorer-dest",
+      },
+    });
+
     if (this.getBulkMode) {
       this.setCopyResxBulk(
         this.getBulkItems.map(item => ({
@@ -115,6 +85,16 @@ export default class extends Vue {
       );
       this.updateDestForCopyResxBulk(path);
     }
+  }
+
+  mounted() {
+    this.addJob({
+      jobType: JobType.LIST_FILES,
+      data: {
+        path: "",
+        treeId: "copy-explorer-dest",
+      },
+    });
   }
 }
 </script>

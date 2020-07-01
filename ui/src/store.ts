@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import File from "./modules/file";
 import Folder from "./modules/folder";
-import List from "./modules/list";
+import List, { ListState } from "./modules/list";
 import MoveCopy from "./modules/move-copy";
 import Notification from "./modules/notification";
 import Upload from "./modules/upload";
@@ -32,6 +32,7 @@ export interface RootState {
     status: boolean;
   };
   workFlowOrigin: string;
+  list: ListState;
 }
 
 export default new Vuex.Store({
@@ -65,10 +66,18 @@ export default new Vuex.Store({
       width: 450,
       status: false,
     },
-    treeView: {
-      data: [],
-    },
     workFlowOrigin: "",
+    list: {
+      data: [],
+      cursor: "",
+      hasMore: false,
+      search: "",
+      searchResults: {
+        data: [],
+      },
+      refetchStatus: false,
+      bulkOps: [],
+    },
   },
   mutations: {
     updatePath(state, { path }) {
@@ -94,13 +103,6 @@ export default new Vuex.Store({
     },
     updateModalTitle(state, { title }) {
       state.modal.title = title;
-    },
-    updateTreeViewData(state, { data }) {
-      state.treeView.data = data.map(x =>
-        Object.assign({}, x, {
-          selected: false,
-        })
-      );
     },
     updateWorkflowOrigin(state, { origin }) {
       state.workFlowOrigin = origin;
@@ -198,7 +200,6 @@ export default new Vuex.Store({
     getDisableCloseBtn: state => state.modal.disableCloseBtn,
     getWorkflowOrigin: state => state.workFlowOrigin,
     getRefreshFileExplorer: state => {
-      debugger;
       return state.fileExplorer.refresh;
     },
     getModalWidth: state => state.modal.width,

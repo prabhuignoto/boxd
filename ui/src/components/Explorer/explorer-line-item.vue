@@ -21,14 +21,14 @@
           href="javascript:void(0);"
           v-if="isFolder"
           class="folder-link"
-          @click="handleNavigation(path_lower, $event)"
+          @click="handleNavigation(path, $event)"
           >{{ name }}</a
         >
         <a
           href="javascript:void(0);"
           v-if="isFile"
           class="file-link"
-          @click="handleFile(path_lower)"
+          @click="handleFile(path)"
           >{{ name }}</a
         >
       </span>
@@ -37,7 +37,7 @@
     <div class="last-modified explorer-cell">{{ serverModifiedFormatted }}</div>
     <div class="controls explorer-cell">
       <div class="popdown-container" v-if="!locked">
-        <LineItemPopdown :isFile="isFile" :pathLower="path_lower" />
+        <LineItemPopdown :isFile="isFile" :pathLower="path" />
       </div>
       <div v-if="locked" class="status-label">
         <Loader type="throb" :message="getStatusLabel" />
@@ -61,6 +61,7 @@ import Loader from "../Loader.vue";
 import { Component, Prop } from "vue-property-decorator";
 import { Action } from "vuex-class";
 import Vue from "vue";
+import { JobType } from "../../modules/jobs";
 
 @Component({
   name: "ExplorerLineItem",
@@ -77,10 +78,10 @@ import Vue from "vue";
 export default class extends Vue {
   @Prop() name;
   @Prop() size;
-  @Prop() contentHash;
-  @Prop() tag;
-  @Prop() server_modified;
-  @Prop() path_lower;
+  @Prop() hash;
+  @Prop() type;
+  @Prop() serverModified;
+  @Prop() path;
   @Prop() id;
   @Prop() locked;
   @Prop() lockType;
@@ -98,6 +99,7 @@ export default class extends Vue {
   @Action("updateFileModified") updateFileModified;
   @Action("clearList") clearList;
   @Action("clearAllBulk") clearAllBulk;
+  @Action("addJob") addJob;
 
   get getStatusLabel() {
     if (this.lockType === "MOVE") {
@@ -111,11 +113,11 @@ export default class extends Vue {
   }
 
   get isFolder() {
-    return this.tag === "folder";
+    return this.type === "folder";
   }
 
   get isFile() {
-    return this.tag === "file";
+    return this.type === "file";
   }
 
   get prettySize() {
@@ -123,8 +125,8 @@ export default class extends Vue {
   }
 
   get serverModifiedFormatted() {
-    return this.server_modified
-      ? DateTime.fromISO(this.server_modified).toLocaleString(
+    return this.serverModified
+      ? DateTime.fromISO(this.serverModified).toLocaleString(
           DateTime.DATETIME_MED
         )
       : "";
@@ -139,6 +141,13 @@ export default class extends Vue {
     this.clearAllBulk();
     this.clearList();
     this.updatePath(path);
+
+    this.addJob({
+      jobType: JobType.LIST_FILES,
+      data: {
+        path,
+      },
+    });
   }
 
   handleFile(path) {
@@ -157,15 +166,15 @@ export default class extends Vue {
     if (this.selected) {
       this.$emit("selected", {
         name: this.name,
-        contentHash: this.contentHash,
-        pathLower: this.path_lower,
+        contentHash: this.hash,
+        pathLower: this.path,
         id: this.id,
       });
     } else {
       this.$emit("deselected", {
         name: this.name,
-        contentHash: this.contentHash,
-        pathLower: this.path_lower,
+        contentHash: this.hash,
+        pathLower: this.path,
         id: this.id,
       });
     }
