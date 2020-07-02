@@ -49,7 +49,7 @@
     "scramjet": "^4.30.2",
     "subscriptions-transport-ws": "^0.9.16",
     "ts-node": "^8.10.2",
-    "typescript": "^3.9.5",
+    "typescript": "^3.9.6",
     "winston": "^3.3.3"
   },
   "scripts": {

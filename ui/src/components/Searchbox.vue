@@ -61,15 +61,11 @@ export default class extends Vue {
   term = "";
 
   @Action("updateSearch") updateSearch;
-  @Action("clearSearch") clearSearch;
-  @Action("clearList") clearList;
-  @Action("refetchData") refetchData;
 
   handleSearch({ keyCode, target }) {
     if (keyCode === 13 && target.value !== "") {
       this.term = target.value;
       this.skipQuery = false;
-      this.clearList();
       this.$nextTick(() => {
         this.updateSearch(target.value);
       });
@@ -79,8 +75,6 @@ export default class extends Vue {
   handleClear() {
     this.skipQuery = true;
     this.term = "";
-    this.clearSearch();
-    this.refetchData(true);
   }
 }
 </script>

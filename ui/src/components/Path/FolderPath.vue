@@ -31,7 +31,6 @@ import { JobType } from "../../modules/jobs";
   name: "FolderPath",
 })
 export default class extends Vue {
-  @Action("clearList") clearList;
   @Action("updatePath") updatePath;
   @Action("clearAllBulk") clearAllBulk;
   @Action("addJob") addJob;
@@ -41,7 +40,6 @@ export default class extends Vue {
     const pathArr = this.folderPath;
     const newPath = pathArr.slice(0, pathArr.indexOf(path) + 1).join("/");
     this.clearAllBulk();
-    this.clearList();
     this.updatePath(newPath);
 
     this.addJob({
@@ -54,7 +52,6 @@ export default class extends Vue {
 
   navToHome($evt) {
     $evt.preventDefault();
-    this.clearList();
     this.$store.dispatch("updatePath", "");
   }
 

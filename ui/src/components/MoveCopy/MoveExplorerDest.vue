@@ -31,7 +31,7 @@ export default class extends Vue {
   };
 
   @Getter("getBulkMode") getBulkMode;
-  @Getter("getBulkItems") getBulkItems;
+  @Getter("getActiveBulkRecords") getActiveBulkRecords;
 
   @Action("moveResxDest") moveResxDest;
   @Action("updateDestForMoveResxBulk") updateDestForMoveResxBulk;
@@ -51,7 +51,7 @@ export default class extends Vue {
     this.moveResxDest(path);
     if (this.getBulkMode) {
       this.setMoveResxBulk(
-        this.getBulkItems.map(item => ({
+        this.getActiveBulkRecords.map(item => ({
           fromPath: item.pathLower,
           id: item.id,
         }))

@@ -8,7 +8,7 @@
         class="explorer-toolbar-item copy"
         title="Delete Selected"
         @click="handleBulkDelete"
-        v-if="getBulkItems.length"
+        v-if="getActiveBulkRecords.length"
       >
         <i>
           <TrashIcon />
@@ -17,7 +17,7 @@
       <li
         class="explorer-toolbar-item trash"
         title="Copy Selected"
-        v-if="getBulkItems.length"
+        v-if="getActiveBulkRecords.length"
         @click="handleBulkCopy"
       >
         <i>
@@ -27,7 +27,7 @@
       <li
         class="explorer-toolbar-item move"
         title="Move Selected"
-        v-if="getBulkItems.length"
+        v-if="getActiveBulkRecords.length"
         @click="handleBulkMove"
       >
         <i>
@@ -63,14 +63,14 @@ export default class extends Vue {
   @Action("updateMoveCopyMode") updateMoveCopyMode;
   @Action("addJob") addJob;
 
-  @Getter("getBulkItems") getBulkItems;
+  @Getter("getActiveBulkRecords") getActiveBulkRecords;
   @Getter("getExplorerPath") getExplorerPath;
 
   handleBulkDelete() {
     this.addJob({
       jobType: "DELETE",
       data: {
-        items: JSON.parse(JSON.stringify(this.getBulkItems)),
+        items: this.getActiveBulkRecords,
         treeId: "explorer-main",
       },
     });

@@ -32,7 +32,7 @@
         </div>
         <ExplorerLineItems :items="items" />
         <div class="info-message" v-if="canShowWelcomeMessage">
-          <span>You have no folders or files here.</span>
+          <span>Drop your files here to upload</span>
         </div>
       </section>
     </div>
@@ -80,19 +80,10 @@ export default class extends Vue {
   items = [];
 
   @Getter("getFileStatus") getFileStatus;
-  @Getter("getCursor") getCursor;
-  @Getter("hasMoreData") hasMoreData;
   @Getter("hasSearchResultsArrived") hasSearchResultsArrived;
-  @Getter("isUserSearching") isUserSearching;
-  @Getter("searchCount") searchCount;
   @Getter("getExplorerPath") getExplorerPath;
 
   @Action("updatePath") updatePath;
-  @Action("updateListData") updateListData;
-  @Action("clearList") clearList;
-  @Action("clearSearch") clearSearch;
-  @Action("refetchData") refetchData;
-  @Action("removeItemsFromList") removeItemsFromList;
   @Action("addJob") addJob;
   @Action("addNodes") addNodes;
 
@@ -110,30 +101,6 @@ export default class extends Vue {
 
   get canShowWelcomeMessage() {
     return !this.$apollo.loading && !this.dragStart;
-  }
-
-  handleLoadMore() {
-    this.isLoadingMore = true;
-    this.$apollo.queries.files.fetchMore({
-      variables: {
-        cursor: this.getCursor,
-        limit: 10,
-        path: this.path,
-      },
-      updateQuery: (previousResult, { fetchMoreResult }) => {
-        const {
-          files: { cursor, entries: listData, hasMore },
-        } = fetchMoreResult;
-        this.updateListData({ listData, cursor, hasMore });
-        this.isLoadingMore = false;
-      },
-    });
-  }
-
-  handleNavBackToExplorer() {
-    this.clearSearch();
-    this.clearList();
-    this.refetchData(true);
   }
 
   handleDrop(ev) {

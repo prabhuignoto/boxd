@@ -1,16 +1,16 @@
- <template>
+<template>
   <div class="line-items-wrapper" v-if="items.length">
     <header class="line-items-header-wrapper">
       <ul class="line-items-header">
         <li class="line-items-header-item bulk-selection-button-col">
-          <div
+          <!-- <div
             class="bulk-selection-button"
             @click="handleBulkSelection"
             :class="{ selected: bulkSelected, disabled: getJobsActive }"
           >
             <SquareIcon v-if="!bulkSelected" />
             <CheckSquareIcon v-if="bulkSelected" />
-          </div>
+          </div> -->
         </li>
         <li class="line-items-header-item name">Name</li>
         <li class="line-items-header-item">Size</li>
@@ -55,10 +55,11 @@ export default class extends Vue {
   @Action("addItemForBulk") addItemForBulk;
   @Action("removeItemFromBulk") removeItemFromBulk;
   @Action("addItemsForBulk") addItemsForBulk;
-  @Action("removeItemsFromBulk") removeItemsFromBulk;
 
   handleLineItemSelection(data) {
-    this.addItemForBulk(data);
+    this.addItemForBulk({
+      item: data,
+    });
   }
 
   handleLineItemDeselection(data) {
@@ -77,7 +78,7 @@ export default class extends Vue {
         )
       );
     } else {
-      this.removeItemsFromBulk();
+      // this.removeItemsFromBulk();
     }
   }
 }

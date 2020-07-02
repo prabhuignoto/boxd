@@ -31,7 +31,7 @@ export default class extends Vue {
   @Prop() actionName;
 
   @Getter("getBulkMode") getBulkMode;
-  @Getter("getBulkItems") getBulkItems;
+  @Getter("getActiveBulkRecords") getActiveBulkRecords;
 
   @Action("copyResxDest") copyResxDest;
   @Action("setCopyResxBulk") setCopyResxBulk;
@@ -43,7 +43,7 @@ export default class extends Vue {
     this.copyResxDest(node.path);
     if (this.getBulkMode) {
       this.setCopyResxBulk(
-        this.getBulkItems.map(item => ({
+        this.getActiveBulkRecords.map(item => ({
           fromPath: item.pathLower,
           id: item.id,
         }))
@@ -56,7 +56,7 @@ export default class extends Vue {
     this.copyResxDest(path);
     if (this.getBulkMode) {
       this.setCopyResxBulk(
-        this.getBulkItems.map(item => ({
+        this.getActiveBulkRecords.map(item => ({
           fromPath: item.pathLower,
           id: item.id,
         }))
@@ -78,7 +78,7 @@ export default class extends Vue {
 
     if (this.getBulkMode) {
       this.setCopyResxBulk(
-        this.getBulkItems.map(item => ({
+        this.getActiveBulkRecords.map(item => ({
           fromPath: item.pathLower,
           id: item.id,
         }))

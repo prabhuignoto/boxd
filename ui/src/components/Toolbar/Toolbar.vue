@@ -70,7 +70,6 @@ export default class extends Vue {
   @Action("updateModalState") updateModalState;
   @Action("updateWorkflowOrigin") updateWorkflowOrigin;
   @Action("updatePath") updatePath;
-  @Action("clearList") clearList;
 
   @Getter("getExplorerPath") getExplorerPath: string;
 
@@ -80,7 +79,7 @@ export default class extends Vue {
       status: true,
       componentToRender: "CreateFolder",
       title: "Add folder",
-      width: 550,
+      width: 580,
     });
   }
   openMoveCopy() {
@@ -89,21 +88,20 @@ export default class extends Vue {
       status: true,
       componentToRender: "MoveCopy",
       title: "Move or Copy",
-      width: 550,
+      width: 580,
     });
-  }
+  }k
   openUploadWindow() {
     this.updateWorkflowOrigin("toolbar");
     this.updateModalState({
       status: true,
       componentToRender: "UploadWindow",
       title: "Upload",
-      width: 550,
+      width: 580,
     });
   }
   openHome() {
     if (this.getExplorerPath !== "") {
-      this.clearList();
       this.updatePath("");
     }
   }

@@ -131,7 +131,6 @@ export default class extends Vue {
   @Action("uploadFile") uploadFile;
   @Action("updateUploadExplorerStatus") updateUploadExplorerStatus;
   @Action("refreshFileExplorer") refreshFileExplorer;
-  @Action("refetchData") refetchData;
   @Action("closeModal") closeModal;
   @Action("addJob") addJob;
 

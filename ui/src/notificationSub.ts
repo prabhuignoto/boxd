@@ -19,7 +19,6 @@ interface NotificationSub {
     query: DocumentNode;
     result({ data: { resxMoved: SocketResponse } }: SocketDataResponse): void;
     showNotification(n: Notification): void;
-    refetchData(b: boolean): void;
     refreshFileExplorer(n: { status: boolean; path: string }): void;
     getExplorerPath: string;
   };
@@ -99,7 +98,6 @@ export default {
           id: uniqid("notification-msg-"),
           message: `Moved ${resxMoved.name.split("/").pop()} successfully.`,
         });
-        this.refetchData(true);
         this.refreshFileExplorer({
           status: true,
           path: this.getExplorerPath,

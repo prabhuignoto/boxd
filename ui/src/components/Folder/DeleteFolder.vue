@@ -56,10 +56,8 @@ export default class extends Vue {
   @Action("updateModalState") updateModalState;
   @Action("deleteFolder") deleteFolder;
   @Action("updatePath") updatePath;
-  @Action("refetchData") refetchData;
   @Action("refreshFileExplorer") refreshFileExplorer;
   @Action("removeItemFromBulk") removeItemFromBulk;
-  @Action("removeFromList") removeFromList;
 
   get deletePath() {
     return this.$store.getters.deletePath;
@@ -107,7 +105,6 @@ export default class extends Vue {
         });
         const newPathArr = this.getExplorerPath.split("/").slice(0);
         newPathArr.pop();
-        this.removeFromList(this.deletePath);
         // this.removeItemFromBulk({
         //   path_lower: this.deletePath,
         // });

@@ -48,9 +48,10 @@ const actions: ActionTree<TreeState, RootState> = {
       fromPath,
     });
   },
-  deleteNodes({ commit }, { nodes, fromPath }) {
+  deleteNodes({ commit }, { treeId, nodes, fromPath }) {
     commit({
-      type: "deleteNode",
+      type: "deleteNodes",
+      treeId,
       nodes,
       fromPath,
     });
@@ -182,7 +183,10 @@ const mutations: MutationTree<TreeState> = {
     Vue.set(
       state.trees,
       treeId,
-      _.reject(item => nodes.indexOf(item.id) >= 0)
+      _.chain(state.trees[treeId])
+        .reject(item => nodes.indexOf(item.id) >= 0)
+        .keyBy("id")
+        .value()
     );
 
     const parentNode = _.find(
@@ -195,7 +199,7 @@ const mutations: MutationTree<TreeState> = {
         state.trees[treeId],
         parentNode.id,
         Object.assign({}, parentNode, {
-          children: _.intersection(nodes, parentNode.children),
+          children: _.difference(parentNode.children, nodes),
         })
       );
     }
@@ -208,7 +212,6 @@ const mutations: MutationTree<TreeState> = {
       fromPath,
     }: { treeId: string; nodes: string[]; fromPath: string }
   ) {
-    debugger;
     const parentNode = _.find(
       state.trees[treeId],
       item => item.path === fromPath
@@ -233,7 +236,8 @@ const getters: GetterTree<TreeState, RootState> = {
     path: string
   ) => {
     const tree = state.trees[treeId];
-    const activeBulkOps = rootState.list.bulkOps;
+    const activeBulkOps = rootStateGetters.getAllTreeNodeItems.map(x => x.id);
+    debugger;
 
     if (tree) {
       const cNodes = _.chain(tree)
@@ -242,7 +246,8 @@ const getters: GetterTree<TreeState, RootState> = {
         .value();
       return cNodes.map(cNode =>
         Object.assign({}, tree[cNode], {
-          locked: activeBulkOps.some(x => x.id === cNode && !!x.lockType),
+          locked: activeBulkOps.some(x => x === cNode),
+          lockType: rootStateGetters.getLockType(cNode),
         })
       );
     }
@@ -253,7 +258,16 @@ const getters: GetterTree<TreeState, RootState> = {
     id: string
   ) => {
     const tree = state.trees[treeId];
-    const activeBulkOps = rootState.list.bulkOps;
+    const activeTreeNodeItems = rootStateGetters.getAllTreeNodeItems.map(
+      x => x.id
+    );
+    const activeBulkOps = rootStateGetters.getActiveBulkRecords.map(
+      item => item.id
+    );
+    const skipNodes = _.chain(activeTreeNodeItems)
+      .concat(activeBulkOps)
+      .uniq()
+      .value();
 
     if (tree) {
       const parentNode = _.find(tree, item => item.id === id);
@@ -262,7 +276,7 @@ const getters: GetterTree<TreeState, RootState> = {
         return parentNode.children.map(child =>
           Object.assign({}, tree[child], {
             children: tree[child].children.map(c => tree[c]),
-            locked: activeBulkOps.some(x => x.id === child),
+            locked: skipNodes.some(x => x === child),
           })
         );
       } else {

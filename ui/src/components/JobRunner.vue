@@ -12,7 +12,7 @@ import _ from "lodash";
 
 import { Component } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
-import { TreeNode } from "../modules/tree";
+import { TreeNode, LockType } from "../modules/tree";
 
 interface Methods {
   runDeleteJob(j: Job): void;
@@ -37,12 +37,11 @@ export default class extends Vue {
   @Action("lockItems") lockItems;
   @Action("unLockItems") unLockItems;
   @Action("refreshFileExplorer") refreshFileExplorer;
-  @Action("refetchData") refetchData;
   @Action("addNodes") addNodes;
   @Action("deleteNodes") deleteNodes;
-  @Action("removeChildrenNodes") removeChildrenNodes;
   @Action("addJob") addJob;
-  @Action("updateBulkOpsType") updateBulkOpsType;
+  @Action("startBulkOps") startBulkOps;
+  @Action("stopBulkOps") stopBulkOps;
 
   @Getter("getExplorerPath") getExplorerPath;
   @Getter("getJobDataById") getJobDataById;
@@ -81,13 +80,9 @@ export default class extends Vue {
     const items = job.data && job.data.items;
     try {
       if (items) {
-        // this.lockItems({
-        //   items: items.map(item => item.id),
-        //   lockType: "DELETE",
-        //   jobId: job.id,
-        // });
-        this.updateBulkOpsType({
-          lockType: "DELETE",
+        this.startBulkOps({
+          jobId: job.id,
+          lockType: LockType.DELETE,
         });
         await this.$apollo.mutate({
           mutation: DeleteBulkGQL,
@@ -100,7 +95,7 @@ export default class extends Vue {
         });
       }
     } catch (error) {
-      items && this.unLockItems({ items: items.map(item => item.id) });
+      this.stopBulkOps({ jobId: job.id });
       this.failedJob({
         id: job.id,
         reason: error,
@@ -113,10 +108,9 @@ export default class extends Vue {
       job.data && job.data.items;
     try {
       if (items) {
-        this.lockItems({
-          items: items.map(item => item.id),
-          lockType: "MOVE",
+        this.startBulkOps({
           jobId: job.id,
+          lockType: LockType.MOVE,
         });
         await this.$apollo.mutate({
           mutation: MoveBulkGQL,
@@ -130,7 +124,7 @@ export default class extends Vue {
         });
       }
     } catch (error) {
-      items && this.unLockItems({ jobId: job.id });
+      this.stopBulkOps({ jobId: job.id });
       this.failedJob({
         id: job.id,
         reason: error,
@@ -143,10 +137,9 @@ export default class extends Vue {
       job.data && job.data.items;
     try {
       if (items) {
-        this.lockItems({
-          items: items.map(item => item.id),
-          lockType: "COPY",
+        this.startBulkOps({
           jobId: job.id,
+          lockType: LockType.COPY,
         });
         await this.$apollo.mutate({
           mutation: CopyBulkGQL,
@@ -158,19 +151,9 @@ export default class extends Vue {
             },
           },
         });
-        const item = _.first(items);
-
-        if (item) {
-          // this.addJob({
-          //   jobType: JobType.LIST_FILES,
-          //   data: {
-          //     path: item.toPath.split("/").slice(0, -1).join("/"),
-          //   },
-          // });
-        }
       }
     } catch (error) {
-      items && this.unLockItems({ items: items.map(item => item.id) });
+      this.stopBulkOps({ jobId: job.id });
       this.failedJob({
         id: job.id,
         reason: error,

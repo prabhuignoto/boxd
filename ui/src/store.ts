@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import File from "./modules/file";
 import Folder from "./modules/folder";
-import List, { ListState } from "./modules/list";
+import Bulk, { BulkState } from "./modules/bulk";
 import MoveCopy from "./modules/move-copy";
 import Notification from "./modules/notification";
 import Upload from "./modules/upload";
@@ -32,7 +32,7 @@ export interface RootState {
     status: boolean;
   };
   workFlowOrigin: string;
-  list: ListState;
+  list: BulkState;
 }
 
 export default new Vuex.Store({
@@ -41,7 +41,7 @@ export default new Vuex.Store({
     folder: Folder,
     upload: Upload,
     file: File,
-    list: List,
+    bulk: Bulk,
     notification: Notification,
     jobs: Jobs,
     tree: Tree,
@@ -68,15 +68,8 @@ export default new Vuex.Store({
     },
     workFlowOrigin: "",
     list: {
-      data: [],
-      cursor: "",
-      hasMore: false,
-      search: "",
-      searchResults: {
-        data: [],
-      },
-      refetchStatus: false,
-      bulkOps: [],
+      activeRecords: [],
+      bulkOps: {},
     },
   },
   mutations: {

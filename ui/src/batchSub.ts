@@ -28,10 +28,10 @@ type SubscriptionProperty = VueApolloSubscriptionProperty & {
   batchWorkComplete: SubscriptionDefinition & {
     getExplorerPath: string;
     refreshFileExplorer(n: { status: boolean; path: string }): void;
-    unLockItems(d: { jobId?: string; failed?: boolean }): Dispatch;
     getJobDataById: (id?: string) => JobData;
     addJob: (j: { jobType: JobType; data: unknown }) => Dispatch;
-    removeChildrenNodes: ({
+    stopBulkOps: ({ jobId: string }) => Dispatch;
+    deleteNodes: ({
       treeId,
       nodes,
       fromPath,
@@ -43,19 +43,16 @@ type SubscriptionProperty = VueApolloSubscriptionProperty & {
   };
   batchWorkRunning: SubscriptionDefinition;
   batchWorkFailed: SubscriptionDefinition & {
-    unLockItems(d: { jobId?: string; failed: boolean }): void;
+    stopBulkOps: ({ jobId: string }) => Dispatch;
   };
   uploadCompleted: SubscriptionDefinition & {
     refreshFileExplorer(n: { status: boolean; path: string }): void;
     getExplorerPath: string;
-    refetchData(b: boolean): void;
   };
   folderAdded: SubscriptionDefinition & {
     refreshFileExplorer(n: { status: boolean; path: string }): void;
     getExplorerPath: string;
     getJobDataById: (id?: string) => JobData;
-    refetchData(b: boolean): void;
-    unLockItems(d: { jobId?: string; failed: boolean }): void;
     addJob: (j: { jobType: JobType; data: unknown }) => Dispatch;
   };
 };
@@ -83,7 +80,6 @@ export default {
       const jobType = batchWorkComplete.job_type;
       const status = batchWorkComplete.status;
       const uiJobId = batchWorkComplete.uiJobId;
-      this.unLockItems({ jobId: uiJobId });
 
       const getPath = (path: string) => path.split("/").slice(0, -1).join("/");
 
@@ -93,8 +89,6 @@ export default {
 
       if (item && jobType === "move") {
         const src = getPath(item.fromPath);
-        // const dest = getPath(item.toPath);
-
         this.addJob({
           jobType: JobType.LIST_FILES,
           data: {
@@ -104,17 +98,15 @@ export default {
         });
       } else if (item && jobType === "delete") {
         const fromPath = getPath(item.pathLower ? item.pathLower : "/");
-        this.removeChildrenNodes({
+        this.deleteNodes({
           treeId: data.treeId,
           fromPath: fromPath ? fromPath : "/",
           nodes: items.map(i => i.id),
         });
+        this.stopBulkOps({ jobId: uiJobId });
+      } else {
+        this.stopBulkOps({ jobId: uiJobId });
       }
-
-      // this.refreshFileExplorer({
-      //   status: true,
-      //   path: this.getExplorerPath,
-      // });
 
       if (status === "complete") {
         this.completeJob({ id: uiJobId });
@@ -178,7 +170,7 @@ export default {
       // const status = batchWorkFailed.status;
       const uiJobId = batchWorkFailed.uiJobId;
 
-      this.unLockItems({ jobId: uiJobId, failed: true });
+      this.stopBulkOps({ jobId: uiJobId });
       this.failedJob({ id: uiJobId });
 
       this.showNotification({
@@ -222,7 +214,6 @@ export default {
         });
 
         // refresh the explorer
-        this.refetchData(true);
         this.refreshFileExplorer({
           status: true,
           path: this.getExplorerPath,
@@ -257,7 +248,6 @@ export default {
           message: `Uploaded ${fileUploaded.fileName} successfully.`,
         });
 
-        this.refetchData(true);
         this.refreshFileExplorer({
           status: true,
           path: this.getExplorerPath,

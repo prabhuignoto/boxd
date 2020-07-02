@@ -47,7 +47,6 @@ export default class extends Vue {
   @Action("clearMoveResx") clearMoveResx;
   @Action("clearCopyResx") clearCopyResx;
   @Action("updateModalState") updateModalState;
-  @Action("refetchData") refetchData;
   @Action("refreshFileExplorer") refreshFileExplorer;
   @Action("updateModalTitle") updateModalTitle;
   @Action("clearMoveCopyState") clearMoveCopyState;
@@ -90,6 +89,7 @@ export default class extends Vue {
             jobType: "COPY",
             data: {
               items: JSON.parse(JSON.stringify(this.getCopyResourceBulk)),
+              treeId: "explorer-main",
             },
           });
         } else {
@@ -111,6 +111,7 @@ export default class extends Vue {
             jobType: "MOVE",
             data: {
               items: JSON.parse(JSON.stringify(this.getMoveResourceBulk)),
+              treeId: "explorer-main",
             },
           });
         } else {

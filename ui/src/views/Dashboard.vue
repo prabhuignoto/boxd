@@ -63,7 +63,6 @@ export default class extends Vue {
 
   @Action("showNotification") showNotification;
   @Action("refreshFileExplorer") refreshFileExplorer;
-  @Action("refetchData") refetchData;
   @Action("addJob") addJob;
 
   mounted() {

@@ -48,7 +48,6 @@ export default class extends Vue {
   @Getter("getExplorerPath") getExplorerPath;
   // @Getter("getRefreshFileExplorer") getRefreshFileExplorer;
 
-  @Action("clearList") clearList;
   @Action("updateTreeViewData") updateTreeViewData;
 
   onSelect(node) {
@@ -57,7 +56,6 @@ export default class extends Vue {
 
   handleSubfolderSelection(path) {
     if (path !== this.getExplorerPath) {
-      this.clearList();
       this.$store.dispatch("updatePath", path);
     }
   }

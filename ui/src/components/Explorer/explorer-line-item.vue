@@ -97,7 +97,6 @@ export default class extends Vue {
   @Action("updateFileName") updateFileName;
   @Action("updateFileSize") updateFileSize;
   @Action("updateFileModified") updateFileModified;
-  @Action("clearList") clearList;
   @Action("clearAllBulk") clearAllBulk;
   @Action("addJob") addJob;
 
@@ -139,7 +138,6 @@ export default class extends Vue {
   handleNavigation(path, $evt) {
     $evt.preventDefault();
     this.clearAllBulk();
-    this.clearList();
     this.updatePath(path);
 
     this.addJob({

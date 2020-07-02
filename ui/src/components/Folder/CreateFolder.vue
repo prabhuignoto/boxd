@@ -82,8 +82,6 @@ export default class extends Vue {
   @Action("createFolderSelection") createFolderSelection;
   @Action("hideCreateFolderExplorer") hideCreateFolderExplorer;
   @Action("updatePath") updatePath;
-  @Action("refetchData") refetchData;
-  @Action("clearList") clearList;
   @Action("refreshFileExplorer") refreshFileExplorer;
   @Action("addJob") addJob;
   @Action("closeModal") closeModal;
