@@ -1,24 +1,28 @@
 import Agenda from 'agenda';
 import { config } from 'dotenv';
-
-if (process.env.NODE_ENV === 'development') {
-  config();
-}
+config();
 
 const mongoConnectionString: string = process.env.MONGO_DB_URL as string;
+let agenda: Agenda | null = null;
 
-const agenda = new Agenda({
-  db: {
-    address: mongoConnectionString,
-    options: {
-      useUnifiedTopology: true
+if (mongoConnectionString) {
+  agenda = new Agenda({
+    db: {
+      address: mongoConnectionString,
+      options: {
+        useUnifiedTopology: true
+      }
     }
-  }
-});
+  });
 
-(async function () {
-  agenda.maxConcurrency(25);
-  agenda.start();
-}());
+  (async function () {
+    if (agenda) {
+      agenda.maxConcurrency(25);
+      agenda.on('ready', () => {
+        agenda && agenda.start();
+      });
+    }
+  }());
+}
 
 export default agenda;

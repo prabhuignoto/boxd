@@ -53,8 +53,8 @@
     "winston": "^3.3.3"
   },
   "scripts": {
-    "dev": "nodemon ./src/app.ts",
-    "start": "ts-node ./src/app.ts",
+    "dev": "nodemon ./src/index.ts",
+    "start": "ts-node ./src/index.ts",
     "postinstall": "mkdir uploads"
   },
   "devDependencies": {

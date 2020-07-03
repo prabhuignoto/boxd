@@ -1,0 +1,11 @@
+{
+  "apps": [{
+    "name": "boxd-server",
+    "exec_mode": "cluster",
+    "instances": 2,
+    "script": "./build/index.js",
+    "env": {
+      "NODE_ENV": "prod"
+    }
+  }]
+}

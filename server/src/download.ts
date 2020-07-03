@@ -9,7 +9,7 @@ import { ErrorLogger, InfoLogger } from './logger';
 const fileExists = util.promisify(FS.exists);
 const writeFileAsync = util.promisify(FS.writeFile);
 
-export default async function Download(req: Request, resp: Response) {
+export default async function Download (req: Request, resp: Response) {
   try {
     type DownloadMetadata = files.FileMetadata & { fileBinary: Buffer };
 
@@ -29,7 +29,7 @@ export default async function Download(req: Request, resp: Response) {
       const dirName = req.session.account_id.replace(/dbid:/, '');
       const appRoot = require.main && Path.join(
         // Path.parse(process.mainModule!.filename).dir,
-        Path.parse(require.main?.filename).dir,
+        Path.parse(require.main.filename).dir,
         '../'
       );
 

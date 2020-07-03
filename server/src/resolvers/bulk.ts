@@ -27,7 +27,7 @@ export default {
               uiJobId: args.options.uiJobId
             }
           });
-        } else if (result['.tag'] === 'async_job_id') {
+        } else if (result['.tag'] === 'async_job_id' && Agenda ) {
           await Agenda.define<Job>(result.async_job_id, deleteJob);
           await Agenda.every('3 seconds', result.async_job_id, {
             accessToken: context.session.access_token,
@@ -70,7 +70,7 @@ export default {
               uiJobId: args.options.uiJobId
             }
           });
-        } else if (result['.tag'] === 'async_job_id') {
+        } else if (result['.tag'] === 'async_job_id' && Agenda) {
           await Agenda.define<Job>(result.async_job_id, moveJob);
           await Agenda.every('3 seconds', result.async_job_id, {
             accessToken: context.session.access_token,
@@ -114,7 +114,7 @@ export default {
 
             }
           });
-        } else if (result['.tag'] === 'async_job_id') {
+        } else if (result['.tag'] === 'async_job_id' && Agenda) {
           await Agenda.define<Job>(result.async_job_id, copyJob);
           await Agenda.every('3 seconds', result.async_job_id, {
             accessToken: context.session.access_token,

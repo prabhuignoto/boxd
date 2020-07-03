@@ -159,7 +159,7 @@ function jobFactory<T extends JobInterface>(config: T) {
         process(result);
       }
     } catch (error) {
-      agenda.cancel({ name: asyncJobId });
+      agenda && agenda.cancel({ name: asyncJobId });
       ErrorLogger.log(error);
     }
   };
@@ -179,7 +179,7 @@ const loadJob = function (mode: JobMode) {
           uiJobId
         }
       });
-      agenda.cancel({ name: job_id });
+      agenda && agenda.cancel({ name: job_id });
     },
     onProgress: ({ status, job_id, tag, uiJobId }) => {
       PubSub.publish('batchWorkRunning', {
@@ -201,7 +201,7 @@ const loadJob = function (mode: JobMode) {
           job_type: mode
         }
       });
-      agenda.cancel({ name: job_id });
+      agenda && agenda.cancel({ name: job_id });
     }
   });
 };

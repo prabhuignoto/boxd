@@ -66,7 +66,6 @@ try {
   const server = new ApolloServer({
     context: ({
       req,
-      resp,
       connection
     }: {
       req: express.Request;
