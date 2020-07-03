@@ -25,12 +25,13 @@ let RedisOptions: Redis.ClientOpts = {
       throw new Error('Failed to connect to the redis host');
     }
     return 3000;
-  }
+  },
+  no_ready_check: true
 };
 
 if (process.env.NODE_ENV === 'prod') {
   RedisOptions = Object.assign({}, RedisOptions, {
-    password: process.env.REDIS_PASSWORD
+    auth_pass: process.env.REDIS_PASSWORD
   });
 }
 
