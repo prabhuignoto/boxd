@@ -31,9 +31,11 @@ let RedisOptions: Redis.ClientOpts = {
 
 if (process.env.NODE_ENV === 'prod') {
   RedisOptions = Object.assign({}, RedisOptions, {
-    auth_pass: process.env.REDIS_PASSWORD
+    password: process.env.REDIS_PASSWORD
   });
 }
+
+console.log(RedisOptions);
 
 const RedisClient = Redis.createClient(RedisOptions);
 
