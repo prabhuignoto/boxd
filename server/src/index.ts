@@ -13,6 +13,8 @@ import { ErrorLogger } from './logger';
 import Routers from './router';
 import schema from './schema';
 
+config();
+
 // * initialize redis store and client
 // tslint:disable-next-line:no-var-requires
 const RedisStore = require('connect-redis')(Session);
@@ -43,9 +45,8 @@ const RedisClient = Redis.createClient(RedisOptions);
 const app = express();
 
 // * load dotenv config on dev env
-if (process.env.NODE_ENV === 'development') {
-  config();
-}
+// if (process.env.NODE_ENV === 'development') {
+// }
 
 try {
   // * enable morgan logger
