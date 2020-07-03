@@ -9,14 +9,14 @@ import Session from 'express-session';
 import { createServer } from 'http';
 import morgan from 'morgan';
 import Redis from 'redis';
+import { ErrorLogger } from './logger';
 import Routers from './router';
 import schema from './schema';
-import { ErrorLogger } from './logger';
 
 // * initialize redis store and client
 // tslint:disable-next-line:no-var-requires
 const RedisStore = require('connect-redis')(Session);
-const RedisClient = Redis.createClient({
+let RedisOptions: Redis.ClientOpts = {
   connect_timeout: 6000,
   host: process.env.REDIS_HOST,
   port: Number(process.env.REDIS_PORT),
@@ -26,7 +26,15 @@ const RedisClient = Redis.createClient({
     }
     return 3000;
   }
-});
+};
+
+if (process.env.NODE_ENV === 'prod') {
+  RedisOptions = Object.assign({}, RedisOptions, {
+    password: process.env.REDIS_PASSWORD
+  });
+}
+
+const RedisClient = Redis.createClient(RedisOptions);
 
 // * initialize express
 const app = express();

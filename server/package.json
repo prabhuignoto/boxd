@@ -55,7 +55,7 @@
   "scripts": {
     "dev": "nodemon ./src/index.ts",
     "start": "ts-node ./src/index.ts",
-    "postinstall": "mkdir uploads"
+    "postinstall": "mkdir -p uploads"
   },
   "devDependencies": {
     "@types/agenda": "^2.0.8",
