@@ -85,7 +85,7 @@ export default class extends Vue {
       status: true,
       componentToRender: "MoveCopy",
       title: `Copying files`,
-      width: 480,
+      width: 550,
     });
   }
 
@@ -98,7 +98,7 @@ export default class extends Vue {
       status: true,
       componentToRender: "MoveCopy",
       title: `Moving files`,
-      width: 480,
+      width: 550,
     });
   }
 }

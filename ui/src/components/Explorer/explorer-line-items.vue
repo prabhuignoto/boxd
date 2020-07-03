@@ -63,7 +63,9 @@ export default class extends Vue {
   }
 
   handleLineItemDeselection(data) {
-    this.removeItemFromBulk(data);
+    this.removeItemFromBulk({
+      item: data,
+    });
   }
 
   handleBulkSelection() {

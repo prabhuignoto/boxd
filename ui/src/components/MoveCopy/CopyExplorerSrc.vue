@@ -1,10 +1,10 @@
 <template>
   <div class="tree-wrapper">
     <Tree
-      v-on:selected="handleSelected"
       id="$root"
-      v-on:fileSelected="handleFileSelected"
       treeId="copy-explorer-src"
+      v-on:selected="handleSelected"
+      v-on:fileSelected="handleFileSelected"
     />
   </div>
 </template>
@@ -27,26 +27,30 @@ export default class extends Vue {
   files = {
     entries: [],
   };
+  selectedPath: string | null = null;
 
   @Prop() path;
   @Action("copyResxSource") copyResxSource;
   @Action("addNodes") addNodes;
   @Action("addJob") addJob;
 
-  onSelect(node) {
-    this.copyResxSource(node.path);
+  get canFireQuery() {
+    return this.selectedPath !== "/";
   }
 
   handleSelected(event: Event, path: string) {
-    this.addJob({
-      jobType: JobType.LIST_FILES,
-      data: {
-        path,
-        treeId: "copy-explorer-src",
-      },
-    });
-
     this.copyResxSource(path);
+    this.selectedPath = path;
+
+    if (this.canFireQuery) {
+      this.addJob({
+        jobType: JobType.LIST_FILES,
+        data: {
+          path,
+          treeId: "copy-explorer-src",
+        },
+      });
+    }
   }
 
   handleFileSelected(event: Event, path: string) {

@@ -1,13 +1,13 @@
 <template>
-  <div class="explorer-line-item" :class="{ locked: locked }">
+  <div class="explorer-line-item" :class="{ locked: lockType }">
     <div
       class="explorer-line-item-check"
       @click="handleCheck()"
-      :class="{ selected: selected, locked: locked }"
+      :class="{ selected: selected, locked: lockType }"
     >
-      <SquareIcon v-if="!selected && !locked" />
-      <CheckSquareIcon v-if="selected && !locked" />
-      <LockIcon v-if="locked" />
+      <SquareIcon v-if="!selected && !lockType" />
+      <CheckSquareIcon v-if="selected && !lockType" />
+      <LockIcon v-if="locked && lockType" />
     </div>
     <div class="name explorer-cell">
       <span class="explorer-icon icon-folder" v-if="isFolder">
@@ -36,10 +36,14 @@
     <div class="size explorer-cell">{{ prettySize }}</div>
     <div class="last-modified explorer-cell">{{ serverModifiedFormatted }}</div>
     <div class="controls explorer-cell">
-      <div class="popdown-container" v-if="!locked">
-        <LineItemPopdown :isFile="isFile" :pathLower="path" />
-      </div>
-      <div v-if="locked" class="status-label">
+      <!-- <div class="popdown-container" v-if="!lockType">
+        <LineItemPopdown
+          :isFile="isFile"
+          :pathLower="path"
+          v-on:onSelect="handlePopdownSelection"
+        />
+      </div> -->
+      <div v-if="lockType" class="status-label">
         <Loader type="throb" :message="getStatusLabel" />
       </div>
     </div>
@@ -176,6 +180,15 @@ export default class extends Vue {
         id: this.id,
       });
     }
+  }
+
+  handlePopdownSelection() {
+    this.$emit("selected", {
+      name: this.name,
+      contentHash: this.hash,
+      pathLower: this.path,
+      id: this.id,
+    });
   }
 
   mounted() {

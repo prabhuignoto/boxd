@@ -59,10 +59,8 @@
     <!-- drop zone ends here -->
 
     <!-- selected path -->
-    <div class="upload-path-selection" v-if="canShowUpladPathSelection">
-      <!-- <span v-if="!uploadSuccess">Uploading to</span> -->
-      <span v-if="uploadSuccess">Uploaded to</span>
-      <span class="highlight" v-if="getUploadPathCustom">{{
+    <div class="upload-path-selection">
+      <span class="highlight" v-if="canShowUpladPathSelection">{{
         getUploadPathFormatted
       }}</span>
     </div>
@@ -131,6 +129,7 @@ export default class extends Vue {
   @Action("uploadFile") uploadFile;
   @Action("updateUploadExplorerStatus") updateUploadExplorerStatus;
   @Action("refreshFileExplorer") refreshFileExplorer;
+  @Action("refetchData") refetchData;
   @Action("closeModal") closeModal;
   @Action("addJob") addJob;
 
@@ -140,8 +139,8 @@ export default class extends Vue {
   fileSize = 0;
   file;
   progress = 0;
-  uploadStarted = false;
-  uploadSuccess = false;
+  uploadStarted: boolean | null = false;
+  uploadSuccess: boolean | null = null;
 
   get getUploadPathCustom() {
     return this.getUploadPath === "/$root" ? "/home" : this.getUploadPath;
@@ -187,7 +186,10 @@ export default class extends Vue {
   }
 
   get canShowUpladPathSelection() {
-    return this.fileName !== "" && !this.uploadSuccess;
+    debugger;
+    return (
+      this.fileName !== "" && !this.uploadSuccess && this.getUploadPathFormatted
+    );
   }
 
   get canShowFileExplorer() {
@@ -213,10 +215,6 @@ export default class extends Vue {
       (this.file = null),
       (this.progress = 0),
       (this.uploadStarted = false);
-  }
-
-  handleRootFolder() {
-    this.uploadFile("/$root");
   }
 
   handleUpload() {
@@ -330,7 +328,7 @@ export default class extends Vue {
   }
 
   beforeDestroy() {
-    this.uploadFile("");
+    this.uploadFile(null);
     this.updateUploadExplorerStatus(true);
   }
 }

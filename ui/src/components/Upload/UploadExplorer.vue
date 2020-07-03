@@ -30,15 +30,23 @@ export default class extends Vue {
   @Getter("getUploadPath") getUploadPath;
   @Action("addJob") addJob;
 
-  selectedPath = this.path;
-
   handleSubfolderSelection(path): void {
     this.uploadFile(path);
   }
 
   handleSelected(event: Event, path: string) {
-    this.selectedPath = path;
+    debugger;
     this.uploadFile(path);
+
+    if (path !== "/") {
+      this.addJob({
+        jobType: JobType.LIST_FILES,
+        data: {
+          path,
+          treeId: "upload-explorer",
+        },
+      });
+    }
   }
 
   mounted() {
@@ -46,7 +54,7 @@ export default class extends Vue {
       jobType: JobType.LIST_FILES,
       data: {
         path: "",
-        treeId: "create-folder-explorer",
+        treeId: "upload-explorer",
       },
     });
   }

@@ -15,6 +15,7 @@
   margin: 0 auto;
   margin-top: 1rem;
   overflow-y: auto;
+  padding-top: 0.5rem;
   width: 100%;
 }
 
@@ -49,11 +50,11 @@
 
   .selected-path {
     align-items: center;
-    background: #e5e5e5;
-    border-radius: 0.2rem;
+    background: #cce5f9;
+    border-radius: 2rem;
     color: #191919;
     display: flex;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     font-weight: 400;
     height: 100%;
     padding: 0.25rem 0.5rem;
@@ -74,7 +75,6 @@
   margin-top: 0.5rem;
   width: 100%;
   width: 100%;
-  /* background:red; */
 }
 
 .error-message {

@@ -17,7 +17,7 @@ import Loader from "../Loader.vue";
 import { Component, Prop } from "vue-property-decorator";
 
 @Component({
-  name: "notification-container",
+  name: "NotificationRecord",
   components: {
     Loader,
   },

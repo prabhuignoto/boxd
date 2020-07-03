@@ -27,25 +27,26 @@ export default class extends Vue {
   files = {
     entries: [],
   };
-  selectedPath = this.path;
 
   @Action("addJob") addJob;
   @Action("createFolderSelection") createFolderSelection;
 
   handleSubfolderSelection(path) {
     this.createFolderSelection(path);
-    this.addJob({
-      jobType: JobType.LIST_FILES,
-      data: {
-        path,
-        treeId: "create-folder-explorer",
-      },
-    });
   }
 
   handleSelected(event: Event, path: string) {
-    this.selectedPath = path;
     this.createFolderSelection(path);
+
+    if (path !== "/") {
+      this.addJob({
+        jobType: JobType.LIST_FILES,
+        data: {
+          path,
+          treeId: "create-folder-explorer",
+        },
+      });
+    }
   }
 
   mounted() {

@@ -70,7 +70,7 @@ export default class extends Vue {
   }
 
   handleDelete(path) {
-    this.path = path;
+    this.$emit("onSelect");
     this.deleteFolder(path);
     this.updateModalState({
       status: true,
@@ -81,6 +81,7 @@ export default class extends Vue {
   }
 
   handleCopy(path) {
+    this.$emit("onSelect");
     this.path = path;
     // set the operation mode
     this.updateMoveCopyMode("copy");
@@ -96,6 +97,7 @@ export default class extends Vue {
   }
 
   handleMove(path) {
+    this.$emit("onSelect");
     this.path = path;
     // set the operation Mode
     this.updateMoveCopyMode("move");

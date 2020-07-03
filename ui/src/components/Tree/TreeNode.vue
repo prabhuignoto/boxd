@@ -8,8 +8,9 @@
     >
       <div class="tnode">
         <span class="tnode-icon">
-          <FolderPlusIcon v-if="!expanded && !loading" />
-          <FolderMinusIcon v-if="expanded && !loading" />
+          <FolderPlusIcon v-if="showFolderPlus" />
+          <FolderMinusIcon v-if="showFolderMinus" />
+          <FolderIcon v-if="showFolder" />
           <LoaderIcon v-if="loading" class="loader" />
         </span>
         <span class="tnode-name">{{ node.name }}</span>
@@ -17,10 +18,10 @@
       <div class="child-tree-wrapper" v-show="expanded">
         <Tree
           :id="node.id"
+          :treeId="treeId"
           v-on:selected="handleNodeSelection"
           v-on:fileSelected="handleFileNode"
-          isChild="true"
-          :treeId="treeId"
+          v-if="node.id !== '$root'"
         />
       </div>
     </div>
@@ -43,22 +44,24 @@
 import Vue from "vue";
 import { Prop } from "vue-property-decorator";
 import Component from "vue-class-component";
-import { TreeNode } from "../../modules/tree";
 
 import {
   FileIcon,
-  FolderPlusIcon,
+  FolderIcon,
   FolderMinusIcon,
+  FolderPlusIcon,
   LoaderIcon,
 } from "vue-feather-icons";
+import { TreeNode } from "../../modules/models";
 
 @Component({
   name: "TreeNode",
   components: {
     Tree: () => import("./index.vue"),
     FileIcon,
-    FolderPlusIcon,
+    FolderIcon,
     FolderMinusIcon,
+    FolderPlusIcon,
     LoaderIcon,
   },
 })
@@ -79,13 +82,9 @@ export default class extends Vue {
       this.expanded = !this.expanded;
     }
 
-    if (!this.expanded) {
-      return;
-    }
-
     this.handleFolderSelection(path, id);
 
-    if (id && !this.childrendRendered) {
+    if (id && id !== "$root" && !this.childrendRendered) {
       this.loading = true;
     }
   }
@@ -116,6 +115,18 @@ export default class extends Vue {
   get canDisable() {
     return this.loading || this.node.locked;
   }
+
+  get showFolderPlus() {
+    return this.node.id !== "$root" && !this.expanded && !this.loading;
+  }
+
+  get showFolderMinus() {
+    return this.node.id !== "$root" && this.expanded && !this.loading;
+  }
+
+  get showFolder() {
+    return this.node.id === "$root" && !this.loading;
+  }
 }
 </script>
 
@@ -134,14 +145,21 @@ export default class extends Vue {
   &.disabled {
     opacity: 0.75;
     pointer-events: none;
+    user-select: none;
   }
 }
 
 .tnode {
   align-items: center;
+  border-radius: 0.2rem;
   cursor: pointer;
   display: flex;
   justify-content: flex-start;
+  padding: 0.2rem 0.35rem;
+
+  &:hover {
+    background: #cce5f9;
+  }
 }
 
 .tnode-icon {
@@ -168,7 +186,7 @@ export default class extends Vue {
 }
 
 .file-node {
-  font-size: 1rem;
+  font-size: 0.85rem;
   font-weight: 400;
 }
 

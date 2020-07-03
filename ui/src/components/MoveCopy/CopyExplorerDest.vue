@@ -1,9 +1,9 @@
 <template>
   <div class="tree-wrapper">
     <Tree
-      v-on:selected="handleSelected"
       id="$root"
       treeId="copy-explorer-dest"
+      v-on:selected="handleSelected"
     />
   </div>
 </template>
@@ -68,13 +68,15 @@ export default class extends Vue {
   handleSelected(event: Event, path: string) {
     this.copyResxDest(path);
 
-    this.addJob({
-      jobType: JobType.LIST_FILES,
-      data: {
-        path,
-        treeId: "copy-explorer-dest",
-      },
-    });
+    if (path !== "/") {
+      this.addJob({
+        jobType: JobType.LIST_FILES,
+        data: {
+          path,
+          treeId: "copy-explorer-dest",
+        },
+      });
+    }
 
     if (this.getBulkMode) {
       this.setCopyResxBulk(

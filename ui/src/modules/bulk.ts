@@ -1,6 +1,6 @@
 import { MutationTree, ActionTree, GetterTree, Module } from "vuex";
 import { RootState } from "@/store";
-import { TreeNode, LockType } from "./tree";
+import { TreeNode, LockType } from "./models";
 import _ from "lodash";
 import Vue from "vue";
 
@@ -57,7 +57,7 @@ const actions: ActionTree<BulkState, RootState> = {
       items,
     });
   },
-  removeItemFromBulk({ commit }, item) {
+  removeItemFromBulk({ commit }, { item }) {
     commit({
       type: "removeItemFromBulk",
       item,
@@ -77,16 +77,14 @@ const actions: ActionTree<BulkState, RootState> = {
   },
   stopBulkOps({ commit }, { jobId }) {
     commit({
-      type: "startBulkOps",
+      type: "stopBulkOps",
       jobId,
     });
   },
 };
 
 const getters: GetterTree<BulkState, RootState> = {
-  getActiveBulkRecords: state => {
-    return state.activeRecords;
-  },
+  getActiveBulkRecords: state => state.activeRecords,
   getBulkOpByJobId: state => (jobId: string) => state.bulkOps[jobId],
   getAllTreeNodeItems: state =>
     _.chain(state.bulkOps)

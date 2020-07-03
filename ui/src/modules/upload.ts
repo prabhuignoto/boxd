@@ -8,7 +8,7 @@ interface UploadState {
 
 const mutations: MutationTree<UploadState> = {
   uploadFile(state, { path }) {
-    state.uploadPath = path;
+    state.uploadPath = path === "/" ? "" : path;
   },
   updateUploadExplorerStatus(state, { status }) {
     state.enableUploadExplorer = status;
@@ -33,8 +33,14 @@ const actions: ActionTree<UploadState, RootState> = {
 const getters: GetterTree<UploadState, RootState> = {
   getUploadPath: state => state.uploadPath,
   getUploadExplorerStatus: state => state.enableUploadExplorer,
-  getUploadPathFormatted: state =>
-    state.uploadPath && state.uploadPath.split("/").join(" / "),
+  getUploadPathFormatted: state => {
+    const path = state.uploadPath;
+    if (path === "") {
+      return "/";
+    } else if (path) {
+      return path.split("/").join(" / ");
+    }
+  },
 };
 
 export default {

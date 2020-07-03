@@ -31,9 +31,9 @@
           </div>
         </div>
         <ExplorerLineItems :items="items" />
-        <div class="info-message" v-if="canShowWelcomeMessage">
+        <!-- <div class="info-message" v-if="canShowWelcomeMessage">
           <span>Drop your files here to upload</span>
-        </div>
+        </div> -->
       </section>
     </div>
     <div class="drag-overlay" v-if="dragStart">
@@ -49,7 +49,7 @@ import Toolbar from "../Toolbar/Toolbar.vue";
 import Account from "../Account.vue";
 import FolderPath from "../Path/FolderPath.vue";
 import ExplorerToolbar from "./explorer-toolbar.vue";
-import NotificationsPopdown from "../Notifications/NotificationsPopdown.vue";
+import NotificationsPopdown from "../NotificationsCentre/Popdown.vue";
 import ExplorerLineItems from "./explorer-line-items.vue";
 import Vue from "vue";
 import { UploadIcon } from "vue-feather-icons";

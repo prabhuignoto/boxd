@@ -40,6 +40,15 @@ type SubscriptionProperty = VueApolloSubscriptionProperty & {
       nodes: string[];
       fromPath: string;
     }) => Dispatch;
+    removeChildrenNodes: ({
+      treeId,
+      nodes,
+      fromPath,
+    }: {
+      treeId: string;
+      nodes: string[];
+      fromPath: string;
+    }) => Dispatch;
   };
   batchWorkRunning: SubscriptionDefinition;
   batchWorkFailed: SubscriptionDefinition & {
@@ -47,6 +56,7 @@ type SubscriptionProperty = VueApolloSubscriptionProperty & {
   };
   uploadCompleted: SubscriptionDefinition & {
     refreshFileExplorer(n: { status: boolean; path: string }): void;
+    addJob: (j: { jobType: JobType; data: unknown }) => Dispatch;
     getExplorerPath: string;
   };
   folderAdded: SubscriptionDefinition & {
@@ -89,12 +99,17 @@ export default {
 
       if (item && jobType === "move") {
         const src = getPath(item.fromPath);
-        this.addJob({
-          jobType: JobType.LIST_FILES,
-          data: {
-            path: src,
-            treeId: "explorer-main",
-          },
+        // this.addJob({
+        //   jobType: JobType.LIST_FILES,
+        //   data: {
+        //     path: src,
+        //     treeId: "explorer-main",
+        //   },
+        // });
+        this.removeChildrenNodes({
+          treeId: data.treeId,
+          fromPath: src ? src : "/",
+          nodes: items.map(i => i.id),
         });
       } else if (item && jobType === "delete") {
         const fromPath = getPath(item.pathLower ? item.pathLower : "/");
@@ -235,6 +250,7 @@ export default {
           success
           fileName
           uiJobId
+          path
         }
       }
     `,
@@ -248,9 +264,12 @@ export default {
           message: `Uploaded ${fileUploaded.fileName} successfully.`,
         });
 
-        this.refreshFileExplorer({
-          status: true,
-          path: this.getExplorerPath,
+        this.addJob({
+          jobType: JobType.LIST_FILES,
+          data: {
+            path: fileUploaded.path,
+            treeId: "explorer-main",
+          },
         });
       } else {
         this.failedJob({ id: fileUploaded.uiJobId });

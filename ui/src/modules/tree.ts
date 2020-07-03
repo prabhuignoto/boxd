@@ -1,44 +1,8 @@
-import { ActionTree, MutationTree, GetterTree, Module } from "vuex";
 import { RootState } from "@/store";
-import Vue from "vue";
 import _ from "lodash";
-
-export enum NodeType {
-  file = "file",
-  folder = "folder",
-}
-
-export enum LockType {
-  DELETE = "DELETE",
-  MOVE = "MOVE",
-  COPY = "COPY",
-}
-
-export interface TreeNode {
-  name: string;
-  id: string;
-  path: string;
-  children: string[];
-  size: number;
-  serverModified: number;
-  hash: string | null;
-  type?: NodeType;
-  locked?: boolean;
-  lockType?: LockType;
-}
-
-interface TreeData {
-  [key: string]: TreeNode;
-}
-
-interface TreeState {
-  refetch: boolean;
-  createdAt: number;
-  lastUpdated: number;
-  trees: {
-    [key: string]: TreeData;
-  };
-}
+import Vue from "vue";
+import { ActionTree, GetterTree, Module, MutationTree } from "vuex";
+import { NodeType, TreeData, TreeNode, TreeState } from "./models";
 
 const actions: ActionTree<TreeState, RootState> = {
   deleteNode({ commit }, { id, fromPath }) {
@@ -110,6 +74,7 @@ const mutations: MutationTree<TreeState> = {
           size: 0,
           hash: null,
           serverModified: 0,
+          type: NodeType.folder,
         },
       });
     } else {
@@ -236,8 +201,9 @@ const getters: GetterTree<TreeState, RootState> = {
     path: string
   ) => {
     const tree = state.trees[treeId];
-    const activeBulkOps = rootStateGetters.getAllTreeNodeItems.map(x => x.id);
-    debugger;
+    const activeTreeNodeItems = rootStateGetters.getAllTreeNodeItems.map(
+      x => x.id
+    );
 
     if (tree) {
       const cNodes = _.chain(tree)
@@ -246,7 +212,7 @@ const getters: GetterTree<TreeState, RootState> = {
         .value();
       return cNodes.map(cNode =>
         Object.assign({}, tree[cNode], {
-          locked: activeBulkOps.some(x => x === cNode),
+          locked: activeTreeNodeItems.some(x => x === cNode),
           lockType: rootStateGetters.getLockType(cNode),
         })
       );
@@ -273,12 +239,25 @@ const getters: GetterTree<TreeState, RootState> = {
       const parentNode = _.find(tree, item => item.id === id);
 
       if (parentNode && parentNode.children.length) {
-        return parentNode.children.map(child =>
+        const nodes = parentNode.children.map(child =>
           Object.assign({}, tree[child], {
             children: tree[child].children.map(c => tree[c]),
             locked: skipNodes.some(x => x === child),
           })
         );
+        if (id === "$root") {
+          return [
+            {
+              id: "$root",
+              name: "home",
+              path: "/",
+              locked: false,
+              type: NodeType.folder,
+            },
+          ].concat(nodes);
+        } else {
+          return nodes;
+        }
       } else {
         return null;
       }

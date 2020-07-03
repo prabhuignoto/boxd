@@ -1,9 +1,14 @@
 import { ActionTree, MutationTree, GetterTree, Module } from "vuex";
 import { RootState } from "@/store";
 
+interface Notification {
+  id: string;
+  message: string;
+}
+
 interface NotificationState {
-  read: any[];
-  unRead: any[];
+  read: Notification[];
+  unRead: Notification[];
   enabled: boolean;
 }
 
@@ -53,6 +58,7 @@ const getters: GetterTree<NotificationState, RootState> = {
       return null;
     }
   },
+  getAllUnreadMessages: state => state.unRead,
 };
 
 export default {

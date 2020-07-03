@@ -11,7 +11,7 @@ import pubsub from './pubSub';
 const unlinkAsync = util.promisify(FS.unlink);
 
 // tslint: disable-next-line
-export default async function Upload(req: Request, resp: Response) {
+export default async function Upload (req: Request, resp: Response) {
   try {
     const files: any = req.files;
 
@@ -57,7 +57,8 @@ export default async function Upload(req: Request, resp: Response) {
           fileUploaded: {
             success: true,
             fileName: files[0].originalname as string,
-            uiJobId: req.body.uiJobId
+            uiJobId: req.body.uiJobId,
+            path: req.body.uploadPath
           }
         });
       }

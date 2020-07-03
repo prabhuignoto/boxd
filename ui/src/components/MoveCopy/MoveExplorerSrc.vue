@@ -1,8 +1,8 @@
 <template>
   <div class="tree-wrapper">
     <Tree
-      v-on:selected="handleSelected"
       id="$root"
+      v-on:selected="handleSelected"
       v-on:fileSelected="handleFileSelected"
       treeId="move-explorer-src"
     />
@@ -15,7 +15,7 @@ import Vue from "vue";
 
 import { Component, Prop } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
-import { TreeNode } from "../../modules/tree";
+import { TreeNode } from "../../modules/models";
 import { JobType } from "../../modules/jobs";
 
 @Component({
@@ -41,13 +41,16 @@ export default class extends Vue {
 
   handleSelected(event: Event, path: string) {
     this.moveResxSource(path);
-    this.addJob({
-      jobType: JobType.LIST_FILES,
-      data: {
-        path,
-        treeId: "move-explorer-src",
-      },
-    });
+
+    if (path !== "/") {
+      this.addJob({
+        jobType: JobType.LIST_FILES,
+        data: {
+          path,
+          treeId: "move-explorer-src",
+        },
+      });
+    }
   }
 
   handleFileSelected(event: Event, path: string) {

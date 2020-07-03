@@ -40,15 +40,18 @@ export default class extends Vue {
   @Action("addJob") addJob;
 
   handleSelected(event: Event, path: string) {
-    this.addJob({
-      jobType: JobType.LIST_FILES,
-      data: {
-        path,
-        treeId: "move-explorer-dest",
-      },
-    });
+    if (path !== "/") {
+      this.addJob({
+        jobType: JobType.LIST_FILES,
+        data: {
+          path,
+          treeId: "move-explorer-dest",
+        },
+      });
+    }
 
     this.moveResxDest(path);
+
     if (this.getBulkMode) {
       this.setMoveResxBulk(
         this.getActiveBulkRecords.map(item => ({

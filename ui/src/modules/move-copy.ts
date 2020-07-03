@@ -3,12 +3,12 @@ import { ActionTree, Module, MutationTree, GetterTree } from "vuex";
 
 interface MoveCopyState {
   moveResource: {
-    src: string;
-    dest: string;
+    src: string | null;
+    dest: string | null;
   };
   copyResource: {
-    src: string;
-    dest: string;
+    src: string | null;
+    dest: string | null;
   };
   mode: null;
   skipToFinal: boolean;
@@ -104,42 +104,42 @@ const actions: ActionTree<MoveCopyState, RootState> = {
 const mutations: MutationTree<MoveCopyState> = {
   moveResxSource(state, { path }) {
     state.moveResource = Object.assign({}, state.moveResource, {
-      src: path,
+      src: path === "/" ? "" : path,
     });
   },
   moveResxDest(state, { path }) {
     state.moveResource = Object.assign({}, state.moveResource, {
-      dest: path,
+      dest: path === "/" ? "" : path,
     });
   },
   copyResxSource(state, { path }) {
     state.copyResource = Object.assign({}, state.copyResource, {
-      src: path,
+      src: path === "/" ? "" : path,
     });
   },
   copyResxDest(state, { path }) {
     state.copyResource = Object.assign({}, state.copyResource, {
-      dest: path,
+      dest: path === "/" ? "" : path,
     });
   },
   clearMoveResx(state) {
-    state.moveResource.src = "";
-    state.moveResource.dest = "";
+    state.moveResource.src = null;
+    state.moveResource.dest = null;
   },
   clearCopyResx(state) {
     state.copyResource = {
-      dest: "",
-      src: "",
+      dest: null,
+      src: null,
     };
   },
   clearMoveCopyState(state) {
     state.moveResource = {
-      src: "",
-      dest: "",
+      src: null,
+      dest: null,
     };
     state.copyResource = {
-      src: "",
-      dest: "",
+      src: null,
+      dest: null,
     };
   },
   updateMoveCopyMode(state, { mode }) {
@@ -183,22 +183,38 @@ const getters: GetterTree<MoveCopyState, RootState> = {
   getMoveCopyMode: state => state.mode,
   getSkipToFinal: state => state.skipToFinal,
   getBulkMode: state => state.bulkModeEnabled,
-  moveResxSrcFormatted: state =>
-    state.moveResource &&
-    state.moveResource.src &&
-    state.moveResource.src.split("/").join(" / "),
-  copyResxSrcFormatted: state =>
-    state.copyResource &&
-    state.copyResource.src &&
-    state.copyResource.src.split("/").join(" / "),
-  moveResxDestFormatted: state =>
-    state.moveResource &&
-    state.moveResource.dest &&
-    state.moveResource.dest.split("/").join(" / "),
-  copyResxDestFormatted: state =>
-    state.copyResource &&
-    state.copyResource.dest &&
-    state.copyResource.dest.split("/").join(" / "),
+  moveResxSrcFormatted: state => {
+    const resx = state.moveResource;
+    if (resx && resx.src === "") {
+      return "/";
+    } else if (resx && resx.src) {
+      return resx.src.split("/").join(" / ");
+    }
+  },
+  copyResxSrcFormatted: state => {
+    const resx = state.copyResource;
+    if (resx && resx.src === "") {
+      return "/";
+    } else if (resx && resx.src) {
+      return resx.src.split("/").join(" / ");
+    }
+  },
+  moveResxDestFormatted: state => {
+    const resx = state.moveResource;
+    if (resx && resx.dest === "") {
+      return "/";
+    } else if (resx && resx.dest) {
+      return resx.dest.split("/").join(" / ");
+    }
+  },
+  copyResxDestFormatted: state => {
+    const resx = state.copyResource;
+    if (resx && resx.dest === "") {
+      return "/";
+    } else if (resx && resx.dest) {
+      return resx.dest.split("/").join(" / ");
+    }
+  },
   getMoveResourceBulk: state => state.moveResourceBulk,
   getCopyResourceBulk: state => state.copyResourceBulk,
 };
@@ -206,12 +222,12 @@ const getters: GetterTree<MoveCopyState, RootState> = {
 export default {
   state: {
     moveResource: {
-      src: "",
-      dest: "",
+      src: null,
+      dest: null,
     },
     copyResource: {
-      src: "",
-      dest: "",
+      src: null,
+      dest: null,
     },
     mode: null,
     skipToFinal: false,

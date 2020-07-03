@@ -77,12 +77,10 @@ export default class extends Vue {
   @Getter("getWorkflowOrigin") getWorkflowOrigin: string;
   @Getter("getExplorerPath") getExplorerPath: string;
   @Getter("getFolderSelectionFormatted") getFolderSelectionFormatted: string;
-  @Getter("getFolderSelection") getFolderSelection: string;
 
   @Action("createFolderSelection") createFolderSelection;
+  @Getter("getFolderSelection") getFolderSelection: string;
   @Action("hideCreateFolderExplorer") hideCreateFolderExplorer;
-  @Action("updatePath") updatePath;
-  @Action("refreshFileExplorer") refreshFileExplorer;
   @Action("addJob") addJob;
   @Action("closeModal") closeModal;
 
@@ -90,11 +88,6 @@ export default class extends Vue {
   createHandledOnce = 0;
   disableSave = false;
   isMutating = false;
-
-  beforeDestroy() {
-    this.hideCreateFolderExplorer(false);
-    this.createFolderSelection(null);
-  }
 
   get isNameEmpty() {
     return this.folderName === "";
@@ -125,6 +118,7 @@ export default class extends Vue {
   }
 
   async handleCreate() {
+    debugger;
     if (this.createHandledOnce < 1) {
       this.createHandledOnce += 1;
     }
@@ -134,7 +128,7 @@ export default class extends Vue {
       this.addJob({
         jobType: "CREATE_FOLDER",
         data: {
-          path: JSON.parse(JSON.stringify(this.getFolderSelection)),
+          path: this.getFolderSelection,
           name: this.folderName,
         },
       });
@@ -153,8 +147,9 @@ export default class extends Vue {
     this.folderName = $evt.target.value.trim();
   }
 
-  handleRootFolder() {
-    this.createFolderSelection("");
+  beforeDestroy() {
+    this.hideCreateFolderExplorer(false);
+    this.createFolderSelection(null);
   }
 }
 </script>

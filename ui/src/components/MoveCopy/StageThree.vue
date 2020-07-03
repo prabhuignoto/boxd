@@ -113,9 +113,9 @@ export default class extends Vue {
 
   get dest() {
     if (this.getMoveCopyMode === "move") {
-      return this.moveResxDest;
+      return this.moveResxDest === "" || this.moveResxDest;
     } else {
-      return this.copyResxDest;
+      return this.copyResxDest === "" || this.copyResxDest;
     }
   }
 

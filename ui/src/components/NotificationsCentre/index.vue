@@ -20,7 +20,7 @@
       <ul class="notifications all" v-if="!getJobsEmpty">
         <li class="notification" v-for="item of getAllJobs" :key="item.id">
           <div class="notification-container-wrapper">
-            <Notification v-bind="item" />
+            <NotificationRecord v-bind="item" />
           </div>
         </li>
       </ul>
@@ -36,16 +36,16 @@
 
 <script lang="ts">
 import Vue from "vue";
-import Notification from "./Notification.vue";
+import NotificationRecord from "./Record.vue";
 import { ThumbsUpIcon } from "vue-feather-icons";
 
 import { Action, Getter } from "vuex-class";
 import { Component } from "vue-property-decorator";
 
 @Component({
-  name: "notifications",
+  name: "NotificationsCentre",
   components: {
-    Notification,
+    NotificationRecord,
     ThumbsUpIcon,
   },
 })

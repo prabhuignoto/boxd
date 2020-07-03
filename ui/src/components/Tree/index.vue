@@ -14,7 +14,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
-import { TreeNode as TreeNodeModel, NodeType } from "../../modules/tree";
+import { TreeNode as TreeNodeModel, NodeType } from "../../modules/models";
 import TreeNode from "./TreeNode.vue";
 
 @Component({
@@ -28,7 +28,6 @@ export default class extends Vue {
   type = NodeType;
 
   @Prop() id: string;
-  @Prop() isChild: boolean;
   @Prop() treeId: string;
 
   handleFolderSelection(path: string) {
@@ -40,12 +39,12 @@ export default class extends Vue {
   }
 
   mounted() {
+    debugger;
     this.$store.watch(
       (state, getters) => getters.getChildNodesById(this.treeId, this.id),
       nodes => {
         if (nodes && nodes.length) {
           this.nodes = nodes;
-          // unwatch();
         }
       }
     );
@@ -64,8 +63,6 @@ export default class extends Vue {
 }
 
 .tree-view-item {
-  margin: 0.2rem 0;
   text-align: left;
-  width: 100%;
 }
 </style>

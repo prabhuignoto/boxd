@@ -9,9 +9,10 @@
       </div>
     </div>
     <div class="selected-src">
-      <span class="value" v-if="selectedSource">
-        {{ mode === "move" ? moveResxSrcFormatted : copyResxSrcFormatted }}
-      </span>
+      <span
+        class="value"
+        v-if="isSourceSelected"
+      >{{ mode === "move" ? moveResxSrcFormatted : copyResxSrcFormatted }}</span>
     </div>
     <div class="stage2-controls">
       <Button name="Back" :onClick="handlePrevious" :buttonStyle="getStyle">
@@ -19,12 +20,7 @@
           <ChevronLeftIcon />
         </template>
       </Button>
-      <Button
-        name="Next"
-        v-if="isSourceSelected"
-        :onClick="handleNextStep"
-        :buttonStyle="getStyle"
-      >
+      <Button name="Next" v-if="isSourceSelected" :onClick="handleNextStep" :buttonStyle="getStyle">
         <template slot="btn-icon">
           <ChevronRightIcon />
         </template>
@@ -70,6 +66,9 @@ export default class extends Vue {
   @Action("moveResxSource") moveResxSource;
   @Action("clearMoveResx") clearMoveResx;
   @Action("copyResxSource") copyResxSource;
+  @Action("clearMoveCopyState") clearMoveCopyState;
+  @Action("updateMoveCopyMode") updateMoveCopyMode;
+  @Action("skipToFinal") skipToFinal;
 
   get selectedSource() {
     if (this.getMoveCopyMode === "move") {
@@ -81,9 +80,9 @@ export default class extends Vue {
 
   get isSourceSelected() {
     if (this.getMoveCopyMode === "move") {
-      return this.moveResxSrc;
+      return this.moveResxSrc === "" || this.moveResxSrc;
     } else {
-      return this.copyResxSrc;
+      return this.copyResxSrc === "" || this.copyResxSrc;
     }
   }
 
@@ -106,6 +105,11 @@ export default class extends Vue {
       title: "",
     });
     this.clearMoveResx();
+  }
+
+  beforeDestroy() {
+    this.clearMoveCopyState();
+    this.skipToFinal(false);
   }
 }
 </script>

@@ -14,7 +14,8 @@
       </div>
     </transition>
     <transition name="peek">
-      <Notification :message="getNewMessage" v-if="getNewMessage" />
+      <!-- <Notification :message="getNewMessage" v-if="getNewMessage" /> -->
+      <Notifications :messages="getAllUnreadMessages"></Notifications>
     </transition>
     <JobRunner />
   </section>
@@ -23,7 +24,7 @@
 <script>
 import Explorer from "../components/Explorer/Explorer.vue";
 import Popup from "../components/Popup/Popup";
-import Notification from "../components/Notification";
+import Notifications from "../components/Notifications.vue";
 import JobRunner from "../components/JobRunner";
 import NotificationSub from "../notificationSub";
 import DeleteFolder from "../components/Folder/DeleteFolder";
@@ -38,7 +39,7 @@ import { JobType } from "../modules/jobs";
   components: {
     Explorer,
     Popup,
-    Notification,
+    Notifications,
     DeleteFolder,
     JobRunner,
   },
@@ -50,13 +51,14 @@ export default class extends Vue {
   files = {
     entries: [],
   };
+  Notification = "Notification";
 
   @Getter("isModalActive") isModalActive;
   @Getter("getPopupComponent") getPopupComponent;
   @Getter("getPopupTitle") getPopupTitle;
   @Getter("getIsDisableHeader") getIsDisableHeader;
   @Getter("getNotificationStatus") getNotificationStatus;
-  @Getter("getNewMessage") getNewMessage;
+  @Getter("getAllUnreadMessages") getAllUnreadMessages;
   @Getter("getModalWidth") getModalWidth;
   @Getter("getExplorerPath") getExplorerPath;
   @Getter("getJobsActive") getJobsActive;

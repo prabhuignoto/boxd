@@ -5,6 +5,7 @@ export interface SocketResponse {
   uiJobId: string;
   job_type?: string;
   status?: string;
+  path?: string;
 }
 
 export interface SocketDataResponse {

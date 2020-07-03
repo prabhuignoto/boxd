@@ -88,7 +88,7 @@ export default class extends Vue {
           this.addJob({
             jobType: "COPY",
             data: {
-              items: JSON.parse(JSON.stringify(this.getCopyResourceBulk)),
+              items: this.getCopyResourceBulk,
               treeId: "explorer-main",
             },
           });
@@ -110,7 +110,7 @@ export default class extends Vue {
           this.addJob({
             jobType: "MOVE",
             data: {
-              items: JSON.parse(JSON.stringify(this.getMoveResourceBulk)),
+              items: this.getMoveResourceBulk,
               treeId: "explorer-main",
             },
           });

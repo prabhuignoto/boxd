@@ -50,7 +50,10 @@ const getters: GetterTree<FolderState, RootState> = {
   getFolderSelectionFormatted: state =>
     state.createFolder.selection &&
     state.createFolder.selection.split("/").join(" / "),
-  getFolderSelection: state => state.createFolder.selection,
+  getFolderSelection: state => {
+    const selection = state.createFolder.selection;
+    return selection === "/" ? "" : selection;
+  },
 };
 
 export default {

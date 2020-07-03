@@ -117,10 +117,9 @@ img {
 .upload-explorer-wrapper {
   border: 1px solid #cce5f9;
   border-radius: 0.1rem;
-  height: 12rem;
+  height: 16rem;
   margin-top: 1rem;
   overflow: auto;
-  padding-left: 0.5rem;
   padding-top: 0.5rem;
   width: 98%;
 }
@@ -151,7 +150,7 @@ img {
     border-radius: 0.1rem;
     border-radius: 0.2rem;
     display: flex;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     font-weight: 400;
     height: 100%;
     justify-content: flex-start;
@@ -159,8 +158,10 @@ img {
     word-break: break-word;
 
     &.highlight {
-      background: #007ee5;
-      color: #fff;
+      background-color: #cce5f9;
+      border-radius: 2rem;
+      color: #191919;
+
     }
   }
 }

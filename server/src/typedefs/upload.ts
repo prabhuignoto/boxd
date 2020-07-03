@@ -3,5 +3,6 @@ export default `
     success: Boolean!
     fileName: String!
     uiJobId: String!
+    path: String!
   }
 `;

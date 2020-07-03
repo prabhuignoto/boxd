@@ -12,7 +12,7 @@ import _ from "lodash";
 
 import { Component } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
-import { TreeNode, LockType } from "../modules/tree";
+import { TreeNode, LockType } from "../modules/models";
 
 interface Methods {
   runDeleteJob(j: Job): void;
@@ -39,6 +39,7 @@ export default class extends Vue {
   @Action("refreshFileExplorer") refreshFileExplorer;
   @Action("addNodes") addNodes;
   @Action("deleteNodes") deleteNodes;
+  @Action("removeChildrenNodes") removeChildrenNodes;
   @Action("addJob") addJob;
   @Action("startBulkOps") startBulkOps;
   @Action("stopBulkOps") stopBulkOps;
@@ -163,6 +164,7 @@ export default class extends Vue {
 
   async runCreateFolder(job) {
     const { path, name } = job.data;
+    debugger;
     try {
       await this.$apollo.mutate({
         mutation: CreateFolderGQL,
