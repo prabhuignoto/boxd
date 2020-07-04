@@ -96,7 +96,10 @@ try {
       }
     },
     playground: true,
-    schema
+    schema,
+    subscriptions: {
+      keepAlive: 5000
+    }
   });
 
   // * apply the apollo server middleware to the existing express app.
@@ -106,7 +109,8 @@ try {
       credentials: true,
       origin: process.env.CORS
     },
-    path: '/graphql'
+    path: '/graphql',
+    disableHealthCheck: true
   });
 
   // * setup cross origin policy

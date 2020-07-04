@@ -24,6 +24,8 @@ const wsLink = new WebSocketLink({
   uri: `${process.env.VUE_APP_WS_API_SERVER}/graphql`,
   options: {
     reconnect: true,
+    timeout: 30000,
+    inactivityTimeout: 0,
   },
 });
 
