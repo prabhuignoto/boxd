@@ -3,69 +3,19 @@
 // eslint-disable-next-line no-unused-vars
 import Agenda from 'agenda';
 // eslint-disable-next-line no-unused-vars
+import { JobInterface, JobMode, entry, entry_error, resultEntry, JobStatusResult, Job } from './agenda-models';
+// eslint-disable-next-line no-unused-vars
 import { Dropbox, files } from 'dropbox';
 import agenda from '../agenda';
 import { ErrorLogger } from '../logger';
 import PubSub from '../pubSub';
-
-export interface Job {
-  accessToken: string;
-  asyncJobId: string;
-  path: string;
-  uiJobId: string;
-}
-
-export interface entry {
-  tag: string;
-  metadata?: {
-    tag: string;
-    name?: string;
-    path_lower?: string;
-    content_hash?: string;
-  };
-  success?: {
-    tag: string;
-    name?: string;
-    path_lower?: string;
-    content_hash?: string;
-  }
-}
-
-export interface entry_error {
-  tag: string;
-  reason: string;
-}
-
-export enum JobMode {
-  'copy' = 'copy',
-  'move' = 'move',
-  'delete' = 'delete',
-};
 
 const getClient = (accessToken: string) => new Dropbox({
   accessToken: accessToken,
   clientId: process.env.CLIENT_ID
 });
 
-interface JobResult {
-  job_id: string;
-  tag: string;
-  entries?: entry[];
-  status?: string;
-  uiJobId?: string;
-}
-
-interface JobInterface {
-  onComplete(r: JobResult): void;
-  onProgress(r: JobResult): void;
-  onFailed(r: JobResult): void;
-  mode: JobMode
-}
-
-type JobStatusResult = files.RelocationBatchV2JobStatus | files.DeleteBatchJobStatus;
-type resultEntry = files.RelocationBatchResultEntry | files.DeleteBatchResultEntry;
-
-function jobFactory<T extends JobInterface>(config: T) {
+function jobFactory<T extends JobInterface> (config: T) {
   const transformEntries: (e: resultEntry[], m: JobMode) => entry[] | entry_error[] = (entries, mode) => {
     return entries.map(item => {
       let data = null;
@@ -215,4 +165,3 @@ export {
   moveJob,
   deleteJob
 };
-

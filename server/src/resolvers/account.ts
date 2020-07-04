@@ -13,12 +13,12 @@ export default {
         }).usersGetAccount({
           account_id: context.session.account_id
         });
-        return {
+        return ({
           name: accountData.name
-        };
+        });
       } catch (error) {
         ErrorLogger.log(error);
-        return {};
+        return Promise.resolve(false);
       }
     },
     getSpaceUsage: async (obj: any, args: any, context: any, info: any) => {

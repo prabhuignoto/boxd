@@ -5,7 +5,7 @@
   ],
   "verbose": true,
   "execMap": {
-    "ts": "node --inspect -r ts-node/register"
+    "ts": "node --inspect=9300 -r ts-node/register"
   },
   "watch": [
     "src/*.ts",

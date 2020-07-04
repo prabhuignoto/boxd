@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { Dropbox, files } from 'dropbox';
 import Agenda from '../agenda';
-import { copyJob, deleteJob, Job, moveJob } from '../agendas/batchCheck';
+import { copyJob, deleteJob, moveJob } from '../agendas/batchCheck';
 import { ErrorLogger } from '../logger';
 import PubSub from '../pubSub';
+import { Job } from '../agendas/agenda-models';
 
 export default {
   Mutation: {
@@ -27,7 +28,7 @@ export default {
               uiJobId: args.options.uiJobId
             }
           });
-        } else if (result['.tag'] === 'async_job_id' && Agenda ) {
+        } else if (result['.tag'] === 'async_job_id' && Agenda) {
           await Agenda.define<Job>(result.async_job_id, deleteJob);
           await Agenda.every('3 seconds', result.async_job_id, {
             accessToken: context.session.access_token,

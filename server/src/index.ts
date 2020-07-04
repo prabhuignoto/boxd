@@ -37,8 +37,6 @@ if (process.env.NODE_ENV === 'prod') {
   });
 }
 
-console.log(RedisOptions);
-
 const RedisClient = Redis.createClient(RedisOptions);
 
 // * initialize express
