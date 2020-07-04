@@ -164,7 +164,6 @@ export default class extends Vue {
 
   async runCreateFolder(job) {
     const { path, name } = job.data;
-    debugger;
     try {
       await this.$apollo.mutate({
         mutation: CreateFolderGQL,

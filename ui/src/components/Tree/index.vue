@@ -39,7 +39,6 @@ export default class extends Vue {
   }
 
   mounted() {
-    debugger;
     this.$store.watch(
       (state, getters) => getters.getChildNodesById(this.treeId, this.id),
       nodes => {

@@ -3,7 +3,7 @@
   color: #007ee5;
   display: flex;
   justify-content: center;
-  
+
   svg {
     height: 100%;
     width: 100%;
@@ -31,15 +31,14 @@
 }
 
 .throb-ball {
-  background: #4bb543;
   border-radius: 50%;
-  height: 8px;
-  width: 8px;
+  height: 10px;
+  width: 10px;
 
   &.active {
     animation-direction: alternate;
-    animation-duration: 0.75s;
-    animation-fill-mode: both;
+    animation-duration: 1s;
+    // animation-fill-mode: both;
     animation-iteration-count: infinite;
     animation-name: throb;
     animation-timing-function: ease-in;
@@ -56,11 +55,11 @@
 @keyframes throb {
   from {
     background-color: #4bb543;
-    opacity: 1;
+    // opacity: 1;
   }
 
   to {
     background: #fff;
-    opacity: 0;
+    // opacity: 0;
   }
 }

@@ -118,7 +118,6 @@ export default class extends Vue {
   }
 
   async handleCreate() {
-    debugger;
     if (this.createHandledOnce < 1) {
       this.createHandledOnce += 1;
     }

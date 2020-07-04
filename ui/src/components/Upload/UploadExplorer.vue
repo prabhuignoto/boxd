@@ -35,7 +35,6 @@ export default class extends Vue {
   }
 
   handleSelected(event: Event, path: string) {
-    debugger;
     this.uploadFile(path);
 
     if (path !== "/") {

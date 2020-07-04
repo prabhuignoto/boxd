@@ -186,7 +186,6 @@ export default class extends Vue {
   }
 
   get canShowUpladPathSelection() {
-    debugger;
     return (
       this.fileName !== "" && !this.uploadSuccess && this.getUploadPathFormatted
     );
