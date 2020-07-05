@@ -126,6 +126,7 @@ export async function Authenticate (req: express.Request, resp: express.Response
       req.session.save((err: any) => {
         console.log('saved session');
         if (err) {
+          console.log(err);
           throw new Error('Failed to save session');
         }
         resp.redirect(process.env.DASHBOARD as string);
