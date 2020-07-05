@@ -19,7 +19,7 @@
     "@types/multer": "^1.4.3",
     "@types/newrelic": "^6.4.0",
     "@types/node": "^14.0.14",
-    "@types/redis": "^2.8.23",
+    "@types/redis": "^2.8.24",
     "@types/winston": "^2.4.4",
     "agenda": "^3.1.0",
     "apollo-server": "^2.15.1",
