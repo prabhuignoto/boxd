@@ -61,11 +61,13 @@ try {
     Session({
       cookie: {
         // expires: false,
-        maxAge: Number(process.env.SESSION_COOKIE_MAXAGE),
+        expires: new Date(Date.now() + (3600 * 60)),
+        // maxAge: Number(process.env.SESSION_COOKIE_MAXAGE),
         secure: false
       },
       resave: false,
       saveUninitialized: true,
+      rolling: true,
       secret: 'vubox app secret',
       store: new RedisStore({
         client: RedisClient,
