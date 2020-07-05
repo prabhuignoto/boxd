@@ -18,6 +18,7 @@ config();
 // * initialize redis store and client
 // tslint:disable-next-line:no-var-requires
 const RedisStore = require('connect-redis')(Session);
+
 let RedisOptions: Redis.ClientOpts = {
   connect_timeout: 6000,
   host: process.env.REDIS_HOST,
@@ -67,7 +68,9 @@ try {
       saveUninitialized: true,
       secret: 'vubox app secret',
       store: new RedisStore({
-        client: RedisClient
+        client: RedisClient,
+        logErrors: true,
+        ttl: 5
       })
     })
   );
