@@ -119,7 +119,6 @@ export async function Authenticate (req: express.Request, resp: express.Response
     // check if the session is established and store the access token
     if (req.session) {
       console.log('creating session');
-
       req.session.access_token = oAuthResponse.access_token;
       req.session.account_id = oAuthResponse.account_id;
       req.session.logged_in = true;

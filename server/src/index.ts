@@ -63,7 +63,7 @@ try {
         // expires: false,
         expires: new Date(Date.now() + (3600 * 60)),
         maxAge: Number(process.env.SESSION_COOKIE_MAXAGE),
-        secure: true
+        secure: false
       },
       resave: false,
       saveUninitialized: true,

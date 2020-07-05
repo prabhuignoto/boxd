@@ -55,7 +55,7 @@ export default class extends Vue {
 
   @Action("clearAllJobs") clearAllJobs;
 
-  handleClear() {
+  handleClear(): void {
     this.clearAllJobs();
   }
 }
