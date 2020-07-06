@@ -13,7 +13,6 @@ import router from "./router";
 import store from "./store";
 
 Vue.config.productionTip = true;
-console.log(process.env);
 
 const httpLink = new HttpLink({
   credentials: "include",
@@ -25,7 +24,6 @@ const wsLink = new WebSocketLink({
   options: {
     reconnect: true,
     timeout: 30000,
-    lazy: true,
     inactivityTimeout: 0,
   },
 });

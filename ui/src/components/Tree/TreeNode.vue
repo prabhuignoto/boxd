@@ -75,7 +75,7 @@ export default class extends Vue {
   childrendRendered = false;
   loading = false;
 
-  handleNodeSelection(event: Event, path: string, id: string) {
+  handleNodeSelection(event: Event, path: string, id: string): void {
     if (event) {
       event.preventDefault();
       event.stopPropagation();
@@ -84,12 +84,12 @@ export default class extends Vue {
 
     this.handleFolderSelection(path, id);
 
-    if (id && id !== "$root" && !this.childrendRendered) {
+    if (!this.childrendRendered) {
       this.loading = true;
     }
   }
 
-  handleFileNode(event: Event, path: string) {
+  handleFileNode(event: Event, path: string): void {
     if (event) {
       event.preventDefault();
       event.stopPropagation();
@@ -98,7 +98,7 @@ export default class extends Vue {
     this.handleFileSelection(path);
   }
 
-  mounted() {
+  mounted(): void {
     const unWatch = this.$watch(
       "node.children",
       function () {
@@ -112,19 +112,19 @@ export default class extends Vue {
     );
   }
 
-  get canDisable() {
+  get canDisable(): boolean {
     return this.loading || this.node.locked;
   }
 
-  get showFolderPlus() {
+  get showFolderPlus(): boolean {
     return this.node.id !== "$root" && !this.expanded && !this.loading;
   }
 
-  get showFolderMinus() {
+  get showFolderMinus(): boolean {
     return this.node.id !== "$root" && this.expanded && !this.loading;
   }
 
-  get showFolder() {
+  get showFolder(): boolean {
     return this.node.id === "$root" && !this.loading;
   }
 }

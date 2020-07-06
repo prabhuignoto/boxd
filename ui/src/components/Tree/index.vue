@@ -30,15 +30,15 @@ export default class extends Vue {
   @Prop() id: string;
   @Prop() treeId: string;
 
-  handleFolderSelection(path: string) {
+  handleFolderSelection(path: string): void {
     this.$emit("selected", null, path);
   }
 
-  handleFileSelection(path: string) {
+  handleFileSelection(path: string): void {
     this.$emit("fileSelected", null, path);
   }
 
-  mounted() {
+  mounted(): void {
     this.$store.watch(
       (state, getters) => getters.getChildNodesById(this.treeId, this.id),
       nodes => {

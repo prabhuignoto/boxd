@@ -9,11 +9,6 @@
         </section>
       </section>
       <div class="app-logo-ensemble">
-        <!-- <div class="app-logo-wrapper">
-          <Logo />
-        </div>
-        <span class="app-logo"></span>
-        <span class="right-arrow"></span>-->
         <span class="dropbox-logo"></span>
       </div>
       <div class="button-grp">
@@ -26,7 +21,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { Component, Prop } from "vue-property-decorator";
 import Vue from "vue";
 
@@ -38,12 +33,12 @@ import Vue from "vue";
 })
 export default class extends Vue {
   @Prop() title;
-  handleLogin() {
-    window.location = `${process.env.VUE_APP_API_SERVER}/auth/login`;
+  handleLogin(): void {
+    window.location.href = `${process.env.VUE_APP_API_SERVER}/auth/login`;
   }
 
-  handleAccountCreation() {
-    window.location = "https://www.dropbox.com/login";
+  handleAccountCreation(): void {
+    window.location.href = "https://www.dropbox.com/login";
   }
 }
 </script>

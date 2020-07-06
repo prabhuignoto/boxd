@@ -40,19 +40,19 @@ header.app-title {
     width: 3rem;
   }
 
-  .app-logo {
-    background-image: url(../assets/cubes.svg);
-    height: 2rem;
-    margin-right: 1rem;
-    width: 2rem;
-  }
+  // .app-logo {
+  //   background-image: url(../assets/cubes.svg);
+  //   height: 2rem;
+  //   margin-right: 1rem;
+  //   width: 2rem;
+  // }
 
-  .right-arrow {
-    background-image: url(../assets/arrow-right.svg);
-    height: 2rem;
-    margin-right: 1rem;
-    width: 2rem;
-  }
+  // .right-arrow {
+  //   background-image: url(../assets/arrow-right.svg);
+  //   height: 2rem;
+  //   margin-right: 1rem;
+  //   width: 2rem;
+  // }
 }
 
 .app-info-wrapper {
@@ -89,7 +89,7 @@ header.app-title {
 
 .dropbox-btn {
   background: #007ee5;
-  border: none;
+  border: 0;
   border: 1px solid transparent;
   border-radius: 5px;
   box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
