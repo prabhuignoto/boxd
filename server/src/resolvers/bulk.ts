@@ -5,6 +5,7 @@ import { copyJob, deleteJob, moveJob } from '../agendas/batchCheck';
 import { ErrorLogger } from '../logger';
 import PubSub from '../pubSub';
 import { Job } from '../agendas/agenda-models';
+import Pusher from '../pusher';
 
 export default {
   Mutation: {

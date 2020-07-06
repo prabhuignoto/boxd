@@ -3,12 +3,12 @@
 // eslint-disable-next-line no-unused-vars
 import Agenda from 'agenda';
 // eslint-disable-next-line no-unused-vars
-import { JobInterface, JobMode, entry, entry_error, resultEntry, JobStatusResult, Job } from './agenda-models';
-// eslint-disable-next-line no-unused-vars
 import { Dropbox, files } from 'dropbox';
 import agenda from '../agenda';
 import { ErrorLogger } from '../logger';
-import PubSub from '../pubSub';
+import Pusher from '../pusher';
+// eslint-disable-next-line no-unused-vars
+import { entry, entry_error, Job, JobInterface, JobMode, JobStatusResult, resultEntry } from './agenda-models';
 
 const getClient = (accessToken: string) => new Dropbox({
   accessToken: accessToken,
@@ -119,7 +119,7 @@ const loadJob = function (mode: JobMode) {
   return jobFactory({
     mode,
     onComplete: ({ entries, status, job_id, tag, uiJobId }) => {
-      PubSub.publish('batchWorkComplete', {
+      Pusher && Pusher.trigger('channel-batch', 'batchWorkComplete', {
         batchWorkComplete: {
           job_id,
           tag,
@@ -132,7 +132,7 @@ const loadJob = function (mode: JobMode) {
       agenda && agenda.cancel({ name: job_id });
     },
     onProgress: ({ status, job_id, tag, uiJobId }) => {
-      PubSub.publish('batchWorkRunning', {
+      Pusher && Pusher.trigger('channel-batch', 'batchWorkRunning', {
         batchWorkRunning: {
           job_id,
           tag,
@@ -142,7 +142,7 @@ const loadJob = function (mode: JobMode) {
       });
     },
     onFailed: ({ job_id, tag, uiJobId }) => {
-      PubSub.publish('batchWorkFailed', {
+      Pusher && Pusher.trigger('channel-batch', 'batchWorkFailed', {
         batchWorkFailed: {
           job_id,
           tag,

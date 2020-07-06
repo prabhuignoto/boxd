@@ -1,5 +1,4 @@
 // import "newrelic";
-
 import { ApolloServer } from 'apollo-server-express';
 import BodyParser from 'body-parser';
 import cors from 'cors';
@@ -129,7 +128,7 @@ try {
 
   // * start the app server
   const httpServer = createServer(app);
-  server.installSubscriptionHandlers(httpServer);
+  // server.installSubscriptionHandlers(httpServer);
   httpServer.listen({ port: process.env.PORT || 4000 }, () =>
     console.log('🚀 Server ready')
   );

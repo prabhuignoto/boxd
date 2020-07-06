@@ -6,7 +6,7 @@ import FS from 'graceful-fs';
 import nodeFetch from 'node-fetch';
 import util from 'util';
 import { ErrorLogger, InfoLogger } from './logger';
-import pubsub from './pubSub';
+import Pusher from './pusher';
 
 const unlinkAsync = util.promisify(FS.unlink);
 
@@ -53,7 +53,7 @@ export default async function Upload (req: Request, resp: Response) {
           status: 'completed',
           status_text: 'File uploaded successfully.'
         });
-        pubsub.publish('uploadCompleted', {
+        Pusher && Pusher.trigger('channel-upload', 'uploadCompleted', {
           fileUploaded: {
             success: true,
             fileName: files[0].originalname as string,
@@ -69,7 +69,7 @@ export default async function Upload (req: Request, resp: Response) {
       level: 'error',
       message: error.response.statusText
     });
-    pubsub.publish('uploadCompleted', {
+    Pusher && Pusher.trigger('channel-upload', 'uploadCompleted', {
       fileUploaded: {
         success: false,
         uiJobId: req.body.uiJobId

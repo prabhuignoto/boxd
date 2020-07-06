@@ -36,7 +36,7 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
-    "tests/**/*.tsx", "src/main.ts"
+    "tests/**/*.tsx", "src/main.ts", "src/components/Pusher.vuew"
   ],
   "exclude": [
     "node_modules"

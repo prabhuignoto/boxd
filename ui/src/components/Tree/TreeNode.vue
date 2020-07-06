@@ -113,7 +113,7 @@ export default class extends Vue {
   }
 
   get canDisable(): boolean {
-    return this.loading || this.node.locked;
+    return Boolean(this.loading || this.node.locked);
   }
 
   get showFolderPlus(): boolean {

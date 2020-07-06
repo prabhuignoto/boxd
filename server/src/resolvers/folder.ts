@@ -3,6 +3,7 @@ import { Dropbox, files } from 'dropbox';
 import getDropboxClient from '../dropboxClient';
 import { ErrorLogger } from '../logger';
 import PubSub from '../pubSub';
+import Pusher from '../pusher';
 
 export default {
   Mutation: {
@@ -15,19 +16,20 @@ export default {
           to_path: args.toPath,
           autorename: true
         });
-        PubSub.publish('resxCopied', {
+        Pusher && Pusher.trigger('channel-files', 'resxCopied', {
           resxCopied: {
             name: args.fromPath,
             success: true
           }
         });
+
         return result.metadata;
       } catch (error) {
         ErrorLogger.log({
           level: 'error',
           message: error.message
         });
-        PubSub.publish('resxCopied', {
+        Pusher && Pusher.trigger('channel-files', 'resxCopied', {
           resxCopied: {
             message: 'Failed to copy the resource',
             success: false
@@ -45,7 +47,7 @@ export default {
           autorename: true,
           path: `${args.path}/${args.name}`
         });
-        PubSub.publish('folderAdded', {
+        Pusher && Pusher.trigger('channel-files', 'folderAdded', {
           folderAdded: {
             name: args.name,
             path: args.path,
@@ -59,7 +61,7 @@ export default {
           level: 'error',
           message: error.message
         });
-        PubSub.publish('folderAdded', {
+        Pusher && Pusher.trigger('channel-files', 'folderAdded', {
           folderAdded: {
             name: args.name,
             message: 'Failed to add the folder',
@@ -78,7 +80,7 @@ export default {
         }).filesDeleteV2({
           path: args.path
         });
-        PubSub.publish('resxDeleted', {
+        Pusher && Pusher.trigger('channel-files', 'resxDeleted', {
           resxDeleted: {
             name: args.path,
             success: true
@@ -90,7 +92,7 @@ export default {
           level: 'error',
           message: error.message
         });
-        PubSub.publish('resxDeleted', {
+        Pusher && Pusher.trigger('channel-files', 'resxDeleted', {
           resxDeleted: {
             message: 'Failed to delete the folder',
             success: false
@@ -108,7 +110,7 @@ export default {
           from_path: args.fromPath,
           to_path: args.toPath
         });
-        PubSub.publish('resxMoved', {
+        Pusher && Pusher.trigger('channel-files', 'resxMoved', {
           resxMoved: {
             name: args.fromPath,
             success: true
@@ -117,8 +119,8 @@ export default {
         return result.metadata;
       } catch (error) {
         ErrorLogger.log(error);
-        PubSub.publish('resxMoved', {
-          resxCopied: {
+        Pusher && Pusher.trigger('channel-files', 'resxMoved', {
+          resxMoved: {
             message: 'Failed to move the resource',
             success: false
           }
@@ -166,20 +168,6 @@ export default {
         });
         return {};
       }
-    }
-  },
-  Subscription: {
-    folderAdded: {
-      subscribe: () => PubSub.asyncIterator('folderAdded')
-    },
-    resxCopied: {
-      subscribe: () => PubSub.asyncIterator('resxCopied')
-    },
-    resxDeleted: {
-      subscribe: () => PubSub.asyncIterator('resxDeleted')
-    },
-    resxMoved: {
-      subscribe: () => PubSub.asyncIterator('resxMoved')
     }
   }
 };

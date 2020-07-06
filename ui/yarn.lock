@@ -1458,6 +1458,11 @@
   dependencies:
     pretty-bytes "*"
 
+"@types/pusher-js@^4.2.2":
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/@types/pusher-js/-/pusher-js-4.2.2.tgz#129fae1854255c5883e874137cd045c48d0a422a"
+  integrity sha512-LP9isBRAFlNzQohQtySJxJjzmy4zQCcv5xGZD2G3rsDnTWfpEkFKyLw3x9711pFAXwwUl9ZivxKkcnFr8umSAQ==
+
 "@types/uniqid@^5.2.0":
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/@types/uniqid/-/uniqid-5.2.0.tgz#040674219cffe16ca035c820c2581012e6eb11e5"
@@ -7343,11 +7348,6 @@ load-json-file@^1.0.0:
     pinkie-promise "^2.0.0"
     strip-bom "^2.0.0"
 
-loadash@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/loadash/-/loadash-1.0.0.tgz#b92e54d809f3c225f4f9a9cfbaeae5b56de1ca9f"
-  integrity sha512-xlX5HBsXB3KG0FJbJJG/3kYWCfsCyCSus3T+uHVu6QL6YxAdggmm3QeyLgn54N2yi5/UE6xxL5ZWJAAiHzHYEg==
-
 loader-fs-cache@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/loader-fs-cache/-/loader-fs-cache-1.0.1.tgz#56e0bf08bd9708b26a765b68509840c8dec9fdbc"
@@ -9924,6 +9924,13 @@ punycode@^2.1.0, punycode@^2.1.1:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
+pusher-js@^6.0.3:
+  version "6.0.3"
+  resolved "https://registry.yarnpkg.com/pusher-js/-/pusher-js-6.0.3.tgz#97e4dabe74bf39cb6978ea649fb9e13d8d7a8721"
+  integrity sha512-l0MHlrpG+D4R6jj+vjqnJNjawBqKCjQ4Y/YARNsWFbXGKNl77xX8pUpbv55Al+dFHGkc7wI2fDXw/BDLleF9Lg==
+  dependencies:
+    tweetnacl "^1.0.3"
+
 q@^1.1.2:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
@@ -11991,6 +11998,11 @@ tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.5"
   resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
   integrity sha1-WuaBd/GS1EViadEIr6k/+HQ/T2Q=
+
+tweetnacl@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-1.0.3.tgz#ac0af71680458d8a6378d0d0d050ab1407d35596"
+  integrity sha512-6rt+RN7aOi1nGMyC4Xa5DdYiukl2UWCbcJft7YhxReBGQD7OAM8Pbxw6YMo4r2diNEA8FEmu32YOn9rhaiE5yw==
 
 type-check@^0.4.0, type-check@~0.4.0:
   version "0.4.0"

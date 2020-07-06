@@ -18,6 +18,7 @@
       <Notifications :messages="getAllUnreadMessages"></Notifications>
     </transition>
     <JobRunner />
+    <Pusher />
   </section>
 </template>
 
@@ -26,6 +27,7 @@ import Explorer from "../components/Explorer/Explorer.vue";
 import Popup from "../components/Popup/Popup";
 import Notifications from "../components/Notifications.vue";
 import JobRunner from "../components/JobRunner";
+import Pusher from "../components/Pusher";
 import NotificationSub from "../notificationSub";
 import DeleteFolder from "../components/Folder/DeleteFolder";
 
@@ -42,6 +44,7 @@ import { JobType } from "../modules/jobs";
     Notifications,
     DeleteFolder,
     JobRunner,
+    Pusher,
   },
   apollo: {
     $subscribe: NotificationSub,
