@@ -2,7 +2,6 @@
 import { Dropbox, files } from 'dropbox';
 import getDropboxClient from '../dropboxClient';
 import { ErrorLogger } from '../logger';
-import PubSub from '../pubSub';
 import Pusher from '../pusher';
 
 export default {
