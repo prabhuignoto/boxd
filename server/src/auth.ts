@@ -49,23 +49,7 @@ export function Authorize (req: FastifyRequest, resp: FastifyReply<ServerRespons
 
 export async function isUserLoggedIn (req: FastifyRequest, resp: FastifyReply<ServerResponse>) {
   try {
-    const getSession = function (sessionId: string) {
-      return new Promise((resolve, reject) => {
-        if (sessionId) {
-          req.sessionStore.get(sessionId, (error, session) => {
-            if (error) {
-              reject(new Error("'session id is not defined'"));
-            }
-            resolve(session);
-          });
-        } else {
-          reject(new Error('session id is not defined'));
-        }
-      });
-    };
-    const session = await getSession(req.session.sessionId);
-
-    if (session) {
+    if (req.session.logged_in) {
       return resp.send({
         loggedin: true
       });

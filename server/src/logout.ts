@@ -17,7 +17,7 @@ export default async function Logout (req: FastifyRequest, resp: FastifyReply<Se
 
     const logout = function(sessionId: string) {
       return new Promise((resolve, reject) => {
-        req.sessionStore.destroy(req.session.sessionId, (error) => {
+        req.destroySession((error) => {
           if(error) {
             reject(new Error("Failed to Sign out"));
           }

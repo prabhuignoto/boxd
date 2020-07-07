@@ -565,6 +565,13 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.10.39.tgz#e7e87ad00364dd7bc485c940926345b8ec1a26ca"
   integrity sha512-rE7fktr02J8ybFf6eysife+WF+L4sAHWzw09DgdCebEu+qDwMvv4zl6Bc+825ttGZP73kCKxa3dhJOoGJ8+5mA==
 
+"@types/progress-stream@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@types/progress-stream/-/progress-stream-2.0.0.tgz#68ec37db90be412a4aab73f4366f5de00fc0a9ee"
+  integrity sha512-KKboL4BvIezEvnd2bdbIfIIkr3Th1p0AJOBaPdKMWm69uMoisOGd4mynzfB/iia2z0k3nwAJCmixESHfVjsrgw==
+  dependencies:
+    "@types/node" "*"
+
 "@types/range-parser@*":
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.3.tgz#7ee330ba7caafb98090bece86a5ee44115904c2c"
