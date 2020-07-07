@@ -15,20 +15,30 @@ export default async function Logout (req: FastifyRequest, resp: FastifyReply<Se
       clientId: process.env.CLIENT_ID
     }).authTokenRevoke(undefined);
 
-    if (req.session) {
-      req.sessionStore.destroy(req.session.sessionId, () => {});
-      req.session.destroy(() => {
-        InfoLogger.log({
-          level: 'info',
-          message: 'Session destroyed'
+    const logout = function(sessionId: string) {
+      return new Promise((resolve, reject) => {
+        req.sessionStore.destroy(req.session.sessionId, (error) => {
+          if(error) {
+            reject(new Error("Failed to Sign out"));
+          }
+          resolve(true);
         });
       });
-    }
+    };
 
-    return resp.send({
-      message: 'Successfully logged out',
-      success: true
-    });
+    const success = await logout(req.session.sessionId);
+
+    if(success) {
+      return resp.send({
+        message: 'Successfully logged out',
+        success: true
+      });
+    } else {
+      return resp.send({
+        message: 'Failed to log out',
+        success: false
+      });
+    }
   } catch (error) {
     ErrorLogger.log({
       level: 'error',
