@@ -2,6 +2,7 @@
 
 <!-- [![NPM Version][npm-image]][npm-url]-->
 <!-- [![Downloads Stats][npm-downloads]][npm-url] -->
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9f6d1f44b9eb488cbce16173f32a65b0)](https://app.codacy.com/manual/prabhuignoto/boxd?utm_source=github.com&utm_medium=referral&utm_content=prabhuignoto/boxd&utm_campaign=Badge_Grade_Dashboard)
 [![Build Status](https://dev.azure.com/prabhummurthy/boxd/_apis/build/status/prabhuignoto.boxd?branchName=master)](https://dev.azure.com/prabhummurthy/boxd/_build/latest?definitionId=2&branchName=master)
 [![DeepScan grade](https://deepscan.io/api/teams/10074/projects/12749/branches/201583/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=10074&pid=12749&bid=201583)
 
