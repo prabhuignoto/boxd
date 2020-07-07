@@ -1,12 +1,13 @@
 /* eslint-disable camelcase */
-
 import Axios from 'axios';
 import { Dropbox } from 'dropbox';
+// eslint-disable-next-line no-unused-vars
+import { FastifyReply, FastifyRequest } from 'fastify';
+// eslint-disable-next-line no-unused-vars
+import { ServerResponse } from 'http';
 import 'isomorphic-fetch';
 import * as querystring from 'querystring';
 import { createLogger, format, transports } from 'winston';
-// eslint-disable-next-line no-unused-vars
-import express from 'express';
 
 const logFormat = format.combine(format.colorize(), format.prettyPrint());
 const errorLogger = createLogger({
@@ -24,7 +25,7 @@ interface IAccessToken {
   token_type: string;
 }
 
-export async function Authorize (req: express.Request, resp: express.Response) {
+export function Authorize (req: FastifyRequest, resp: FastifyReply<ServerResponse>) {
   try {
     // prepare the request body and config for google oauth
     const queryString = querystring.stringify({
@@ -46,14 +47,30 @@ export async function Authorize (req: express.Request, resp: express.Response) {
   }
 }
 
-export async function isUserLoggedIn (req: express.Request, resp: express.Response) {
+export async function isUserLoggedIn (req: FastifyRequest, resp: FastifyReply<ServerResponse>) {
   try {
-    if (req.session && req.session.logged_in) {
-      return resp.json({
+    const getSession = function (sessionId: string) {
+      return new Promise((resolve, reject) => {
+        if (sessionId) {
+          req.sessionStore.get(sessionId, (error, session) => {
+            if (error) {
+              reject(new Error("'session id is not defined'"));
+            }
+            resolve(session);
+          });
+        } else {
+          reject(new Error('session id is not defined'));
+        }
+      });
+    };
+    const session = await getSession(req.session.sessionId);
+
+    if (session) {
+      return resp.send({
         loggedin: true
       });
     } else {
-      return resp.json({
+      return resp.send({
         loggedin: false
       });
     }
@@ -62,14 +79,14 @@ export async function isUserLoggedIn (req: express.Request, resp: express.Respon
       level: 'error',
       message: error
     });
-    return resp.json({
+    return resp.send({
       loggedin: false,
       message: 'Failed to validate.'
     });
   }
 }
 
-export async function RevokeToken (req: express.Request, res: express.Response) {
+export async function RevokeToken (req: FastifyRequest, res: FastifyReply<ServerResponse>) {
   try {
     if (req.session && req.session.access_token) {
       await new Dropbox({
@@ -87,7 +104,7 @@ export async function RevokeToken (req: express.Request, res: express.Response) 
 }
 
 // this function retrieves the access token for making api calls
-export async function Authenticate (req: express.Request, resp: express.Response) {
+export async function Authenticate (req: FastifyRequest, resp: FastifyReply<ServerResponse>) {
   // prepare the request body
   const requestBody = {
     // dropbox client id
@@ -122,14 +139,12 @@ export async function Authenticate (req: express.Request, resp: express.Response
       req.session.access_token = oAuthResponse.access_token;
       req.session.account_id = oAuthResponse.account_id;
       req.session.logged_in = true;
-      req.session.save((err: any) => {
-        console.log('saved session');
-        if (err) {
-          console.log(err);
-          throw new Error('Failed to save session');
+      req.sessionStore.set(req.session.sessionId, req.session, (error) => {
+        if (error) {
+          resp.redirect(process.env.DASHBOARD as string);
         }
+        resp.redirect(process.env.DASHBOARD as string);
       });
-      resp.redirect(process.env.DASHBOARD as string);
     }
     // redirect to home
   } catch (error) {

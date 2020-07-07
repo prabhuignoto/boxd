@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 
 export default gql`
-  mutation copyBulk($options: relocationOptions!) {
-    move: copyBulk(options: $options)
+  mutation copyBulk($args: RelocationBulkArgs!) {
+    move: copyBulk(args: $args)
   }
 `;

@@ -1,23 +1,34 @@
-// import "newrelic";
-import { ApolloServer } from 'apollo-server-express';
-import BodyParser from 'body-parser';
-import cors from 'cors';
+/* eslint-disable no-unused-vars */
+import { ApolloServer } from 'apollo-server-fastify';
 import { config } from 'dotenv';
-import express from 'express';
-import Session from 'express-session';
-import { createServer } from 'http';
-import morgan from 'morgan';
+import fastify, { FastifyRequest } from 'fastify';
+import fastifyCompress from 'fastify-compress';
+import fastifyCookie from 'fastify-cookie';
+import fastifyCors from 'fastify-cors';
+import fastifyHelmet from 'fastify-helmet';
+import fastifyMulter from 'fastify-multer';
+import fastifySession from 'fastify-session';
 import Redis from 'redis';
+import 'reflect-metadata';
+import { buildSchema } from 'type-graphql';
+import { Authenticate, Authorize, isUserLoggedIn, RevokeToken } from './auth';
+import Download from './download';
 import { ErrorLogger } from './logger';
-import Routers from './router';
-import schema from './schema';
+import Logout from './logout';
+import AccountResolver from './resolvers/account-new';
+import BulkResolver from './resolvers/bulk-new';
+import FolderResolver from './resolvers/folder-new';
+import Upload from './upload';
 
 config();
 
-// * initialize redis store and client
-// tslint:disable-next-line:no-var-requires
-const RedisStore = require('connect-redis')(Session);
+const MulterUpload = fastifyMulter({ dest: 'uploads/' });
 
+// * initialize redis store
+// tslint:disable-next-line:no-var-requires
+const RedisStore = require('connect-redis')(fastifySession);
+
+// * setup redis client options
 let RedisOptions: Redis.ClientOpts = {
   connect_timeout: 6000,
   host: process.env.REDIS_HOST,
@@ -31,111 +42,104 @@ let RedisOptions: Redis.ClientOpts = {
   no_ready_check: true
 };
 
+// * add redis password for production
 if (process.env.NODE_ENV === 'prod') {
   RedisOptions = Object.assign({}, RedisOptions, {
     password: process.env.REDIS_PASSWORD
   });
 }
 
+// * create redis client
 const RedisClient = Redis.createClient(RedisOptions);
 
-// * initialize express
-const app = express();
+// * create fastify
+const fast = fastify({
+  logger: true
+});
 
-// * load dotenv config on dev env
-// if (process.env.NODE_ENV === 'development') {
-// }
+// * setup fastify session
+fast.register(fastifyCookie);
+fast.register(fastifySession, {
+  secret: process.env.SESSION_SECRET as string,
+  saveUninitialized: true,
+  cookie: {
+    maxAge: Number(process.env.SESSION_COOKIE_MAXAGE),
+    secure: false
+  },
+  store: new RedisStore({
+    client: RedisClient,
+    logErrors: true,
+    ttl: 5
+  })
+});
 
-try {
-  // * enable morgan logger
-  app.use(morgan(process.env.MORGAN_LOG_MODE as string));
+// * setup fastify routes
+fast.route({
+  method: "POST",
+  url: "/upload",
+  preHandler: MulterUpload.array("files", 20),
+  handler: Upload
+});
 
-  // * invoke body parser
-  app.use(BodyParser.urlencoded({ extended: true }));
+fast.get('/auth/login', Authorize);
+fast.get('/auth/authenticate', Authenticate);
+fast.get('/revokeAccess', RevokeToken);
+fast.get('/isLoggedIn', isUserLoggedIn);
+fast.get('/download', Download);
 
-  app.use(BodyParser.json());
+fast.post('/logout', Logout);
 
-  // * setup express-session and hook up with redis store for storing the sessions
-  app.use(
-    Session({
-      cookie: {
-        // expires: false,
-        expires: new Date(Date.now() + (3600 * 60)),
-        maxAge: Number(process.env.SESSION_COOKIE_MAXAGE),
-        secure: false
-      },
-      resave: false,
-      saveUninitialized: true,
-      rolling: true,
-      secret: 'vubox app secret',
-      store: new RedisStore({
-        client: RedisClient,
-        logErrors: true,
-        ttl: 5
-      })
-    })
-  );
+(async function () {
+  try {
 
-  // * initiate apollo server.
-  const server = new ApolloServer({
-    context: ({
-      req,
-      connection
-    }: {
-      req: express.Request;
-      resp: express.Response;
-      connection: any;
-    }) => {
-      if (connection) {
-        return {};
-      } else {
+    // * build the graphql schema
+    const schema = await buildSchema({
+      resolvers: [AccountResolver, FolderResolver, BulkResolver]
+    });
+
+    // * initiate apollo server.
+    const apolloServer = new ApolloServer({
+      context: (req: FastifyRequest) => {
         return {
           session: {
-            access_token: req.session && req.session.access_token,
-            account_id: req.session && req.session.account_id
-          }
+            access_token: req.session.access_token,
+            account_id: req.session.account_id
+          },
+          playground: true,
+          schema,
         };
-      }
-    },
-    playground: true,
-    schema,
-    subscriptions: {
-      keepAlive: 5000
-    }
-  });
+      },
+      schema,
+    });
 
-  // * apply the apollo server middleware to the existing express app.
-  server.applyMiddleware({
-    app,
-    cors: {
+    // * register apollo server
+    fast.register(apolloServer.createHandler({
+      cors: {
+        credentials: false,
+        origin: process.env.CORS,
+      },
+      disableHealthCheck: true
+    }));
+
+    // * register fastify libs
+    fast.register(fastifyCompress);
+    fast.register(fastifyCors, {
+      exposedHeaders: 'Content-Disposition',
+      origin: process.env.CORS,
       credentials: true,
-      origin: process.env.CORS
-    },
-    path: '/graphql',
-    disableHealthCheck: true
-  });
+      methods: ['GET', 'POST'],
+    });
+    fast.register(fastifyHelmet);
+    fast.register(fastifyMulter.contentParser);
 
-  // * setup cross origin policy
-  app.use(
-    cors({
-      credentials: true,
-      origin: process.env.CORS
-    })
-  );
-
-  // * setup app wide routers
-  app.use('/', Routers);
-
-  // * start the app server
-  const httpServer = createServer(app);
-  // server.installSubscriptionHandlers(httpServer);
-  httpServer.listen({ port: process.env.PORT || 4000 }, () =>
-    console.log('🚀 Server ready')
-  );
-} catch (error) {
-  ErrorLogger.log({
-    level: 'error',
-    message: error
-  });
-  console.log(error);
-}
+    // * start the server
+    fast.listen(4000);
+    fast.log.info('server running on 4000');
+  } catch (error) {
+    ErrorLogger.log({
+      level: 'error',
+      message: error
+    });
+    fast.log.error(error);
+  }
+}());

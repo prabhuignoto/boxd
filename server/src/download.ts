@@ -5,11 +5,13 @@ import FS from 'graceful-fs';
 import Path from 'path';
 import util from 'util';
 import { ErrorLogger, InfoLogger } from './logger';
+import { FastifyRequest, FastifyReply } from 'fastify';
+import { ServerResponse } from 'http';
 
 const fileExists = util.promisify(FS.exists);
 const writeFileAsync = util.promisify(FS.writeFile);
 
-export default async function Download (req: Request, resp: Response) {
+export default async function Download (req: FastifyRequest, resp: FastifyReply<ServerResponse>) {
   try {
     type DownloadMetadata = files.FileMetadata & { fileBinary: Buffer };
 
@@ -54,7 +56,9 @@ export default async function Download (req: Request, resp: Response) {
                 } successfully created on ${filePath}`
             });
           }
-          resp.download(filePath, metadata.name);
+          const stream = FS.createReadStream(Path.resolve(filePath));
+          resp.send(stream);
+          // resp.download(filePath, metadata.name);
         };
 
         await FS.exists(dirPath, (exists) => {

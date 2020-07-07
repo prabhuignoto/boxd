@@ -1,23 +1,12 @@
+/* eslint-disable no-unused-vars */
 import { Dropbox } from 'dropbox';
-// eslint-disable-next-line no-unused-vars
-import { Request, Response } from 'express';
-import { createLogger, format, transports } from 'winston';
+import { FastifyRequest, FastifyReply } from 'fastify';
+import { ServerResponse } from 'http';
+import { ErrorLogger, InfoLogger } from "./logger";
 
-const logFormat = format.combine(format.timestamp(), format.prettyPrint());
-const errorLogger = createLogger({
-  format: logFormat,
-  level: 'error',
-  transports: [new transports.Console()]
-});
-const infoLogger = createLogger({
-  format: logFormat,
-  level: 'info',
-  transports: [new transports.Console()]
-});
-
-export default async function Logout (req: Request, resp: Response) {
+export default async function Logout (req: FastifyRequest, resp: FastifyReply<ServerResponse>) {
   try {
-    infoLogger.log({
+    InfoLogger.log({
       level: 'info',
       message: `Uploading ${req.query.path}`
     });
@@ -27,20 +16,21 @@ export default async function Logout (req: Request, resp: Response) {
     }).authTokenRevoke(undefined);
 
     if (req.session) {
+      req.sessionStore.destroy(req.session.sessionId, () => {});
       req.session.destroy(() => {
-        infoLogger.log({
+        InfoLogger.log({
           level: 'info',
           message: 'Session destroyed'
         });
       });
     }
 
-    return resp.json({
+    return resp.send({
       message: 'Successfully logged out',
       success: true
     });
   } catch (error) {
-    errorLogger.log({
+    ErrorLogger.log({
       level: 'error',
       message: error.response.statusText
     });

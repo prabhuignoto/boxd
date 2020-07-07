@@ -3,7 +3,7 @@ module.exports = {
     es2020: true,
     node: true
   },
-  extends: ['standard'],
+  extends: ['standard', 'prettier'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 11,

@@ -20,7 +20,7 @@ const apolloClient = new ApolloClient({
   link: httpLink,
   cache: new InMemoryCache(),
   typeDefs: gql`
-    input deleteBulkOptions {
+    input DeleteBulkArgs {
       paths: [String!]!
       uiJobId: String!
     }
@@ -35,6 +35,38 @@ const apolloClient = new ApolloClient({
       entries: [relocationEntry!]!
       autorename: Boolean
       uiJobId: String!
+    }
+
+    input ListFilesArg {
+      limit: Int
+      path: String!
+      cursor: String
+    }
+
+    input CreateFolderArg {
+      path: String!
+      autorename: Boolean
+      uiJobId: String!
+      name: String!
+    }
+
+    input FilesRelocationArg {
+      fromPath: String!
+      toPath: String!
+      autorename: Boolean
+      uiJobId: String!
+    }
+
+    input Entry {
+      formPath: String!
+      toPath: String!
+      id: String
+    }
+
+    input RelocationBulkArgs {
+      autorename: Boolean
+      uiJobId: String!
+      entries: [Entry!]!
     }
   `,
   connectToDevTools: true,

@@ -30,9 +30,11 @@ import { Action, Getter } from "vuex-class";
       debounce: 1000,
       variables() {
         return {
-          path: this.path,
-          limit: 1000,
-          cursor: "",
+          args: {
+            path: this.path,
+            limit: 1000,
+            cursor: "",
+          },
         };
       },
       fetchPolicy: "network-only",

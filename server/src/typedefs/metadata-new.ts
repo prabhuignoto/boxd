@@ -12,16 +12,16 @@ export class Metadata {
   @Field()
   id!: string;
 
-  @Field()
+  @Field({ nullable: true })
   client_modified!: string;
 
-  @Field()
+  @Field({ nullable: true })
   server_modified!: string;
 
-  @Field()
+  @Field({ nullable: true })
   rev!: string;
 
-  @Field()
+  @Field({ nullable: true })
   size!: number;
 
   @Field()
@@ -30,6 +30,6 @@ export class Metadata {
   @Field()
   path_display!: string;
 
-  @Field()
+  @Field({ nullable: true })
   content_hash!: string;
 }

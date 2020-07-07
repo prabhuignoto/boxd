@@ -4,13 +4,13 @@ import { Metadata } from './metadata-new';
 
 @ObjectType()
 export class Folder {
-  @Field(returns => [Metadata])
+  @Field(returns => [Metadata], { nullable: true })
   entries!: Metadata[];
 
   @Field()
   hasMore!: boolean;
 
-  @Field()
+  @Field({ nullable: true })
   cursor!: string;
 }
 
@@ -30,6 +30,7 @@ export class EntryMetadata {
 
   @Field()
   path_display!: string;
+
 }
 
 @ObjectType()

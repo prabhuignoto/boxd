@@ -1,17 +1,19 @@
 import { Buffer } from 'buffer';
 import { Dropbox } from 'dropbox';
 // eslint-disable-next-line no-unused-vars
-import { Request, Response } from 'express';
+import { FastifyRequest, FastifyReply } from 'fastify';
 import FS from 'graceful-fs';
 import nodeFetch from 'node-fetch';
 import util from 'util';
 import { ErrorLogger, InfoLogger } from './logger';
 import Pusher from './pusher';
+// eslint-disable-next-line no-unused-vars
+import { ServerResponse } from 'http';
 
 const unlinkAsync = util.promisify(FS.unlink);
 
 // tslint: disable-next-line
-export default async function Upload (req: Request, resp: Response) {
+export default async function Upload(req: FastifyRequest, resp: FastifyReply<ServerResponse>) {
   try {
     const files: any = req.files;
 
@@ -48,7 +50,7 @@ export default async function Upload (req: Request, resp: Response) {
       await unlinkAsync(files[0].path);
 
       if (response) {
-        resp.json({
+        resp.send({
           success: true,
           status: 'completed',
           status_text: 'File uploaded successfully.'

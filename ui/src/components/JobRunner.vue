@@ -5,7 +5,6 @@ import MoveBulkGQL from "../graphql/moveBulk";
 import CopyBulkGQL from "../graphql/copyBulk";
 import CreateFolderGQL from "../graphql/createFolder";
 import FolderGQL from "../graphql/folder";
-import BatchSub from "../batchSub";
 import Axios from "axios";
 import { Job, JobType } from "../modules/jobs";
 import _ from "lodash";
@@ -24,9 +23,6 @@ interface Methods {
 
 @Component({
   name: "JobRunner",
-  apollo: {
-    $subscribe: BatchSub,
-  },
 })
 export default class extends Vue {
   @Action("startJob") startJob;
@@ -88,7 +84,7 @@ export default class extends Vue {
         await this.$apollo.mutate({
           mutation: DeleteBulkGQL,
           variables: {
-            options: {
+            args: {
               paths: items.map(item => item.pathLower),
               uiJobId: job.id,
             },
@@ -116,7 +112,7 @@ export default class extends Vue {
         await this.$apollo.mutate({
           mutation: MoveBulkGQL,
           variables: {
-            options: {
+            args: {
               entries: items,
               autorename: true,
               uiJobId: job.id,
@@ -145,7 +141,7 @@ export default class extends Vue {
         await this.$apollo.mutate({
           mutation: CopyBulkGQL,
           variables: {
-            options: {
+            args: {
               entries: items,
               autorename: true,
               uiJobId: job.id,
@@ -168,9 +164,11 @@ export default class extends Vue {
       await this.$apollo.mutate({
         mutation: CreateFolderGQL,
         variables: {
-          path: path,
-          name: name,
-          uiJobId: job.id,
+          args: {
+            path: path,
+            name: name,
+            uiJobId: job.id,
+          },
         },
       });
     } catch (error) {
@@ -216,9 +214,11 @@ export default class extends Vue {
       const { data } = await this.$apollo.query<{ files: { entries } }>({
         query: FolderGQL,
         variables: {
-          path,
-          cursor: "",
-          limit: 100,
+          args: {
+            path,
+            cursor: "",
+            limit: 100,
+          },
         },
         fetchPolicy: "no-cache",
       });

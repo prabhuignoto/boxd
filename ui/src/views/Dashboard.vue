@@ -28,7 +28,6 @@ import Popup from "../components/Popup/Popup";
 import Notifications from "../components/Notifications.vue";
 import JobRunner from "../components/JobRunner";
 import Pusher from "../components/Pusher";
-import NotificationSub from "../notificationSub";
 import DeleteFolder from "../components/Folder/DeleteFolder";
 
 import { Component } from "vue-property-decorator";
@@ -45,9 +44,6 @@ import { JobType } from "../modules/jobs";
     DeleteFolder,
     JobRunner,
     Pusher,
-  },
-  apollo: {
-    $subscribe: NotificationSub,
   },
 })
 export default class extends Vue {

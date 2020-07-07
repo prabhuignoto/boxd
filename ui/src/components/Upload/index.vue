@@ -35,6 +35,7 @@
         <!-- input file -->
         <input
           type="file"
+          name="files"
           id="input-file"
           style="display: none;"
           @change="handleInputFile"
@@ -220,7 +221,7 @@ export default class extends Vue {
     try {
       if (this.file) {
         const formData = new FormData();
-        formData.append("file", this.file);
+        formData.append("files", this.file);
         formData.append(
           "uploadPath",
           this.getUploadPath === "/$root" ? "" : this.getUploadPath
