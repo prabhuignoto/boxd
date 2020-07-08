@@ -46,7 +46,9 @@ export default async function Download(req: FastifyRequest, resp: FastifyReply<S
         const folderExists = await fileExists(dirPath);
 
         if (!folderExists) {
-          await makeDirAsync(dirPath);
+          await makeDirAsync(dirPath, {
+            recursive: true
+          });
         }
 
         const result = await fileExists(filePath);
