@@ -15,8 +15,8 @@ class Entry {
   @Field()
   toPath!: string;
 
-  @Field()
-  id!: string;
+  @Field({ nullable: true })
+  id?: string;
 }
 
 @InputType()
@@ -30,7 +30,7 @@ class DeleteBulkArgs {
 
 @InputType()
 class RelocationBulkArgs {
-  @Field({nullable: true})
+  @Field({ nullable: true })
   autorename?: boolean;
 
   @Field()

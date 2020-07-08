@@ -39,7 +39,7 @@ export default class extends Vue {
   @Action("addNodes") addNodes;
   @Action("addJob") addJob;
 
-  handleSelected(event: Event, path: string) {
+  handleSelected(event: Event, { path, id }: { path: string; id: string }) {
     if (path !== "/") {
       this.addJob({
         jobType: JobType.LIST_FILES,
@@ -50,7 +50,7 @@ export default class extends Vue {
       });
     }
 
-    this.moveResxDest(path);
+    this.moveResxDest({ path, id });
 
     if (this.getBulkMode) {
       this.setMoveResxBulk(

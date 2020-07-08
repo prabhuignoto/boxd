@@ -52,21 +52,8 @@ export default class extends Vue {
     }
   }
 
-  handleSubfolderSelection(path) {
-    this.copyResxDest(path);
-    if (this.getBulkMode) {
-      this.setCopyResxBulk(
-        this.getActiveBulkRecords.map(item => ({
-          fromPath: item.pathLower,
-          id: item.id,
-        }))
-      );
-      this.updateDestForCopyResxBulk(path);
-    }
-  }
-
-  handleSelected(event: Event, path: string) {
-    this.copyResxDest(path);
+  handleSelected(event: Event, { path, id }: { path: string; id: string }) {
+    this.copyResxDest({ path, id });
 
     if (path !== "/") {
       this.addJob({

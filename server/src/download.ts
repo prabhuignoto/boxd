@@ -1,17 +1,17 @@
 /* eslint-disable no-unused-vars */
 import { Dropbox, files } from 'dropbox';
-import { Request, Response } from 'express';
+import { FastifyReply, FastifyRequest } from 'fastify';
 import FS from 'graceful-fs';
+import { ServerResponse } from 'http';
 import Path from 'path';
 import util from 'util';
 import { ErrorLogger, InfoLogger } from './logger';
-import { FastifyRequest, FastifyReply } from 'fastify';
-import { ServerResponse } from 'http';
 
 const fileExists = util.promisify(FS.exists);
 const writeFileAsync = util.promisify(FS.writeFile);
+const makeDirAsync = util.promisify(FS.mkdir);
 
-export default async function Download (req: FastifyRequest, resp: FastifyReply<ServerResponse>) {
+export default async function Download(req: FastifyRequest, resp: FastifyReply<ServerResponse>) {
   try {
     type DownloadMetadata = files.FileMetadata & { fileBinary: Buffer };
 
@@ -43,40 +43,37 @@ export default async function Download (req: FastifyRequest, resp: FastifyReply<
           message: `Generating file path ${filePath}`
         });
 
-        const createFile = async () => {
-          const result = await fileExists(filePath);
+        const folderExists = await fileExists(dirPath);
 
-          if (!result) {
-            await writeFileAsync(filePath, metadata.fileBinary);
-            InfoLogger.log({
-              level: 'info',
-              message: `${
-                metadata.name
-                } successfully created on ${filePath}`
-            });
-          }
-          const stream = FS.createReadStream(Path.resolve(filePath));
-          resp.send(stream);
-          // resp.download(filePath, metadata.name);
-        };
+        if (!folderExists) {
+          await makeDirAsync(dirPath);
+        }
 
-        await FS.exists(dirPath, (exists: any) => {
-          if (!exists) {
-            FS.mkdir(dirPath, () => {
-              createFile();
-            });
-          } else {
-            createFile();
-          }
-        });
+        const result = await fileExists(filePath);
+
+        if (!result) {
+          await writeFileAsync(filePath, metadata.fileBinary);
+          InfoLogger.log({
+            level: 'info',
+            message: `${
+              metadata.name
+              } successfully created on ${filePath}`
+          });
+        }
+        const stream = FS.createReadStream(Path.resolve(filePath));
+        resp.send(stream);
+        return Promise.resolve(true);
+      } else {
+        return Promise.resolve(false);
       }
+    } else {
+      return Promise.resolve(false);
     }
-    return {};
   } catch (error) {
     ErrorLogger.log({
       level: 'error',
       message: error.response.statusText
     });
-    return {};
+    return Promise.resolve(false);
   }
 }

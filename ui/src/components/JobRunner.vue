@@ -8,6 +8,7 @@ import FolderGQL from "../graphql/folder";
 import Axios from "axios";
 import { Job, JobType } from "../modules/jobs";
 import _ from "lodash";
+import FileSaver from "file-saver";
 
 import { Component } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
@@ -62,6 +63,8 @@ export default class extends Vue {
               this.runUploadJob(job);
             } else if (job.jobType === JobType.LIST_FILES) {
               this.runListJob(job);
+            } else if (job.jobType === JobType.DOWNLOAD) {
+              this.runDownloadJob(job);
             }
           });
         }
@@ -240,6 +243,51 @@ export default class extends Vue {
         toPath: path,
       });
     } catch (error) {
+      this.failedJob({
+        id: job.id,
+        reason: error,
+      });
+    }
+  }
+
+  async runDownloadJob(job: Job) {
+    const items = job.data && job.data.items;
+    try {
+      if (items) {
+        this.startBulkOps({
+          jobId: job.id,
+          lockType: LockType.DOWNLOAD,
+        });
+
+        const blobArray = await Axios.all(
+          items.map(item =>
+            Axios({
+              url: `${process.env.VUE_APP_API_SERVER}/download`,
+              params: {
+                path: item.pathLower,
+              },
+              withCredentials: true,
+              responseType: "blob",
+            })
+          )
+        );
+        blobArray.forEach((response, index) => {
+          const blob = new Blob([response.data], {
+            type: `${response.headers["content-type"]};charset=utf-8`,
+          });
+
+          const item = items[index];
+
+          if (item && item.pathLower) {
+            const name = item.pathLower.split("/").pop();
+
+            FileSaver.saveAs(blob, name);
+          }
+        });
+        this.stopBulkOps({ jobId: job.id });
+      }
+    } catch (error) {
+      this.stopBulkOps({ jobId: job.id });
       this.failedJob({
         id: job.id,
         reason: error,

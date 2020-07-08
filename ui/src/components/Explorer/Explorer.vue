@@ -110,16 +110,18 @@ export default class extends Vue {
     const {
       dataTransfer: { files },
     } = ev;
+    const formData = new FormData();
+
     (Array.from(files) as Blob[]).forEach(file => {
-      const formData = new FormData();
-      formData.append("file", file);
+      formData.append("files", file);
       formData.append("uploadPath", this.getExplorerPath);
-      this.addJob({
-        jobType: "UPLOAD",
-        data: {
-          formData,
-        },
-      });
+    });
+
+    this.addJob({
+      jobType: "UPLOAD",
+      data: {
+        formData,
+      },
     });
     this.dragStart = false;
   }

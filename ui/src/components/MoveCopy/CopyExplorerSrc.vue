@@ -38,8 +38,8 @@ export default class extends Vue {
     return this.selectedPath !== "/";
   }
 
-  handleSelected(event: Event, path: string) {
-    this.copyResxSource(path);
+  handleSelected(event: Event, { path, id }: { path: string; id: string }) {
+    this.copyResxSource({ path, id });
     this.selectedPath = path;
 
     if (this.canFireQuery) {
@@ -53,8 +53,8 @@ export default class extends Vue {
     }
   }
 
-  handleFileSelected(event: Event, path: string) {
-    this.copyResxSource(path);
+  handleFileSelected(event: Event, { path, id }: { path: string; id: string }) {
+    this.copyResxSource({ path, id });
   }
 
   mounted() {

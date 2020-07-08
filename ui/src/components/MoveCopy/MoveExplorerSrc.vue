@@ -39,8 +39,8 @@ export default class extends Vue {
   @Action("addNodes") addNodes;
   @Action("addJob") addJob;
 
-  handleSelected(event: Event, path: string) {
-    this.moveResxSource(path);
+  handleSelected(event: Event, { path, id }: { path: string; id: string }) {
+    this.moveResxSource({ path, id });
 
     if (path !== "/") {
       this.addJob({
@@ -53,8 +53,8 @@ export default class extends Vue {
     }
   }
 
-  handleFileSelected(event: Event, path: string) {
-    this.moveResxSource(path);
+  handleFileSelected(event: Event, { path, id }: { path: string; id: string }) {
+    this.moveResxSource({ path, id });
   }
 
   mounted() {

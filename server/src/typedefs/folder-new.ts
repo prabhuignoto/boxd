@@ -95,8 +95,8 @@ export class RelocationEntry {
   @Field()
   toPath!: string;
 
-  @Field()
-  id!: string;
+  @Field({nullable: true})
+  id?: string;
 }
 
 @ArgsType()

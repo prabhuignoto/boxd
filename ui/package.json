@@ -28,6 +28,7 @@
     "bulma": "^0.9.0",
     "core-js": "^3.6.5",
     "dotenv": "^8.2.0",
+    "file-saver": "^2.0.2",
     "filesaver.js": "^1.3.4",
     "graphql": "^15.2.0",
     "graphql-tag": "^2.10.3",

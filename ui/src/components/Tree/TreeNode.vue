@@ -4,7 +4,7 @@
       class="folder-node node"
       v-if="node.type === 'folder'"
       :class="{ disabled: canDisable }"
-      @click="handleNodeSelection($event, node.path, node.id)"
+      @click="handleNodeSelection($event, { path: node.path, id: node.id })"
     >
       <div class="tnode">
         <span class="tnode-icon">
@@ -28,7 +28,7 @@
     <div
       class="file-node node"
       v-if="node.type === 'file'"
-      @click="handleFileNode($event, node.path)"
+      @click="handleFileNode($event, { path: node.path, id: node.id })"
     >
       <div class="tnode">
         <span class="tnode-icon">
@@ -75,27 +75,33 @@ export default class extends Vue {
   childrendRendered = false;
   loading = false;
 
-  handleNodeSelection(event: Event, path: string, id: string): void {
+  handleNodeSelection(
+    event: Event,
+    { path, id }: { path: string; id: string }
+  ): void {
     if (event) {
       event.preventDefault();
       event.stopPropagation();
       this.expanded = !this.expanded;
     }
 
-    this.handleFolderSelection(path, id);
+    this.handleFolderSelection({ path, id });
 
     if (!this.childrendRendered) {
       this.loading = true;
     }
   }
 
-  handleFileNode(event: Event, path: string): void {
+  handleFileNode(
+    event: Event,
+    { path, id }: { path: string; id: string }
+  ): void {
     if (event) {
       event.preventDefault();
       event.stopPropagation();
     }
 
-    this.handleFileSelection(path);
+    this.handleFileSelection({ path, id });
   }
 
   mounted(): void {

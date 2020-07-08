@@ -7,6 +7,7 @@ export enum LockType {
   DELETE = "DELETE",
   MOVE = "MOVE",
   COPY = "COPY",
+  DOWNLOAD = "DOWNLOAD",
 }
 
 export interface TreeNode {

@@ -42,7 +42,7 @@
           :pathLower="path"
           v-on:onSelect="handlePopdownSelection"
         />
-      </div> -->
+      </div>-->
       <div v-if="lockType" class="status-label">
         <Loader type="throb" :message="getStatusLabel" />
       </div>
@@ -111,6 +111,8 @@ export default class extends Vue {
       return "copying ...";
     } else if (this.lockType === "DELETE") {
       return "deleting ...";
+    } else if (this.lockType === "DOWNLOAD") {
+      return "downloading ...";
     }
     return "";
   }

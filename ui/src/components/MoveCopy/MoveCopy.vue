@@ -25,8 +25,6 @@ import Vue from "vue";
 import StageOne from "./StageOne.vue";
 import StageTwo from "./StageTwo.vue";
 import StageThree from "./StageThree.vue";
-import CopyResxGQL from "../../graphql/copyResource";
-import MoveResxGQL from "../../graphql/moveResource";
 
 import { Component } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
@@ -53,10 +51,10 @@ export default class extends Vue {
   @Action("closeModal") closeModal;
   @Action("addJob") addJob;
 
-  @Getter("moveResxSrc") moveResxSrc: string;
-  @Getter("moveResxDest") moveResxDest: string;
-  @Getter("copyResxSrc") copyResxSrc: string;
-  @Getter("copyResxDest") copyResxDest: string;
+  @Getter("moveResxSrc") moveResxSrc: { path: string; id: string };
+  @Getter("moveResxDest") moveResxDest: { path: string; id: string };
+  @Getter("copyResxSrc") copyResxSrc: { path: string; id: string };
+  @Getter("copyResxDest") copyResxDest: { path: string; id: string };
   @Getter("getSkipToFinal") getSkipToFinal: boolean;
   @Getter("getMoveCopyMode") getMoveCopyMode: string;
   @Getter("getBulkMode") getBulkMode;
@@ -93,13 +91,19 @@ export default class extends Vue {
             },
           });
         } else {
-          await this.$apollo.mutate({
-            mutation: CopyResxGQL,
-            variables: {
-              fromPath: this.copyResxSrc,
-              toPath: `${this.copyResxDest}/${this.copyResxSrc
-                .split("/")
-                .pop()}`,
+          this.addJob({
+            jobType: "COPY",
+            data: {
+              items: [
+                {
+                  fromPath: this.copyResxSrc.path,
+                  toPath: `${
+                    this.copyResxDest.path
+                  }/${this.copyResxSrc.path.split("/").pop()}`,
+                  id: this.copyResxSrc.id,
+                },
+              ],
+              treeId: "explorer-main",
             },
           });
         }
@@ -115,13 +119,19 @@ export default class extends Vue {
             },
           });
         } else {
-          await this.$apollo.mutate({
-            mutation: MoveResxGQL,
-            variables: {
-              fromPath: this.moveResxSrc,
-              toPath: `${this.moveResxDest}/${this.moveResxSrc
-                .split("/")
-                .pop()}`,
+          this.addJob({
+            jobType: "MOVE",
+            data: {
+              items: [
+                {
+                  fromPath: this.moveResxSrc.path,
+                  toPath: `${
+                    this.moveResxDest.path
+                  }/${this.moveResxSrc.path.split("/").pop()}`,
+                  id: this.moveResxSrc.id,
+                },
+              ],
+              treeId: "explorer-main",
             },
           });
         }

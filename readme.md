@@ -31,7 +31,7 @@ If everything setup correctly, you should see server running message
 
 ### Client Prerequisites & Installation
 
-Please create a [Pusher](pusher) account and add the api details in the .env file (refer setting up the environment)
+Please create a [Pusher](pusher) account and add the api details in the .env file. refer [Setting up the environment](#Setting-up-the-environment)
 
 ```sh
 cd /ui
@@ -41,6 +41,34 @@ yarn run install && yarn run serve
 ## Preview
 
 ![app-home](boxy-mockup.png)
+
+## Setting up the environment
+
+### Server settings
+
+Following are the mandatory environment variables for the Server
+
+| Environment Variable  | Description                                      | Value                                                    |
+|-----------------------|--------------------------------------------------|----------------------------------------------------------|
+| CLIENT_ID             | Client Id of the App registered with Dropbox     |                                                          |
+| CLIENT_SECRET         | Client Secret of the App registered with Dropbox |                                                          |
+| OAUTH_AUTHORIZE_URL   | Dropbox's authorization URL                      | [https://www.dropbox.com/oauth2/authorize](dropbox-auth) |
+| OAUTH_TOKEN_URL       | URL to fetch the access token                    | [https://api.dropboxapi.com/oauth2/token](dropbox-token) |
+| REDIS_HOST            | Host information of your locally installed redis | 127.0.0.1                                                |
+| REDIS_PORT            | Port info                                        | 6379                                                     |
+| REDIS_PASSWORD        | Password for Redis Authentication                |                                                          |
+| SESSION_COOKIE_MAXAGE |                                                  |                                                          |
+| SESSION_SECRET        |                                                  |                                                          |
+| MONGO_DB_URL          |                                                  | mongodb://localhost                                      |
+| MORGAN_LOG_MODE       |                                                  |                                                          |
+| CORS                  |                                                  |                                                          |
+| APP_LOGIN             | Frontend App's Login page URL                    |                                                          |
+| DASHBOARD             | Frontend App's Landing page URL                  |                                                          |
+| PUSHER_APP_ID         | Application Id of your Pusher Instance           |                                                          |
+| PUSHER_APP_KEY        | Application key of your Pusher Instance          |                                                          |
+| PUSHER_APP_SECRET     | Application secret of your Pusher Instance       |                                                          |
+
+The server uses dotenv to load env variables. please create a .env file and add all the above mentioned settings.
 
 ## Built with
 
@@ -81,3 +109,5 @@ Distributed under the MIT license. See `LICENSE` for more information.
 [home]: ./boxy-mockup.png
 [mongo]: https://www.mongodb.com/
 [pusher]: https://pusher.com
+[dropbox-auth]: https://www.dropbox.com/oauth2/authorize
+[dropbox-token]: https://api.dropboxapi.com/oauth2/token

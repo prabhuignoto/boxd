@@ -25,18 +25,6 @@ const apolloClient = new ApolloClient({
       uiJobId: String!
     }
 
-    input relocationEntry {
-      fromPath: String!
-      toPath: String!
-      is: String!
-    }
-
-    input relocationOptions {
-      entries: [relocationEntry!]!
-      autorename: Boolean
-      uiJobId: String!
-    }
-
     input ListFilesArg {
       limit: Int
       path: String!

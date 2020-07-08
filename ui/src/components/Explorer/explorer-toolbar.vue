@@ -5,17 +5,17 @@
         <ContextControl :path="getExplorerPath" type="link" name="Random" />
       </li>
       <li
-        class="explorer-toolbar-item copy"
-        title="Delete Selected"
-        @click="handleBulkDelete"
+        class="explorer-toolbar-item download"
+        title="Download Selected"
         v-if="getActiveBulkRecords.length"
+        @click="handleBulkDownload"
       >
         <i>
-          <TrashIcon />
+          <DownloadIcon />
         </i>
       </li>
       <li
-        class="explorer-toolbar-item trash"
+        class="explorer-toolbar-item copy"
         title="Copy Selected"
         v-if="getActiveBulkRecords.length"
         @click="handleBulkCopy"
@@ -34,13 +34,28 @@
           <ArrowRightIcon />
         </i>
       </li>
+      <li
+        class="explorer-toolbar-item trash"
+        title="Delete Selected"
+        @click="handleBulkDelete"
+        v-if="getActiveBulkRecords.length"
+      >
+        <i>
+          <TrashIcon />
+        </i>
+      </li>
     </ul>
   </nav>
 </template>
 
 <script>
 import Vue from "vue";
-import { TrashIcon, ArrowRightIcon, CopyIcon } from "vue-feather-icons";
+import {
+  TrashIcon,
+  ArrowRightIcon,
+  CopyIcon,
+  DownloadIcon,
+} from "vue-feather-icons";
 
 import ContextControl from "../ContextActions/Control.vue";
 import { Component } from "vue-property-decorator";
@@ -53,6 +68,7 @@ import { Action, Getter } from "vuex-class";
     ArrowRightIcon,
     CopyIcon,
     ContextControl,
+    DownloadIcon,
   },
 })
 export default class extends Vue {
@@ -99,6 +115,16 @@ export default class extends Vue {
       componentToRender: "MoveCopy",
       title: `Moving files`,
       width: 550,
+    });
+  }
+
+  handleBulkDownload() {
+    this.addJob({
+      jobType: "DOWNLOAD",
+      data: {
+        items: this.getActiveBulkRecords,
+        treeId: "explorer-main",
+      },
     });
   }
 }

@@ -1,8 +1,8 @@
 import gql from "graphql-tag";
 
 export default gql`
-  mutation copyResource($fromPath: String!, $toPath: String!) {
-    result: copyResource(fromPath: $fromPath, toPath: $toPath) {
+  mutation copyResource($args: FilesRelocationArg!) {
+    result: copyResource(args: $args) {
       name
     }
   }

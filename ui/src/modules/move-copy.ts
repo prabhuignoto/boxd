@@ -1,15 +1,31 @@
 import { RootState } from "@/store";
-import { ActionTree, Module, MutationTree, GetterTree } from "vuex";
+import { ActionTree, GetterTree, Module, MutationTree } from "vuex";
+
+const resxInitState = {
+  src: {
+    path: null,
+    id: "",
+  },
+  dest: {
+    path: null,
+    id: "",
+  },
+};
+
+interface resxState {
+  src: {
+    id: string;
+    path: string | null;
+  };
+  dest: {
+    id: string;
+    path: string | null;
+  };
+}
 
 interface MoveCopyState {
-  moveResource: {
-    src: string | null;
-    dest: string | null;
-  };
-  copyResource: {
-    src: string | null;
-    dest: string | null;
-  };
+  moveResource: resxState;
+  copyResource: resxState;
   mode: null;
   skipToFinal: boolean;
   bulkModeEnabled: boolean;
@@ -18,28 +34,32 @@ interface MoveCopyState {
 }
 
 const actions: ActionTree<MoveCopyState, RootState> = {
-  moveResxSource({ commit }, path) {
+  moveResxSource({ commit }, { path, id }) {
     commit({
       type: "moveResxSource",
       path,
+      id,
     });
   },
-  moveResxDest({ commit }, path) {
+  moveResxDest({ commit }, { path, id }) {
     commit({
       type: "moveResxDest",
       path,
+      id,
     });
   },
-  copyResxSource({ commit }, path) {
+  copyResxSource({ commit }, { path, id }) {
     commit({
       type: "copyResxSource",
       path,
+      id,
     });
   },
-  copyResxDest({ commit }, path) {
+  copyResxDest({ commit }, { path, id }) {
     commit({
       type: "copyResxDest",
       path,
+      id,
     });
   },
   clearMoveResx({ commit }) {
@@ -102,44 +122,53 @@ const actions: ActionTree<MoveCopyState, RootState> = {
 };
 
 const mutations: MutationTree<MoveCopyState> = {
-  moveResxSource(state, { path }) {
+  moveResxSource(state, { path, id }) {
     state.moveResource = Object.assign({}, state.moveResource, {
-      src: path === "/" ? "" : path,
+      src: {
+        path: path === "/" ? "" : path,
+        id,
+      },
     });
   },
-  moveResxDest(state, { path }) {
+  moveResxDest(state, { path, id }) {
     state.moveResource = Object.assign({}, state.moveResource, {
-      dest: path === "/" ? "" : path,
+      dest: {
+        path: path === "/" ? "" : path,
+        id,
+      },
     });
   },
-  copyResxSource(state, { path }) {
+  copyResxSource(state, { path, id }) {
     state.copyResource = Object.assign({}, state.copyResource, {
-      src: path === "/" ? "" : path,
+      src: {
+        path: path === "/" ? "" : path,
+        id,
+      },
     });
   },
-  copyResxDest(state, { path }) {
+  copyResxDest(state, { path, id }) {
     state.copyResource = Object.assign({}, state.copyResource, {
-      dest: path === "/" ? "" : path,
+      dest: {
+        path: path === "/" ? "" : path,
+        id,
+      },
     });
   },
   clearMoveResx(state) {
-    state.moveResource.src = null;
-    state.moveResource.dest = null;
+    state.moveResource.src = { path: null, id: "" };
+    state.moveResource.dest = { path: null, id: "" };
   },
   clearCopyResx(state) {
     state.copyResource = {
-      dest: null,
-      src: null,
+      ...resxInitState,
     };
   },
   clearMoveCopyState(state) {
     state.moveResource = {
-      src: null,
-      dest: null,
+      ...resxInitState,
     };
     state.copyResource = {
-      src: null,
-      dest: null,
+      ...resxInitState,
     };
   },
   updateMoveCopyMode(state, { mode }) {
@@ -184,35 +213,35 @@ const getters: GetterTree<MoveCopyState, RootState> = {
   getSkipToFinal: state => state.skipToFinal,
   getBulkMode: state => state.bulkModeEnabled,
   moveResxSrcFormatted: state => {
-    const resx = state.moveResource;
-    if (resx && resx.src === "") {
+    const src = state.moveResource.src;
+    if (src.path === "") {
       return "/";
-    } else if (resx && resx.src) {
-      return resx.src.split("/").join(" / ");
+    } else if (src) {
+      return src.path && src.path.split("/").join(" / ");
     }
   },
   copyResxSrcFormatted: state => {
-    const resx = state.copyResource;
-    if (resx && resx.src === "") {
+    const src = state.copyResource.src;
+    if (src.path === "") {
       return "/";
-    } else if (resx && resx.src) {
-      return resx.src.split("/").join(" / ");
+    } else if (src) {
+      return src.path && src.path.split("/").join(" / ");
     }
   },
   moveResxDestFormatted: state => {
-    const resx = state.moveResource;
-    if (resx && resx.dest === "") {
+    const dest = state.moveResource.dest;
+    if (dest.path === "") {
       return "/";
-    } else if (resx && resx.dest) {
-      return resx.dest.split("/").join(" / ");
+    } else if (dest) {
+      return dest.path && dest.path.split("/").join(" / ");
     }
   },
   copyResxDestFormatted: state => {
-    const resx = state.copyResource;
-    if (resx && resx.dest === "") {
+    const dest = state.copyResource.dest;
+    if (dest.path === "") {
       return "/";
-    } else if (resx && resx.dest) {
-      return resx.dest.split("/").join(" / ");
+    } else if (dest) {
+      return dest.path && dest.path.split("/").join(" / ");
     }
   },
   getMoveResourceBulk: state => state.moveResourceBulk,
@@ -222,12 +251,10 @@ const getters: GetterTree<MoveCopyState, RootState> = {
 export default {
   state: {
     moveResource: {
-      src: null,
-      dest: null,
+      ...resxInitState,
     },
     copyResource: {
-      src: null,
-      dest: null,
+      ...resxInitState,
     },
     mode: null,
     skipToFinal: false,

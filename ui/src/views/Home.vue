@@ -25,13 +25,16 @@ export default class extends Vue {}
 
 <style lang="scss" scoped>
 .login-wrapper {
-  left: 0;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
   margin: 0 auto;
   margin-top: 6rem;
   max-width: 400px;
   min-width: 300px;
   padding: 1rem;
-  right: 0;
 }
 
 .fade-enter-active,

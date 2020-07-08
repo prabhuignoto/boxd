@@ -181,6 +181,7 @@ const mutations: MutationTree<TreeState> = {
       state.trees[treeId],
       item => item.path === fromPath
     );
+    debugger;
     if (parentNode) {
       Vue.set(
         state.trees[treeId],

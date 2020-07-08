@@ -11,6 +11,7 @@ export enum JobType {
   COPY = "COPY",
   DELETE = "DELETE",
   LIST_FILES = "LIST_FILES",
+  DOWNLOAD = "DOWNLOAD",
 }
 
 export interface JobData {
