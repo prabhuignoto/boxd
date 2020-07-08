@@ -30,7 +30,6 @@ export default async function Download (req: FastifyRequest, resp: FastifyReply<
 
       const dirName = req.session.account_id.replace(/dbid:/, '');
       const appRoot = require.main && Path.join(
-        // Path.parse(process.mainModule!.filename).dir,
         Path.parse(require.main.filename).dir,
         '../'
       );
@@ -61,7 +60,7 @@ export default async function Download (req: FastifyRequest, resp: FastifyReply<
           // resp.download(filePath, metadata.name);
         };
 
-        await FS.exists(dirPath, (exists) => {
+        await FS.exists(dirPath, (exists: any) => {
           if (!exists) {
             FS.mkdir(dirPath, () => {
               createFile();

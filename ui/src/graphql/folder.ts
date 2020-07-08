@@ -6,6 +6,7 @@ export default gql`
       entries {
         name
         tag
+        size
         path_lower
         content_hash
         server_modified

@@ -7,44 +7,59 @@
 [![DeepScan grade](https://deepscan.io/api/teams/10074/projects/12749/branches/201583/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=10074&pid=12749&bid=201583)
 [![Depfu](https://badges.depfu.com/badges/d21407f97842c6a8247d973f016cea62/overview.svg)](https://depfu.com/github/prabhuignoto/boxd?project_id=13611)
 
-Boxy is a modern web client for Dropbox. Boxy is built with Vue.js, and the goal was to create a simple and intuitive user interface to deliver high quality user experience.
-
-_The application is still under active development._
+A Modern Web Client for Dropbox
 
 <!-- ![app-login](github-app-screenshot.png) -->
 ![app-home](app-home.png)
 
-## Development setup
+## Development Setup
 
-The client application is located under ui directory and the server app is located under server.
+### Server Prerequisites & Installation
 
-Execute the following command to run the front end app in Development mode.
+Redis and MongoDB are mandatory prerequisites for the server to function. Please install [Redis](redis) and [MongoDB](mongo) before proceeding.
+
+Please create a [Pusher](pusher) account and add the api details in the .env file (refer setting up the environment)
+
+Once all the prerequisites are satisfied, simply start the server app by running the following command.
 
 ```sh
-cd .\ui
+cd /server
 yarn run install && yarn run dev
 ```
 
-Start the server app by running the following command.
+If everything setup correctly, you should see server running message
+
+### Client Prerequisites & Installation
+
+Please create a [Pusher](pusher) account and add the api details in the .env file (refer setting up the environment)
 
 ```sh
-cd .\server
+cd /ui
 yarn run install && yarn run serve
 ```
 
-## Technology Stack
+## Preview
 
-- [Vue.JS](vue)
-- [Apollo Client (powered by vue-apollo)](apollo)
-- [Express.JS](express)
-- [Graphql (powered by express-graphql)](graphql)
-- [Dropbox API for Node.JS](dropbox)
-- [Redis for Session Management](redis)
+![app-home](boxy-mockup.png)
 
-## Release History
+## Built with
 
-- 0.0.1
-  - work in progress
+- [Vue.JS](vue) - The frontend app is written in Vue with complete support for [Typescript](graphql).
+- [Apollo Client](apollo) - The client uses vue-apollo to talk to the graphql server.
+- [Fastify](fastify) - Server app is powered by [Fastify](fastify) and it hosts the Apollo-Server. It also manages File upload/download , Authentication & Authorization.
+- [Graphql (powered by  apollo-server-fastify)](graphql) - Fastify internally uses apollo-server-fastify and exposes a GraphQLized endpoint for consumption.
+- [Dropbox API for Node.JS](dropbox) - Dropbox SDK for NodeJS.
+- [Redis for Session Management](redis) - Session Management is controlled by fastify-session. The sessions are stored in a dedicated Redis store.
+- [Agenda](agenda) - The Server employs agenda for various polling mechanisms (for e.g batch check of dropbox operations).
+- [MongoDB](agenda) - MongoDB is a prerequisite for Agenda (ref Agenda Docs for more information).
+
+## What's new
+
+- The UI now sports a new look and feel with a better user experience.
+- The server and the frontend apps have been rewritten in Typescript.
+- Migrated all the server side code from express to Fastify for better performance and simplicity.
+- Frontend app is migrated to the latest version of Vue.
+- Support for Pusher - Realtime notifications are now powered by Pusher.
 
 ## Meta
 
@@ -56,16 +71,13 @@ Distributed under the MIT license. See `LICENSE` for more information.
 
 <!-- Markdown link & img dfn's -->
 
-[npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/datadog-metrics
-[npm-downloads]: https://img.shields.io/npm/dm/datadog-metrics.svg?style=flat-square
-[travis-image]: https://api.travis-ci.org/prabhuignoto/boxy.svg?branch=master
-[travis-url]: https://travis-ci.org/dbader/node-datadog-metrics
-[wiki]: https://github.com/yourname/yourproject/wiki
 [vue]: https://vuejs.org
 [graphql]: https://graphql.org
 [apollo]: https://www.apollographql.com/
 [redis]: https://redis.io/
 [dropbox]: https://www.dropbox.com/developers/documentation/javascript
-[express]: https://expressjs.com/
+[fastify]: https://fastify.io/
 [logo]: ./boxy-logo.png
+[home]: ./boxy-mockup.png
+[mongo]: https://www.mongodb.com/
+[pusher]: https://pusher.com

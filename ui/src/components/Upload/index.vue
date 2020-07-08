@@ -61,9 +61,9 @@
 
     <!-- selected path -->
     <div class="upload-path-selection">
-      <span class="highlight" v-if="canShowUpladPathSelection">{{
-        getUploadPathFormatted
-      }}</span>
+      <span class="highlight" v-if="canShowUpladPathSelection">
+        {{ getUploadPathFormatted }}
+      </span>
     </div>
     <!-- selected path -->
 
@@ -254,7 +254,7 @@ export default class extends Vue {
   }
 
   // * clear dropzone
-  handleClear(ev) {
+  handleClear(ev: Event) {
     ev.stopPropagation();
     ev.preventDefault();
     this.isDragOver = false;
@@ -266,13 +266,19 @@ export default class extends Vue {
   }
 
   openInputFile() {
-    (this.$el.querySelector("input[type=file]") as HTMLElement).click();
+    const input = this.$el.querySelector("input[type=file]") as HTMLElement;
+
+    if (input) {
+      input.click();
+    }
   }
 
   // * all drag and drop events
-  handleInputFile(ev) {
-    const file = ev.target.files[0];
-    if (file) {
+  handleInputFile(ev: Event) {
+    const fileInput = ev.target as HTMLInputElement;
+
+    if (fileInput && fileInput.files) {
+      const file = fileInput.files[0];
       this.fileName = file.name;
       this.fileSize = file.size;
       this.isDropped = true;
@@ -280,48 +286,48 @@ export default class extends Vue {
     }
   }
 
-  handleDrop(ev) {
+  handleDrop(ev: DragEvent) {
     ev.preventDefault();
     ev.stopPropagation();
     this.isDragOver = false;
-    const {
-      dataTransfer: { files },
-    } = ev;
-    const file = files[0];
-    this.fileName = file.name;
-    this.fileSize = file.size;
-    this.isDropped = true;
-    this.file = file;
+
+    if (ev.dataTransfer) {
+      const file = ev.dataTransfer.files[0];
+      this.fileName = file.name;
+      this.fileSize = file.size;
+      this.isDropped = true;
+      this.file = file;
+    }
   }
 
-  handleDragOver(ev) {
+  handleDragOver(ev: Event) {
     this.isDragOver = true;
     ev.preventDefault();
     ev.stopPropagation();
   }
 
-  handleDrag(ev) {
+  handleDrag(ev: Event) {
     ev.preventDefault();
     ev.stopPropagation();
   }
 
-  handleDragStart(ev) {
+  handleDragStart(ev: Event) {
     ev.preventDefault();
     ev.stopPropagation();
   }
 
-  handleDragEnd(ev) {
+  handleDragEnd(ev: Event) {
     ev.preventDefault();
     ev.stopPropagation();
   }
 
-  handleDragEnter(ev) {
+  handleDragEnter(ev: Event) {
     this.isDragOver = true;
     ev.preventDefault();
     ev.stopPropagation();
   }
 
-  handleDragLeave(ev) {
+  handleDragLeave(ev: Event) {
     this.isDragOver = false;
     ev.preventDefault();
     ev.stopPropagation();
