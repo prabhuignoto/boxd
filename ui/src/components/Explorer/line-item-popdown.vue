@@ -61,7 +61,6 @@ export default class extends Vue {
   @Action("updateModalState") updateModalState;
   @Action("updatePath") updatePath;
   @Action("updateMoveCopyMode") updateMoveCopyMode;
-  @Action("skipToFinal") skipToFinal;
   @Action("copyResxSource") copyResxSource;
   @Action("moveResxSource") moveResxSource;
 
@@ -86,7 +85,6 @@ export default class extends Vue {
     // set the operation mode
     this.updateMoveCopyMode("copy");
     // skip to the final step
-    this.skipToFinal(true);
     this.copyResxSource(path);
     this.updateModalState({
       status: true,
@@ -102,7 +100,6 @@ export default class extends Vue {
     // set the operation Mode
     this.updateMoveCopyMode("move");
     // skip to the final step
-    this.skipToFinal(true);
     this.moveResxSource(path);
     // open the modal
     this.updateModalState({

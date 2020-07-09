@@ -1,7 +1,11 @@
 <template>
   <section class="stage2-container">
-    <div class="move-copy-selection">
-      <label for="move" :class="{ selected: moveSelected }">
+    <div class="move-copy-selection" :class="{ disabled: isBulkModeEnabled }">
+      <label
+        for="move"
+        :class="{ selected: moveSelected }"
+        class="selection-label"
+      >
         <i>
           <CheckCircleIcon v-if="moveSelected" />
           <CircleIcon v-if="!moveSelected" />
@@ -14,7 +18,11 @@
           @click="handleSelection('move')"
         />
       </label>
-      <label for="copy" :class="{ selected: copySelected }">
+      <label
+        for="copy"
+        :class="{ selected: copySelected }"
+        class="selection-label"
+      >
         <i>
           <CheckCircleIcon v-if="copySelected" />
           <CircleIcon v-if="!copySelected" />
@@ -29,13 +37,16 @@
       </label>
     </div>
     <div class="stage3-explorer-container">
-      <div class="stage3-explorer-wrapper">
+      <div class="stage3-explorer-wrapper" v-if="!isBulkModeEnabled">
         <div v-if="getMoveCopyMode === 'move'">
           <MoveExplorerSrc path />
         </div>
         <div v-if="getMoveCopyMode === 'copy'">
           <CopyExplorerSrc path />
         </div>
+        <span class="no-mode-selected-msg" v-if="!getMoveCopyMode"
+          >choose an operation</span
+        >
       </div>
       <div class="stage3-explorer-wrapper">
         <div v-if="getMoveCopyMode === 'move'">
@@ -44,6 +55,9 @@
         <div v-if="getMoveCopyMode === 'copy'">
           <CopyExplorerDest path />
         </div>
+        <span class="no-mode-selected-msg" v-if="!getMoveCopyMode"
+          >choose an operation</span
+        >
       </div>
     </div>
     <div class="summary">
@@ -139,12 +153,10 @@ export default class extends Vue {
   @Prop() errored;
   @Prop() bulkMode;
 
-  @Action("updateModalState") updateModalState;
-  @Action("skipToFinal") skipToFinal;
+  @Action("closeModal") closeModal;
   @Action("updateMoveCopyMode") updateMoveCopyMode;
   @Action("clearMoveCopyState") clearMoveCopyState;
 
-  @Getter("getSkipToFinal") getSkipToFinal;
   @Getter("getMoveCopyMode") getMoveCopyMode;
   @Getter("moveResxSrc") moveResxSrc;
   @Getter("copyResxSrc") copyResxSrc;
@@ -154,7 +166,7 @@ export default class extends Vue {
   @Getter("copyResxSrcFormatted") copyResxSrcFormatted;
   @Getter("moveResxDestFormatted") moveResxDestFormatted;
   @Getter("copyResxDestFormatted") copyResxDestFormatted;
-  @Getter("getBulkMode") getBulkMode;
+  @Getter("isBulkModeEnabled") isBulkModeEnabled;
 
   get src() {
     if (this.getMoveCopyMode === "move") {
@@ -174,7 +186,7 @@ export default class extends Vue {
 
   get canFinish() {
     if (this.getMoveCopyMode === "move") {
-      if (this.getBulkMode) {
+      if (this.isBulkModeEnabled) {
         return this.moveResxDest;
       } else {
         const srcPath = this.moveResxSrc.path;
@@ -183,7 +195,7 @@ export default class extends Vue {
         return srcPath && destPath && srcPath !== destPath;
       }
     } else {
-      if (this.getBulkMode) {
+      if (this.isBulkModeEnabled) {
         return this.copyResxDest;
       } else {
         const srcPath = this.copyResxSrc.path;
@@ -203,11 +215,11 @@ export default class extends Vue {
   }
 
   get moveSelected() {
-    return this.mode === "move";
+    return this.mode === "move" || this.getMoveCopyMode === "move";
   }
 
   get copySelected() {
-    return this.mode === "copy";
+    return this.mode === "copy" || this.getMoveCopyMode === "copy";
   }
 
   handleSelection(mode) {
@@ -220,16 +232,11 @@ export default class extends Vue {
   }
 
   handleCancel() {
-    this.updateModalState({
-      state: false,
-      componentToRender: "",
-      title: "",
-    });
+    this.closeModal();
   }
 
   beforeDestroy() {
     this.clearMoveCopyState();
-    this.skipToFinal(false);
     this.updateMoveCopyMode(null);
   }
 }

@@ -1,11 +1,10 @@
 <template>
   <StageThree
     :handleComplete="handleCompletion"
-    :handlePrevious="navToStepTwo"
     :mode="getMoveCopyMode"
     :saving="saving"
     :errored="errored"
-    :bulkMode="getBulkMode"
+    :bulkMode="isBulkModeEnabled"
   />
 </template>
 
@@ -27,27 +26,24 @@ export default class extends Vue {
   saving = false;
   errored = false;
 
-  @Action("clearMoveResx") clearMoveResx;
-  @Action("clearCopyResx") clearCopyResx;
-  @Action("refreshFileExplorer") refreshFileExplorer;
   @Action("updateModalTitle") updateModalTitle;
   @Action("clearMoveCopyState") clearMoveCopyState;
   @Action("closeModal") closeModal;
   @Action("addJob") addJob;
+  @Action("disableBulkMode") disableBulkMode;
 
   @Getter("moveResxSrc") moveResxSrc: { path: string; id: string };
   @Getter("moveResxDest") moveResxDest: { path: string; id: string };
   @Getter("copyResxSrc") copyResxSrc: { path: string; id: string };
   @Getter("copyResxDest") copyResxDest: { path: string; id: string };
-  @Getter("getSkipToFinal") getSkipToFinal: boolean;
   @Getter("getMoveCopyMode") getMoveCopyMode: string;
-  @Getter("getBulkMode") getBulkMode;
+  @Getter("isBulkModeEnabled") isBulkModeEnabled;
   @Getter("getMoveResourceBulk") getMoveResourceBulk;
   @Getter("getCopyResourceBulk") getCopyResourceBulk;
-  @Getter("getBulkItems") getBulkItems;
 
   beforeDestroy() {
     this.clearMoveCopyState();
+    this.disableBulkMode();
   }
 
   handleStepOne() {
@@ -66,7 +62,7 @@ export default class extends Vue {
 
     try {
       if (this.getMoveCopyMode === "copy") {
-        if (this.getBulkMode) {
+        if (this.isBulkModeEnabled) {
           this.addJob({
             jobType: "COPY",
             data: {
@@ -94,7 +90,7 @@ export default class extends Vue {
         this.closeModal();
         this.saving = false;
       } else if (this.getMoveCopyMode === "move") {
-        if (this.getBulkMode) {
+        if (this.isBulkModeEnabled) {
           this.addJob({
             jobType: "MOVE",
             data: {
@@ -125,21 +121,6 @@ export default class extends Vue {
     } catch (error) {
       console.log(error);
     }
-  }
-
-  navToStepOne() {
-    this.stage = "one";
-    if (this.getMoveCopyMode === "move") {
-      this.clearMoveResx();
-    } else {
-      this.clearCopyResx();
-    }
-  }
-
-  navToStepTwo() {
-    this.stage = "one";
-    this.clearMoveCopyState();
-    this.updateModalTitle("Move or Copy");
   }
 
   get mode() {

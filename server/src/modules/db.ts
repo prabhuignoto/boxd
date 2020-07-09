@@ -1,6 +1,6 @@
 import {MongoClient } from "mongodb";
 
-export default new Promise(function(resolve, reject) {
+export default new Promise<MongoClient>(function(resolve, reject) {
   MongoClient.connect(process.env.MONGO_DB_URL as string, (error, client) => {
     try {
       if(error) {

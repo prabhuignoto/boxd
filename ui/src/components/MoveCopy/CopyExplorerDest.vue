@@ -1,10 +1,6 @@
 <template>
   <div class="tree-wrapper">
-    <Tree
-      id="$root"
-      treeId="copy-explorer-dest"
-      v-on:selected="handleSelected"
-    />
+    <Tree id="$root" treeId="copy-explorer-dest" v-on:selected="handleSelected" />
   </div>
 </template>
 
@@ -30,7 +26,7 @@ export default class extends Vue {
   @Prop() path;
   @Prop() actionName;
 
-  @Getter("getBulkMode") getBulkMode;
+  @Getter("isBulkModeEnabled") isBulkModeEnabled;
   @Getter("getActiveBulkRecords") getActiveBulkRecords;
 
   @Action("copyResxDest") copyResxDest;
@@ -41,7 +37,7 @@ export default class extends Vue {
 
   onSelect(node) {
     this.copyResxDest(node.path);
-    if (this.getBulkMode) {
+    if (this.isBulkModeEnabled) {
       this.setCopyResxBulk(
         this.getActiveBulkRecords.map(item => ({
           fromPath: item.pathLower,
@@ -65,7 +61,7 @@ export default class extends Vue {
       });
     }
 
-    if (this.getBulkMode) {
+    if (this.isBulkModeEnabled) {
       this.setCopyResxBulk(
         this.getActiveBulkRecords.map(item => ({
           fromPath: item.pathLower,

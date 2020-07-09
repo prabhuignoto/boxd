@@ -27,7 +27,6 @@ interface MoveCopyState {
   moveResource: resxState;
   copyResource: resxState;
   mode: null;
-  skipToFinal: boolean;
   bulkModeEnabled: boolean;
   moveResourceBulk: any[];
   copyResourceBulk: any[];
@@ -72,12 +71,6 @@ const actions: ActionTree<MoveCopyState, RootState> = {
       type: "clearCopyResx",
     });
   },
-  skipToFinal({ commit }, status) {
-    commit({
-      type: "skipToFinal",
-      status,
-    });
-  },
   updateMoveCopyMode({ commit }, mode) {
     commit({
       type: "updateMoveCopyMode",
@@ -116,6 +109,12 @@ const actions: ActionTree<MoveCopyState, RootState> = {
   enableBulkMode({ commit }, enable) {
     commit({
       type: "enableBulkMode",
+      enable,
+    });
+  },
+  disableBulkMode({ commit }, enable) {
+    commit({
+      type: "disableBulkMode",
       enable,
     });
   },
@@ -174,8 +173,12 @@ const mutations: MutationTree<MoveCopyState> = {
   updateMoveCopyMode(state, { mode }) {
     state.mode = mode;
   },
-  enableBulkMode(state, { enable }) {
-    state.bulkModeEnabled = enable;
+  enableBulkMode(state) {
+    state.bulkModeEnabled = true;
+  },
+  disableBulkMode(state) {
+    debugger;
+    state.bulkModeEnabled = false;
   },
   setMoveResxBulk(state, { config }) {
     state.moveResourceBulk = config;
@@ -197,9 +200,6 @@ const mutations: MutationTree<MoveCopyState> = {
       })
     );
   },
-  skipToFinal(state, { status }) {
-    state.skipToFinal = status;
-  },
 };
 
 const getters: GetterTree<MoveCopyState, RootState> = {
@@ -210,8 +210,7 @@ const getters: GetterTree<MoveCopyState, RootState> = {
   copyResxSrc: state => state.copyResource && state.copyResource.src,
   copyResxDest: state => state.copyResource && state.copyResource.dest,
   getMoveCopyMode: state => state.mode,
-  getSkipToFinal: state => state.skipToFinal,
-  getBulkMode: state => state.bulkModeEnabled,
+  isBulkModeEnabled: state => state.bulkModeEnabled,
   moveResxSrcFormatted: state => {
     const src = state.moveResource.src;
     if (src.path === "") {
@@ -257,7 +256,6 @@ export default {
       ...resxInitState,
     },
     mode: null,
-    skipToFinal: false,
     bulkModeEnabled: false,
     moveResourceBulk: [],
     copyResourceBulk: [],

@@ -35,7 +35,7 @@ export default class extends Vue {
     this.createFolderSelection(path);
   }
 
-  handleSelected(event: Event, path: string) {
+  handleSelected(event: Event, { path }: { path: string }) {
     this.createFolderSelection(path);
 
     if (path !== "/") {

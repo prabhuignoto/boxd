@@ -6,62 +6,8 @@ import { ErrorLogger } from '../modules/logger';
 import Pusher from '../modules/pusher';
 import { Folder } from '../typedefs/folder-new';
 import { Metadata } from '../typedefs/metadata-new';
-
-@InputType()
-class FilesRelocationArg {
-  @Field()
-  fromPath!: string;
-
-  @Field()
-  toPath!: string;
-
-  @Field({ nullable: true })
-  autorename?: boolean;
-
-  @Field()
-  uiJobId!: string;
-}
-
-@InputType()
-class CreateFolderArg {
-  @Field()
-  path!: string;
-
-  @Field({ nullable: true })
-  autorename?: boolean;
-
-  @Field()
-  uiJobId!: string;
-
-  @Field()
-  name!: string;
-}
-
-@InputType()
-class DeleteFolderArg {
-  @Field()
-  path!: string;
-}
-
-@InputType()
-class ListFilesArg {
-  @Field(returns => Float)
-  limit!: number;
-
-  @Field()
-  path!: string;
-
-  @Field()
-  cursor!: string;
-}
-
-@InputType()
-class Context {
-  session!: {
-    // eslint-disable-next-line camelcase
-    access_token: string
-  }
-}
+import { ListFilesArg, FilesRelocationArg, CreateFolderArg, DeleteFolderArg } from '../typedefs/inputs';
+import { Context } from 'vm';
 
 @Resolver()
 export default class FolderResolver {

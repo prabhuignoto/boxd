@@ -73,7 +73,6 @@ import { Action, Getter } from "vuex-class";
 })
 export default class extends Vue {
   @Action("enableBulkMode") enableBulkMode;
-  @Action("skipToFinal") skipToFinal;
   @Action("updateModalState") updateModalState;
   @Action("setMoveResxBulk") setMoveResxBulk;
   @Action("updateMoveCopyMode") updateMoveCopyMode;
@@ -96,7 +95,6 @@ export default class extends Vue {
     this.updateMoveCopyMode("copy");
     this.enableBulkMode(true);
 
-    this.skipToFinal(true);
     this.updateModalState({
       status: true,
       componentToRender: "MoveCopy",
@@ -109,7 +107,6 @@ export default class extends Vue {
     this.updateMoveCopyMode("move");
     this.enableBulkMode(true);
 
-    this.skipToFinal(true);
     this.updateModalState({
       status: true,
       componentToRender: "MoveCopy",

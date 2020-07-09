@@ -1,10 +1,6 @@
 <template>
   <div class="tree-wrapper">
-    <Tree
-      v-on:selected="handleSelected"
-      id="$root"
-      treeId="move-explorer-dest"
-    />
+    <Tree v-on:selected="handleSelected" id="$root" treeId="move-explorer-dest" />
   </div>
 </template>
 
@@ -30,7 +26,7 @@ export default class extends Vue {
     entries: [],
   };
 
-  @Getter("getBulkMode") getBulkMode;
+  @Getter("isBulkModeEnabled") isBulkModeEnabled;
   @Getter("getActiveBulkRecords") getActiveBulkRecords;
 
   @Action("moveResxDest") moveResxDest;
@@ -52,7 +48,7 @@ export default class extends Vue {
 
     this.moveResxDest({ path, id });
 
-    if (this.getBulkMode) {
+    if (this.isBulkModeEnabled) {
       this.setMoveResxBulk(
         this.getActiveBulkRecords.map(item => ({
           fromPath: item.pathLower,

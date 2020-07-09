@@ -6,47 +6,8 @@ import { Job } from '../agendas/agenda-models';
 import { copyJob, deleteJob, moveJob } from '../agendas/batchCheck';
 import { ErrorLogger } from '../modules/logger';
 import Pusher from '../modules/pusher';
-
-@InputType()
-class Entry {
-  @Field()
-  fromPath!: string;
-
-  @Field()
-  toPath!: string;
-
-  @Field({ nullable: true })
-  id?: string;
-}
-
-@InputType()
-class DeleteBulkArgs {
-  @Field(returns => [String])
-  paths!: string[];
-
-  @Field()
-  uiJobId!: string;
-}
-
-@InputType()
-class RelocationBulkArgs {
-  @Field({ nullable: true })
-  autorename?: boolean;
-
-  @Field()
-  uiJobId!: string;
-
-  @Field(returns => [Entry])
-  entries!: Entry[]
-}
-
-@InputType()
-class Context {
-  session!: {
-    // eslint-disable-next-line camelcase
-    access_token: string
-  }
-}
+import { DeleteBulkArgs, RelocationBulkArgs } from '../typedefs/inputs';
+import { Context } from 'vm';
 
 @Resolver()
 export default class BulResolver {
@@ -66,7 +27,7 @@ export default class BulResolver {
       });
 
       if (result['.tag'] === 'complete') {
-        Pusher && Pusher.trigger('channel-batch', 'batchWorkComplete', {
+        Pusher.trigger('channel-batch', 'batchWorkComplete', {
           batchWorkComplete: {
             entries: result.entries,
             status: 'completed',
@@ -85,7 +46,7 @@ export default class BulResolver {
       return Promise.resolve(true);
     } catch (error) {
       ErrorLogger.log(error);
-      Pusher && Pusher.trigger('channel-batch', 'batchWorkFailed', {
+      Pusher.trigger('channel-batch', 'batchWorkFailed', {
         batchWorkFailed: {
           job_type: 'delete',
           status: 'failure',
@@ -114,7 +75,7 @@ export default class BulResolver {
       });
 
       if (result['.tag'] === 'complete') {
-        Pusher && Pusher.trigger('channel-batch', 'batchWorkComplete', {
+        Pusher.trigger('channel-batch', 'batchWorkComplete', {
           batchWorkComplete: {
             entries: result.entries,
             status: 'completed',
@@ -133,7 +94,7 @@ export default class BulResolver {
       return Promise.resolve(true);
     } catch (error) {
       ErrorLogger.log(error);
-      Pusher && Pusher.trigger('channel-batch', 'batchWorkFailed', {
+      Pusher.trigger('channel-batch', 'batchWorkFailed', {
         batchWorkFailed: {
           job_type: 'move',
           status: 'failure',
@@ -162,7 +123,7 @@ export default class BulResolver {
       });
 
       if (result['.tag'] === 'complete') {
-        Pusher && Pusher.trigger('channel-batch', 'batchWorkComplete', {
+        Pusher.trigger('channel-batch', 'batchWorkComplete', {
           batchWorkComplete: {
             entries: result.entries,
             status: 'completed',
@@ -182,7 +143,7 @@ export default class BulResolver {
       return Promise.resolve(true);
     } catch (error) {
       ErrorLogger.log(error);
-      Pusher && Pusher.trigger('channel-batch', 'batchWorkFailed', {
+      Pusher.trigger('channel-batch', 'batchWorkFailed', {
         batchWorkFailed: {
           job_type: 'copy',
           status: 'failure',

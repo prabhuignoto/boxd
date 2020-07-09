@@ -49,7 +49,6 @@ export default class extends Vue {
   @Action("moveResxSource") moveResxSource;
   @Action("copyResxSource") copyResxSource;
   @Action("updateModalState") updateModalState;
-  @Action("skipToFinal") skipToFinal;
   @Action("deleteFolder") deleteFolder;
   @Action("createFolderSelection") createFolderSelection;
   @Action("hideCreateFolderExplorer") hideCreateFolderExplorer;
@@ -57,7 +56,6 @@ export default class extends Vue {
   handleCopy() {
     this.updateMoveCopyMode("copy");
     this.copyResxSource(this.path);
-    this.skipToFinal(true);
     this.updateModalState({
       status: true,
       componentToRender: "MoveCopy",
@@ -67,7 +65,6 @@ export default class extends Vue {
   handleMove() {
     this.updateMoveCopyMode("move");
     this.moveResxSource(this.path);
-    this.skipToFinal(true);
     this.updateModalState({
       status: true,
       componentToRender: "MoveCopy",

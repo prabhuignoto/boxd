@@ -88,7 +88,7 @@ export default class extends Vue {
       status: true,
       componentToRender: "MoveCopy",
       title: "Move or Copy",
-      width: 700,
+      width: 760,
     });
   }k
   openUploadWindow() {
