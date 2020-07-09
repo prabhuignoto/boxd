@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { Dropbox, files } from 'dropbox';
 import { Arg, Ctx, Field, InputType, Mutation, Resolver } from 'type-graphql';
-import Agenda from '../agenda';
+import Agenda from '../modules/agenda';
 import { Job } from '../agendas/agenda-models';
 import { copyJob, deleteJob, moveJob } from '../agendas/batchCheck';
-import { ErrorLogger } from '../logger';
-import Pusher from '../pusher';
+import { ErrorLogger } from '../modules/logger';
+import Pusher from '../modules/pusher';
 
 @InputType()
 class Entry {

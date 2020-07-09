@@ -1,16 +1,5 @@
 <template>
-  <StageOne
-    v-if="stage === 'one' && !getSkipToFinal"
-    :handleNext="handleStepOne"
-  />
-  <StageTwo
-    v-else-if="stage === 'two' && !getSkipToFinal"
-    :handleNext="handleStepTwo"
-    :handlePrevious="navToStepOne"
-    :mode="getMoveCopyMode"
-  />
   <StageThree
-    v-else-if="stage === 'three' || getSkipToFinal"
     :handleComplete="handleCompletion"
     :handlePrevious="navToStepTwo"
     :mode="getMoveCopyMode"
@@ -22,8 +11,6 @@
 
 <script lang="ts">
 import Vue from "vue";
-import StageOne from "./StageOne.vue";
-import StageTwo from "./StageTwo.vue";
 import StageThree from "./StageThree.vue";
 
 import { Component } from "vue-property-decorator";
@@ -32,8 +19,6 @@ import { Action, Getter } from "vuex-class";
 @Component({
   name: "MoveCopy",
   components: {
-    StageOne,
-    StageTwo,
     StageThree,
   },
 })
@@ -44,7 +29,6 @@ export default class extends Vue {
 
   @Action("clearMoveResx") clearMoveResx;
   @Action("clearCopyResx") clearCopyResx;
-  @Action("updateModalState") updateModalState;
   @Action("refreshFileExplorer") refreshFileExplorer;
   @Action("updateModalTitle") updateModalTitle;
   @Action("clearMoveCopyState") clearMoveCopyState;
@@ -153,12 +137,9 @@ export default class extends Vue {
   }
 
   navToStepTwo() {
-    this.stage = "two";
-    if (this.getMoveCopyMode === "move") {
-      this.clearMoveResx();
-    } else {
-      this.clearCopyResx();
-    }
+    this.stage = "one";
+    this.clearMoveCopyState();
+    this.updateModalTitle("Move or Copy");
   }
 
   get mode() {

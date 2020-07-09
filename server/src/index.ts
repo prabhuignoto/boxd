@@ -11,14 +11,14 @@ import fastifySession from 'fastify-session';
 import Redis from 'redis';
 import 'reflect-metadata';
 import { buildSchema } from 'type-graphql';
-import { Authenticate, Authorize, isUserLoggedIn, RevokeToken } from './auth';
-import Download from './download';
-import { ErrorLogger } from './logger';
-import Logout from './logout';
+import { Authenticate, Authorize, isUserLoggedIn, RevokeToken } from './modules/auth';
+import Download from './modules/download';
+import { ErrorLogger } from './modules/logger';
+import Logout from './modules/logout';
 import AccountResolver from './resolvers/account-new';
 import BulkResolver from './resolvers/bulk-new';
 import FolderResolver from './resolvers/folder-new';
-import Upload from './upload';
+import Upload from './modules/upload';
 
 config();
 

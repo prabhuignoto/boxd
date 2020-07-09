@@ -20,11 +20,14 @@ header {
 .stage3-explorer-wrapper {
   border: 1px solid #cce5f9;
   border-radius: 3px;
+  flex: 1;
   height: 300px;
-  margin-top: 1rem;
-  overflow: auto;
   overflow: auto;
   padding-top: 0.25rem;
+
+  &:first-of-type {
+    margin-right: 1rem;
+  }
 }
 
 img {
@@ -37,7 +40,7 @@ img {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  margin: 2rem 0 1rem;
+  margin: 1rem 0;
 
   button {
     &:not(:first-child) {
@@ -67,9 +70,10 @@ img {
   font-size: 1rem;
   justify-content: center;
   margin: 1rem 0;
+  min-height: 3rem;
 
   div {
-    margin: 0.25rem 0;
+    // margin: 0.25rem 0;
   }
 
 }
@@ -80,8 +84,7 @@ img {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin: 0.25rem 0;
-  min-height: 4rem;
+  // margin: 1rem 0;
   
   span {
     background: #cce5f9;
@@ -89,7 +92,7 @@ img {
     color: #191919;
     font-size: 0.95rem;
     font-weight: 400;
-    padding: 0.25rem 0.75rem;
+    padding: 0.2rem 0.5rem;
     text-align: left;
     word-break: break-word;
   }
@@ -112,4 +115,72 @@ img {
   color: #d90429;
   font-size: 0.9rem;
   margin-right: auto;
+}
+
+
+.stage3-explorer-container {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0;
+  width: 100%;
+}
+
+.move-copy-selection {
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  margin: 1rem 0;
+  width: 80%;
+
+  label {
+    align-items: center;
+    background: #fff;
+    border-radius: 0.2rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    font-size: 1rem;
+    font-weight: 400;
+    height: 100%;
+    justify-content: center;
+    padding: 0.5rem;
+
+    &:first-of-type {
+      margin-right: 1rem;
+    }
+
+    &:hover {
+      background: #f2f2f2;
+    }
+
+    &.selected {
+      background: #007ee5;
+      border-radius: 0.3rem;
+      color: #fff;
+    }
+
+    span {
+      display: block;
+      margin-left: 0.5rem;
+      margin-right: auto;
+    }
+
+    i {
+      align-items: center;
+      display: flex;
+      height: 1.5rem;
+      justify-content: center;
+      width: 1.5rem;
+
+      svg {
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+
+  input[type='radio'] {
+    display: none;
+  }
 }

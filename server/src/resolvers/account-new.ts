@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import { Dropbox, users } from 'dropbox';
 import { Ctx, Query, Resolver } from 'type-graphql';
-import { ErrorLogger } from '../logger';
+import { ErrorLogger } from '../modules/logger';
 import { Account, SpaceUsage } from '../typedefs/account-new';
 
 @Resolver()

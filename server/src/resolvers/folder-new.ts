@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { Dropbox, files } from 'dropbox';
 import { Arg, Ctx, Field, Float, InputType, Mutation, Query, Resolver } from 'type-graphql';
-import getDropboxClient from '../dropboxClient';
-import { ErrorLogger } from '../logger';
-import Pusher from '../pusher';
+import getDropboxClient from '../modules/dropboxClient';
+import { ErrorLogger } from '../modules/logger';
+import Pusher from '../modules/pusher';
 import { Folder } from '../typedefs/folder-new';
 import { Metadata } from '../typedefs/metadata-new';
 

@@ -4,9 +4,9 @@
 import Agenda from 'agenda';
 // eslint-disable-next-line no-unused-vars
 import { Dropbox, files } from 'dropbox';
-import agenda from '../agenda';
-import { ErrorLogger } from '../logger';
-import Pusher from '../pusher';
+import agenda from '../modules/agenda';
+import { ErrorLogger } from '../modules/logger';
+import Pusher from '../modules/pusher';
 // eslint-disable-next-line no-unused-vars
 import { entry, entry_error, Job, JobInterface, JobMode, JobStatusResult, resultEntry } from './agenda-models';
 

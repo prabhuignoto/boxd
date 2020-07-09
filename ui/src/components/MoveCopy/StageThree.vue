@@ -1,16 +1,54 @@
 <template>
   <section class="stage2-container">
-    <div class="stage3-explorer-wrapper">
-      <div v-if="getMoveCopyMode === 'move'">
-        <MoveExplorerDest path />
+    <div class="move-copy-selection">
+      <label for="move" :class="{ selected: moveSelected }">
+        <i>
+          <CheckCircleIcon v-if="moveSelected" />
+          <CircleIcon v-if="!moveSelected" />
+        </i>
+        <span>Move Files</span>
+        <input
+          type="radio"
+          name="move-copy-radio"
+          id="move"
+          @click="handleSelection('move')"
+        />
+      </label>
+      <label for="copy" :class="{ selected: copySelected }">
+        <i>
+          <CheckCircleIcon v-if="copySelected" />
+          <CircleIcon v-if="!copySelected" />
+        </i>
+        <span>Copy Files</span>
+        <input
+          type="radio"
+          name="move-copy-radio"
+          id="copy"
+          @change="handleSelection('copy')"
+        />
+      </label>
+    </div>
+    <div class="stage3-explorer-container">
+      <div class="stage3-explorer-wrapper">
+        <div v-if="getMoveCopyMode === 'move'">
+          <MoveExplorerSrc path />
+        </div>
+        <div v-if="getMoveCopyMode === 'copy'">
+          <CopyExplorerSrc path />
+        </div>
       </div>
-      <div v-if="getMoveCopyMode === 'copy'">
-        <CopyExplorerDest path />
+      <div class="stage3-explorer-wrapper">
+        <div v-if="getMoveCopyMode === 'move'">
+          <MoveExplorerDest path />
+        </div>
+        <div v-if="getMoveCopyMode === 'copy'">
+          <CopyExplorerDest path />
+        </div>
       </div>
     </div>
     <div class="summary">
-      <div class="summary-final">
-        <span class="value">
+      <div class="summary-final" v-if="src || dest">
+        <span class="value" v-if="src">
           {{
             getMoveCopyMode === "move"
               ? moveResxSrcFormatted
@@ -36,11 +74,6 @@
       <div class="error-msg-container" v-if="errored">
         Failed to {{ getMoveCopyMode }}
       </div>
-      <Button name="Back" :onClick="handlePrevious" :buttonStyle="getStyle">
-        <template slot="btn-icon">
-          <ChevronLeftIcon />
-        </template>
-      </Button>
       <Button
         name="Finish"
         :onClick="handleNext"
@@ -59,9 +92,20 @@
 <script lang="ts">
 import MoveExplorerDest from "./MoveExplorerDest.vue";
 import CopyExplorerDest from "./CopyExplorerDest.vue";
+import MoveExplorerSrc from "./MoveExplorerSrc.vue";
+import CopyExplorerSrc from "./CopyExplorerSrc.vue";
 import Button from "../Form/Button.vue";
 import Loader from "../Loader.vue";
-import { ArrowRightIcon, ChevronLeftIcon, CheckIcon } from "vue-feather-icons";
+import {
+  ArrowRightIcon,
+  ChevronLeftIcon,
+  CheckIcon,
+  ChevronRightIcon,
+  MoveIcon,
+  CopyIcon,
+  CheckCircleIcon,
+  CircleIcon,
+} from "vue-feather-icons";
 
 import { Component, Prop } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
@@ -72,14 +116,23 @@ import Vue from "vue";
   components: {
     MoveExplorerDest,
     CopyExplorerDest,
+    MoveExplorerSrc,
+    CopyExplorerSrc,
     Button,
     Loader,
     ChevronLeftIcon,
     ArrowRightIcon,
     CheckIcon,
+    ChevronRightIcon,
+    MoveIcon,
+    CopyIcon,
+    CheckCircleIcon,
+    CircleIcon,
   },
 })
 export default class extends Vue {
+  mode = "";
+
   @Prop() handleComplete;
   @Prop() handlePrevious;
   @Prop() saving;
@@ -105,17 +158,17 @@ export default class extends Vue {
 
   get src() {
     if (this.getMoveCopyMode === "move") {
-      return this.moveResxSrc;
+      return this.moveResxSrc.path;
     } else {
-      return this.copyResxSrc;
+      return this.copyResxSrc.path;
     }
   }
 
   get dest() {
     if (this.getMoveCopyMode === "move") {
-      return this.moveResxDest === "" || this.moveResxDest;
+      return this.moveResxDest.path === "" || this.moveResxDest.path;
     } else {
-      return this.copyResxDest === "" || this.copyResxDest;
+      return this.copyResxDest.path === "" || this.copyResxDest.path;
     }
   }
 
@@ -124,13 +177,19 @@ export default class extends Vue {
       if (this.getBulkMode) {
         return this.moveResxDest;
       } else {
-        return this.moveResxSrc && this.moveResxDest;
+        const srcPath = this.moveResxSrc.path;
+        const destPath = this.moveResxDest.path;
+
+        return srcPath && destPath && srcPath !== destPath;
       }
     } else {
       if (this.getBulkMode) {
         return this.copyResxDest;
       } else {
-        return this.copyResxSrc && this.copyResxDest;
+        const srcPath = this.copyResxSrc.path;
+        const destPath = this.copyResxDest.path;
+
+        return srcPath && destPath && srcPath !== destPath;
       }
     }
   }
@@ -143,12 +202,17 @@ export default class extends Vue {
     }
   }
 
-  get getSummaryMsg() {
-    if (this.getMoveCopyMode === "move") {
-      return "You are moving a resource";
-    } else {
-      return "You are copying a resource";
-    }
+  get moveSelected() {
+    return this.mode === "move";
+  }
+
+  get copySelected() {
+    return this.mode === "copy";
+  }
+
+  handleSelection(mode) {
+    this.mode = mode;
+    this.updateMoveCopyMode(mode);
   }
 
   handleNext() {
