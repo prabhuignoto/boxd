@@ -29,11 +29,12 @@
           <div class="explorer-folder-path-container">
             <FolderPath />
           </div>
+          <div class="explorer-settings-container">
+            <Settings />
+          </div>
         </div>
-        <ExplorerLineItems :items="items" />
-        <!-- <div class="info-message" v-if="canShowWelcomeMessage">
-          <span>Drop your files here to upload</span>
-        </div> -->
+        <ExplorerLineItems :items="items" v-if="getExplorerMode === 'list'" />
+        <ExplorerGrid :items="items" v-if="getExplorerMode === 'folder'" />
       </section>
     </div>
     <div class="drag-overlay" v-if="dragStart">
@@ -51,6 +52,8 @@ import FolderPath from "../Path/FolderPath.vue";
 import ExplorerToolbar from "./explorer-toolbar.vue";
 import NotificationsPopdown from "../NotificationsCentre/Popdown.vue";
 import ExplorerLineItems from "./explorer-line-items.vue";
+import ExplorerGrid from "./explorer-grid.vue";
+import Settings from "./explorer-settings.vue";
 import Vue from "vue";
 import { UploadIcon } from "vue-feather-icons";
 
@@ -68,6 +71,8 @@ import { JobType } from "../../modules/jobs";
     ExplorerToolbar,
     NotificationsPopdown,
     UploadIcon,
+    ExplorerGrid,
+    Settings,
   },
 })
 export default class extends Vue {
@@ -82,6 +87,7 @@ export default class extends Vue {
   @Getter("getFileStatus") getFileStatus;
   @Getter("hasSearchResultsArrived") hasSearchResultsArrived;
   @Getter("getExplorerPath") getExplorerPath;
+  @Getter("getExplorerMode") getExplorerMode;
 
   @Action("updatePath") updatePath;
   @Action("addJob") addJob;

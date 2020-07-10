@@ -4,7 +4,7 @@
 import Agenda from 'agenda';
 // eslint-disable-next-line no-unused-vars
 import { Dropbox, files } from 'dropbox';
-// import agenda from '../modules/agenda';
+import agenda from '../modules/agenda';
 import { ErrorLogger } from '../modules/logger';
 import Pusher from '../modules/pusher';
 // eslint-disable-next-line no-unused-vars
@@ -109,7 +109,7 @@ function jobFactory<T extends JobInterface> (config: T) {
         process(result);
       }
     } catch (error) {
-      // agenda && agenda.cancel({ name: asyncJobId });
+      agenda && agenda.cancel({ name: asyncJobId });
       ErrorLogger.log(error);
     }
   };
@@ -129,7 +129,7 @@ const loadJob = function (mode: JobMode) {
           uiJobId
         }
       });
-      // agenda && agenda.cancel({ name: job_id });
+      agenda && agenda.cancel({ name: job_id });
     },
     onProgress: ({ status, job_id, tag, uiJobId }) => {
       Pusher && Pusher.trigger('channel-batch', 'batchWorkRunning', {
@@ -151,7 +151,7 @@ const loadJob = function (mode: JobMode) {
           job_type: mode
         }
       });
-      // agenda && agenda.cancel({ name: job_id });
+      agenda && agenda.cancel({ name: job_id });
     }
   });
 };

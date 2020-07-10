@@ -177,7 +177,6 @@ const mutations: MutationTree<MoveCopyState> = {
     state.bulkModeEnabled = true;
   },
   disableBulkMode(state) {
-    debugger;
     state.bulkModeEnabled = false;
   },
   setMoveResxBulk(state, { config }) {

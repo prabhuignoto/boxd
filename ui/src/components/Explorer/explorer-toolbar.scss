@@ -1,5 +1,9 @@
 .explorer-toolbar-wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
   padding: 0.25rem;
+  width: 100%;
 }
 
 .explorer-toolbar {

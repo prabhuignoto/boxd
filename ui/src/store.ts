@@ -11,9 +11,15 @@ import Tree from "./modules/tree";
 
 Vue.use(Vuex);
 
+export enum ExplorerViewMode {
+  LIST = "list",
+  FOLDER = "folder",
+}
+
 export interface RootState {
   explorer: {
     path: string;
+    mode: ExplorerViewMode;
   };
   fileExplorer: {
     refresh: {
@@ -49,6 +55,7 @@ export default new Vuex.Store({
   state: {
     explorer: {
       path: "",
+      mode: ExplorerViewMode.FOLDER,
     },
     fileExplorer: {
       refresh: {
@@ -118,6 +125,9 @@ export default new Vuex.Store({
         status: false,
       };
     },
+    updateExplorerMode(state, { mode }) {
+      state.explorer.mode = mode;
+    },
   },
   actions: {
     updatePath({ commit }, path) {
@@ -183,6 +193,12 @@ export default new Vuex.Store({
         type: "closeModal",
       });
     },
+    updateExplorerMode({ commit }, mode) {
+      commit({
+        type: "updateExplorerMode",
+        mode,
+      });
+    },
   },
   getters: {
     isModalActive: state => state.modal.isActive,
@@ -190,6 +206,7 @@ export default new Vuex.Store({
     getPopupTitle: state => state.modal.title,
     getIsDisableHeader: state => state.modal.disableHeader,
     getExplorerPath: state => state.explorer.path,
+    getExplorerMode: state => state.explorer.mode,
     getDisableCloseBtn: state => state.modal.disableCloseBtn,
     getWorkflowOrigin: state => state.workFlowOrigin,
     getRefreshFileExplorer: state => {

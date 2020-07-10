@@ -13,7 +13,7 @@
     <transition name="movein">
       <div
         class="popdown"
-        v-show="visible"
+        v-if="visible"
         tabindex="0"
         @blur="close"
         @key:esc="close"
@@ -29,7 +29,7 @@
 <script lang="ts">
 import Button from "../Form/Button.vue";
 
-import { Component, Prop } from "vue-property-decorator";
+import { Component, Prop, Watch } from "vue-property-decorator";
 import Vue from "vue";
 
 @Component({
@@ -46,6 +46,7 @@ export default class extends Vue {
   @Prop() customWidth;
   @Prop() topOffset;
   @Prop() position;
+  @Prop() forceClose;
 
   visible = false;
   childWidth = 0;
@@ -84,6 +85,13 @@ export default class extends Vue {
 
   close() {
     this.visible = false;
+  }
+
+  @Watch("forceClose")
+  onForceClose(newVal) {
+    if (newVal) {
+      this.close();
+    }
   }
 
   getStyle() {
