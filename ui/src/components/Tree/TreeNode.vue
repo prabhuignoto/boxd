@@ -53,6 +53,7 @@ import {
   LoaderIcon,
 } from "vue-feather-icons";
 import { TreeNode } from "../../modules/models";
+import { TreeSelection } from "./tree-node.model";
 
 @Component({
   name: "TreeNode",
@@ -75,10 +76,7 @@ export default class extends Vue {
   childrendRendered = false;
   loading = false;
 
-  handleNodeSelection(
-    event: Event,
-    { path, id }: { path: string; id: string }
-  ): void {
+  handleNodeSelection(event: Event, { path, id }: TreeSelection): void {
     if (event) {
       event.preventDefault();
       event.stopPropagation();
@@ -87,15 +85,12 @@ export default class extends Vue {
 
     this.handleFolderSelection({ path, id });
 
-    if (!this.childrendRendered) {
+    if (!this.childrendRendered && id !== "$root") {
       this.loading = true;
     }
   }
 
-  handleFileNode(
-    event: Event,
-    { path, id }: { path: string; id: string }
-  ): void {
+  handleFileNode(event: Event, { path, id }: TreeSelection): void {
     if (event) {
       event.preventDefault();
       event.stopPropagation();

@@ -150,11 +150,11 @@ export default class extends Vue {
 .resource-check-box {
   color: #007ee5;
   cursor: pointer;
-  height: 1.25rem;
+  height: 1.1rem;
   left: 0.25rem;
   position: absolute;
   top: 0.25rem;
-  width: 1.25rem;
+  width: 1.1rem;
   z-index: 10;
 
   svg {

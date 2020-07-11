@@ -16,6 +16,7 @@ import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 import { TreeNode as TreeNodeModel, NodeType } from "../../modules/models";
 import TreeNode from "./TreeNode.vue";
+import { TreeSelection } from "./tree-node.model";
 
 @Component({
   name: "Tree",
@@ -30,11 +31,11 @@ export default class extends Vue {
   @Prop() id: string;
   @Prop() treeId: string;
 
-  handleFolderSelection({ path, id }: { path: string; id: string }): void {
+  handleFolderSelection({ path, id }: TreeSelection): void {
     this.$emit("selected", null, { path, id });
   }
 
-  handleFileSelection({ path, id }: { path: string; id: string }): void {
+  handleFileSelection({ path, id }: TreeSelection): void {
     this.$emit("fileSelected", null, { path, id });
   }
 

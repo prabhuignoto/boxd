@@ -82,6 +82,7 @@ export default class extends Vue {
       width: 580,
     });
   }
+
   openMoveCopy() {
     this.updateWorkflowOrigin("toolbar");
     this.updateModalState({
@@ -90,16 +91,18 @@ export default class extends Vue {
       title: "Move or Copy",
       width: 760,
     });
-  }k
+  }
+
   openUploadWindow() {
     this.updateWorkflowOrigin("toolbar");
     this.updateModalState({
       status: true,
       componentToRender: "UploadWindow",
       title: "Upload",
-      width: 580,
+      width: 760,
     });
   }
+
   openHome() {
     if (this.getExplorerPath !== "") {
       this.updatePath("");

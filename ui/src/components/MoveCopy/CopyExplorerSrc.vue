@@ -16,6 +16,7 @@ import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 import { Action } from "vuex-class";
 import { JobType } from "../../modules/jobs";
+import { TreeSelection } from "../Tree/tree-node.model";
 
 @Component({
   name: "CopyExplorerSrc",
@@ -38,7 +39,7 @@ export default class extends Vue {
     return this.selectedPath !== "/";
   }
 
-  handleSelected(event: Event, { path, id }: { path: string; id: string }) {
+  handleSelected(event: Event, { path, id }: TreeSelection) {
     this.copyResxSource({ path, id });
     this.selectedPath = path;
 
@@ -53,7 +54,7 @@ export default class extends Vue {
     }
   }
 
-  handleFileSelected(event: Event, { path, id }: { path: string; id: string }) {
+  handleFileSelected(event: Event, { path, id }: TreeSelection) {
     this.copyResxSource({ path, id });
   }
 

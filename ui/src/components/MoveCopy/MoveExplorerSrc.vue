@@ -17,6 +17,7 @@ import { Component, Prop } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 import { TreeNode } from "../../modules/models";
 import { JobType } from "../../modules/jobs";
+import { TreeSelection } from "../Tree/tree-node.model";
 
 @Component({
   name: "MoveExplorerSrc",
@@ -39,7 +40,7 @@ export default class extends Vue {
   @Action("addNodes") addNodes;
   @Action("addJob") addJob;
 
-  handleSelected(event: Event, { path, id }: { path: string; id: string }) {
+  handleSelected(event: Event, { path, id }: TreeSelection) {
     this.moveResxSource({ path, id });
 
     if (path !== "/") {
@@ -53,7 +54,7 @@ export default class extends Vue {
     }
   }
 
-  handleFileSelected(event: Event, { path, id }: { path: string; id: string }) {
+  handleFileSelected(event: Event, { path, id }: TreeSelection) {
     this.moveResxSource({ path, id });
   }
 

@@ -11,6 +11,7 @@ import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 import { JobType } from "../../modules/jobs";
+import { TreeSelection } from "../Tree/tree-node.model";
 
 @Component({
   name: "CopyExplorerDest",
@@ -48,7 +49,7 @@ export default class extends Vue {
     }
   }
 
-  handleSelected(event: Event, { path, id }: { path: string; id: string }) {
+  handleSelected(event: Event, { path, id }: TreeSelection) {
     this.copyResxDest({ path, id });
 
     if (path !== "/") {

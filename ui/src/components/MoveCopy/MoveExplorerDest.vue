@@ -11,6 +11,7 @@ import { Component, Prop } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 import Tree from "../Tree/index.vue";
 import { JobType } from "../../modules/jobs";
+import { TreeSelection } from "../Tree/tree-node.model";
 
 @Component({
   name: "MoveExplorerDest",
@@ -35,7 +36,7 @@ export default class extends Vue {
   @Action("addNodes") addNodes;
   @Action("addJob") addJob;
 
-  handleSelected(event: Event, { path, id }: { path: string; id: string }) {
+  handleSelected(event: Event, { path, id }: TreeSelection) {
     if (path !== "/") {
       this.addJob({
         jobType: JobType.LIST_FILES,
