@@ -120,8 +120,7 @@ export default class extends Vue {
 
 .resource-icon {
   color: #cce5f9;
-  flex: 3;
-  height: 0;
+  height: 3rem;
   width: 100%;
 
   svg {
@@ -133,9 +132,9 @@ export default class extends Vue {
 
 .resource-name {
   cursor: pointer;
-  flex: 1;
   font-size: 0.75rem;
   font-weight: 400;
+  height: 1rem;
   overflow: hidden;
   text-align: center;
   text-overflow: ellipsis;
