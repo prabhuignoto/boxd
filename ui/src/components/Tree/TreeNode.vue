@@ -27,7 +27,7 @@
     </div>
     <div
       class="file-node node"
-      v-if="node.type === 'file'"
+      v-if="node.type === 'file' && !hideFiles"
       @click="handleFileNode($event, { path: node.path, id: node.id })"
     >
       <div class="tnode">
@@ -71,6 +71,7 @@ export default class extends Vue {
   @Prop() handleFolderSelection;
   @Prop() handleFileSelection;
   @Prop() treeId;
+  @Prop() hideFiles;
 
   expanded = false;
   childrendRendered = false;

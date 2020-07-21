@@ -4,6 +4,7 @@
       v-on:selected="handleSelected"
       id="$root"
       treeId="create-folder-explorer"
+      :hideFiles="true"
     />
   </div>
 </template>

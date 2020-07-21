@@ -1,6 +1,6 @@
 <template>
   <div class="tree-wrapper">
-    <Tree v-on:selected="handleSelected" id="$root" treeId="upload-explorer" />
+    <Tree v-on:selected="handleSelected" id="$root" treeId="upload-explorer" :hideFiles="true"/>
   </div>
 </template>
 

@@ -6,6 +6,7 @@
         :handleFolderSelection="handleFolderSelection"
         :handleFileSelection="handleFileSelection"
         :treeId="treeId"
+        :hideFiles="hideFiles"
       />
     </div>
   </div>
@@ -30,6 +31,7 @@ export default class extends Vue {
 
   @Prop() id: string;
   @Prop() treeId: string;
+  @Prop() hideFiles: boolean;
 
   handleFolderSelection({ path, id }: TreeSelection): void {
     this.$emit("selected", null, { path, id });
