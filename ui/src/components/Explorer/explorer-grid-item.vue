@@ -19,7 +19,7 @@
       </span>
     </div>
     <div class="resource-icon">
-      <FolderIcon v-if="item.type === 'folder'" />
+      <FolderIcon v-if="item.type === 'folder'" @dblclick="handleNav($event, item.type, item.path)"/>
       <FileIcon v-if="item.type === 'file'" />
     </div>
     <div class="resource-name" @click="handleNav($event, item.type, item.path)">
