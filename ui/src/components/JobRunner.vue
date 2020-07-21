@@ -7,7 +7,6 @@ import CreateFolderGQL from "../graphql/createFolder";
 import FolderGQL from "../graphql/folder";
 import Axios from "axios";
 import { Job, JobType } from "../modules/jobs";
-import _ from "lodash";
 import FileSaver from "file-saver";
 
 import { Component } from "vue-property-decorator";

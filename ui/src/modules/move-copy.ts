@@ -214,24 +214,24 @@ const getters: GetterTree<MoveCopyState, RootState> = {
     const src = state.moveResource.src;
     if (src.path === "") {
       return "/";
-    } else if (src) {
-      return src.path && src.path.split("/").join(" / ");
+    } else if (src && src.path) {
+      return src.path.split("/").join(" / ");
     }
   },
   copyResxSrcFormatted: state => {
     const src = state.copyResource.src;
     if (src.path === "") {
       return "/";
-    } else if (src) {
-      return src.path && src.path.split("/").join(" / ");
+    } else if (src && src.path) {
+      return src.path.split("/").join(" / ");
     }
   },
   moveResxDestFormatted: state => {
     const dest = state.moveResource.dest;
     if (dest.path === "") {
       return "/";
-    } else if (dest) {
-      return dest.path && dest.path.split("/").join(" / ");
+    } else if (dest && dest.path) {
+      return dest.path.split("/").join(" / ");
     }
   },
   copyResxDestFormatted: state => {
