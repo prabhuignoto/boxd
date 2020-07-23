@@ -70,12 +70,14 @@
 
 .fade-enter-active,
 .fade-leave-active {
+  transform: scale(0.9);
   transition: opacity 2.5s;
 }
 
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
+  transform: scale(1);
 }
 
 .close-modal {

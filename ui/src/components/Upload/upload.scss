@@ -148,7 +148,6 @@ img {
   span {
     align-items: center;
     border-radius: 0.1rem;
-    border-radius: 0.2rem;
     display: flex;
     font-size: 0.95rem;
     font-weight: 400;
@@ -159,7 +158,7 @@ img {
 
     &.highlight {
       background-color: #cce5f9;
-      border-radius: 2rem;
+      border-radius: 0.1rem;
       color: #191919;
 
     }
