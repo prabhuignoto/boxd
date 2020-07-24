@@ -19,6 +19,7 @@
         <Tree
           :id="node.id"
           :treeId="treeId"
+          :hideFiles="hideFiles"
           v-on:selected="handleNodeSelection"
           v-on:fileSelected="handleFileNode"
           v-if="node.id !== '$root'"

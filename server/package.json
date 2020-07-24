@@ -20,7 +20,7 @@
     "@types/morgan": "^1.9.1",
     "@types/multer": "^1.4.3",
     "@types/newrelic": "^6.4.0",
-    "@types/node": "^14.0.24",
+    "@types/node": "^14.0.25",
     "@types/progress-stream": "^2.0.0",
     "@types/redis": "^2.8.25",
     "@types/winston": "^2.4.4",

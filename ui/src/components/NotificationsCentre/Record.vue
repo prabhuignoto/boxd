@@ -28,7 +28,7 @@ export default class extends Vue {
   @Prop() endTime;
   @Prop() jobType;
 
-  get getStartTime(): string {
+  get getStartTime() {
     return (
       this.startTime &&
       DateTime.fromMillis(this.startTime).toLocaleString(
@@ -37,14 +37,14 @@ export default class extends Vue {
     );
   }
 
-  get getEndTime(): string {
+  get getEndTime() {
     return (
       this.endTime &&
       DateTime.fromMillis(this.endTime).toLocaleString(DateTime.DATETIME_SHORT)
     );
   }
 
-  get getMessage(): string {
+  get getMessage() {
     if (this.jobType === "DELETE") {
       return this.status === "running" ? `Deleting...` : `Deleted`;
     } else if (this.jobType === "UPLOAD") {
