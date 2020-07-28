@@ -1,5 +1,5 @@
 <template>
-  <div class="line-items-wrapper" v-if="items.length">
+  <div v-if="items.length" class="line-items-wrapper">
     <header class="line-items-header-wrapper">
       <ul class="line-items-header">
         <li class="line-items-header-item bulk-selection-button-col"></li>
@@ -23,12 +23,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from "vue";
-import LineItem from "./explorer-line-item";
+import LineItem from "./explorer-line-item.vue";
 import { CheckSquareIcon, SquareIcon } from "vue-feather-icons";
 import { Component, Prop } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
+import EmptyFolder from "../EmptyFolder/index.vue";
 
 @Component({
   name: "explorer-line-items",
@@ -36,6 +37,7 @@ import { Action, Getter } from "vuex-class";
     LineItem,
     SquareIcon,
     CheckSquareIcon,
+    EmptyFolder,
   },
 })
 export default class extends Vue {

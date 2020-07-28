@@ -33,14 +33,20 @@
             <Settings />
           </div>
         </div>
-        <ExplorerLineItems :items="items" v-if="getExplorerMode === 'list'" />
-        <ExplorerGrid :items="items" v-if="getExplorerMode === 'folder'" />
+        <ExplorerLineItems :items="items" v-if="getExplorerMode === 'list' && items.length" />
+        <ExplorerGrid :items="items" v-if="getExplorerMode === 'folder' && items.length" />
       </section>
     </div>
-    <div class="drag-overlay" v-if="dragStart">
+    <div class="drag-overlay" v-if="dragStart && !getLoadingState">
       <span class="drag-overlay-icon">
         <UploadIcon />
       </span>
+    </div>
+    <div v-else-if="!getLoadingState && !items.length">
+      <EmptyFolder />
+    </div>
+    <div v-else-if="getLoadingState">
+      <Loader type="spinner" />
     </div>
   </div>
 </template>
@@ -60,6 +66,8 @@ import { UploadIcon } from "vue-feather-icons";
 import { Component } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 import { JobType } from "../../modules/jobs";
+import EmptyFolder from "../EmptyFolder/index.vue";
+import Loader from "../Loader.vue";
 
 @Component({
   name: "Explorer",
@@ -73,6 +81,8 @@ import { JobType } from "../../modules/jobs";
     UploadIcon,
     ExplorerGrid,
     Settings,
+    EmptyFolder,
+    Loader,
   },
 })
 export default class extends Vue {
@@ -88,10 +98,12 @@ export default class extends Vue {
   @Getter("hasSearchResultsArrived") hasSearchResultsArrived;
   @Getter("getExplorerPath") getExplorerPath;
   @Getter("getExplorerMode") getExplorerMode;
+  @Getter("getExplorerLoadingState") getLoadingState;
 
   @Action("updatePath") updatePath;
   @Action("addJob") addJob;
   @Action("addNodes") addNodes;
+  @Action("updateLoadingState") updateLoadingState;
 
   get refetchStatus() {
     return this.$store.state.list.refetchStatus;
@@ -152,6 +164,8 @@ export default class extends Vue {
   }
 
   mounted() {
+    this.updateLoadingState(true);
+
     this.$store.watch(
       (state, getters) =>
         getters.getNodesByPath("explorer-main", this.path ? this.path : "/"),

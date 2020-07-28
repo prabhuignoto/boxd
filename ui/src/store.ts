@@ -20,6 +20,7 @@ export interface RootState {
   explorer: {
     path: string;
     mode: ExplorerViewMode;
+    isLoadingData: boolean;
   };
   fileExplorer: {
     refresh: {
@@ -56,6 +57,7 @@ export default new Vuex.Store({
     explorer: {
       path: "",
       mode: ExplorerViewMode.FOLDER,
+      isLoadingData: false
     },
     fileExplorer: {
       refresh: {
@@ -128,6 +130,9 @@ export default new Vuex.Store({
     updateExplorerMode(state, { mode }) {
       state.explorer.mode = mode;
     },
+    updateLoadingState(state, {loading}) {
+      state.explorer.isLoadingData = loading;
+    }
   },
   actions: {
     updatePath({ commit }, path) {
@@ -199,6 +204,12 @@ export default new Vuex.Store({
         mode,
       });
     },
+    updateLoadingState({commit}, loading) {
+      commit({
+        type: "updateLoadingState",
+        loading
+      })
+    }
   },
   getters: {
     isModalActive: state => state.modal.isActive,
@@ -213,5 +224,6 @@ export default new Vuex.Store({
       return state.fileExplorer.refresh;
     },
     getModalWidth: state => state.modal.width,
+    getExplorerLoadingState: state => state.explorer.isLoadingData
   },
 });

@@ -39,6 +39,7 @@ export default class extends Vue {
   @Action("addJob") addJob;
   @Action("startBulkOps") startBulkOps;
   @Action("stopBulkOps") stopBulkOps;
+  @Action("updateLoadingState") updateLoadingState;
 
   @Getter("getExplorerPath") getExplorerPath;
   @Getter("getJobDataById") getJobDataById;
@@ -213,6 +214,7 @@ export default class extends Vue {
   async runListJob(job: Job) {
     const { path, treeId } = job.data;
     try {
+      this.updateLoadingState(true);
       const { data } = await this.$apollo.query<{ files: { entries } }>({
         query: FolderGQL,
         variables: {
@@ -224,6 +226,7 @@ export default class extends Vue {
         },
         fetchPolicy: "no-cache",
       });
+      this.updateLoadingState(false);
       const entries = data.files.entries;
       this.completeJob({ id: job.id });
       this.addNodes({

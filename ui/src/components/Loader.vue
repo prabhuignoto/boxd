@@ -2,6 +2,9 @@
   <div class="loader-wrapper">
     <div class="spinner">
       <LoaderIcon :size="size" v-if="type === 'spinner'" />
+      <span class="spinner-msg" v-if="message">
+        {{ message }}
+      </span>
     </div>
     <div class="throbbing-loader" v-if="type === 'throb'">
       <div class="throb-ball active"></div>

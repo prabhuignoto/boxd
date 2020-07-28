@@ -19,15 +19,19 @@ import GridItem from "./explorer-grid-item.vue";
 
 import { Action } from "vuex-class";
 import { JobType } from "../../modules/jobs";
+import EmptyFolder from "../EmptyFolder/index.vue";
 
 @Component({
   name: "ExplorerGrid",
   components: {
     GridItem,
+    EmptyFolder,
   },
 })
 export default class extends Vue {
   @Prop() items;
+  @Prop() loaded: boolean;
+
   @Action("clearAllBulk") clearAllBulk;
   @Action("updatePath") updatePath;
   @Action("addJob") addJob;
