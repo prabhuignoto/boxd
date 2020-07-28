@@ -3,13 +3,6 @@
   color: #007ee5;
   display: flex;
   justify-content: center;
-  left: 0;
-  margin-left: auto;
-  margin-right: auto;
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
 
   svg {
     height: 100%;
@@ -21,7 +14,17 @@
   align-items: center;
   animation: loading 1.5s linear infinite;
   display: flex;
+  height: 1.5rem;
   justify-content: center;
+  
+  left: 0;
+  margin-left: auto;
+  margin-right: auto;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.5rem;
 }
 
 @keyframes loading {

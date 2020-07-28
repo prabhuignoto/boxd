@@ -1,7 +1,7 @@
 <template>
   <div class="loader-wrapper">
-    <div class="spinner">
-      <LoaderIcon :size="size" v-if="type === 'spinner'" />
+    <div class="spinner" v-if="type === 'spinner'">
+      <LoaderIcon :size="size"  />
       <span class="spinner-msg" v-if="message">
         {{ message }}
       </span>
