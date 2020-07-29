@@ -1,8 +1,8 @@
+import { RootState } from "@/store";
 import _ from "lodash";
 import uniqid from "uniqid";
 import Vue from "vue";
-import { MutationTree, ActionTree, GetterTree, Module } from "vuex";
-import { RootState } from "@/store";
+import { ActionTree, GetterTree, Module, MutationTree } from "vuex";
 
 export enum JobType {
   CREATE_FOLDER = "CREATE_FOLDER",
@@ -45,6 +45,7 @@ interface JobState {
 const mutations: MutationTree<JobState> = {
   addJob(state, { jobType, data }) {
     const id = uniqid();
+    debugger;
     Vue.set(state.jobs, id, {
       id: id,
       jobType,
@@ -62,6 +63,7 @@ const mutations: MutationTree<JobState> = {
     }
   },
   startJob(state, { id }) {
+    debugger;
     if (id in state.jobs) {
       Vue.set(
         state.jobs,
@@ -108,6 +110,12 @@ const mutations: MutationTree<JobState> = {
       Vue.set(item, "data", Object.assign({}, state.jobs[id].data, data));
     }
   },
+  clearJob(state, { id }) {
+    const nJobs = _.filter(state.jobs, job => job.id !== id).reduce((a, b) => Object.assign({}, a, {
+      [b.id]: b
+    }), {});
+    Vue.set(state, "jobs", nJobs);
+  },
   clearAllJobs(state) {
     state.jobs = {};
   },
@@ -115,7 +123,6 @@ const mutations: MutationTree<JobState> = {
 
 const actions: ActionTree<JobState, RootState> = {
   addJob({ commit, rootState }, { jobType, data }) {
-    console.log(rootState);
     commit({
       type: "addJob",
       jobType,
@@ -159,6 +166,12 @@ const actions: ActionTree<JobState, RootState> = {
       type: "clearAllJobs",
     });
   },
+  clearJob({ commit }, { id }) {
+    commit({
+      type: "clearJob",
+      id
+    })
+  }
 };
 
 const getters: GetterTree<JobState, RootState> = {

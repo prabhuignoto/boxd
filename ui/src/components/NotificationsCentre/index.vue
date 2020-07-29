@@ -1,6 +1,6 @@
 <template>
   <div class="notifications-wrapper" ref="not">
-    <header class="notifications-header" v-if="!getJobsEmpty">
+    <!-- <header class="notifications-header" v-if="!getJobsEmpty">
       <nav class="notifications-toolbar">
         <ul class="toolbar">
           <li class="toolbar-item" @click="handleClear">
@@ -8,7 +8,7 @@
           </li>
         </ul>
       </nav>
-    </header>
+    </header>-->
     <div class="notifications-table">
       <header class="notifications-header-wrapper" v-if="!getJobsEmpty">
         <ul class="notifications-table-header">
@@ -20,7 +20,7 @@
       <ul class="notifications all" v-if="!getJobsEmpty">
         <li class="notification" v-for="item of getAllJobs" :key="item.id">
           <div class="notification-container-wrapper">
-            <NotificationRecord v-bind="item" />
+            <NotificationRecord v-bind="item" v-on:clearJob="handleClearJob"/>
           </div>
         </li>
       </ul>
@@ -54,9 +54,14 @@ export default class extends Vue {
   @Getter("getJobsEmpty") getJobsEmpty;
 
   @Action("clearAllJobs") clearAllJobs;
+  @Action("clearJob") clearJob;
 
   handleClear(): void {
     this.clearAllJobs();
+  }
+
+  handleClearJob(jobId: string) {
+    this.clearJob({ id: jobId });
   }
 }
 </script>

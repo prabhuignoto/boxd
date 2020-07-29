@@ -5,7 +5,7 @@
       type="icon"
       size="large"
       position="right"
-      customWidth="140"
+      customWidth="160"
       topOffset="2.5rem"
       :forceClose="forceClose"
     >
@@ -28,6 +28,9 @@
               <GridIcon v-if="id === 'folder'" />
             </span>
             <span class="name">{{ label }}</span>
+            <span class="setting-selected-wrapper">
+              <CheckIcon v-if="isChecked(id)"/>
+            </span>
           </li>
         </ul>
       </template>
@@ -39,7 +42,7 @@
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import Popdown from "../Popdown/index.vue";
-import { SettingsIcon, ListIcon, GridIcon } from "vue-feather-icons";
+import { SettingsIcon, ListIcon, GridIcon, CheckIcon } from "vue-feather-icons";
 import { Action, Getter } from "vuex-class";
 
 @Component({
@@ -49,6 +52,7 @@ import { Action, Getter } from "vuex-class";
     SettingsIcon,
     ListIcon,
     GridIcon,
+    CheckIcon
   },
 })
 export default class extends Vue {
@@ -89,6 +93,16 @@ export default class extends Vue {
     background: #007ee5;
     color: #fff;
   }
+
+  &.checked {
+    background: #fff;
+    color: #007ee5;
+
+    &:hover {
+      background: #007ee5;
+      color: #fff;
+    }
+  }
 }
 
 .explorer-settings {
@@ -100,9 +114,9 @@ export default class extends Vue {
 .icon {
   align-items: center;
   display: flex;
-  height: 1.5rem;
+  height: 1.25rem;
   margin-left: 0.5rem;
-  width: 1.5rem;
+  width: 1.25rem;
 
   svg {
     height: 100%;
@@ -113,5 +127,18 @@ export default class extends Vue {
 .name {
   margin-left: 0.5rem;
   text-transform: capitalize;
+}
+
+.setting-selected-wrapper {
+  display: flex;
+  height: 1rem;
+  margin-left: auto;
+  margin-right: 0.5rem;
+  width: 1rem;
+
+  svg {
+    height: 100%;
+    width: 100%;
+  }
 }
 </style>

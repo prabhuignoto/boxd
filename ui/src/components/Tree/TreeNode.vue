@@ -146,7 +146,8 @@ export default class extends Vue {
   justify-content: flex-start;
 
   &.disabled {
-    opacity: 0.75;
+    filter: opacity(0.75) grayscale(90%);
+    /* opacity: 0.75; */
     pointer-events: none;
     user-select: none;
   }

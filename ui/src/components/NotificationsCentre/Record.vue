@@ -1,11 +1,16 @@
 <template>
-  <div class="notification-container">
+  <div class="notification-container" @mouseleave="hideClear" @mouseenter="showClear">
     <div class="notification-status" :class="status" :title="status">
       <Loader type="throb" v-if="status === 'running'" />
     </div>
     <div class="notification-message">{{ getMessage }}</div>
     <div class="starttime">{{ this.getStartTime }}</div>
     <div class="endtime">{{ this.getEndTime }}</div>
+    <div class="clear-button">
+      <div class="clear-icon-wrapper" @click="handleClear">
+        <XCircleIcon v-if="clear" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -15,18 +20,23 @@ import Vue from "vue";
 import Loader from "../Loader.vue";
 
 import { Component, Prop } from "vue-property-decorator";
+import { XCircleIcon } from "vue-feather-icons";
 
 @Component({
   name: "NotificationRecord",
   components: {
     Loader,
+    XCircleIcon,
   },
 })
 export default class extends Vue {
+  clear = false;
+
   @Prop() status;
   @Prop() startTime;
   @Prop() endTime;
   @Prop() jobType;
+  @Prop() id;
 
   get getStartTime() {
     return (
@@ -42,6 +52,18 @@ export default class extends Vue {
       this.endTime &&
       DateTime.fromMillis(this.endTime).toLocaleString(DateTime.DATETIME_SHORT)
     );
+  }
+
+  showClear() {
+    this.clear = true;
+  }
+
+  hideClear() {
+    this.clear = false;
+  }
+
+  handleClear() {
+    this.$emit("clearJob", this.id);
   }
 
   get getMessage() {
@@ -72,7 +94,7 @@ export default class extends Vue {
   background: #fff;
   border-radius: 0.2rem;
   display: grid;
-  grid-template-columns: 5% 45% repeat(2, 25%);
+  grid-template-columns: 5% 35% repeat(2, 25%) 10%;
   height: 100%;
   width: 100%;
 }
@@ -105,5 +127,20 @@ export default class extends Vue {
   font-weight: 400;
   justify-self: flex-start;
   white-space: nowrap;
+}
+
+.clear-button {
+  .clear-icon-wrapper {
+    color: #007ee5;
+    cursor: pointer;
+    height: 1.2rem;
+    margin-left: 1rem;
+    width: 1.2rem;
+  }
+
+  svg {
+    height: 100%;
+    width: 100%;
+  }
 }
 </style>

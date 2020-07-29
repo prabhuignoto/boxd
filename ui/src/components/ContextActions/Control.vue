@@ -34,7 +34,7 @@
             </i>
             <span>Copy this folder</span>
           </li>
-          <li
+          <!-- <li
             class="ctx-menu-item"
             @click="handleMoveFolder"
             v-if="canShowAction"
@@ -53,7 +53,7 @@
               <TrashIcon />
             </i>
             <span>Delete this folder</span>
-          </li>
+          </li> -->
         </ul>
       </template>
     </Popdown>
